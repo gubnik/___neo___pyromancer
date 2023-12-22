@@ -1,0 +1,12 @@
+{
+  "parent": "pyromancer:item/compendium_of_flame_closed",
+  "textures": {
+    "1": "pyromancer:item/compendium_pages",
+    "2": "pyromancer:item/compendium_cover_closed",
+    "particle": "pyromancer:item/compendium_cover"
+  },
+  "overrides": [
+    { "predicate": { "custom_model_data": 0}, "model": "pyromancer:item/compendium_of_flame_closed" },
+    { "predicate": { "custom_model_data": 1}, "model": "pyromancer:item/compendium_of_flame_open" }
+  ]
+}

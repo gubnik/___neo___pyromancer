@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "stage=0": {
+      "model": "pyromancer:block/firebriar/firebriar"
+    },
+    "stage=1": {
+      "model": "pyromancer:block/firebriar/firebriar_1"
+    },
+    "stage=2": {
+      "model": "pyromancer:block/firebriar/firebriar_2"
+    },
+    "stage=3": {
+      "model": "pyromancer:block/firebriar/firebriar_3"
+    }
+  }
+}

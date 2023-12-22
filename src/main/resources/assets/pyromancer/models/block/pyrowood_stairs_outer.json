@@ -1,0 +1,9 @@
+{
+  "parent": "block/outer_stairs",
+  "textures": {
+    "bottom": "pyromancer:block/pyrowood_planks",
+    "top": "pyromancer:block/pyrowood_planks",
+    "side": "pyromancer:block/pyrowood_planks"
+  },
+  "render_type": "solid"
+}

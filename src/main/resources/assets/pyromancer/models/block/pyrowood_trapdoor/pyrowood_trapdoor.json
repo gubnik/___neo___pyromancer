@@ -1,0 +1,8 @@
+{
+  "parent": "block/template_orientable_trapdoor_bottom",
+  "textures": {
+    "texture": "pyromancer:block/pyrowood_trapdoor",
+    "particle": "pyromancer:block/pyrowood_trapdoor"
+  },
+  "render_type": "cutout_mipped"
+}

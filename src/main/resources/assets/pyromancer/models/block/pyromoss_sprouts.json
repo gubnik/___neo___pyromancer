@@ -1,0 +1,8 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "pyromancer:block/pyromoss_sprouts",
+    "particle": "pyromancer:block/pyromoss_sprouts"
+  },
+  "render_type": "cutout"
+}

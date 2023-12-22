@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "minecraft:block/netherrack",
+    "up": "pyromancer:block/pyromoss",
+    "north": "pyromancer:block/pyromoss_side",
+    "east": "pyromancer:block/pyromoss_side",
+    "south": "pyromancer:block/pyromoss_side",
+    "west": "pyromancer:block/pyromoss_side",
+    "particle": "minecraft:block/netherrack"
+  },
+  "render_type": "solid"
+}

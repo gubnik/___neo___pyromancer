@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "pyromancer:item/quills/blazing_quill"
+  }
+}

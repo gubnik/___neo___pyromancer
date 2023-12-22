@@ -1,0 +1,12 @@
+{
+  "parent": "pyromancer:custom/pyromancer_table",
+  "textures": {
+    "all": "pyromancer:block/pyrowood_planks",
+    "particle": "pyromancer:block/pyrowood_planks",
+    "1": "pyromancer:block/pyrowood_log_side",
+    "2": "pyromancer:block/pyrowood_planks",
+    "3": "pyromancer:block/pyromancer_table",
+    "4": "pyromancer:block/pyromancer_table_wings"
+  },
+  "render_type": "cutout"
+}

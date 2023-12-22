@@ -1,0 +1,8 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "pyromancer:block/firebriar_grow",
+    "particle": "pyromancer:block/firebriar_grow"
+  },
+  "render_type": "cutout"
+}

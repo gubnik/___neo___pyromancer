@@ -1,0 +1,38 @@
+{
+  "criteria": {
+    "acquired_journal": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pyromancer:blazing_journal"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "pyromancer:textures/block/pyrowood_planks.png",
+    "description": {
+      "translate": "advancement.pyromancer.blazing_journal.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pyromancer:blazing_journal"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.pyromancer.blazing_journal.title"
+    }
+  },
+  "requirements": [
+    [
+      "acquired_journal"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

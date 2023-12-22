@@ -1,0 +1,9 @@
+{
+  "parent": "pyromancer:custom/sizzling_hand",
+  "textures": {
+    "0": "pyromancer:item/sizzling_hand_top",
+    "1": "pyromancer:item/sizzling_hand_mid",
+    "2": "pyromancer:item/sizzling_hand_back",
+    "particle": "pyromancer:items/empty"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "pyromancer:block/pyrowood_leaves",
+    "up": "pyromancer:block/pyrowood_leaves",
+    "north": "pyromancer:block/pyrowood_leaves",
+    "east": "pyromancer:block/pyrowood_leaves",
+    "south": "pyromancer:block/pyrowood_leaves",
+    "west": "pyromancer:block/pyrowood_leaves",
+    "particle": "pyromancer:block/pyrowood_leaves"
+  },
+  "render_type": "cutout"
+}

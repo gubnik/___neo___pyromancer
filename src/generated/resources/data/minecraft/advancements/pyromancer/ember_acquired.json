@@ -1,0 +1,38 @@
+{
+  "parent": "minecraft:pyromancer/root",
+  "criteria": {
+    "ember_acquired": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pyromancer:ember"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.pyromancer.ember_obtained.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pyromancer:blazing_journal"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.pyromancer.ember_obtained.title"
+    }
+  },
+  "requirements": [
+    [
+      "ember_acquired"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

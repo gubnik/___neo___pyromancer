@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "pyromancer:block/pyromancer_table"
+    },
+    "facing=east": {
+      "model": "pyromancer:block/pyromancer_table",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "pyromancer:block/pyromancer_table",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "pyromancer:block/pyromancer_table",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "[[[---DESCRIPTIONS---]]]": "",
+  "itemGroup.pyromancer": "Pyromancer",
+  "blazing_journal.blaze_value.desc": "Blaze charge: ",
+
+  "[[[---ITEMS---]]]": "",
+  "item.pyromancer.blazing_journal": "Blazing Journal",
+  "item.pyromancer.blazing_quill": "Blazing Quill",
+  "item.pyromancer.ember": "Ember",
+  "item.pyromancer.sizzling_hand": "Sizzling Hand",
+
+  "[[[---ADVANCEMENTS---]]]": "",
+  "advancement.pyromancer.blazing_journal.title": "Pyromancer",
+  "advancement.pyromancer.blazing_journal.description": "By Living Flame, burn all and each",
+
+  "advancement.pyromancer.ember_obtained.title": "Ash of War",
+  "advancement.pyromancer.ember_obtained.description": "Obtain an Ember, remains of a mighty death",
+
+  "advancement.pyromancer.quill_applied.title": "So let it be written, so let it be done!",
+  "advancement.pyromancer.quill_applied.description": "Apply a quill to Blazing Journal",
+
+  "advancement.pyromancer.pyromancy_obtained.title": "Mmmmmmmrrrrrrrpppghhh!",
+  "advancement.pyromancer.pyromancy_obtained.description": "Obtain a pyromancy, a mighty weapon fed on flames",
+
+  "advancement.pyromancer.flaming_grove_visited.title": "Forest, set ablaze",
+  "advancement.pyromancer.flaming_grove_visited.description": "Visit a Flaming Grove",
+
+  "advancement.pyromancer.forest_of_rot_visited.title": "Pestilence and plague",
+  "advancement.pyromancer.forest_of_rot_visited.description": "Visit a Forest of Rot",
+
+  "[[[---ATTRIBUTES---]]]": "",
+  "pyromancer.pyromancy_damage": "Pyromancy damage",
+  "pyromancer.blaze_consumption": "Blaze consumption"
+}

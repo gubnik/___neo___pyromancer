@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:pyromancer/root",
+  "criteria": {
+    "quill_applied": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.pyromancer.quill_applied.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pyromancer:blazing_journal"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.pyromancer.quill_applied.title"
+    }
+  },
+  "requirements": [
+    [
+      "quill_applied"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

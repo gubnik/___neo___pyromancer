@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "pyromancer:block/pyrowood_slab"
+    },
+    "type=top": {
+      "model": "pyromancer:block/pyrowood_slab_top"
+    },
+    "type=double": {
+      "model": "pyromancer:block/pyrowood_slab_full"
+    }
+  }
+}

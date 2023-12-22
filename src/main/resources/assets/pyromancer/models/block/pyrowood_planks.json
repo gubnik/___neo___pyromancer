@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "pyromancer:block/pyrowood_planks",
+    "up": "pyromancer:block/pyrowood_planks",
+    "north": "pyromancer:block/pyrowood_planks",
+    "east": "pyromancer:block/pyrowood_planks",
+    "south": "pyromancer:block/pyrowood_planks",
+    "west": "pyromancer:block/pyrowood_planks",
+    "particle": "pyromancer:block/pyrowood_planks"
+  },
+  "render_type": "solid"
+}

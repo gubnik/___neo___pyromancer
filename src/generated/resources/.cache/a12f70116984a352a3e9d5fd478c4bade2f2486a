@@ -1,0 +1,4 @@
+// 1.20.1	2023-12-21T02:26:51.5020461	Tags for minecraft:damage_type mod id pyromancer
+b2daa561eb096a08ae15704154a1471ce4d790c1 data/minecraft/tags/damage_type/is_fire.json
+312332b1e24c61162d8941d6fe9db2fd4cb44fbb data/minecraft/tags/damage_type/is_projectile.json
+e96deebbb0bf28f6e34afd8c2306b3bcbeb50393 data/pyromancer/tags/damage_type/is_ember.json

@@ -1,0 +1,7 @@
+{
+  "parent": "block/door_bottom",
+  "textures": {
+    "bottom": "pyromancer:block/pyrowood_door_bottom",
+    "top": "pyromancer:block/pyrowood_door_top"
+  }
+}
