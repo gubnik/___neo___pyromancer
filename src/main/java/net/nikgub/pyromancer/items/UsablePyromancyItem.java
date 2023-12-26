@@ -3,6 +3,7 @@ package net.nikgub.pyromancer.items;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.ChatFormatting;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -14,15 +15,20 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.nikgub.pyromancer.items.blazing_journal.BlazingJournalItem;
 import net.nikgub.pyromancer.registries.vanila.AttributeRegistry;
 import net.nikgub.pyromancer.util.ItemUtils;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
+import java.util.UUID;
+import java.util.function.Function;
 
 /**
  * Class that should be extended whenever making pyromancy based on vanilla use system
  * <p>Not to be confused with {@link IPyromancyItem}, which is a general interface for any pyromancy</p>
  */
-public class UsablePyromancyItem extends Item implements IPyromancyItem {
+public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStupidTooltip {
     private final Multimap<Attribute, AttributeModifier> defaultModifiers;
     public UsablePyromancyItem(Properties properties) {
         super(properties.stacksTo(1));
@@ -71,5 +77,24 @@ public class UsablePyromancyItem extends Item implements IPyromancyItem {
     @Override
     public Pair<Integer, Float> getPyromancyModifiers() {
         return Pair.of(0, 0f);
+    }
+
+    @Override
+    public Map<Attribute, Pair<UUID, ChatFormatting>> specialColoredUUID() {
+        return Map.of(
+                AttributeRegistry.PYROMANCY_DAMAGE.get(), Pair.of(IPyromancyItem.BASE_PYROMANCY_DAMAGE_UUID, ChatFormatting.GOLD),
+                AttributeRegistry.BLAZE_CONSUMPTION.get(), Pair.of(IPyromancyItem.BASE_BLAZE_CONSUMPTION_UUID, ChatFormatting.GOLD)
+        );
+    }
+
+    @Override
+    public Function<Player, Double> getAdditionalPlayerBonus() {
+        return (player -> {
+            double d0 = 0;
+            if (player.getOffhandItem().getItem() instanceof BlazingJournalItem) {
+                        d0 += IPyromancyItem.getAttributeBonus(player, AttributeRegistry.BLAZE_CONSUMPTION.get());
+            }
+            return d0;
+        });
     }
 }

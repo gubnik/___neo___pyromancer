@@ -31,7 +31,7 @@ public abstract class ItemRendererMixin {
     private ItemColors itemColors;
     @SuppressWarnings("unstable")
     @Inject(method = "render", at = @At("TAIL"), cancellable = true)
-    private void renderMixinTail(ItemStack itemStack, ItemDisplayContext displayContext, boolean b, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, BakedModel bakedModel, CallbackInfo callbackInfo) {
+    public void renderMixinTail(ItemStack itemStack, ItemDisplayContext displayContext, boolean b, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, BakedModel bakedModel, CallbackInfo callbackInfo) {
         if(!(itemStack.getItem() instanceof BlazingJournalItem blazingJournalItem) || !(blazingJournalItem.getItemFromItem(itemStack, 0).getItem() instanceof QuillItem)) return;
         ItemStack quill = blazingJournalItem.getItemFromItem(itemStack, 0);
         bakedModel = this.getModel(quill, null, null, (b ? ItemDisplayContext.FIRST_PERSON_LEFT_HAND : ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).ordinal());

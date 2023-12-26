@@ -61,9 +61,10 @@ public class Ember {
     public EmberAnimation getAnimation() {
         return animation;
     }
-    public void applyToItemStack(ItemStack itemStack)
+    public ItemStack applyToItemStack(ItemStack itemStack)
     {
         itemStack.getOrCreateTag().putString(EmberRegistry.TAG_NAME, this.getName());
+        return itemStack;
     }
     public boolean isValidFor(Item weapon)
     {

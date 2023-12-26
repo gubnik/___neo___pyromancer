@@ -13,10 +13,13 @@ import java.util.function.Consumer;
  * @author nikgub_
  */
 @NotNull
-public record EmberAnimation(TriConsumer<HumanoidModel<?>, LivingEntity, HumanoidArm> thirdPersonAnimation,
-                             Consumer<PoseStack> firstPersonAnimation,
-                             int useTime,
-                             int cooldown) {
+public record EmberAnimation(
+        TriConsumer<HumanoidModel<?>, LivingEntity, HumanoidArm> thirdPersonAnimation,
+        Consumer<PoseStack> firstPersonAnimation,
+        int useTime,
+        int cooldown
+)
+{
     /**
      *
      * @param thirdPersonAnimation      consumer that defines animations for player (humanoid) model

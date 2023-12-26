@@ -3,6 +3,7 @@ package net.nikgub.pyromancer.mixin;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.arguments.blocks.BlockStateParser;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -18,11 +19,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.armortrim.ArmorTrim;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.nikgub.pyromancer.items.AbstractItem;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.nikgub.pyromancer.ember.Ember;
-import net.nikgub.pyromancer.items.IPyromancyItem;
-import net.nikgub.pyromancer.items.blazing_journal.BlazingJournalItem;
-import net.nikgub.pyromancer.registries.vanila.AttributeRegistry;
+import net.nikgub.pyromancer.items.AbstractItem;
+import net.nikgub.pyromancer.items.EmberItem;
+import net.nikgub.pyromancer.items.INotStupidTooltip;
 import net.nikgub.pyromancer.registries.custom.EmberRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -34,7 +35,8 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static net.minecraft.world.item.ItemStack.*;
+import static net.minecraft.world.item.ItemStack.ATTRIBUTE_MODIFIER_FORMAT;
+import static net.minecraft.world.item.ItemStack.appendEnchantmentNames;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin implements net.minecraftforge.common.extensions.IForgeItemStack {
@@ -44,8 +46,6 @@ public abstract class ItemStackMixin implements net.minecraftforge.common.extens
     @Shadow
     private static final Component DISABLED_ITEM_TOOLTIP = Component.translatable("item.disabled").withStyle(ChatFormatting.RED);
     @Shadow
-    private static final int DONT_HIDE_TOOLTIP = 0;
-    @Shadow
     private static final Style LORE_STYLE = Style.EMPTY.withColor(ChatFormatting.DARK_PURPLE).withItalic(true);
     @Shadow
     public abstract CompoundTag getTagElement(String string);
@@ -54,7 +54,7 @@ public abstract class ItemStackMixin implements net.minecraftforge.common.extens
     @Inject(method = "getHoverName", at = @At("HEAD"), cancellable = true)
     public void getHoverNameMixinHead(CallbackInfoReturnable<Component> retVal) {
         ItemStack self = (ItemStack) (Object) this;
-        if(Ember.emberItemStackPredicate(self)) {
+        if(Ember.emberItemStackPredicate(self) || self.getItem() instanceof EmberItem) {
             assureCorrectTick();
             Ember ember = EmberRegistry.getFromItem(self);
             if(ember == null) return;
@@ -90,8 +90,9 @@ public abstract class ItemStackMixin implements net.minecraftforge.common.extens
     }
     @Inject(method = "getTooltipLines", at = @At("HEAD"), cancellable = true)
     public void getTooltipLines(@Nullable Player player, TooltipFlag flag1, CallbackInfoReturnable<List<Component>> retVal) {
-        List<Component> list = Lists.newArrayList();
         ItemStack self = (ItemStack) (Object) this;
+        if(!(self.getItem() instanceof INotStupidTooltip notStupidTooltip)) return;
+        List<Component> list = Lists.newArrayList();
         MutableComponent mutablecomponent = Component.empty().append(self.getHoverName()).withStyle(self.getRarity().getStyleModifier());
         if (self.hasCustomHoverName()) {
             mutablecomponent.withStyle(ChatFormatting.ITALIC);
@@ -159,28 +160,23 @@ public abstract class ItemStackMixin implements net.minecraftforge.common.extens
                         AttributeModifier attributemodifier = entry.getValue();
                         double d0 = attributemodifier.getAmount();
                         boolean flag = false;
+                        ChatFormatting chatFormatting = ChatFormatting.RED;
                         if (player != null) {
-                            if(self.getItem() instanceof IPyromancyItem) {
-                                if (attributemodifier.getId() == IPyromancyItem.BASE_PYROMANCY_DAMAGE_UUID) {
-                                    //d0 += player.getAttributeBaseValue(AttributeRegistry.PYROMANCY_DAMAGE.get());
-                                    d0 += player.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get());
-                                    if(player.getOffhandItem().getItem() instanceof BlazingJournalItem)
-                                    {
-                                        d0 += IPyromancyItem.getAttributeBonus(player, AttributeRegistry.PYROMANCY_DAMAGE.get());
-                                    }
-                                    flag = true;
-                                } else if (attributemodifier.getId() == IPyromancyItem.BASE_BLAZE_CONSUMPTION_UUID) {
-                                    d0 += player.getAttributeBaseValue(AttributeRegistry.BLAZE_CONSUMPTION.get());
-                                    if(player.getOffhandItem().getItem() instanceof BlazingJournalItem)
-                                    {
-                                        d0 += IPyromancyItem.getAttributeBonus(player, AttributeRegistry.BLAZE_CONSUMPTION.get());
-                                    }
+                            Map<Attribute, Pair<UUID, ChatFormatting>> special = notStupidTooltip.specialColoredUUID();
+                            for(Attribute attribute : special.keySet().stream().toList()) {
+                                if(attributemodifier.getId() == special.get(attribute).getFirst())
+                                {
+                                    d0 += player.getAttributeValue(attribute);
+                                    d0 += notStupidTooltip.getAdditionalPlayerBonus().apply(player);
+                                    chatFormatting = special.get(attribute).getSecond();
                                     flag = true;
                                 }
                             }
+
+                            // vvv Default behaviour vvv
                             if (attributemodifier.getId() == AbstractItem.BASE_DAMAGE) {
                                 d0 += player.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
-                                d0 += (double) EnchantmentHelper.getDamageBonus(self, MobType.UNDEFINED);
+                                d0 += EnchantmentHelper.getDamageBonus(self, MobType.UNDEFINED);
                                 flag = true;
                             } else if (attributemodifier.getId() == AbstractItem.BASE_SPEED) {
                                 d0 += player.getAttributeBaseValue(Attributes.ATTACK_SPEED);
@@ -200,7 +196,10 @@ public abstract class ItemStackMixin implements net.minecraftforge.common.extens
                         }
 
                         if (flag) {
-                            list.add(CommonComponents.space().append(Component.translatable("attribute.modifier.equals." + attributemodifier.getOperation().toValue(), ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(entry.getKey().getDescriptionId()))).withStyle(ChatFormatting.DARK_GREEN));
+                            list.add(CommonComponents.space()
+                                    .append(Component.translatable("attribute.modifier.equals." + attributemodifier.getOperation().toValue(),
+                                            ATTRIBUTE_MODIFIER_FORMAT.format(d1),
+                                            Component.translatable(entry.getKey().getDescriptionId()))).withStyle(chatFormatting));
                         } else if (d0 > 0.0D) {
                             list.add(Component.translatable("attribute.modifier.plus." + attributemodifier.getOperation().toValue(), ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(entry.getKey().getDescriptionId())).withStyle(ChatFormatting.BLUE));
                         } else if (d0 < 0.0D) {
@@ -246,7 +245,7 @@ public abstract class ItemStackMixin implements net.minecraftforge.common.extens
                 list.add(Component.translatable("item.durability", self.getMaxDamage() - self.getDamageValue(), self.getMaxDamage()));
             }
 
-            list.add(Component.literal(BuiltInRegistries.ITEM.getKey(self.getItem()).toString()).withStyle(ChatFormatting.DARK_GRAY));
+            list.add(Component.literal(ForgeRegistries.ITEMS.getKey(self.getItem()).toString()).withStyle(ChatFormatting.DARK_GRAY));
             if (self.hasTag()) {
                 list.add(Component.translatable("item.nbt_tags", self.getOrCreateTag().getAllKeys().size()).withStyle(ChatFormatting.DARK_GRAY));
             }
@@ -260,6 +259,9 @@ public abstract class ItemStackMixin implements net.minecraftforge.common.extens
         retVal.setReturnValue(list);
         retVal.cancel();
     }
+
+
+
     private static boolean shouldShowInTooltip(int p_41627_, ItemStack.TooltipPart p_41628_) {
         return (p_41627_ & p_41628_.getMask()) == 0;
     }
@@ -267,7 +269,6 @@ public abstract class ItemStackMixin implements net.minecraftforge.common.extens
         ItemStack self = (ItemStack) (Object) this;
         return self.hasTag() && self.getOrCreateTag().contains("HideFlags", 99) ? self.getOrCreateTag().getInt("HideFlags") : this.getItem().getDefaultTooltipHideFlags(self);
     }
-
     private static Collection<Component> expandBlockState(String p_41762_) {
         try {
             return BlockStateParser.parseForTesting(BuiltInRegistries.BLOCK.asLookup(), p_41762_, true).map((p_220162_) -> {

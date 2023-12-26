@@ -33,7 +33,7 @@ public abstract class ItemInHandRendererMixin {
      * Refer to {@link net.nikgub.pyromancer.animations.EmberAnimation} for additional info
      */
     @Inject(method = "renderArmWithItem", at = @At("HEAD"), cancellable = true)
-    private void renderArmWithItemMixinHead(AbstractClientPlayer player, float v, float v1, InteractionHand hand, float v2, ItemStack itemStack, float v3, PoseStack poseStack, MultiBufferSource multiBufferSource, int i1,
+    public void renderArmWithItemMixinHead(AbstractClientPlayer player, float v, float v1, InteractionHand hand, float v2, ItemStack itemStack, float v3, PoseStack poseStack, MultiBufferSource multiBufferSource, int i1,
                                         CallbackInfo callbackInfo) {
         if(player.getUsedItemHand().equals(hand) && player.getUseItemRemainingTicks() > 0){
             Ember ember = EmberRegistry.getFromItem(itemStack);

@@ -44,6 +44,9 @@ import net.nikgub.pyromancer.entities.attack_effects.flaming_guillotine.FlamingG
 import net.nikgub.pyromancer.entities.attack_effects.flaming_guillotine.FlamingGuillotineRenderer;
 import net.nikgub.pyromancer.events.EmberEvent;
 import net.nikgub.pyromancer.items.EmberItem;
+import net.nikgub.pyromancer.items.IPyromancyItem;
+import net.nikgub.pyromancer.items.MaceItem;
+import net.nikgub.pyromancer.items.UsablePyromancyItem;
 import net.nikgub.pyromancer.items.blazing_journal.BlazingJournalItem;
 import net.nikgub.pyromancer.items.quills.QuillItem;
 import net.nikgub.pyromancer.registries.custom.EmberRegistry;
@@ -55,6 +58,7 @@ import net.nikgub.pyromancer.util.ItemUtils;
 import org.slf4j.Logger;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -105,18 +109,23 @@ public class PyromancerMod
     {
         if(event.getTab().equals(PYROMANCER_TAB.get()))
         {
-            event.accept(new ItemStack(ItemRegistry.BLAZING_JOURNAL.get()));
-            event.accept(new ItemStack(ItemRegistry.EMBER_ITEM.get()));
+            List<Item> MACES = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof MaceItem).map(RegistryObject::get).toList();
+            List<Item> USABLE_PYROMANCY = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof UsablePyromancyItem).map(RegistryObject::get).toList();
+            List<Item> PYROMANCY = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof IPyromancyItem && !(registryObject.get() instanceof UsablePyromancyItem)).map(RegistryObject::get).toList();
+            List<Item> QUILLS = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof QuillItem).map(RegistryObject::get).toList();
+            List<ItemStack> EMBERS = EmberRegistry.REGISTRY.get().getValues().stream().map(ember -> ember.applyToItemStack(new ItemStack(ItemRegistry.EMBER_ITEM.get()))).toList();
 
-            for(Ember ember : EmberRegistry.REGISTRY.get().getValues().stream().toList())
-            {
-                ItemStack emberStack = new ItemStack(ItemRegistry.EMBER_ITEM.get());
-                ember.applyToItemStack(emberStack);
-                event.accept(emberStack);
-            }
+            event.accept(new ItemStack(ItemRegistry.BLAZING_JOURNAL.get()));
+            for(Item item : MACES) event.accept(item);
+            for(Item item : USABLE_PYROMANCY) event.accept(item);
+            for(Item item : PYROMANCY) event.accept(item);
+            for(Item item : QUILLS) event.accept(item);
+            event.accept(new ItemStack(ItemRegistry.EMBER_ITEM.get()));
+            for(ItemStack item : EMBERS) event.accept(item);
         }
     }
-    public void gatherData(GatherDataEvent event){
+    public void gatherData(GatherDataEvent event)
+    {
         DataGenerator generator = event.getGenerator();
         PackOutput output = event.getGenerator().getPackOutput();
         final ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
@@ -147,7 +156,7 @@ public class PyromancerMod
         {
             ItemStack itemStack = event.getItemStack();
             Ember ember = EmberRegistry.getFromItem(itemStack);
-            if(Ember.emberItemStackPredicate(itemStack) && ember != null)
+            if((Ember.emberItemStackPredicate(itemStack) || itemStack.getItem() instanceof EmberItem)&& ember != null)
             {
                 event.setBackgroundStart(ember.getType().getColor());
             }
