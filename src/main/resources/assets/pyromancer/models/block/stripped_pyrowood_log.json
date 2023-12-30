@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "pyromancer:block/stripped_pyrowood_log_top",
+    "up": "pyromancer:block/stripped_pyrowood_log_top",
+    "north": "pyromancer:block/stripped_pyrowood_log_side",
+    "east": "pyromancer:block/stripped_pyrowood_log_side",
+    "south": "pyromancer:block/stripped_pyrowood_log_side",
+    "west": "pyromancer:block/stripped_pyrowood_log_side",
+    "particle": "pyromancer:block/stripped_pyrowood_log_top"
+  },
+  "render_type": "solid"
+}

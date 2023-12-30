@@ -8,6 +8,12 @@
   "item.pyromancer.blazing_quill": "Blazing Quill",
   "item.pyromancer.ember": "Ember",
   "item.pyromancer.sizzling_hand": "Sizzling Hand",
+  "item.pyromancer.netherite_mace": "Netherite Mace",
+  "item.pyromancer.diamond_mace": "Diamond Mace",
+  "item.pyromancer.golden_mace": "Golden Mace",
+  "item.pyromancer.iron_mace": "Iron Mace",
+  "item.pyromancer.stone_mace": "Stone Mace",
+  "item.pyromancer.wooden_mace": "Wooden Mace",
 
   "[[[---ADVANCEMENTS---]]]": "",
   "advancement.pyromancer.blazing_journal.title": "Pyromancer",

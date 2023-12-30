@@ -17,6 +17,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
@@ -51,6 +52,7 @@ import net.nikgub.pyromancer.items.blazing_journal.BlazingJournalItem;
 import net.nikgub.pyromancer.items.quills.QuillItem;
 import net.nikgub.pyromancer.registries.custom.EmberRegistry;
 import net.nikgub.pyromancer.registries.vanila.AttributeRegistry;
+import net.nikgub.pyromancer.registries.vanila.BlockRegistry;
 import net.nikgub.pyromancer.registries.vanila.EntityTypeRegistry;
 import net.nikgub.pyromancer.registries.vanila.ItemRegistry;
 import net.nikgub.pyromancer.registries.vanila.enchantments.EnchantmentRegistry;
@@ -87,6 +89,7 @@ public class PyromancerMod
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PyromancerConfig.SPEC);
         EmberRegistry.EMBERS.register(modEventBus);
         ItemRegistry.ITEMS.register(modEventBus);
+        BlockRegistry.BLOCKS.register(modEventBus);
         AttributeRegistry.ATTRIBUTES.register(modEventBus);
         EntityTypeRegistry.ENTITY_TYPES.register(modEventBus);
         EnchantmentRegistry.ENCHANTMENTS.register(modEventBus);
@@ -122,6 +125,11 @@ public class PyromancerMod
             for(Item item : QUILLS) event.accept(item);
             event.accept(new ItemStack(ItemRegistry.EMBER_ITEM.get()));
             for(ItemStack item : EMBERS) event.accept(item);
+        }
+        else if(event.getTabKey().equals(CreativeModeTabs.BUILDING_BLOCKS))
+        {
+            List<Block> BLOCKS = BlockRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get).toList();
+            for (Block block : BLOCKS) event.accept(block);
         }
     }
     public void gatherData(GatherDataEvent event)

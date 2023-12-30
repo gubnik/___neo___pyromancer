@@ -18,7 +18,5 @@ public class AnimationList {
                 },
             poseStack -> {
 
-            },
-            10,
-            40);
+            }, 10, 40);
 }
