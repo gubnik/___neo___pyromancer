@@ -29,8 +29,7 @@ public class EnchantmentRegistry {
             })));
     public static RegistryObject<Enchantment> STURDINESS = ENCHANTMENTS.register("sturdiness",
             () -> new MaceEnchantment(Enchantment.Rarity.COMMON, EnchantmentCategoryRegistry.MACE, new EquipmentSlot[]{},
-                    Map.of(Attributes.ARMOR,
-                            (lev) -> new AttributeModifier(MaceEnchantment.STURDINESS_ARMOR_TOUGHNESS_UUID, "Weapon modifier", lev, AttributeModifier.Operation.ADDITION)))
+                    Map.of(Attributes.ARMOR, (lev) -> new AttributeModifier(MaceEnchantment.STURDINESS_ARMOR_TOUGHNESS_UUID, "Weapon modifier", lev, AttributeModifier.Operation.ADDITION)))
             {
                 @Override
                 public int getMaxLevel() {return 5;}

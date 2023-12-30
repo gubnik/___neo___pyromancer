@@ -25,8 +25,6 @@ public class ItemUtils {
     }
     public static void changeBlaze(Player player, int val)
     {
-        ItemStack supposedJournal = guessJournal(player);
-        if(supposedJournal == ItemStack.EMPTY) return;
-        supposedJournal.getOrCreateTag().putInt(BlazingJournalItem.BLAZE_TAG_NAME, getBlaze(player) + val);
+        setBlaze(player, getBlaze(player) + val);
     }
 }

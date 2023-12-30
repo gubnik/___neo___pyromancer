@@ -36,5 +36,11 @@
 
   "[[[---ATTRIBUTES---]]]": "",
   "pyromancer.pyromancy_damage": "Pyromancy damage",
-  "pyromancer.blaze_consumption": "Blaze consumption"
+  "pyromancer.blaze_consumption": "Blaze consumption",
+
+  "[[[---ENCHANTMENTS---]]]": "",
+  "enchantment.pyromancer.flaming_guillotine": "Flaming Guillotine",
+
+  "enchantment.pyromancer.sturdiness": "Sturdiness",
+  "[[[------]]]": ""
 }
