@@ -1,0 +1,14 @@
+{
+  "values": [
+    "pyromancer:pyrowood_log",
+    "pyromancer:stripped_pyrowood_log",
+    "pyromancer:pyrowood_planks",
+    "pyromancer:pyrowood_stairs",
+    "pyromancer:pyrowood_slab",
+    "pyromancer:pyrowood_fence",
+    "pyromancer:pyrowood_fence_gate",
+    "pyromancer:pyrowood_door",
+    "pyromancer:pyrowood_trapdoor",
+    "pyromancer:pyrowood_leaves"
+  ]
+}

@@ -51,10 +51,7 @@ import net.nikgub.pyromancer.items.UsablePyromancyItem;
 import net.nikgub.pyromancer.items.blazing_journal.BlazingJournalItem;
 import net.nikgub.pyromancer.items.quills.QuillItem;
 import net.nikgub.pyromancer.registries.custom.EmberRegistry;
-import net.nikgub.pyromancer.registries.vanila.AttributeRegistry;
-import net.nikgub.pyromancer.registries.vanila.BlockRegistry;
-import net.nikgub.pyromancer.registries.vanila.EntityTypeRegistry;
-import net.nikgub.pyromancer.registries.vanila.ItemRegistry;
+import net.nikgub.pyromancer.registries.vanila.*;
 import net.nikgub.pyromancer.registries.vanila.enchantments.EnchantmentRegistry;
 import net.nikgub.pyromancer.util.ItemUtils;
 import org.slf4j.Logger;
@@ -93,6 +90,7 @@ public class PyromancerMod
         AttributeRegistry.ATTRIBUTES.register(modEventBus);
         EntityTypeRegistry.ENTITY_TYPES.register(modEventBus);
         EnchantmentRegistry.ENCHANTMENTS.register(modEventBus);
+        MobEffectRegistry.MOB_EFFECTS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -216,7 +214,9 @@ public class PyromancerMod
                 }
             }
             for(Enchantment enchantment : journal.getAllEnchantments().keySet()){
-                if(enchantment instanceof BlazingJournalEnchantment blazingJournalEnchantment && blazingJournalEnchantment.getWeaponClass().isInstance(weapon.getItem())){
+                if(enchantment instanceof BlazingJournalEnchantment blazingJournalEnchantment && blazingJournalEnchantment.getWeaponClass().isInstance(weapon.getItem())
+                && blazingJournalEnchantment.getCondition().apply(player, target))
+                {
                     if(ItemUtils.getBlaze(player) > 0 && player.getAttackStrengthScale(0) > 0.7)
                     {
                         blazingJournalEnchantment.getAttack().accept(player, target);

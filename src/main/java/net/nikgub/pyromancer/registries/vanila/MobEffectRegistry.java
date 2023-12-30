@@ -7,7 +7,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.nikgub.pyromancer.PyromancerMod;
 import net.nikgub.pyromancer.mob_effects.MeltdownEffect;
 
-public class MobEffectsRegistry {
+public class MobEffectRegistry {
     public static DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, PyromancerMod.MOD_ID);
     public static RegistryObject<MobEffect> MELTDOWN = MOB_EFFECTS.register("meltdown", MeltdownEffect::new);
 }
