@@ -15,13 +15,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
-public class DamageTagDatagen extends TagsProvider<DamageType> {
+public class DamageTagList extends TagsProvider<DamageType> {
     public static TagKey<DamageType> create(String name)
     {
         return TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(PyromancerMod.MOD_ID, name));
     }
     public static TagKey<DamageType> IS_EMBER = create("is_ember");
-    public DamageTagDatagen(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
+    public DamageTagList(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
         super(output, Registries.DAMAGE_TYPE, lookupProvider, PyromancerMod.MOD_ID, existingFileHelper);
     }
 

@@ -1,10 +1,7 @@
 package net.nikgub.pyromancer.registries.vanila;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
@@ -15,8 +12,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.nikgub.pyromancer.PyromancerMod;
-import net.nikgub.pyromancer.blocks.WeirdSaplingBlock;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
@@ -87,10 +82,6 @@ public class BlockRegistry {
     public static void register(IEventBus bus){
         BLOCKS.register(bus);
     }
-    //public static RotatedPillarBlock log(MaterialColor materialColor, MaterialColor materialColor1) {
-    //    return new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.NETHER_WOOD, (p_152624_) ->
-    //            p_152624_.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? materialColor : materialColor1).strength(2.0F).sound(SoundType.WOOD));
-    //}
     private static boolean always(BlockState p_50775_, BlockGetter p_50776_, BlockPos p_50777_) {
         return true;
     }

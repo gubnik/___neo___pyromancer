@@ -1,2 +1,4 @@
-// 1.20.1	2023-12-20T23:44:11.0591518	Tags for minecraft:block mod id pyromancer
+// 1.20.1	2023-12-30T20:41:43.8173926	Tags for minecraft:block mod id pyromancer
+f5f52220907693ceec551e768bcf30875c720904 data/minecraft/tags/blocks/fences.json
+9784ab0438a0b3c57f66ccca685a579c4579688a data/minecraft/tags/blocks/logs.json
 2bfdd47c936c1bc7e9948da6d2ad59e4cb9a11cb data/pyromancer/tags/blocks/flaming_grove_plant_on.json
