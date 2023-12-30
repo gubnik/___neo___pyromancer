@@ -23,10 +23,10 @@
   "advancement.pyromancer.pyromancy_obtained.description": "Obtain a pyromancy, a mighty weapon fed on flames",
 
   "advancement.pyromancer.flaming_grove_visited.title": "Forest, set ablaze",
-  "advancement.pyromancer.flaming_grove_visited.description": "Visit a Flaming Grove",
+  "advancement.pyromancer.flaming_grove_visited.description": "Visit Flaming Grove",
 
   "advancement.pyromancer.forest_of_rot_visited.title": "Pestilence and plague",
-  "advancement.pyromancer.forest_of_rot_visited.description": "Visit a Forest of Rot",
+  "advancement.pyromancer.forest_of_rot_visited.description": "Visit Forest of Rot",
 
   "[[[---ATTRIBUTES---]]]": "",
   "pyromancer.pyromancy_damage": "Pyromancy damage",

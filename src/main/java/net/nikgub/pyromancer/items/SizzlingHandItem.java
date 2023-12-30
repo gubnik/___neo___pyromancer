@@ -41,13 +41,12 @@ public class SizzlingHandItem extends UsablePyromancyItem {
         entity.level().addFreshEntity(fireball);
     }
     @Override
-    public @NotNull ItemStack finishUsingItem(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity)
+    public void releaseUsing(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity, int tick)
     {
-        if(!(entity instanceof Player player)) return itemStack;
-        player.getCooldowns().addCooldown(this, 40);
+        if(!(entity instanceof Player player)) return;
+        player.getCooldowns().addCooldown(this, 40 + this.getUseDuration(itemStack) - tick);
         SizzlingHandFireball fireball = new SizzlingHandFireball(EntityType.SMALL_FIREBALL, entity.level(), (float) entity.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get()) * 2, 10);
         fireball.collisionEffect(level);
-        return itemStack;
     }
     @Override
     public int getUseDuration(@NotNull ItemStack itemStack)

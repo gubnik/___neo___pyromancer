@@ -1,4 +1,4 @@
-package net.nikgub.pyromancer.data.damage;
+package net.nikgub.pyromancer.data;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -8,7 +8,7 @@ import net.minecraft.world.damagesource.DamageScaling;
 import net.minecraft.world.damagesource.DamageType;
 import net.nikgub.pyromancer.PyromancerMod;
 
-public class PDamageType {
+public class DamageTypeDatagen {
     public static ResourceKey<DamageType> register(String name) {
         return ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(PyromancerMod.MOD_ID, name));
     }

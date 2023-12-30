@@ -23,7 +23,7 @@ public class SizzlingHandFireball extends Fireball implements ItemSupplier {
     public final float damage;
     public SizzlingHandFireball(EntityType<? extends Fireball> fireball, Level level) {
         super(fireball, level);
-        this.damage = 0f;
+        this.damage = 4f;
         this.maxLifetime = 20;
     }
     public SizzlingHandFireball(EntityType<? extends Fireball> fireball, Level level, float damage, int maxLifetime) {
@@ -86,7 +86,7 @@ public class SizzlingHandFireball extends Fireball implements ItemSupplier {
         if (level instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(ParticleTypes.FLAME, x, y, z, 20, 0.25, 0.25, 0.25, 0.2);
             Vec3 center = new Vec3(x, y, z);
-            for (Entity entityiterator : EntityUtils.entityCollector(center, 1, this.level())) {
+            for (Entity entityiterator : EntityUtils.entityCollector(center, 1 * this.damage, this.level())) {
                 if (!(this.getOwner() == entityiterator)) {
                     entityiterator.hurt(DamageSourceRegistry.sizzlingHand(this, this.getOwner()), this.damage);
                 }

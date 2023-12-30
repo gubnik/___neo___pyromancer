@@ -11,8 +11,7 @@ import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeAdvancementProvider;
 import net.nikgub.pyromancer.PyromancerMod;
-import net.nikgub.pyromancer.data.damage.PDamageType;
-import net.nikgub.pyromancer.data.damage.PDamageTypeTags;
+import net.nikgub.pyromancer.data.tags.DamageTagDatagen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class RegistriesDataGeneration extends DatapackBuiltinEntriesProvider {
     private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
-            .add(Registries.DAMAGE_TYPE, PDamageType::generate);
+            .add(Registries.DAMAGE_TYPE, DamageTypeDatagen::generate);
     private RegistriesDataGeneration(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
         super(output, provider, BUILDER, Set.of("minecraft", PyromancerMod.MOD_ID));
     }
@@ -33,7 +32,7 @@ public class RegistriesDataGeneration extends DatapackBuiltinEntriesProvider {
         generator.addProvider(true, new AdvancementDatagen(output, provider, helper, list));
         generator.addProvider(true, new RecipesDatagen(output));
         generator.addProvider(true, new BlockTagsDatagen(output, provider, PyromancerMod.MOD_ID, helper));
-        generator.addProvider(isServer, new PDamageTypeTags(output, provider.thenApply(r -> append(r, BUILDER)), helper));
+        generator.addProvider(isServer, new DamageTagDatagen(output, provider.thenApply(r -> append(r, BUILDER)), helper));
     }
     private static HolderLookup.Provider append(HolderLookup.Provider original, RegistrySetBuilder builder) {
         return builder.buildPatch(RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY), original);
