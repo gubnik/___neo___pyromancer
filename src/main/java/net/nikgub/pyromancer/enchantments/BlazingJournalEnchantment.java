@@ -27,7 +27,6 @@ public class BlazingJournalEnchantment extends Enchantment {
     public BiConsumer<Player, Entity> getAttack(){
         return this.attack;
     }
-
     public BiFunction<Player, Entity, Boolean> getCondition() {
         return condition;
     }

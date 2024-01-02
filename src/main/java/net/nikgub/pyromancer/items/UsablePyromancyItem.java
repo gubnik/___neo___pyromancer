@@ -26,7 +26,7 @@ import java.util.function.Function;
 
 /**
  * Class that should be extended whenever making pyromancy based on vanilla use system
- * <p>Not to be confused with {@link IPyromancyItem}, which is a general interface for any pyromancy</p>
+ * Not to be confused with {@link IPyromancyItem}, which is a general interface for any pyromancy
  */
 public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStupidTooltip {
     private final Multimap<Attribute, AttributeModifier> defaultModifiers;
@@ -78,7 +78,6 @@ public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStu
     public Pair<Integer, Float> getPyromancyModifiers() {
         return Pair.of(0, 0f);
     }
-
     @Override
     public Map<Attribute, Pair<UUID, ChatFormatting>> specialColoredUUID() {
         return Map.of(
@@ -86,7 +85,6 @@ public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStu
                 AttributeRegistry.BLAZE_CONSUMPTION.get(), Pair.of(IPyromancyItem.BASE_BLAZE_CONSUMPTION_UUID, ChatFormatting.GOLD)
         );
     }
-
     @Override
     public Function<Player, Double> getAdditionalPlayerBonus() {
         return (player -> {

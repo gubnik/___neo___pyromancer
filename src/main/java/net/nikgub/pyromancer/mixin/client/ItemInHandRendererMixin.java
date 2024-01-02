@@ -39,7 +39,6 @@ public abstract class ItemInHandRendererMixin {
             Ember ember = EmberRegistry.getFromItem(itemStack);
             if(ember == null) return;
             if(Ember.emberItemStackPredicate(itemStack)) {
-                this.applyItemArmTransform(poseStack, hand.equals(InteractionHand.MAIN_HAND) ? HumanoidArm.RIGHT : HumanoidArm.LEFT, v3);
                 ember.getAnimation().firstPersonAnimation().accept(poseStack);
                 this.renderItem(player, itemStack, hand.equals(InteractionHand.MAIN_HAND) ? ItemDisplayContext.FIRST_PERSON_RIGHT_HAND : ItemDisplayContext.FIRST_PERSON_LEFT_HAND,
                         false,
