@@ -32,6 +32,7 @@ public class RegistriesDataGeneration extends DatapackBuiltinEntriesProvider {
         generator.addProvider(true, new RecipesDatagen(output));
         generator.addProvider(true, new BlockTagDatagen(output, provider, PyromancerMod.MOD_ID, helper));
         generator.addProvider(isServer, new DamageTypeDatagen(output, provider.thenApply(RegistriesDataGeneration::append), helper));
+        generator.addProvider(true, new ItemModelsDatagen(output, helper));
     }
     private static HolderLookup.Provider append(HolderLookup.Provider original) {
         return RegistriesDataGeneration.BUILDER.buildPatch(RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY), original);

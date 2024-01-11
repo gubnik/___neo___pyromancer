@@ -27,9 +27,7 @@ public class ItemRegistry {
             () -> new QuillItem(new Item.Properties(),
                     ((player, weapon, journal) -> {
                     }),
-                    ((player, weapon, journal) -> {
-                        return player.getAttackStrengthScale(0) > 0.7;
-                    })
+                    ((player, weapon, journal) -> player.getAttackStrengthScale(0) > 0.7)
             ){
                 @Override
                 public Pair<Integer, Float> getPyromancyModifiers() {
