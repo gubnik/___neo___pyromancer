@@ -1,0 +1,29 @@
+{
+  "parent": "pyromancer:pyromancer/root",
+  "criteria": {
+    "journal_projection": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancement.pyromancer.journal_projection.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pyromancer:ember"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.pyromancer.journal_projection.title"
+    }
+  },
+  "requirements": [
+    [
+      "journal_projection"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

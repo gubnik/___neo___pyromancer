@@ -9,6 +9,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.nikgub.pyromancer.PyromancerMod;
 import net.nikgub.pyromancer.entities.attack_effects.flaming_guillotine.FlamingGuillotineEntity;
 import net.nikgub.pyromancer.entities.projectiles.SizzlingHandFireball;
+import net.nikgub.pyromancer.entities.unburned.Unburned;
 
 public class EntityTypeRegistry {
     public static DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, PyromancerMod.MOD_ID);
@@ -18,6 +19,9 @@ public class EntityTypeRegistry {
     public static final RegistryObject<EntityType<FlamingGuillotineEntity>> FLAMING_GUILLOTINE = register("flaming_guillotine",
             EntityType.Builder.<FlamingGuillotineEntity>of(FlamingGuillotineEntity::new, MobCategory.MISC)
                     .clientTrackingRange(128).setShouldReceiveVelocityUpdates(false));
+    public static final RegistryObject<EntityType<Unburned>> UNBURNED = register("unburned",
+            EntityType.Builder.<Unburned>of(Unburned::new, MobCategory.MONSTER)
+                    .sized(1.3f, 5.2f));
     private static <T extends Entity> RegistryObject<EntityType<T>> register(String registry_name, EntityType.Builder<T> entityTypeBuilder) {
         return ENTITY_TYPES.register(registry_name, () -> entityTypeBuilder.build(registry_name));
     }

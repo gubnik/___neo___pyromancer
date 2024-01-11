@@ -1,7 +1,0 @@
-// 1.20.1	2023-12-31T01:59:08.3927116	Tags for minecraft:block mod id pyromancer
-f5f52220907693ceec551e768bcf30875c720904 data/minecraft/tags/blocks/fences.json
-d90251a7f5fa7d06f6448ddf35deee80a73c01f9 data/minecraft/tags/blocks/fence_gates.json
-9784ab0438a0b3c57f66ccca685a579c4579688a data/minecraft/tags/blocks/logs.json
-f3e17c835c8613f330bcc0f01357f04dcfe63f86 data/minecraft/tags/blocks/wooden_doors.json
-7a6a5504085b53873d49250ea9842196d808ea87 data/pyromancer/tags/blocks/flaming_grove_native.json
-2bfdd47c936c1bc7e9948da6d2ad59e4cb9a11cb data/pyromancer/tags/blocks/flaming_grove_plant_on.json

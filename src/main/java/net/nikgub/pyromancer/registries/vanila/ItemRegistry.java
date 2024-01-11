@@ -3,6 +3,7 @@ package net.nikgub.pyromancer.registries.vanila;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -12,7 +13,8 @@ import net.nikgub.pyromancer.items.MaceItem;
 import net.nikgub.pyromancer.items.SizzlingHandItem;
 import net.nikgub.pyromancer.items.blazing_journal.BlazingJournalItem;
 import net.nikgub.pyromancer.items.quills.QuillItem;
-
+import net.nikgub.pyromancer.util.GeneralUtils;
+@SuppressWarnings("unused")
 public class ItemRegistry {
     public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PyromancerMod.MOD_ID);
     public static RegistryObject<Item> BLAZING_JOURNAL = ITEMS.register("blazing_journal",
@@ -47,4 +49,9 @@ public class ItemRegistry {
             () -> new MaceItem(Tiers.DIAMOND, new Item.Properties().stacksTo(1)));
     public static RegistryObject<Item> NETHERITE_MACE = ITEMS.register("netherite_mace",
             () -> new MaceItem(Tiers.NETHERITE, new Item.Properties().stacksTo(1)));
+
+    // SPAWN EGGS
+
+    public static RegistryObject<Item> UNBURNED_SPAWN_EGG = ITEMS.register("unburned_spawn_egg",
+            () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNBURNED, GeneralUtils.rgbToColorInteger(140, 100, 12), GeneralUtils.rgbToColorInteger(120, 90, 0), new Item.Properties()));
 }

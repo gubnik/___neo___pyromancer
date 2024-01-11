@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:pyromancer/root",
+  "parent": "pyromancer:pyromancer/root",
   "criteria": {
     "ember_acquired": {
       "conditions": {
@@ -22,7 +22,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "pyromancer:blazing_journal"
+      "item": "pyromancer:ember"
     },
     "show_toast": true,
     "title": {

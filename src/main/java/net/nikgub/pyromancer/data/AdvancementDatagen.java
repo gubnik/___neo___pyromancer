@@ -26,36 +26,49 @@ public class AdvancementDatagen extends ForgeAdvancementProvider {
     }
     public static class PyromancerAdvancements implements AdvancementGenerator {
         @Override
+        @SuppressWarnings("unused")
         public void generate(HolderLookup.@NotNull Provider registries, @NotNull Consumer<Advancement> saver, @NotNull ExistingFileHelper existingFileHelper) {
+            ItemStack disp;
+            disp = new ItemStack(ItemRegistry.BLAZING_JOURNAL.get());
             Advancement blazing_journal_acquired = Advancement.Builder.advancement()
-                    .display(new ItemStack(ItemRegistry.BLAZING_JOURNAL.get()),
+                    .display(disp,
                             Component.translatable("advancement.pyromancer.blazing_journal.title"),
                             Component.translatable("advancement.pyromancer.blazing_journal.description"),
                             new ResourceLocation(PyromancerMod.MOD_ID, "textures/block/pyrowood_planks.png"),
                             FrameType.TASK,
                             false, false, false)
                     .addCriterion("acquired_journal", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.BLAZING_JOURNAL.get()))
-                    .save(saver, "pyromancer/root");
-
+                    .save(saver, "pyromancer:pyromancer/root");
+            disp = new ItemStack(ItemRegistry.EMBER_ITEM.get());
             Advancement ember_acquired = Advancement.Builder.advancement().parent(blazing_journal_acquired)
-                    .display(new ItemStack(ItemRegistry.BLAZING_JOURNAL.get()),
+                    .display(disp,
                             Component.translatable("advancement.pyromancer.ember_obtained.title"),
                             Component.translatable("advancement.pyromancer.ember_obtained.description"),
                             null,
                             FrameType.TASK,
                             true, false, false)
                     .addCriterion("ember_acquired", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.EMBER_ITEM.get()))
-                    .save(saver, "pyromancer/ember_acquired");
-
+                    .save(saver, "pyromancer:pyromancer/ember_acquired");
+            disp = new ItemStack(ItemRegistry.BLAZING_QUILL.get());
             Advancement quill_applied = Advancement.Builder.advancement().parent(blazing_journal_acquired)
-                    .display(new ItemStack(ItemRegistry.BLAZING_JOURNAL.get()),
+                    .display(disp,
                             Component.translatable("advancement.pyromancer.quill_applied.title"),
                             Component.translatable("advancement.pyromancer.quill_applied.description"),
                             null,
                             FrameType.TASK,
                             true, false, false)
                     .addCriterion("quill_applied", new ImpossibleTrigger.TriggerInstance())
-                    .save(saver, "pyromancer/quill_applied");
+                    .save(saver, "pyromancer:pyromancer/quill_applied");
+            disp = new ItemStack(ItemRegistry.EMBER_ITEM.get());
+            Advancement journal_projection = Advancement.Builder.advancement().parent(blazing_journal_acquired)
+                    .display(disp,
+                            Component.translatable("advancement.pyromancer.journal_projection.title"),
+                            Component.translatable("advancement.pyromancer.journal_projection.description"),
+                            null,
+                            FrameType.TASK,
+                            true, false, false)
+                    .addCriterion("journal_projection", new ImpossibleTrigger.TriggerInstance())
+                    .save(saver, "pyromancer:pyromancer/journal_projection");
         }
     }
 }

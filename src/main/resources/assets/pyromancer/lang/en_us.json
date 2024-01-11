@@ -22,6 +22,9 @@
   "advancement.pyromancer.ember_obtained.title": "Ash of War",
   "advancement.pyromancer.ember_obtained.description": "Obtain an Ember, remains of a mighty death",
 
+  "advancement.pyromancer.journal_projection.title": "Immaterium's weaponry",
+  "advancement.pyromancer.journal_projection.description": "Summon forth a flame projection via Blazing Journal",
+
   "advancement.pyromancer.quill_applied.title": "So let it be written, so let it be done!",
   "advancement.pyromancer.quill_applied.description": "Apply a quill to Blazing Journal",
 
@@ -40,7 +43,14 @@
 
   "[[[---ENCHANTMENTS---]]]": "",
   "enchantment.pyromancer.flaming_guillotine": "Flaming Guillotine",
+  "enchantment.pyromancer.metal_meltdown": "Metal Meltdown",
+  "enchantment.pyromancer.combustive_strike": "Combustive Strike",
+  "enchantment.pyromancer.infernal_harvest": "Infernal Harvest",
+  "enchantment.pyromancer.wrathful_blades": "Wrathful Blades",
+  "enchantment.pyromancer.eruptive_aegis": "Spiteful Aegis",
 
   "enchantment.pyromancer.sturdiness": "Sturdiness",
+  "enchantment.pyromancer.close_quarters": "Close Quarters",
+
   "[[[------]]]": ""
 }

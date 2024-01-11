@@ -8,6 +8,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -44,5 +45,13 @@ public class EnchantmentRegistry {
             {
                 @Override
                 public int getMaxLevel() {return 5;}
+            });
+    public static RegistryObject<Enchantment> CLOSE_QUARTERS = ENCHANTMENTS.register("close_quarters",
+            () -> new MaceEnchantment(Enchantment.Rarity.COMMON, EnchantmentCategoryRegistry.MACE, new EquipmentSlot[]{},
+                    Map.of( ForgeMod.ENTITY_REACH.get(), (lev) -> new AttributeModifier(MaceEnchantment.STURDINESS_ARMOR_TOUGHNESS_UUID, "Weapon modifier", -lev*0.25f, AttributeModifier.Operation.ADDITION),
+                            Attributes.ATTACK_DAMAGE, (lev) -> new AttributeModifier(MaceEnchantment.STURDINESS_ARMOR_TOUGHNESS_UUID, "Weapon modifier", lev*0.5f, AttributeModifier.Operation.ADDITION)))
+            {
+                @Override
+                public int getMaxLevel() {return 3;}
             });
 }
