@@ -22,9 +22,9 @@ public class ItemModelsDatagen extends ItemModelProvider {
     protected void registerModels() {
         List<Item> SPAWN_EGGS = ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).filter(item -> item instanceof ForgeSpawnEggItem).toList();
         for (Item item : SPAWN_EGGS)
-            this.spawnEggItem(new ResourceLocation(item.toString()));
+            this.spawnEggItem(item);
     }
-    public ItemModelBuilder spawnEggItem(ResourceLocation item)
+    public ItemModelBuilder spawnEggItem(Item item)
     {
         return getBuilder(item.toString())
                 .parent(new ModelFile.UncheckedModelFile("item/generated"))
