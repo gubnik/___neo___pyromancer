@@ -1,6 +1,0 @@
-{
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "pyromancer:item/netherite_mace"
-  }
-}

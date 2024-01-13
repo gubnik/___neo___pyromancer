@@ -19,7 +19,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -29,6 +28,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -42,8 +42,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
-import net.nikgub.pyromancer.data.RegistriesDataGeneration;
 import net.nikgub.pyromancer.data.DamageTypeDatagen;
+import net.nikgub.pyromancer.data.RegistriesDataGeneration;
 import net.nikgub.pyromancer.ember.Ember;
 import net.nikgub.pyromancer.enchantments.BlazingJournalEnchantment;
 import net.nikgub.pyromancer.entities.attack_effects.flaming_guillotine.FlamingGuillotineModel;
@@ -51,12 +51,9 @@ import net.nikgub.pyromancer.entities.attack_effects.flaming_guillotine.FlamingG
 import net.nikgub.pyromancer.entities.unburned.Unburned;
 import net.nikgub.pyromancer.entities.unburned.UnburnedModel;
 import net.nikgub.pyromancer.entities.unburned.UnburnedRenderer;
+import net.nikgub.pyromancer.events.BlazingJournalAttackEvent;
 import net.nikgub.pyromancer.events.EmberEvent;
-import net.nikgub.pyromancer.items.EmberItem;
-import net.nikgub.pyromancer.items.IPyromancyItem;
-import net.nikgub.pyromancer.items.MaceItem;
-import net.nikgub.pyromancer.items.UsablePyromancyItem;
-import net.nikgub.pyromancer.items.blazing_journal.BlazingJournalItem;
+import net.nikgub.pyromancer.items.*;
 import net.nikgub.pyromancer.items.quills.QuillItem;
 import net.nikgub.pyromancer.registries.custom.EmberRegistry;
 import net.nikgub.pyromancer.registries.vanila.*;
@@ -76,6 +73,7 @@ import java.util.stream.Collectors;
 @Mod(PyromancerMod.MOD_ID)
 public class PyromancerMod
 {
+    public static long clientTick = 0;
     public static final String MOD_ID = "pyromancer";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
@@ -105,6 +103,10 @@ public class PyromancerMod
         CREATIVE_MODE_TABS.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
+    }
+    public static void clientTick(TickEvent.ClientTickEvent event)
+    {
+        clientTick++;
     }
     private void commonSetup(final FMLCommonSetupEvent event)
     {
@@ -217,38 +219,27 @@ public class PyromancerMod
     @Mod.EventBusSubscriber(modid = PyromancerMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
     public static class ForgeEvents {
         @SubscribeEvent
-        public static void emberEvent(EmberEvent event) {
+        public static void emberEvent(EmberEvent event)
+        {
+        }
+        @SubscribeEvent
+        public static void blazingJournalEvent(BlazingJournalAttackEvent event)
+        {
         }
 
         @SubscribeEvent
         public static void playerAttackEvent(LivingAttackEvent event) {
             DamageSource damageSource = event.getSource();
-            advancementProcessor(damageSource.getEntity(), event.getEntity(), damageSource);
-            //advancementProcessor(damageSource.getDirectEntity(), event.getEntity(), damageSource);
+            blazingJournalAdvancementProcessor(damageSource.getEntity(), event.getEntity(), damageSource);
             if (!(damageSource.getDirectEntity() instanceof Player player)) return;
             Entity target = event.getEntity();
             ItemStack weapon = player.getMainHandItem();
             ItemStack journal = ItemUtils.guessJournal(player);
-            if (journal == ItemStack.EMPTY || !(journal.getItem() instanceof BlazingJournalItem blazingJournalItem))
-                return;
-            if ((blazingJournalItem.getItemFromItem(journal, 0)).getItem() instanceof QuillItem quillItem) {
-                if (quillItem.getCondition().apply(player, weapon, journal)
-                        && !target.hurtMarked) {
-                    quillItem.getAttack().accept(player, weapon, journal);
-                }
-            }
-            for (Enchantment enchantment : journal.getAllEnchantments().keySet()) {
-                if (enchantment instanceof BlazingJournalEnchantment blazingJournalEnchantment && blazingJournalEnchantment.getWeaponClass().isInstance(weapon.getItem())
-                        && blazingJournalEnchantment.getCondition().apply(player, target)) {
-                    if (ItemUtils.getBlaze(player) > 0 && player.getAttackStrengthScale(0) > 0.7) {
-                        blazingJournalEnchantment.getAttack().accept(player, target);
-                        ItemUtils.changeBlaze(player, -1);
-                    } else break;
-                }
-            }
+            if (journal == ItemStack.EMPTY || !(journal.getItem() instanceof BlazingJournalItem blazingJournalItem)) return;
+            blazingJournalQuillProcessor(blazingJournalItem, journal, weapon, player, target);
+            blazingJournalAttackProcessor(journal, weapon, player, target);
         }
-
-        public static void advancementProcessor(Entity player, @Nullable Entity entity, @Nullable DamageSource source)
+        public static void blazingJournalAdvancementProcessor(Entity player, @Nullable Entity entity, @Nullable DamageSource source)
         {
             if(player == null) return;
             if(!(player instanceof ServerPlayer sPlayer)) return;
@@ -256,6 +247,30 @@ public class PyromancerMod
             if(source.is(DamageTypeDatagen.JOURNAL_PROJECTION))
             {
                 GeneralUtils.addAdvancement(sPlayer, new ResourceLocation("minecraft","pyromancer/journal_projection"));
+            }
+        }
+        public static void blazingJournalQuillProcessor(BlazingJournalItem blazingJournalItem, ItemStack journal, ItemStack weapon, Player player, Entity target)
+        {
+            if ((blazingJournalItem.getItemFromItem(journal, 0)).getItem() instanceof QuillItem quillItem) {
+                if (quillItem.getCondition().apply(player, weapon, journal)
+                        && !target.hurtMarked) {
+                    quillItem.getAttack().accept(player, weapon, journal);
+                }
+            }
+        }
+        public static void blazingJournalAttackProcessor(ItemStack journal, ItemStack weapon, Player player, Entity target)
+        {
+            for (BlazingJournalEnchantment blazingJournalEnchantment : journal.getAllEnchantments().keySet().stream().filter(enchantment -> enchantment instanceof BlazingJournalEnchantment).map(enchantment -> (BlazingJournalEnchantment) enchantment).toList())
+            {
+                if (blazingJournalEnchantment.defaultCondition(player)) {
+                    if (blazingJournalEnchantment.getWeaponClass().isInstance(weapon.getItem())
+                            && blazingJournalEnchantment.getCondition().apply(player, target)) {
+                        @SuppressWarnings("unused")
+                        BlazingJournalAttackEvent blazingJournalAttackEvent = BlazingJournalItem.getBlazingJournalAttackEvent(player, target, journal, weapon, blazingJournalEnchantment);
+                        blazingJournalEnchantment.getAttack().accept(player, target);
+                        ItemUtils.changeBlaze(player, -1);
+                    }
+                } else break;
             }
         }
     }

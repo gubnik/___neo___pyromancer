@@ -1,8 +1,0 @@
-{
-  "parent": "block/fence_post",
-  "textures": {
-    "texture": "pyromancer:block/pyrowood_planks",
-    "particle": "pyromancer:block/pyrowood_planks"
-  },
-  "render_type": "solid"
-}

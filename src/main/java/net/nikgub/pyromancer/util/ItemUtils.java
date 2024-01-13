@@ -2,7 +2,7 @@ package net.nikgub.pyromancer.util;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.nikgub.pyromancer.items.blazing_journal.BlazingJournalItem;
+import net.nikgub.pyromancer.items.BlazingJournalItem;
 
 public class ItemUtils {
     public static ItemStack guessJournal(Player player)

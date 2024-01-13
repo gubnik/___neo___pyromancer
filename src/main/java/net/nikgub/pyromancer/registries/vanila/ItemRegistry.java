@@ -11,7 +11,7 @@ import net.nikgub.pyromancer.PyromancerMod;
 import net.nikgub.pyromancer.items.EmberItem;
 import net.nikgub.pyromancer.items.MaceItem;
 import net.nikgub.pyromancer.items.SizzlingHandItem;
-import net.nikgub.pyromancer.items.blazing_journal.BlazingJournalItem;
+import net.nikgub.pyromancer.items.BlazingJournalItem;
 import net.nikgub.pyromancer.items.quills.QuillItem;
 import net.nikgub.pyromancer.util.GeneralUtils;
 @SuppressWarnings("unused")
@@ -51,5 +51,5 @@ public class ItemRegistry {
     // SPAWN EGGS
 
     public static RegistryObject<Item> UNBURNED_SPAWN_EGG = ITEMS.register("unburned_spawn_egg",
-            () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNBURNED, GeneralUtils.rgbToColorInteger(140, 100, 12), GeneralUtils.rgbToColorInteger(120, 90, 0), new Item.Properties()));
+            () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNBURNED, GeneralUtils.rgbaToColorInteger(140, 100, 12, 100), GeneralUtils.rgbaToColorInteger(120, 90, 0, 100), new Item.Properties()));
 }

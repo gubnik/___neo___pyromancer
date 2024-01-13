@@ -2,7 +2,7 @@ package net.nikgub.pyromancer.registries.vanila.enchantments;
 
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.nikgub.pyromancer.items.MaceItem;
-import net.nikgub.pyromancer.items.blazing_journal.BlazingJournalItem;
+import net.nikgub.pyromancer.items.BlazingJournalItem;
 
 public class EnchantmentCategoryRegistry {
     public static final EnchantmentCategory BLAZING_JOURNAL = EnchantmentCategory.create("blazing_journal", (item -> item instanceof BlazingJournalItem));

@@ -6,6 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.nikgub.pyromancer.registries.vanila.enchantments.EnchantmentCategoryRegistry;
+import net.nikgub.pyromancer.util.ItemUtils;
 
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -29,5 +30,9 @@ public class BlazingJournalEnchantment extends Enchantment {
     }
     public BiFunction<Player, Entity, Boolean> getCondition() {
         return condition;
+    }
+    public boolean defaultCondition(Player player)
+    {
+        return ItemUtils.getBlaze(player) > 0 && player.getAttackStrengthScale(0) > 0.7;
     }
 }

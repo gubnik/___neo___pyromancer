@@ -15,7 +15,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.nikgub.pyromancer.items.blazing_journal.BlazingJournalItem;
 import net.nikgub.pyromancer.registries.vanila.AttributeRegistry;
 import net.nikgub.pyromancer.util.ItemUtils;
 import org.jetbrains.annotations.NotNull;
