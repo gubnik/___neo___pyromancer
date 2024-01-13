@@ -86,6 +86,7 @@ public class PyromancerMod
     public PyromancerMod()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        modEventBus.addListener(this::clientTick);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setupClient);
         modEventBus.addListener(this::registerLayerDefinitions);
@@ -104,7 +105,7 @@ public class PyromancerMod
 
         MinecraftForge.EVENT_BUS.register(this);
     }
-    public static void clientTick(TickEvent.ClientTickEvent event)
+    public void clientTick(final TickEvent.ClientTickEvent event)
     {
         clientTick++;
     }

@@ -18,9 +18,9 @@ public @interface UniqueEmberBehaviour {
     AllowanceModifier allow();
 
     /**
-     * @return      Multiplicative modifier applied to the cost of one ember usage
+     * @return      Additive modifier applied to the cost of one ember usage
      */
-    double costModifier() default 1;
+    int costModifier() default 1;
     enum AllowanceModifier
     {
         /**
