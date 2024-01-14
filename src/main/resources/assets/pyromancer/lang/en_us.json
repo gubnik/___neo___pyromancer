@@ -2,6 +2,9 @@
   "[[[---DESCRIPTIONS---]]]": "",
   "itemGroup.pyromancer": "Pyromancer",
   "blazing_journal.blaze_value.desc": "Blaze charge: ",
+  "pyromancer.ember_hidden_line": "To show Ember info press ",
+  "ember.soulflame_ignition.name": "Soulflame Ignition",
+  "ember.soulflame_ignition.description": "Unleashes a vile soulflame burst",
 
   "[[[---ITEMS---]]]": "",
   "item.pyromancer.blazing_journal": "Blazing Journal",

@@ -8,10 +8,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.nikgub.pyromancer.PyromancerMod;
-import net.nikgub.pyromancer.items.EmberItem;
-import net.nikgub.pyromancer.items.MaceItem;
-import net.nikgub.pyromancer.items.SizzlingHandItem;
-import net.nikgub.pyromancer.items.BlazingJournalItem;
+import net.nikgub.pyromancer.items.*;
 import net.nikgub.pyromancer.items.quills.QuillItem;
 import net.nikgub.pyromancer.util.GeneralUtils;
 @SuppressWarnings("unused")
@@ -19,6 +16,8 @@ public class ItemRegistry {
     public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PyromancerMod.MOD_ID);
     public static RegistryObject<Item> BLAZING_JOURNAL = ITEMS.register("blazing_journal",
             () -> new BlazingJournalItem(new Item.Properties()));
+    public static RegistryObject<Item> COMPENDIUM_OF_FLAME = ITEMS.register("compendium_of_flame",
+            () -> new CompendiumOfFlameItem(new Item.Properties()));
     public static RegistryObject<Item> EMBER_ITEM = ITEMS.register("ember",
             () -> new EmberItem(new Item.Properties()));
     public static RegistryObject<Item> SIZZLING_HAND = ITEMS.register("sizzling_hand",

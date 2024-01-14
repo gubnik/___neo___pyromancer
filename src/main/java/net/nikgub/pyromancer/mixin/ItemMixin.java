@@ -32,6 +32,7 @@ import java.util.List;
  * Most methods here are meant to provide {@link net.nikgub.pyromancer.ember.Ember} functionality
  **/
 @Mixin(Item.class)
+@SuppressWarnings("unused")
 public abstract class ItemMixin implements FeatureElement, ItemLike, IForgeItem {
 
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
@@ -58,7 +59,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, IForgeItem 
     public void finishUsingItem(ItemStack itemStack, Level level, LivingEntity entity, CallbackInfoReturnable<ItemStack> retVal) {
         if(Ember.emberItemStackPredicate(itemStack))
         {
-
+            if(entity instanceof Player player) player.getCooldowns().addCooldown(this.asItem(), EmberRegistry.getFromItem(itemStack).getAnimation().cooldown());
         }
     }
     @Inject(method = "getUseAnimation", at = @At("HEAD"), cancellable = true)

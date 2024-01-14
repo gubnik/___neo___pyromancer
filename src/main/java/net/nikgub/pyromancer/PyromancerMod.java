@@ -71,6 +71,7 @@ import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(PyromancerMod.MOD_ID)
+@SuppressWarnings("unused")
 public class PyromancerMod
 {
     public static long clientTick = 0;
@@ -86,7 +87,6 @@ public class PyromancerMod
     public PyromancerMod()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        modEventBus.addListener(this::clientTick);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setupClient);
         modEventBus.addListener(this::registerLayerDefinitions);
@@ -104,10 +104,6 @@ public class PyromancerMod
         CREATIVE_MODE_TABS.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
-    }
-    public void clientTick(final TickEvent.ClientTickEvent event)
-    {
-        clientTick++;
     }
     private void commonSetup(final FMLCommonSetupEvent event)
     {
@@ -137,6 +133,7 @@ public class PyromancerMod
             List<ItemStack> EMBERS = EmberRegistry.REGISTRY.get().getValues().stream().map(ember -> ember.applyToItemStack(new ItemStack(ItemRegistry.EMBER_ITEM.get()))).toList();
 
             event.accept(new ItemStack(ItemRegistry.BLAZING_JOURNAL.get()));
+            event.accept(new ItemStack(ItemRegistry.COMPENDIUM_OF_FLAME.get()));
             for(Item item : MACES) event.accept(item);
             for(Item item : USABLE_PYROMANCY) event.accept(item);
             for(Item item : PYROMANCY) event.accept(item);
@@ -181,6 +178,11 @@ public class PyromancerMod
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
     public static class ClientForgeEvents
     {
+        @SubscribeEvent
+        public static void clientTick(final TickEvent.ClientTickEvent event)
+        {
+            clientTick++;
+        }
         @SubscribeEvent
         public static void tooltipColorEvent(RenderTooltipEvent.Color event)
         {
@@ -247,7 +249,7 @@ public class PyromancerMod
             if(source == null) return;
             if(source.is(DamageTypeDatagen.JOURNAL_PROJECTION))
             {
-                GeneralUtils.addAdvancement(sPlayer, new ResourceLocation("minecraft","pyromancer/journal_projection"));
+                GeneralUtils.addAdvancement(sPlayer, new ResourceLocation(PyromancerMod.MOD_ID,"pyromancer/journal_projection"));
             }
         }
         public static void blazingJournalQuillProcessor(BlazingJournalItem blazingJournalItem, ItemStack journal, ItemStack weapon, Player player, Entity target)
