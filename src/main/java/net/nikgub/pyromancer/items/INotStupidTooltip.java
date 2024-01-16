@@ -9,7 +9,22 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
 
+/**
+ * Interface for altering attribute tooltip's color
+ * Used in {@link net.nikgub.pyromancer.mixin.ItemStackMixin}
+ */
 public interface INotStupidTooltip {
+    /**
+     * Determines format transformations of attribute's tooltip
+     * New format overrides the default one
+     * @return      Map of attributes and pairs of attribute's UUID and its new format
+     */
     Map<Attribute, Pair<UUID, ChatFormatting>> specialColoredUUID();
+
+    /**
+     * Determines additional bonus in attribute's value
+     * This value should be gathered from player and be solely visual
+     * @return      Function that consumes player and returns double value
+     */
     Function<Player, Double> getAdditionalPlayerBonus();
 }

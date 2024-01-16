@@ -259,9 +259,7 @@ public abstract class ItemStackMixin implements net.minecraftforge.common.extens
         retVal.setReturnValue(list);
         retVal.cancel();
     }
-
-
-
+    // what follows is a terrible workaround to provide vanilla functions from ItemStack without using accesstransformer.cfg
     private static boolean shouldShowInTooltip(int p_41627_, ItemStack.TooltipPart p_41628_) {
         return (p_41627_ & p_41628_.getMask()) == 0;
     }
@@ -271,13 +269,11 @@ public abstract class ItemStackMixin implements net.minecraftforge.common.extens
     }
     private static Collection<Component> expandBlockState(String p_41762_) {
         try {
-            return BlockStateParser.parseForTesting(BuiltInRegistries.BLOCK.asLookup(), p_41762_, true).map((p_220162_) -> {
-                return Lists.newArrayList(p_220162_.blockState().getBlock().getName().withStyle(ChatFormatting.DARK_GRAY));
-            }, (p_220164_) -> {
-                return p_220164_.tag().stream().map((p_220172_) -> {
-                    return p_220172_.value().getName().withStyle(ChatFormatting.DARK_GRAY);
-                }).collect(Collectors.toList());
-            });
+            return BlockStateParser.parseForTesting(BuiltInRegistries.BLOCK.asLookup(), p_41762_, true).map(
+                    (p_220162_) -> Lists.newArrayList(p_220162_.blockState()
+                            .getBlock()
+                            .getName()
+                            .withStyle(ChatFormatting.DARK_GRAY)), (p_220164_) -> p_220164_.tag().stream().map((p_220172_) -> p_220172_.value().getName().withStyle(ChatFormatting.DARK_GRAY)).collect(Collectors.toList()));
         } catch (CommandSyntaxException commandsyntaxexception) {
             return Lists.newArrayList(Component.literal("missingno").withStyle(ChatFormatting.DARK_GRAY));
         }
