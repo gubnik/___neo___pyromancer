@@ -4,6 +4,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
+import net.nikgub.pyromancer.ember.EmberAnimation;
 
 public class AnimationList {
     public static EmberAnimation SOULFLAME_IGNITION = new EmberAnimation(
