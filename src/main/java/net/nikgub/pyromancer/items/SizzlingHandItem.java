@@ -1,5 +1,6 @@
 package net.nikgub.pyromancer.items;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -64,5 +65,9 @@ public class SizzlingHandItem extends UsablePyromancyItem {
     @Override
     public Pair<Integer, Float> getPyromancyModifiers() {
         return Pair.of(1, 2.5f);
+    }
+    @Override
+    public void compendiumTransforms(PoseStack poseStack)
+    {
     }
 }

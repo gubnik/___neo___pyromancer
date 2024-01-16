@@ -11,6 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.nikgub.pyromancer.ember.Ember;
+import net.nikgub.pyromancer.ember.EmberAnimation;
 import net.nikgub.pyromancer.registries.custom.EmberRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -30,7 +31,7 @@ public abstract class ItemInHandRendererMixin {
 
     /**
      * Injection that patches up first person view of itemstack with ember
-     * Refer to {@link net.nikgub.pyromancer.animations.EmberAnimation} for additional info
+     * Refer to {@link EmberAnimation} for additional info
      */
     @Inject(method = "renderArmWithItem", at = @At("HEAD"), cancellable = true)
     public void renderArmWithItemMixinHead(AbstractClientPlayer player, float v, float v1, InteractionHand hand, float v2, ItemStack itemStack, float v3, PoseStack poseStack, MultiBufferSource multiBufferSource, int i1,

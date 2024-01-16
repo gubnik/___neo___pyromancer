@@ -8,6 +8,8 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.ItemStackHandler;
+import net.nikgub.pyromancer.items.BlazingJournalItem;
+import net.nikgub.pyromancer.items.CompendiumOfFlameItem;
 import net.nikgub.pyromancer.items.UsablePyromancyItem;
 import net.nikgub.pyromancer.items.quills.QuillItem;
 import org.jetbrains.annotations.NotNull;
@@ -25,8 +27,9 @@ public class CompendiumOfFlameCapability implements ICapabilitySerializable<Comp
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag tag = getItemHandler().serializeNBT();
-        tag.putInt("active_slot", 0);
         tag.putDouble("CustomModelData", 0);
+        tag.putInt(CompendiumOfFlameItem.ACTIVE_SLOT_TAG, 1);
+        tag.putInt(BlazingJournalItem.BLAZE_TAG_NAME, 0);
         return tag;
     }
     @Override

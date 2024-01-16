@@ -15,6 +15,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class CompendiumOfFlameItem extends BlazingJournalItem {
+    public static final String ACTIVE_SLOT_TAG = "___PYROMANCER_COMPENDIUM_ACTIVE_SLOT___";
+    public static final String PYROMANCY_CUSTOM_RENDER_TAG = "___PYROMANCER_PYROMANCY_CUSTOM_RENDER___";
     public CompendiumOfFlameItem(Properties properties) {
         super(properties);
     }
@@ -27,6 +29,7 @@ public class CompendiumOfFlameItem extends BlazingJournalItem {
     public void inventoryTick(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull Entity entity, int tick, boolean m)
     {
         CompoundTag tag = itemStack.getOrCreateTag();
+        if(tag.getInt(ACTIVE_SLOT_TAG) == 0) tag.putInt(ACTIVE_SLOT_TAG, 1);
         if(tag.getDouble("CustomModelData") != 0) return;
         for (int i = 0; i < CompendiumOfFlameCapability.MAX_ITEMS + 1; i++)
         {
@@ -41,16 +44,17 @@ public class CompendiumOfFlameItem extends BlazingJournalItem {
         {
             if(held.getItem() instanceof  UsablePyromancyItem) return pyromancyBehaviour(inSlot, held, slotAccess);
         }
-        return false;
+        return super.overrideOtherStackedOnMe(inSlot, held, slot, clickAction, player, slotAccess);
     }
     public boolean pyromancyBehaviour(ItemStack inSlot, ItemStack held, SlotAccess slotAccess)
     {
-        for(int i = 1; i < CompendiumOfFlameCapability.MAX_ITEMS; i++)
+        for(int i = 1; i < CompendiumOfFlameCapability.MAX_ITEMS + 1; i++)
         {
             if(!(this.getItemFromItem(inSlot, i).getItem() instanceof UsablePyromancyItem))
             {
                 this.setItemInItem(inSlot, held, i);
                 slotAccess.set(ItemStack.EMPTY);
+                break;
             }
         }
         return true;
