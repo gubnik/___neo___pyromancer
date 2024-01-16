@@ -1,14 +1,16 @@
 package net.nikgub.pyromancer.ember;
 
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.nikgub.pyromancer.PyromancerConfig;
-import net.nikgub.pyromancer.animations.EmberAnimation;
+import net.nikgub.pyromancer.items.MaceItem;
 import net.nikgub.pyromancer.registries.custom.EmberRegistry;
 import net.nikgub.pyromancer.util.GeneralUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 /**
@@ -19,8 +21,8 @@ public class Ember {
     private final Type type;
     private final List<Class<? extends Item>> acceptableItems;
     private final EmberAnimation animation;
-    public static List<Class<? extends Item>> GENERAL_WEAPONS = List.of(SwordItem.class, AxeItem.class);
-
+    private final BiConsumer<Player, ItemStack> attack;
+    public static List<Class<? extends Item>> GENERAL_WEAPONS = List.of(SwordItem.class, AxeItem.class, MaceItem.class);
     /**
      *
      * @param name              Name of ember
@@ -28,12 +30,13 @@ public class Ember {
      * @param acceptableItems   List of item classes that this ember can be applied to
      * @param animation         Record of third person animation, first person item transforms, use duration and cooldown
      */
-    public Ember(String name, @NotNull Type type, List<Class<? extends Item>> acceptableItems, @NotNull EmberAnimation animation)
+    public Ember(String name, @NotNull Type type, List<Class<? extends Item>> acceptableItems, @NotNull EmberAnimation animation, BiConsumer<Player, ItemStack> attack)
     {
         this.name = name;
         this.type = type;
         this.acceptableItems = acceptableItems;
         this.animation = animation;
+        this.attack = attack;
     }
     @Override
     public String toString()
@@ -91,6 +94,10 @@ public class Ember {
             }
         }
         return item instanceof TieredItem || EmberUtilities.isUniquelyAllowed(item) && !EmberUtilities.isUniquelyDenied(item);
+    }
+
+    public BiConsumer<Player, ItemStack> getAttack() {
+        return attack;
     }
 
     public static final class Type {
@@ -159,6 +166,5 @@ public class Ember {
                     "color=" + color + ", " +
                     "tickMod=" + tickMod + ']';
         }
-
-        }
+    }
 }

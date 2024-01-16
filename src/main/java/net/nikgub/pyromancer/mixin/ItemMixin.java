@@ -53,6 +53,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, IForgeItem 
         if(Ember.emberItemStackPredicate(itemStack) && entity instanceof Player player)
         {
             EmberEvent event = EmberUtilities.getEmberEvent(player, ember, itemStack, tick);
+            ember.getAttack().accept(player, itemStack);
         }
     }
     @Inject(method = "finishUsingItem", at = @At("HEAD"), cancellable = true)

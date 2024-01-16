@@ -1,4 +1,4 @@
-package net.nikgub.pyromancer.animations;
+package net.nikgub.pyromancer.ember;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HumanoidModel;

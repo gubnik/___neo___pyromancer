@@ -3,6 +3,7 @@ package net.nikgub.pyromancer.registries.custom;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -11,6 +12,8 @@ import net.minecraftforge.registries.RegistryObject;
 import net.nikgub.pyromancer.PyromancerMod;
 import net.nikgub.pyromancer.animations.AnimationList;
 import net.nikgub.pyromancer.ember.Ember;
+import net.nikgub.pyromancer.registries.vanila.BlockRegistry;
+import net.nikgub.pyromancer.util.BlockPosSequence;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -39,6 +42,11 @@ public class EmberRegistry{
     {
         return getEmberByName(itemStack.getOrCreateTag().getString(TAG_NAME));
     }
-    public static RegistryObject<Ember> SOULFLAME_IGNITION = registerEmber(new Ember("soulflame_ignition", Ember.Type.SOULFLAME, Ember.GENERAL_WEAPONS, AnimationList.SOULFLAME_IGNITION));
+    public static RegistryObject<Ember> SOULFLAME_IGNITION = registerEmber(new Ember("soulflame_ignition", Ember.Type.SOULFLAME, Ember.GENERAL_WEAPONS, AnimationList.SOULFLAME_IGNITION,
+            (player, weapon) ->
+                    new BlockPosSequence(BlockPosSequence.Type.SPHERE, player.getOnPos().above(), 10, null).getValues().forEach(blockPos ->
+                    {
+                       if(player.level() instanceof ServerLevel serverLevel) serverLevel.setBlock(blockPos, BlockRegistry.PYROWOOD_PLANKS.get().defaultBlockState(), 3);
+                    })));
 
 }
