@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -51,20 +50,20 @@ public abstract class ItemRendererMixin {
         VertexConsumer vertex;
         ItemStack quill = blazingJournalItem.getItemFromItem(itemStack, 0);
         BakedModel bakedModelQuill = this.getModel(quill, null, null, (b ? ItemDisplayContext.FIRST_PERSON_LEFT_HAND : ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).ordinal());
-        bakedModelQuill = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(poseStack, bakedModelQuill, displayContext, b);
+        bakedModelQuill = handleCameraTransforms(poseStack, bakedModelQuill, displayContext, b);
         if(itemStack.getItem() instanceof CompendiumOfFlameItem)
         {
             switch (displayContext)
             {
                 case FIRST_PERSON_LEFT_HAND->
                 {
-                    poseStack.translate(-0.5D, -0.03D * Mth.sin(Mth.PI / 180 * (PyromancerMod.clientTick % 90) * 4), -0.5f);
-                    poseStack.rotateAround(Axis.ZP.rotationDegrees(45 ), 0.5f, ((float) 0.5 + 0.03f * Mth.sin(Mth.PI / 180 * (PyromancerMod.clientTick % 90) * 4)), 0);
+                    poseStack.translate(-0.5D, -0.03D * Math.sin(Math.PI / 180 * (PyromancerMod.clientTick % 90) * 4), -0.5f);
+                    poseStack.rotateAround(Axis.ZP.rotationDegrees(45 ), 0.5f, (float) (0.5 + 0.03f * Math.sin(Math.PI / 180 * (PyromancerMod.clientTick % 90) * 4)), 0);
                 }
                 case FIRST_PERSON_RIGHT_HAND->
                 {
-                    poseStack.translate(-0.5D, -0.03D * Mth.sin(Mth.PI / 180 * (PyromancerMod.clientTick % 90) * 4), -0.5f);
-                    poseStack.rotateAround(Axis.ZP.rotationDegrees(-45 ), 0.5f, ((float) 0.5 + 0.03f * Mth.sin(Mth.PI / 180 * (PyromancerMod.clientTick % 90) * 4)), 0);
+                    poseStack.translate(-0.5D, -0.03D * Math.sin(Math.PI / 180 * (PyromancerMod.clientTick % 90) * 4), -0.5f);
+                    poseStack.rotateAround(Axis.ZP.rotationDegrees(-45), 0.5f, (float) (0.5 + 0.03f * Math.sin(Math.PI / 180 * (PyromancerMod.clientTick % 90) * 4)), 0);
                 }
                 default ->
                 {
@@ -95,7 +94,7 @@ public abstract class ItemRendererMixin {
         ItemStack pyromancy = compendiumOfFlameItem.getItemFromItem(itemStack, itemStack.getOrCreateTag().getInt(CompendiumOfFlameItem.ACTIVE_SLOT_TAG));
         pyromancy.getOrCreateTag().putBoolean(CompendiumOfFlameItem.PYROMANCY_CUSTOM_RENDER_TAG, true);
         BakedModel bakedModelQuill = this.getModel(pyromancy, null, null, (b ? ItemDisplayContext.FIRST_PERSON_LEFT_HAND : ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).ordinal());
-        bakedModelQuill = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(poseStack, bakedModelQuill, displayContext, b);
+        bakedModelQuill = handleCameraTransforms(poseStack, bakedModelQuill, displayContext, b);
         if(displayContext == ItemDisplayContext.THIRD_PERSON_LEFT_HAND || displayContext == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND) poseStack.scale(1.33f, 1.33f, 1.33f);
         if(displayContext == ItemDisplayContext.FIRST_PERSON_LEFT_HAND) poseStack.rotateAround(Axis.YP.rotationDegrees(-90), 0.5f, 0.4f, 0.5f);
         else poseStack.rotateAround(Axis.YP.rotationDegrees(90), 0.5f, 0.4f, 0.5f);
@@ -118,5 +117,10 @@ public abstract class ItemRendererMixin {
             }
             callbackInfo.cancel();
         }
+    }
+    private static BakedModel handleCameraTransforms(PoseStack poseStack, BakedModel model, ItemDisplayContext cameraTransformType, boolean applyLeftHandTransform)
+    {
+        model = model.applyTransform(cameraTransformType, poseStack, applyLeftHandTransform);
+        return model;
     }
 }

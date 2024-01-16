@@ -72,7 +72,7 @@ import java.util.stream.Collectors;
 @Mod(PyromancerMod.MOD_ID)
 public class PyromancerMod
 {
-    public static long clientTick = 0;
+    public static long clientTick;
     public static final String MOD_ID = "pyromancer";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
