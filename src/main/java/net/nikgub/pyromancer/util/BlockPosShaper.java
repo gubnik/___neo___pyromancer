@@ -8,12 +8,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockPosSequence {
+public class BlockPosShaper {
     private final Type type;
     private final BlockPos initialPosition;
     private final int limit;
     private final List<BlockPos> values;
-    public BlockPosSequence(Type type, BlockPos initialPosition, int limit, @Nullable Direction direction)
+    public BlockPosShaper(Type type, BlockPos initialPosition, int limit, @Nullable Direction direction)
     {
         this.type = type;
         this.initialPosition = initialPosition;

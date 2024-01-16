@@ -13,7 +13,7 @@ import net.nikgub.pyromancer.PyromancerMod;
 import net.nikgub.pyromancer.animations.AnimationList;
 import net.nikgub.pyromancer.ember.Ember;
 import net.nikgub.pyromancer.registries.vanila.BlockRegistry;
-import net.nikgub.pyromancer.util.BlockPosSequence;
+import net.nikgub.pyromancer.util.BlockPosShaper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -44,7 +44,7 @@ public class EmberRegistry{
     }
     public static RegistryObject<Ember> SOULFLAME_IGNITION = registerEmber(new Ember("soulflame_ignition", Ember.Type.SOULFLAME, Ember.GENERAL_WEAPONS, AnimationList.SOULFLAME_IGNITION,
             (player, weapon) ->
-                    new BlockPosSequence(BlockPosSequence.Type.SPHERE, player.getOnPos().above(), 10, null).getValues().forEach(blockPos ->
+                    new BlockPosShaper(BlockPosShaper.Type.SPHERE, player.getOnPos().above(), 10, null).getValues().forEach(blockPos ->
                     {
                        if(player.level() instanceof ServerLevel serverLevel) serverLevel.setBlock(blockPos, BlockRegistry.PYROWOOD_PLANKS.get().defaultBlockState(), 3);
                     })));
