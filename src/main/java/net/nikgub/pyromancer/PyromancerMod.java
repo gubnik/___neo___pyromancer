@@ -52,9 +52,9 @@ import net.nikgub.pyromancer.entities.unburned.Unburned;
 import net.nikgub.pyromancer.entities.unburned.UnburnedModel;
 import net.nikgub.pyromancer.entities.unburned.UnburnedRenderer;
 import net.nikgub.pyromancer.events.BlazingJournalAttackEvent;
-import net.nikgub.pyromancer.events.EmberEvent;
 import net.nikgub.pyromancer.items.*;
 import net.nikgub.pyromancer.items.quills.QuillItem;
+import net.nikgub.pyromancer.network.NetworkCore;
 import net.nikgub.pyromancer.registries.custom.EmberRegistry;
 import net.nikgub.pyromancer.registries.vanila.*;
 import net.nikgub.pyromancer.registries.vanila.enchantments.EnchantmentRegistry;
@@ -69,9 +69,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(PyromancerMod.MOD_ID)
-@SuppressWarnings("unused")
 public class PyromancerMod
 {
     public static long clientTick = 0;
@@ -107,7 +105,7 @@ public class PyromancerMod
     }
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-
+        NetworkCore.register();
     }
     private void setupClient(final FMLCommonSetupEvent event) {
         EntityRenderers.register(EntityTypeRegistry.FLAMING_GUILLOTINE.get(), FlamingGuillotineRenderer::new);
@@ -167,6 +165,7 @@ public class PyromancerMod
 
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @SuppressWarnings("unused")
     public static class ClientModEvents
     {
         @SubscribeEvent
@@ -176,6 +175,7 @@ public class PyromancerMod
         }
     }
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+    @SuppressWarnings("unused")
     public static class ClientForgeEvents
     {
         @SubscribeEvent
@@ -207,10 +207,12 @@ public class PyromancerMod
         }
     }
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.DEDICATED_SERVER)
+    @SuppressWarnings("unused")
     public static class ServerForgeEvents
     {
     }
     @Mod.EventBusSubscriber(modid = PyromancerMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    @SuppressWarnings("unused")
     public static class ModEvents
     {
         @SubscribeEvent
@@ -220,16 +222,8 @@ public class PyromancerMod
         }
     }
     @Mod.EventBusSubscriber(modid = PyromancerMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+    @SuppressWarnings("unused")
     public static class ForgeEvents {
-        @SubscribeEvent
-        public static void emberEvent(EmberEvent event)
-        {
-        }
-        @SubscribeEvent
-        public static void blazingJournalEvent(BlazingJournalAttackEvent event)
-        {
-        }
-
         @SubscribeEvent
         public static void playerAttackEvent(LivingAttackEvent event) {
             DamageSource damageSource = event.getSource();
@@ -268,7 +262,6 @@ public class PyromancerMod
                 if (blazingJournalEnchantment.defaultCondition(player)) {
                     if (blazingJournalEnchantment.getWeaponClass().isInstance(weapon.getItem())
                             && blazingJournalEnchantment.getCondition().apply(player, target)) {
-                        @SuppressWarnings("unused")
                         BlazingJournalAttackEvent blazingJournalAttackEvent = BlazingJournalItem.getBlazingJournalAttackEvent(player, target, journal, weapon, blazingJournalEnchantment);
                         blazingJournalEnchantment.getAttack().accept(player, target);
                         ItemUtils.changeBlaze(player, -1);
