@@ -2,6 +2,7 @@ package net.nikgub.pyromancer.items;
 
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.Multimap;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.world.InteractionHand;
@@ -37,6 +38,7 @@ public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStu
         this.defaultModifiers = builder.build();
     }
     @Override
+    @SuppressWarnings("deprecation")
     public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot slot) {
         return slot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(slot);
     }
@@ -93,5 +95,9 @@ public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStu
             }
             return d0;
         });
+    }
+    public void compendiumTransforms(PoseStack poseStack)
+    {
+        poseStack.scale(1f,1f,1f);
     }
 }
