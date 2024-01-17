@@ -7,7 +7,7 @@ import net.minecraft.world.entity.player.Player;
 
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 /**
  * Interface for altering attribute tooltip's color
@@ -26,5 +26,5 @@ public interface INotStupidTooltip {
      * This value should be gathered from player and be solely visual
      * @return      Function that consumes player and returns double value
      */
-    Function<Player, Double> getAdditionalPlayerBonus();
+    BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus();
 }
