@@ -133,12 +133,22 @@ jar.finalizedBy('reobfJar')
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            from "LICENSE.md"
+            groupId="xyz.nikgub.pyromancer"
+            artifactId="pyromancer"
+
             artifact jar
         }
     }
     repositories {
         maven {
-            url "file://${project.projectDir}/mcmodsrepo"
+            id = "github"
+            name = "GitHub neoPyromancer Package"
+            url = "https://maven.pkg.github.com/gubnik/___neo___pyromancer"
+            credentials {
+                username = System.getenv("GITHUB_LOGIN")
+                password = System.getenv("GITHUB_TOKEN")
+            }
         }
     }
 }
