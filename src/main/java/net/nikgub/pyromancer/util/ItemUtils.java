@@ -1,5 +1,6 @@
 package net.nikgub.pyromancer.util;
 
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.nikgub.pyromancer.items.BlazingJournalItem;
@@ -21,7 +22,7 @@ public class ItemUtils {
     {
         ItemStack supposedJournal = guessJournal(player);
         if(supposedJournal == ItemStack.EMPTY) return;
-        supposedJournal.getOrCreateTag().putInt(BlazingJournalItem.BLAZE_TAG_NAME, val);
+        supposedJournal.getOrCreateTag().putInt(BlazingJournalItem.BLAZE_TAG_NAME, Mth.clamp(val, 0, 512));
     }
     public static void changeBlaze(Player player, int val)
     {

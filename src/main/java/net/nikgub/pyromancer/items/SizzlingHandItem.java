@@ -39,15 +39,22 @@ public class SizzlingHandItem extends UsablePyromancyItem {
         fireball.setOwner(entity);
         fireball.setPos(entity.getEyePosition());
         fireball.setDeltaMovement(entity.getLookAngle().multiply(2d, 2d, 2d));
-        entity.level().addFreshEntity(fireball);
+        if(entity.level().addFreshEntity(fireball) && entity instanceof Player player) ItemUtils.changeBlaze(player, -(int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()));
     }
     @Override
     public void releaseUsing(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity, int tick)
     {
         if(!(entity instanceof Player player)) return;
-        player.getCooldowns().addCooldown(this, 40 + this.getUseDuration(itemStack) - tick);
+        player.getCooldowns().addCooldown(itemStack.getItem(), 40 + this.getUseDuration(itemStack) - tick);
         SizzlingHandFireball fireball = new SizzlingHandFireball(EntityType.SMALL_FIREBALL, entity.level(), (float) entity.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get()) * 2, 10);
         fireball.collisionEffect(level);
+        entity.stopUsingItem();
+    }
+    @Override
+    public @NotNull ItemStack finishUsingItem(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity)
+    {
+        this.releaseUsing(itemStack, level, entity, this.getUseDuration(itemStack));
+        return itemStack;
     }
     @Override
     public int getUseDuration(@NotNull ItemStack itemStack)
@@ -57,10 +64,6 @@ public class SizzlingHandItem extends UsablePyromancyItem {
     @Override
     public void initializeClient(@NotNull Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new ClientSizzlingHandExtension());
-    }
-    @Override
-    public float setCompendiumSizeModifier() {
-        return 1.0f;
     }
     @Override
     public Pair<Integer, Float> getPyromancyModifiers() {

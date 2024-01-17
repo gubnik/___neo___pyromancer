@@ -8,7 +8,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.nikgub.pyromancer.ember.UniqueEmberBehaviour;
-import net.nikgub.pyromancer.registries.vanila.AttributeRegistry;
 
 import java.util.Collection;
 import java.util.UUID;
@@ -27,11 +26,6 @@ public interface IPyromancyItem {
     {
         return (Item) this;
     }
-    /**
-     * @return          Multiplicative size modifier for rendering the item in Compendium
-     */
-    float setCompendiumSizeModifier();
-
     /**
      * @return          Pair of blaze consumption and pyromancy damage
      */

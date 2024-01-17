@@ -41,12 +41,12 @@ public abstract class ItemRendererMixin {
     public void renderMixinTail(ItemStack itemStack, ItemDisplayContext displayContext, boolean b, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, BakedModel bakedModel, CallbackInfo callbackInfo) {
         if(!(itemStack.getItem() instanceof BlazingJournalItem blazingJournalItem)) return;
         quillRenderManager(itemStack, poseStack, displayContext, multiBufferSource, b, i, j);
-        pyromancyRenderManager(itemStack, poseStack, displayContext, multiBufferSource, b, i, j);
+        if(blazingJournalItem instanceof CompendiumOfFlameItem && !itemStack.getOrCreateTag().getBoolean(CompendiumOfFlameItem.IS_OFFHAND)) pyromancyRenderManager(itemStack, poseStack, displayContext, multiBufferSource, b, i, j);
         callbackInfo.cancel();
     }
     public void quillRenderManager(ItemStack itemStack, PoseStack poseStack, ItemDisplayContext displayContext, MultiBufferSource multiBufferSource, boolean b, int i, int j)
     {
-        if(!(itemStack.getItem() instanceof BlazingJournalItem blazingJournalItem && blazingJournalItem.getItemFromItem(itemStack, 0).getItem() instanceof QuillItem)) return;
+        if(!(itemStack.getItem() instanceof BlazingJournalItem blazingJournalItem)) return;
         VertexConsumer vertex;
         ItemStack quill = blazingJournalItem.getItemFromItem(itemStack, 0);
         BakedModel bakedModelQuill = this.getModel(quill, null, null, (b ? ItemDisplayContext.FIRST_PERSON_LEFT_HAND : ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).ordinal());
@@ -78,6 +78,7 @@ public abstract class ItemRendererMixin {
             poseStack.translate(-0.5001D, -0.5001D, -0.5101D);
             poseStack.scale(1f, 1f, 1.02f);
         }
+        if( !(blazingJournalItem.getItemFromItem(itemStack, 0).getItem() instanceof QuillItem)) return;
         for (RenderType renderType : bakedModelQuill.getRenderTypes(quill, true))
         {
             vertex = multiBufferSource.getBuffer(renderType);

@@ -167,7 +167,7 @@ public abstract class ItemStackMixin implements net.minecraftforge.common.extens
                                 if(attributemodifier.getId() == special.get(attribute).getFirst())
                                 {
                                     d0 += player.getAttributeValue(attribute);
-                                    d0 += notStupidTooltip.getAdditionalPlayerBonus().apply(player);
+                                    d0 += notStupidTooltip.getAdditionalPlayerBonus().apply(player, attribute);
                                     chatFormatting = special.get(attribute).getSecond();
                                     flag = true;
                                 }

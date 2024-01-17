@@ -16,13 +16,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.nikgub.pyromancer.registries.vanila.AttributeRegistry;
 import net.nikgub.pyromancer.util.ItemUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.Function;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
 
 /**
  * Class that should be extended whenever making pyromancy based on vanilla use system
@@ -36,6 +38,10 @@ public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStu
         builder.put(AttributeRegistry.PYROMANCY_DAMAGE.get(), new AttributeModifier(IPyromancyItem.BASE_PYROMANCY_DAMAGE_UUID, "Weapon modifier", this.getPyromancyModifiers().getSecond(), AttributeModifier.Operation.ADDITION));
         builder.put(AttributeRegistry.BLAZE_CONSUMPTION.get(), new AttributeModifier(IPyromancyItem.BASE_BLAZE_CONSUMPTION_UUID, "Weapon modifier", this.getPyromancyModifiers().getFirst(), AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();
+    }
+    public void compendiumTransforms(PoseStack poseStack)
+    {
+        poseStack.scale(1f,1f,1f);
     }
     @Override
     @SuppressWarnings("deprecation")
@@ -72,8 +78,8 @@ public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStu
         return 72000;
     }
     @Override
-    public float setCompendiumSizeModifier() {
-        return 1f;
+    public void initializeClient(@NotNull Consumer<IClientItemExtensions> consumer)
+    {
     }
     @Override
     public Pair<Integer, Float> getPyromancyModifiers() {
@@ -87,17 +93,13 @@ public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStu
         );
     }
     @Override
-    public Function<Player, Double> getAdditionalPlayerBonus() {
-        return (player -> {
+    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus() {
+        return ((player, attribute) -> {
             double d0 = 0;
             if (player.getOffhandItem().getItem() instanceof BlazingJournalItem) {
-                        d0 += IPyromancyItem.getAttributeBonus(player, AttributeRegistry.BLAZE_CONSUMPTION.get());
+                d0 += IPyromancyItem.getAttributeBonus(player, attribute);
             }
             return d0;
         });
-    }
-    public void compendiumTransforms(PoseStack poseStack)
-    {
-        poseStack.scale(1f,1f,1f);
     }
 }
