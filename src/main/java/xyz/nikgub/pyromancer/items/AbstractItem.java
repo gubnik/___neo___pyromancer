@@ -9,5 +9,5 @@ public abstract class AbstractItem extends Item {
         super(p_41383_);
     }
     public static UUID BASE_DAMAGE = Item.BASE_ATTACK_DAMAGE_UUID;
-    public static UUID BASE_SPEED = BASE_ATTACK_SPEED_UUID;
+    public static UUID BASE_SPEED = Item.BASE_ATTACK_SPEED_UUID;
 }

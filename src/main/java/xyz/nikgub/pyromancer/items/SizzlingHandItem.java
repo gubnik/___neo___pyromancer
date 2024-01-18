@@ -10,11 +10,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.animations.ClientSizzlingHandExtension;
 import xyz.nikgub.pyromancer.entities.projectiles.SizzlingHandFireball;
 import xyz.nikgub.pyromancer.registries.vanila.AttributeRegistry;
 import xyz.nikgub.pyromancer.util.ItemUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
@@ -39,14 +39,17 @@ public class SizzlingHandItem extends UsablePyromancyItem {
         fireball.setOwner(entity);
         fireball.setPos(entity.getEyePosition());
         fireball.setDeltaMovement(entity.getLookAngle().multiply(2d, 2d, 2d));
-        if(entity.level().addFreshEntity(fireball) && entity instanceof Player player) ItemUtils.changeBlaze(player, -(int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()));
+        if(entity.level().addFreshEntity(fireball) && entity instanceof Player player)
+        {
+            ItemUtils.changeBlaze(player, -1 * (int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()));
+        }
     }
     @Override
     public void releaseUsing(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity, int tick)
     {
         if(!(entity instanceof Player player)) return;
         player.getCooldowns().addCooldown(itemStack.getItem(), 40 + this.getUseDuration(itemStack) - tick);
-        SizzlingHandFireball fireball = new SizzlingHandFireball(EntityType.SMALL_FIREBALL, entity.level(), (float) entity.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get()) * 2, 10);
+        SizzlingHandFireball fireball = new SizzlingHandFireball(EntityType.SMALL_FIREBALL, entity.level(), (float) entity.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get()), 10);
         fireball.collisionEffect(level);
         entity.stopUsingItem();
     }

@@ -28,19 +28,19 @@ public interface IGradientNameItem {
      */
     boolean getGradientCondition(ItemStack itemStack);
     /**
-     * Method providing a pair of colors to switch between
+     * Method that provides a pair of colors to switch between
      * @return                  Pair of integer RGB color values
      */
     Pair<Integer, Integer> getGradientColors();
 
     /**
-     * Method providing time in ticks in which full color change happens
+     * Method that provides time in ticks in which full color change happens
      * @return                  Integer time in ticks
      */
     int getGradientTickTime();
 
     /**
-     * Method that defines a function that defines how does the color change depending on tick
+     * Method that provides a function that defines how does the color change depending on tick
      * @return                  Function that consumes an integer tick and returns an integer color code
      */
     default Function<Integer, Integer> getGradientFunction()

@@ -20,13 +20,13 @@ public class MaceItem extends TieredItem {
     public MaceItem(Tier tier, Properties properties) {
         super(tier, properties);
     }
-    public static final float DEFAULT_DAMAGE = 3.5f;
+    public static final float DEFAULT_DAMAGE = 4f;
     @Override
     public @NotNull Multimap<Attribute, AttributeModifier> getAttributeModifiers(@NotNull EquipmentSlot slot, ItemStack itemStack) {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
         if(slot == EquipmentSlot.MAINHAND)
         {
-            builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_UUID, "Weapon modifier", -2.6d, AttributeModifier.Operation.ADDITION));
+            builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_UUID, "Weapon modifier", -2.8d, AttributeModifier.Operation.ADDITION));
             builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(Item.BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.getTier().getAttackDamageBonus() + DEFAULT_DAMAGE, AttributeModifier.Operation.ADDITION));
             Map<Enchantment, Integer> itemEnchants = itemStack.getAllEnchantments();
             for(Enchantment enchantment : itemEnchants.keySet().stream().toList())
