@@ -20,10 +20,12 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.armortrim.ArmorTrim;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.nikgub.pyromancer.PyromancerMod;
 import net.nikgub.pyromancer.ember.Ember;
 import net.nikgub.pyromancer.items.AbstractItem;
 import net.nikgub.pyromancer.items.EmberItem;
-import net.nikgub.pyromancer.items.INotStupidTooltip;
+import net.nikgub.pyromancer.items.IGradientNameItem;
+import net.nikgub.pyromancer.items.INotStupidTooltipItem;
 import net.nikgub.pyromancer.registries.custom.EmberRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -54,12 +56,36 @@ public abstract class ItemStackMixin implements net.minecraftforge.common.extens
     @Inject(method = "getHoverName", at = @At("HEAD"), cancellable = true)
     public void getHoverNameMixinHead(CallbackInfoReturnable<Component> retVal) {
         ItemStack self = (ItemStack) (Object) this;
-        if(Ember.emberItemStackPredicate(self) || self.getItem() instanceof EmberItem) {
+        if(self.getItem() instanceof IGradientNameItem iGradientNameItem)
+        {
+            assureCorrectTick();
+            if(!(iGradientNameItem.getGradientCondition(self))) return;
+            CompoundTag compoundtag = this.getTagElement("display");
+            if (compoundtag != null && compoundtag.contains("Name", 8))
+            {
+                try {
+                    MutableComponent component = Component.Serializer.fromJson(compoundtag.getString("Name"));
+                    if (component != null) {
+                        component = component.withStyle(component.getStyle().withColor(iGradientNameItem.getGradientFunction().apply(((int) PyromancerMod.clientTick))));
+                        retVal.setReturnValue(component);
+                    }
+                    compoundtag.remove("Name");
+                } catch (Exception exception) {
+                    compoundtag.remove("Name");
+                }
+            }
+            MutableComponent defaultComponent = this.getItem().getName(self).copy();
+            defaultComponent = defaultComponent.withStyle(defaultComponent.getStyle().withColor(iGradientNameItem.getGradientFunction().apply((int) PyromancerMod.clientTick)));
+            retVal.setReturnValue(defaultComponent);
+        }
+        if(Ember.emberItemStackPredicate(self) || self.getItem() instanceof EmberItem)
+        {
             assureCorrectTick();
             Ember ember = EmberRegistry.getFromItem(self);
             if(ember == null) return;
             CompoundTag compoundtag = this.getTagElement("display");
-            if (compoundtag != null && compoundtag.contains("Name", 8)) {
+            if (compoundtag != null && compoundtag.contains("Name", 8))
+            {
                 try {
                     MutableComponent component = Component.Serializer.fromJson(compoundtag.getString("Name"));
                     if (component != null) {
@@ -91,7 +117,7 @@ public abstract class ItemStackMixin implements net.minecraftforge.common.extens
     @Inject(method = "getTooltipLines", at = @At("HEAD"), cancellable = true)
     public void getTooltipLines(@Nullable Player player, TooltipFlag flag1, CallbackInfoReturnable<List<Component>> retVal) {
         ItemStack self = (ItemStack) (Object) this;
-        if(!(self.getItem() instanceof INotStupidTooltip notStupidTooltip)) return;
+        if(!(self.getItem() instanceof INotStupidTooltipItem notStupidTooltip)) return;
         List<Component> list = Lists.newArrayList();
         MutableComponent mutablecomponent = Component.empty().append(self.getHoverName()).withStyle(self.getRarity().getStyleModifier());
         if (self.hasCustomHoverName()) {
