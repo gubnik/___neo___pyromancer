@@ -129,8 +129,8 @@ public class Ember {
             }
 
         public Function<Integer, Integer> getTextColorFunction() {
-                return tickMod;
-            }
+            return tickMod;
+        }
 
         public String name() {
             return name;
