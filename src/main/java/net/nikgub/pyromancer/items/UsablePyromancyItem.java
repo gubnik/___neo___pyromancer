@@ -16,7 +16,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.nikgub.pyromancer.registries.vanila.AttributeRegistry;
 import net.nikgub.pyromancer.util.ItemUtils;
 import org.jetbrains.annotations.NotNull;
@@ -24,13 +23,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.BiFunction;
-import java.util.function.Consumer;
 
 /**
  * Class that should be extended whenever making pyromancy based on vanilla use system
  * Not to be confused with {@link IPyromancyItem}, which is a general interface for any pyromancy
  */
-public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStupidTooltip {
+public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStupidTooltipItem {
     private final Multimap<Attribute, AttributeModifier> defaultModifiers;
     public UsablePyromancyItem(Properties properties) {
         super(properties.stacksTo(1));
@@ -39,6 +37,12 @@ public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStu
         builder.put(AttributeRegistry.BLAZE_CONSUMPTION.get(), new AttributeModifier(IPyromancyItem.BASE_BLAZE_CONSUMPTION_UUID, "Weapon modifier", this.getPyromancyModifiers().getFirst(), AttributeModifier.Operation.ADDITION));
         this.defaultModifiers = builder.build();
     }
+
+    /**
+     * Method to provide an optional additional logic for {@link net.nikgub.pyromancer.mixin.client.ItemRendererMixin} pyromancyRenderManager() method
+     * It is advised to limit it to scaling transformation to keep the integrity of render
+     * @param poseStack     PoseStack to transform
+     */
     public void compendiumTransforms(PoseStack poseStack)
     {
         poseStack.scale(1f,1f,1f);
@@ -76,10 +80,6 @@ public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStu
     public int getUseDuration(@NotNull ItemStack itemStack)
     {
         return 72000;
-    }
-    @Override
-    public void initializeClient(@NotNull Consumer<IClientItemExtensions> consumer)
-    {
     }
     @Override
     public Pair<Integer, Float> getPyromancyModifiers() {
