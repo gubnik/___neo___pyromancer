@@ -98,7 +98,7 @@ public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStu
         return ((player, attribute) -> {
             double d0 = 0;
             if (player.getOffhandItem().getItem() instanceof BlazingJournalItem) {
-                d0 += getAttributeBonus(player, attribute);
+                d0 += IPyromancyItem.getAttributeBonus(player, attribute);
             }
             return d0;
         });
