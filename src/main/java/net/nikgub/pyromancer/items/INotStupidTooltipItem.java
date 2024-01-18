@@ -13,7 +13,7 @@ import java.util.function.BiFunction;
  * Interface for altering attribute tooltip's color
  * Used in {@link net.nikgub.pyromancer.mixin.ItemStackMixin}
  */
-public interface INotStupidTooltip {
+public interface INotStupidTooltipItem {
     /**
      * Determines format transformations of attribute's tooltip
      * New format overrides the default one
