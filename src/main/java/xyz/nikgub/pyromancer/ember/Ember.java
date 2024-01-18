@@ -2,11 +2,11 @@ package xyz.nikgub.pyromancer.ember;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.items.MaceItem;
 import xyz.nikgub.pyromancer.registries.custom.EmberRegistry;
 import xyz.nikgub.pyromancer.util.GeneralUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
@@ -66,7 +66,7 @@ public class Ember {
     }
     public ItemStack applyToItemStack(ItemStack itemStack)
     {
-        itemStack.getOrCreateTag().putString(EmberRegistry.TAG_NAME, this.getName());
+        itemStack.getOrCreateTag().putString(EmberRegistry.EMBER_TAG, this.getName());
         return itemStack;
     }
     public boolean isValidFor(Item weapon)
@@ -101,18 +101,19 @@ public class Ember {
     }
 
     public static final class Type {
+        private static final int TICK_LIMIT = 40;
         private final String name;
         private final int color;
         private final Function<Integer, Integer> tickMod;
 
-        public static final Type FLAME = new Type("fire",GeneralUtils.rgbaToColorInteger(64, 56,6,224),
-                    (tick)->GeneralUtils.rgbToColorInteger(100+(tick /10)*5,50+(tick /10)*4,100-(tick /20)));
+        public static final Type FLAME = new Type("fire", GeneralUtils.rgbaToColorInteger(64, 56,6,224),
+                functionBuilder(GeneralUtils.rgbToColorInteger(100, 50, 100), GeneralUtils.rgbToColorInteger(200, 130, 90)));
 
-        public static final Type SOULFLAME = new Type("soulflame",GeneralUtils.rgbaToColorInteger(6, 64,56,224),
-                    (tick)->GeneralUtils.rgbToColorInteger(100-(tick /40),100+(tick /10)*5,100+(tick /10)*4));
+        public static final Type SOULFLAME = new Type("soulflame", GeneralUtils.rgbaToColorInteger(6, 64,56,224),
+                functionBuilder(GeneralUtils.rgbToColorInteger(100, 100, 100), GeneralUtils.rgbToColorInteger(95, 200, 180)));
 
-        public static final Type HELLBLAZE = new Type("hellblaze",GeneralUtils.rgbaToColorInteger(64, 32,24,224),
-                    (tick)->GeneralUtils.rgbToColorInteger(140+(tick /10)*2,60-(tick /10),80+(tick /10)));
+        public static final Type HELLBLAZE = new Type("hellblaze", GeneralUtils.rgbaToColorInteger(64, 32,24,224),
+                functionBuilder(GeneralUtils.rgbToColorInteger(140, 60, 80), GeneralUtils.rgbToColorInteger(180, 40, 100)));
 
         public Type(String name, int color, Function<Integer, Integer> tickMod) {
             this.name = name;
@@ -142,6 +143,21 @@ public class Ember {
 
         public Function<Integer, Integer> tickMod() {
             return tickMod;
+        }
+
+        private static Function<Integer, Integer> functionBuilder(int first, int second)
+        {
+            final int redFirst = first / 65536, greenFirst = (first % 65536) / 256, blueFirst = first % 256;
+            final int redSecond = second / 65536, greenSecond = (second % 65536) / 256, blueSecond = second % 256;
+            return (tick)->
+            {
+                final int cT = Math.abs(TICK_LIMIT - tick % (TICK_LIMIT * 2));
+                return GeneralUtils.rgbToColorInteger(
+                        redFirst + ((redSecond - redFirst) / TICK_LIMIT) * cT,
+                        greenFirst + ((greenSecond - greenFirst) / TICK_LIMIT) * cT,
+                        blueFirst + ((blueSecond - blueFirst) / TICK_LIMIT) * cT
+                );
+            };
         }
 
         @Override

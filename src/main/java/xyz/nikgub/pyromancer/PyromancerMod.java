@@ -42,6 +42,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
 import xyz.nikgub.pyromancer.data.RegistriesDataGeneration;
 import xyz.nikgub.pyromancer.ember.Ember;
@@ -52,17 +54,13 @@ import xyz.nikgub.pyromancer.entities.unburned.Unburned;
 import xyz.nikgub.pyromancer.entities.unburned.UnburnedModel;
 import xyz.nikgub.pyromancer.entities.unburned.UnburnedRenderer;
 import xyz.nikgub.pyromancer.events.BlazingJournalAttackEvent;
-import net.nikgub.pyromancer.items.*;
 import xyz.nikgub.pyromancer.items.*;
 import xyz.nikgub.pyromancer.network.NetworkCore;
 import xyz.nikgub.pyromancer.registries.custom.EmberRegistry;
-import net.nikgub.pyromancer.registries.vanila.*;
 import xyz.nikgub.pyromancer.registries.vanila.*;
 import xyz.nikgub.pyromancer.registries.vanila.enchantments.EnchantmentRegistry;
 import xyz.nikgub.pyromancer.util.GeneralUtils;
 import xyz.nikgub.pyromancer.util.ItemUtils;
-import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
 
 import java.util.Arrays;
 import java.util.List;
@@ -73,7 +71,7 @@ import java.util.stream.Collectors;
 @Mod(PyromancerMod.MOD_ID)
 public class PyromancerMod
 {
-    public static long clientTick;
+    public static int clientTick;
     public static final String MOD_ID = "pyromancer";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);

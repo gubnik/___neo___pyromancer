@@ -19,7 +19,7 @@ public class EmberUtilities {
         if (itemHandReference.get() != null) {
             for (int i = 0; i < itemHandReference.get().getSlots(); i++) {
                 ItemStack itemStack = itemHandReference.get().getStackInSlot(i).copy();
-                if (itemStack.getOrCreateTag().getString(EmberRegistry.TAG_NAME).equals(tag)) {
+                if (itemStack.getOrCreateTag().getString(EmberRegistry.EMBER_TAG).equals(tag)) {
                     player.getCooldowns().addCooldown(itemStack.getItem(), time);
                 }
             }

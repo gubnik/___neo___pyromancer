@@ -20,7 +20,7 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 public class EmberRegistry{
-    public static String TAG_NAME = "PYROMANCER_EMBER";
+    public static String EMBER_TAG = "___PYROMANCER_EMBER_TAG___";
     public static final ResourceKey<Registry<Ember>> EMBER_REGISTRY_KEY = ResourceKey.createRegistryKey(new ResourceLocation(PyromancerMod.MOD_ID, "embers"));
     public static final DeferredRegister<Ember> EMBERS = DeferredRegister.create(EMBER_REGISTRY_KEY, PyromancerMod.MOD_ID);
     public static final Supplier<IForgeRegistry<Ember>> REGISTRY = EMBERS.makeRegistry(() -> new RegistryBuilder<Ember>().disableOverrides());
@@ -40,7 +40,7 @@ public class EmberRegistry{
     @Nullable
     public static Ember getFromItem(ItemStack itemStack)
     {
-        return getEmberByName(itemStack.getOrCreateTag().getString(TAG_NAME));
+        return getEmberByName(itemStack.getOrCreateTag().getString(EMBER_TAG));
     }
     public static RegistryObject<Ember> SOULFLAME_IGNITION = registerEmber(new Ember("soulflame_ignition", Ember.Type.SOULFLAME, Ember.GENERAL_WEAPONS, AnimationList.SOULFLAME_IGNITION,
             (player, weapon) ->

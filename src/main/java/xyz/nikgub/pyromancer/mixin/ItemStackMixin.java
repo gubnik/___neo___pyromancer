@@ -20,6 +20,11 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.armortrim.ArmorTrim;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.ember.Ember;
 import xyz.nikgub.pyromancer.items.AbstractItem;
@@ -27,14 +32,10 @@ import xyz.nikgub.pyromancer.items.EmberItem;
 import xyz.nikgub.pyromancer.items.IGradientNameItem;
 import xyz.nikgub.pyromancer.items.INotStupidTooltipItem;
 import xyz.nikgub.pyromancer.registries.custom.EmberRegistry;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static net.minecraft.world.item.ItemStack.ATTRIBUTE_MODIFIER_FORMAT;
@@ -42,9 +43,6 @@ import static net.minecraft.world.item.ItemStack.appendEnchantmentNames;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin implements net.minecraftforge.common.extensions.IForgeItemStack {
-    private static int tick = 0;
-    private static boolean reverseTicking = false;
-    private static final int TICK_LIMIT = 200;
     @Shadow
     private static final Component DISABLED_ITEM_TOOLTIP = Component.translatable("item.disabled").withStyle(ChatFormatting.RED);
     @Shadow
@@ -56,63 +54,32 @@ public abstract class ItemStackMixin implements net.minecraftforge.common.extens
     @Inject(method = "getHoverName", at = @At("HEAD"), cancellable = true)
     public void getHoverNameMixinHead(CallbackInfoReturnable<Component> retVal) {
         ItemStack self = (ItemStack) (Object) this;
-        if(self.getItem() instanceof IGradientNameItem iGradientNameItem)
+        Function<Integer, Integer> colorFunction;
+        Ember ember;
+        if((ember = EmberRegistry.getFromItem(self)) != null || self.getItem() instanceof EmberItem)
         {
-            assureCorrectTick();
-            if(!(iGradientNameItem.getGradientCondition(self))) return;
-            CompoundTag compoundtag = this.getTagElement("display");
-            if (compoundtag != null && compoundtag.contains("Name", 8))
-            {
-                try {
-                    MutableComponent component = Component.Serializer.fromJson(compoundtag.getString("Name"));
-                    if (component != null) {
-                        component = component.withStyle(component.getStyle().withColor(iGradientNameItem.getGradientFunction().apply(((int) PyromancerMod.clientTick))));
-                        retVal.setReturnValue(component);
-                    }
-                    compoundtag.remove("Name");
-                } catch (Exception exception) {
-                    compoundtag.remove("Name");
-                }
-            }
-            MutableComponent defaultComponent = this.getItem().getName(self).copy();
-            defaultComponent = defaultComponent.withStyle(defaultComponent.getStyle().withColor(iGradientNameItem.getGradientFunction().apply((int) PyromancerMod.clientTick)));
-            retVal.setReturnValue(defaultComponent);
-        }
-        if(Ember.emberItemStackPredicate(self) || self.getItem() instanceof EmberItem)
-        {
-            assureCorrectTick();
-            Ember ember = EmberRegistry.getFromItem(self);
             if(ember == null) return;
-            CompoundTag compoundtag = this.getTagElement("display");
-            if (compoundtag != null && compoundtag.contains("Name", 8))
-            {
-                try {
-                    MutableComponent component = Component.Serializer.fromJson(compoundtag.getString("Name"));
-                    if (component != null) {
-                        component = component.withStyle(component.getStyle().withColor(ember.getType().getTextColorFunction().apply(tick)));
-                        retVal.setReturnValue(component);
-                    }
-                    compoundtag.remove("Name");
-                } catch (Exception exception) {
-                    compoundtag.remove("Name");
+            colorFunction = ember.getType().getTextColorFunction();
+        }
+        else if(self.getItem() instanceof IGradientNameItem iGradientNameItem) colorFunction = iGradientNameItem.getGradientFunction();
+        else return;
+        CompoundTag compoundtag = this.getTagElement("display");
+        if (compoundtag != null && compoundtag.contains("Name", 8))
+        {
+            try {
+                MutableComponent component = Component.Serializer.fromJson(compoundtag.getString("Name"));
+                if (component != null) {
+                    component = component.withStyle(component.getStyle().withColor(colorFunction.apply((PyromancerMod.clientTick))));
+                    retVal.setReturnValue(component);
                 }
+                compoundtag.remove("Name");
+            } catch (Exception exception) {
+                compoundtag.remove("Name");
             }
-            MutableComponent defaultComponent = this.getItem().getName(self).copy();
-            defaultComponent = defaultComponent.withStyle(defaultComponent.getStyle().withColor(ember.getType().getTextColorFunction().apply(tick)));
-            retVal.setReturnValue(defaultComponent);
         }
-    }
-    private static void assureCorrectTick()
-    {
-        if((reverseTicking && tick == 0)
-        || (!reverseTicking && tick >= TICK_LIMIT))
-        {
-            reverseTicking = !reverseTicking;
-        }
-        if (reverseTicking)
-        {
-            tick--;
-        } else tick++;
+        MutableComponent defaultComponent = this.getItem().getName(self).copy();
+        defaultComponent = defaultComponent.withStyle(defaultComponent.getStyle().withColor(colorFunction.apply(PyromancerMod.clientTick)));
+        retVal.setReturnValue(defaultComponent);
     }
     @Inject(method = "getTooltipLines", at = @At("HEAD"), cancellable = true)
     public void getTooltipLines(@Nullable Player player, TooltipFlag flag1, CallbackInfoReturnable<List<Component>> retVal) {

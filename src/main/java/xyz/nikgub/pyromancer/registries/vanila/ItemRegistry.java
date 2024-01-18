@@ -8,7 +8,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import net.nikgub.pyromancer.items.*;
 import xyz.nikgub.pyromancer.items.*;
 import xyz.nikgub.pyromancer.util.GeneralUtils;
 

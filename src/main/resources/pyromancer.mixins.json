@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "net.nikgub.pyromancer.mixin",
+  "package": "xyz.nikgub.pyromancer.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "pyromancer.refmap.json",
   "mixins": [
