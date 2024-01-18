@@ -24,6 +24,7 @@ import net.nikgub.pyromancer.PyromancerMod;
 import net.nikgub.pyromancer.ember.UniqueEmberBehaviour;
 import net.nikgub.pyromancer.items.capabilities.CompendiumOfFlameCapability;
 import net.nikgub.pyromancer.registries.vanila.AttributeRegistry;
+import net.nikgub.pyromancer.util.GeneralUtils;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -32,10 +33,29 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.function.BiFunction;
 
+/**
+ * Item that inherits {@link BlazingJournalItem}'s full functionality and is capable of storing 5 {@link UsablePyromancyItem}s
+ * For details regarding storage, see {@link CompendiumOfFlameCapability}
+ *
+ *
+ */
 @UniqueEmberBehaviour(allow = UniqueEmberBehaviour.AllowanceModifier.DENY)
-public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStupidTooltip {
+public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStupidTooltipItem, IGradientNameItem {
+    /**
+     * String of int tag associated with an active slot
+     * Said int tag must be between 1 and 5
+     */
     public static final String ACTIVE_SLOT_TAG = "___PYROMANCER_COMPENDIUM_ACTIVE_SLOT___";
+    /**
+     * String of boolean tag associated with rendering pyromancy stored within this item
+     * Used in {@link net.nikgub.pyromancer.mixin.client.ItemRendererMixin}
+     */
     public static final String PYROMANCY_CUSTOM_RENDER_TAG = "___PYROMANCER_PYROMANCY_CUSTOM_RENDER___";
+    /**
+     * String of boolean tag associated with marking whether this item is in offhand
+     * Used in {@link net.nikgub.pyromancer.mixin.client.ItemRendererMixin}
+     * A nifty little workaround to move all the logic regarding player's chosen main arm to somewhere else
+     */
     public static final String IS_OFFHAND = "___COMPENDIUM_IS_OFFHAND___";
     private ItemStack currentlyActiveItem = ItemStack.EMPTY;
     public CompendiumOfFlameItem(Properties properties) {
@@ -160,5 +180,20 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
             }
             return d0;
         });
+    }
+
+    @Override
+    public boolean getGradientCondition(ItemStack itemStack) {
+        return true;
+    }
+
+    @Override
+    public Pair<Integer, Integer> getGradientColors() {
+        return Pair.of(GeneralUtils.rgbToColorInteger(100, 50, 0), GeneralUtils.rgbToColorInteger(0, 50, 100));
+    }
+
+    @Override
+    public int getGradientTickTime() {
+        return 20;
     }
 }

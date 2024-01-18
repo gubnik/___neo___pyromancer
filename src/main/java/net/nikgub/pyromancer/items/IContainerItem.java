@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * Interface for mod items that have associated inventory
  */
 public interface IContainerItem {
-    default Item self()
+    private Item self()
     {
         return (Item) this;
     }
