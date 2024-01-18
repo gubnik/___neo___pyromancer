@@ -18,6 +18,7 @@ import net.nikgub.pyromancer.items.BlazingJournalItem;
 import net.nikgub.pyromancer.items.CompendiumOfFlameItem;
 import net.nikgub.pyromancer.items.UsablePyromancyItem;
 import net.nikgub.pyromancer.items.quills.QuillItem;
+import net.nikgub.pyromancer.registries.vanila.ItemRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -49,6 +50,7 @@ public abstract class ItemRendererMixin {
         if(!(itemStack.getItem() instanceof BlazingJournalItem blazingJournalItem)) return;
         VertexConsumer vertex;
         ItemStack quill = blazingJournalItem.getItemFromItem(itemStack, 0);
+        if(!(quill.getItem() instanceof QuillItem)) quill = new ItemStack(ItemRegistry.BLAZING_QUILL.get());
         BakedModel bakedModelQuill = this.getModel(quill, null, null, (b ? ItemDisplayContext.FIRST_PERSON_LEFT_HAND : ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).ordinal());
         bakedModelQuill = handleCameraTransforms(poseStack, bakedModelQuill, displayContext, b);
         if(itemStack.getItem() instanceof CompendiumOfFlameItem)
@@ -94,16 +96,16 @@ public abstract class ItemRendererMixin {
         VertexConsumer vertex;
         ItemStack pyromancy = compendiumOfFlameItem.getItemFromItem(itemStack, itemStack.getOrCreateTag().getInt(CompendiumOfFlameItem.ACTIVE_SLOT_TAG));
         pyromancy.getOrCreateTag().putBoolean(CompendiumOfFlameItem.PYROMANCY_CUSTOM_RENDER_TAG, true);
-        BakedModel bakedModelQuill = this.getModel(pyromancy, null, null, (b ? ItemDisplayContext.FIRST_PERSON_LEFT_HAND : ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).ordinal());
-        bakedModelQuill = handleCameraTransforms(poseStack, bakedModelQuill, displayContext, b);
+        BakedModel bakedModelPyromancy = this.getModel(pyromancy, null, null, (b ? ItemDisplayContext.FIRST_PERSON_LEFT_HAND : ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).ordinal());
+        bakedModelPyromancy = handleCameraTransforms(poseStack, bakedModelPyromancy, displayContext, b);
         if(displayContext == ItemDisplayContext.THIRD_PERSON_LEFT_HAND || displayContext == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND) poseStack.scale(1.33f, 1.33f, 1.33f);
         if(displayContext == ItemDisplayContext.FIRST_PERSON_LEFT_HAND) poseStack.rotateAround(Axis.YP.rotationDegrees(-90), 0.5f, 0.4f, 0.5f);
         else poseStack.rotateAround(Axis.YP.rotationDegrees(90), 0.5f, 0.4f, 0.5f);
         usablePyromancyItem.compendiumTransforms(poseStack);
-        for (RenderType renderType : bakedModelQuill.getRenderTypes(pyromancy, true))
+        for (RenderType renderType : bakedModelPyromancy.getRenderTypes(pyromancy, true))
         {
             vertex = multiBufferSource.getBuffer(renderType);
-            this.renderModelLists(bakedModelQuill, pyromancy, i, j, poseStack, vertex);
+            this.renderModelLists(bakedModelPyromancy, pyromancy, i, j, poseStack, vertex);
         }
     }
     @Inject(method = "renderQuadList", at = @At("HEAD"), cancellable = true)
