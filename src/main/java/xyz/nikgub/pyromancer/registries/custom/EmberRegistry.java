@@ -9,12 +9,13 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.Nullable;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.animations.AnimationList;
 import xyz.nikgub.pyromancer.ember.Ember;
+import xyz.nikgub.pyromancer.ember.EmberType;
 import xyz.nikgub.pyromancer.registries.vanila.BlockRegistry;
 import xyz.nikgub.pyromancer.util.BlockPosShaper;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -42,7 +43,7 @@ public class EmberRegistry{
     {
         return getEmberByName(itemStack.getOrCreateTag().getString(EMBER_TAG));
     }
-    public static RegistryObject<Ember> SOULFLAME_IGNITION = registerEmber(new Ember("soulflame_ignition", Ember.Type.SOULFLAME, Ember.GENERAL_WEAPONS, AnimationList.SOULFLAME_IGNITION,
+    public static RegistryObject<Ember> SOULFLAME_IGNITION = registerEmber(new Ember("soulflame_ignition", EmberType.SOULFLAME, Ember.GENERAL_WEAPONS, AnimationList.SOULFLAME_IGNITION,
             (player, weapon) ->
                     new BlockPosShaper(BlockPosShaper.Type.SPHERE, player.getOnPos().above(), 10, null).getValues().forEach(blockPos ->
                     {
