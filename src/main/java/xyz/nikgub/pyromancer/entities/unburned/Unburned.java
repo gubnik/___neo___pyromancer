@@ -1,12 +1,11 @@
 package xyz.nikgub.pyromancer.entities.unburned;
 
-import net.minecraft.server.level.ServerBossEvent;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.BossEvent;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -17,107 +16,127 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
-import xyz.nikgub.pyromancer.PyromancerMod;
 import org.jetbrains.annotations.NotNull;
+import xyz.nikgub.pyromancer.entities.IFlamingGroveNativeEntity;
+import xyz.nikgub.pyromancer.registries.vanila.DamageSourceRegistry;
 
-public class Unburned extends Monster {
-    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
+public class Unburned extends Monster implements IFlamingGroveNativeEntity {
+    public AnimationState    ATTACK = new AnimationState();
+    private static final byte attack_bt    = 70;
+    public AnimationState      KICK = new AnimationState();
+    private static final byte kick_bt      = 71;
+    public AnimationState EXPLOSION = new AnimationState();
+    private static final byte explosion_bt = 72;
+    public AnimationState    EMERGE = new AnimationState();
+    private static final byte emerge_bt    = 73;
+
     /**
-     * This state is used for a spawn animation.
-     * Only done once in a constructor
+     * When Unburned attacks, it set this field to current tickCount
+     * <p>
+     * When 8 ticks pass i.e. tickCount >= attackTick + 8 the mob actually deals damage
      */
-    public AnimationState emergeAnimationState = new AnimationState();
-    /**
-     * This state is used for a regular attack.
-     * Performed each time this mob attacks
-     */
-    public AnimationState attackAnimationState = new AnimationState();
-    /**
-     * This state is used for a special attack.
-     * Attack is performed when the mob is attacked too much (>40 damage dealt in 3 seconds)
-     */
-    public AnimationState kickAnimationState = new AnimationState();
-    /**
-     * This state is used for a special attack.
-     * Attack is performed on a 6 seconds timer (120 ticks).
-     */
-    public AnimationState explosionAnimationState = new AnimationState();
-    /**
-     * This state is used for a special attack.
-     * Attack is performed when unable to reach target
-     */
-    public AnimationState jumpingAnimationState = new AnimationState();
+    private int attackTick = 0;
+    private static final int attackTimeOffset = 6;
+
+    private int explosionTick = 0;
+    private static final int explosionTickOffset = 8;
+    private static final int explosionTickCooldown = 200;
+    private boolean timedExplosionReady = false;
+
     public Unburned(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
-        this.emergeAnimationState.start(0);
     }
-    public void handleEntityEvent(byte bt){
-        switch ((int) bt)
-        {
-            case (61):
-                this.stopAllAnimations();
-                this.attackAnimationState.start(this.tickCount);
-            case (62):
-                this.stopAllAnimations();
-                this.kickAnimationState.start(this.tickCount);
-            case (63):
-                this.stopAllAnimations();
-                this.explosionAnimationState.start(this.tickCount);
-            default:
-                super.handleEntityEvent(bt);
-        }
-    }
-    public void stopAllAnimations()
+    @Override
+    public void handleEntityEvent(byte b)
     {
-        this.explosionAnimationState.stop();
-        this.kickAnimationState.stop();
-        this.attackAnimationState.stop();
+        switch (b)
+        {
+            case (attack_bt)    -> this.ATTACK.start(this.tickCount);
+            case (kick_bt)      -> this.KICK.start(this.tickCount);
+            case (explosion_bt) -> this.EXPLOSION.start(this.tickCount);
+            case (emerge_bt)    -> this.EMERGE.start(this.tickCount);
+        }
+        super.handleEntityEvent(b);
     }
-    public void tick(){
+    @Override
+    public void tick()
+    {
+        this.setInvulnerable(this.EXPLOSION.isStarted() || this.EMERGE.isStarted());
+        /*
+        This part creates an additional explosion after attack when the time is right
+         */
+        if(this.attackTick != 0 && this.tickCount >= this.attackTick + attackTimeOffset)
+        {
+            this.level().explode(this, DamageSourceRegistry.unburnedExplosion(this), null,
+                    this.getX() + this.getLookAngle().x*2,
+                    this.getY() + 2,
+                    this.getZ() + this.getLookAngle().z*2,
+                    0.8f, true, Level.ExplosionInteraction.NONE);
+            this.attackTick = 0;
+            super.tick();
+            return;
+        }
+        // TODO: find a way to not use timedExplosionReady, I don't like this implementation
+        if(this.tickCount >= this.explosionTick + explosionTickCooldown)
+        {
+            this.level().broadcastEntityEvent(this, explosion_bt);
+            this.explosionTick = this.tickCount;
+            this.timedExplosionReady = true;
+        }
+        if(this.tickCount >= this.explosionTick + explosionTickOffset && this.timedExplosionReady)
+        {
+            this.explosionAttack();
+            this.explosionTick += explosionTickCooldown - explosionTickOffset;
+            this.timedExplosionReady = false;
+        }
         super.tick();
-        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
     }
-    public boolean doHurtTarget(@NotNull Entity entity) {
-        return super.doHurtTarget(entity);
-    }
-    public boolean hurt(@NotNull DamageSource source, float amount){
-        if(!this.emergeAnimationState.isStarted()
-        && !this.kickAnimationState.isStarted()
-        && !this.explosionAnimationState.isStarted()) return false;
-        if(amount > 10f && source.getDirectEntity() != null)
-        {
-            this.whenHurtTooMuch();
-            amount = 10f;
-        }
-        return super.hurt(source, amount);
-    }
-    public void whenHurtTooMuch()
+
+    private void explosionAttack()
     {
-        PyromancerMod.LOGGER.warn("My balls are in severe pain");
-        this.level().broadcastEntityEvent(this, (byte) 62);
+        // TODO: Make a proper attack, right now it's a placeholder
+        this.level().explode(this, DamageSourceRegistry.unburnedExplosion(this), null,
+                this.getX() + this.getLookAngle().x*2,
+                this.getY() + 2,
+                this.getZ() + this.getLookAngle().z*2,
+                3f, true, Level.ExplosionInteraction.NONE);
     }
-    public boolean removeWhenFarAway(double p_219457_) {
-        return false;
+
+    public boolean doHurtTarget(@NotNull Entity target)
+    {
+        if(target instanceof LivingEntity entity && entity.isBlocking())
+        {
+            if(entity instanceof Player player) player.getCooldowns().addCooldown(Items.SHIELD, 20);
+            entity.stopUsingItem();
+            entity.setDeltaMovement(this.getLookAngle().x(), 1, this.getLookAngle().z());
+            this.level().broadcastEntityEvent(this, kick_bt);
+            return super.doHurtTarget(entity);
+        }
+        this.level().broadcastEntityEvent(this, attack_bt);
+        this.attackTick = this.tickCount;
+        return super.doHurtTarget(target);
     }
-    public void startSeenByPlayer(@NotNull ServerPlayer player) {
-        super.startSeenByPlayer(player);
-        this.bossEvent.addPlayer(player);
+    @Override
+    public boolean hurt(@NotNull DamageSource damageSource, float amount)
+    {
+        if(damageSource.is(DamageTypeTags.IS_FIRE)) return false;
+        if(amount > 10f)
+        {
+            this.stopAllAnimations();
+            this.level().broadcastEntityEvent(this, kick_bt);
+            return super.hurt(damageSource, 10F + (float) Math.log(10 - amount));
+        }
+        return super.hurt(damageSource, amount);
     }
-    public void stopSeenByPlayer(@NotNull ServerPlayer player) {
-        super.stopSeenByPlayer(player);
-        this.bossEvent.removePlayer(player);
-    }
-    public boolean checkSpawnObstruction(@NotNull LevelReader levelReader) {
-        return super.checkSpawnObstruction(levelReader) && levelReader.noCollision(this, this.getType().getDimensions().makeBoundingBox(this.position()));
-    }
-    public static AttributeSupplier setAttributes(){
+    public static AttributeSupplier setAttributes()
+    {
         return Monster.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 500)
-                .add(Attributes.MOVEMENT_SPEED, 0.35f)
+                .add(Attributes.MAX_HEALTH, 350)
+                .add(Attributes.MOVEMENT_SPEED, 0.45f)
                 .add(Attributes.ARMOR, 10)
-                .add(Attributes.ATTACK_DAMAGE, 10)
+                .add(Attributes.ATTACK_DAMAGE, 1)
                 .add(Attributes.ATTACK_SPEED, 1)
                 .add(Attributes.ATTACK_KNOCKBACK, 1.2)
                 .add(Attributes.FOLLOW_RANGE, 64)
@@ -125,24 +144,20 @@ public class Unburned extends Monster {
                 .build();
     }
     @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(1, new UnburnedAttackGoal(this));
+    protected void registerGoals()
+    {
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2f, true));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 16.0F));
         this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
     }
-    private static class UnburnedAttackGoal extends MeleeAttackGoal{
-        public UnburnedAttackGoal(Unburned unburned){
-            super(unburned, 1.2, true);
-        }
-        public boolean canUse(){
-            if(!(this.mob instanceof Unburned unburned) || (!unburned.attackAnimationState.isStarted()
-                    && !unburned.explosionAnimationState.isStarted() && !unburned.jumpingAnimationState.isStarted()
-                    && !unburned.kickAnimationState.isStarted())){
-                return super.canUse();
-            } else {return false;}
-        }
+    private void stopAllAnimations()
+    {
+        if(this.ATTACK.isStarted())    this.ATTACK.stop();
+        if(this.KICK.isStarted())      this.KICK.stop();
+        if(this.EXPLOSION.isStarted()) this.EXPLOSION.stop();
+        if(this.EMERGE.isStarted())    this.EMERGE.stop();
     }
 }

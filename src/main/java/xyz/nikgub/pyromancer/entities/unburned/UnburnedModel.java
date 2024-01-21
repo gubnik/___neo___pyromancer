@@ -39,6 +39,7 @@ public class UnburnedModel<T extends Unburned> extends HierarchicalModel<T> {
 		this.ArmLeft = root.getChild("ArmLeft");
 	}
 
+	@SuppressWarnings("unused")
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
@@ -98,10 +99,14 @@ public class UnburnedModel<T extends Unburned> extends HierarchicalModel<T> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.walkingAnimation(limbSwing, limbSwingAmount);
 		this.idleAnimation(ageInTicks);
-		this.animate(entity.explosionAnimationState, UnburnedAnimations.UNBURNED_ATTACK_EXPLOSION, ageInTicks);
-		this.animate(entity.attackAnimationState, UnburnedAnimations.UNBURNED_ATTACK_MAIN, ageInTicks);
-		this.animate(entity.emergeAnimationState, UnburnedAnimations.UNBURNED_EMERGE, ageInTicks);
-		this.animate(entity.kickAnimationState, UnburnedAnimations.UNBURNED_ATTACK_KICK, ageInTicks);
+		// animations vvv
+		this.animate(entity.ATTACK   , UnburnedAnimations.UNBURNED_ATTACK_MAIN     , ageInTicks);
+		this.animate(entity.KICK     , UnburnedAnimations.UNBURNED_ATTACK_KICK     , ageInTicks);
+		this.animate(entity.EXPLOSION, UnburnedAnimations.UNBURNED_ATTACK_EXPLOSION, ageInTicks);
+		this.animate(entity.EMERGE   , UnburnedAnimations.UNBURNED_EMERGE          , ageInTicks);
+		// animations ^^^
+		this.Head.yRot = (float) Math.toRadians(netHeadYaw);
+		this.Head.xRot = (float) Math.toRadians(headPitch);
 	}
 	public void walkingAnimation(float limbSwing, float limbWSwingAmount){
 		float f = Math.min(0.4F, 2.6F * limbWSwingAmount);
