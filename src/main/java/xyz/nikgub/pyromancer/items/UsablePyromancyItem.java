@@ -26,7 +26,7 @@ import java.util.UUID;
 import java.util.function.BiFunction;
 
 /**
- * Class that should be extended whenever making pyromancy based on vanilla use system
+ * Class that should be extended whenever making pyromancy based on vanilla use system <p>
  * Not to be confused with {@link IPyromancyItem}, which is a general interface for any pyromancy
  */
 public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStupidTooltipItem {
@@ -40,7 +40,7 @@ public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStu
     }
 
     /**
-     * Method to provide an optional additional logic for {@link ItemRendererMixin} pyromancyRenderManager() method
+     * Method to provide an optional additional logic for {@link ItemRendererMixin} pyromancyRenderManager() method <p>
      * It is advised to limit it to scaling transformation to keep the integrity of render
      * @param poseStack     PoseStack to transform
      */

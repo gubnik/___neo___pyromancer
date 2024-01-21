@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.UUID;
 
 /**
- * Interface that enables pyromancy functionality
+ * Interface that enables pyromancy functionality <p>
  * Must be used when making any pyromancy
  */
 @UniqueEmberBehaviour(allow = UniqueEmberBehaviour.AllowanceModifier.DENY)

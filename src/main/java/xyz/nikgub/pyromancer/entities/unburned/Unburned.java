@@ -1,6 +1,5 @@
 package xyz.nikgub.pyromancer.entities.unburned;
 
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
@@ -23,19 +22,34 @@ import xyz.nikgub.pyromancer.entities.IFlamingGroveNativeEntity;
 import xyz.nikgub.pyromancer.registries.vanila.DamageSourceRegistry;
 
 public class Unburned extends Monster implements IFlamingGroveNativeEntity {
+    /**
+     * Related to attack_bt<p>
+     * Responsible for animating main attack
+     */
     public AnimationState    ATTACK = new AnimationState();
     private static final byte attack_bt    = 70;
+    /**
+     * Related to kick_bt<p>
+     * Responsible for animating counter-shield attack
+     */
     public AnimationState      KICK = new AnimationState();
     private static final byte kick_bt      = 71;
+    /**
+     * Related to explosion_bt<p>
+     * Responsible for animating timed explosion
+     */
     public AnimationState EXPLOSION = new AnimationState();
     private static final byte explosion_bt = 72;
+    /**
+     * Related to emerge_bt<p>
+     * Responsible for animating spawn animation
+     */
     public AnimationState    EMERGE = new AnimationState();
     private static final byte emerge_bt    = 73;
 
     /**
-     * When Unburned attacks, it set this field to current tickCount
-     * <p>
-     * When 8 ticks pass i.e. tickCount >= attackTick + 8 the mob actually deals damage
+     * When Unburned attacks, it set this field to current tickCount <p>
+     * When attackTimeOffset ticks pass i.e. tickCount >= attackTick + attackTimeOffset the mob actually deals damage
      */
     private int attackTick = 0;
     private static final int attackTimeOffset = 6;
@@ -51,21 +65,27 @@ public class Unburned extends Monster implements IFlamingGroveNativeEntity {
     @Override
     public void handleEntityEvent(byte b)
     {
+        /*
+        Doing it this way to allow for new animations being added and/or more vanilla bt events being introduced
+        <3 the byte event thing, truly genius idea on Mojang's part
+         */
         switch (b)
         {
             case (attack_bt)    -> this.ATTACK.start(this.tickCount);
             case (kick_bt)      -> this.KICK.start(this.tickCount);
             case (explosion_bt) -> this.EXPLOSION.start(this.tickCount);
             case (emerge_bt)    -> this.EMERGE.start(this.tickCount);
+            default             -> super.handleEntityEvent(b);
         }
-        super.handleEntityEvent(b);
     }
     @Override
     public void tick()
     {
+        // I might rethink this, not sure yet
         this.setInvulnerable(this.EXPLOSION.isStarted() || this.EMERGE.isStarted());
         /*
         This part creates an additional explosion after attack when the time is right
+        I pray to God it doesn't fail
          */
         if(this.attackTick != 0 && this.tickCount >= this.attackTick + attackTimeOffset)
         {
@@ -78,7 +98,14 @@ public class Unburned extends Monster implements IFlamingGroveNativeEntity {
             super.tick();
             return;
         }
-        // TODO: find a way to not use timedExplosionReady, I don't like this implementation
+        /*
+        TODO: find a way to not use timedExplosionReady, I don't like this implementation
+
+        Basically, we have explosionTick, every so often it broadcasts an event
+        Then it's being set to tickCount while setting timedExplosionReady to true
+        If timedExplosionReady is indeed true then after %appropriate_animation_delay% the actual attack happens
+        After the attack, the cycle continues
+         */
         if(this.tickCount >= this.explosionTick + explosionTickCooldown)
         {
             this.level().broadcastEntityEvent(this, explosion_bt);
@@ -106,6 +133,11 @@ public class Unburned extends Monster implements IFlamingGroveNativeEntity {
 
     public boolean doHurtTarget(@NotNull Entity target)
     {
+        /*
+        I hate stupid shield so enforce suffering on shield users
+        If a player (or a living entity to be precise) blocks, Unburned yeets them into the air + cooldowns the shield
+        TODO: make a proper yeeting mechanism, this one doesn't work very well
+         */
         if(target instanceof LivingEntity entity && entity.isBlocking())
         {
             if(entity instanceof Player player) player.getCooldowns().addCooldown(Items.SHIELD, 20);
@@ -121,7 +153,8 @@ public class Unburned extends Monster implements IFlamingGroveNativeEntity {
     @Override
     public boolean hurt(@NotNull DamageSource damageSource, float amount)
     {
-        if(damageSource.is(DamageTypeTags.IS_FIRE)) return false;
+        /* placeholder for the case of me wanting to add specific immunities */
+        // if(damageSource.is(DamageTypeTags.IS_FIRE)) return false;
         if(amount > 10f)
         {
             this.stopAllAnimations();
@@ -130,6 +163,7 @@ public class Unburned extends Monster implements IFlamingGroveNativeEntity {
         }
         return super.hurt(damageSource, amount);
     }
+    // One attribute supplier to rule them all
     public static AttributeSupplier setAttributes()
     {
         return Monster.createMobAttributes()
@@ -153,6 +187,10 @@ public class Unburned extends Monster implements IFlamingGroveNativeEntity {
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
     }
+    /*
+     Realistically speaking, I don't need to have this because of the way MC handles animations
+     But I know Mojang's code too well to not put a failsafe
+     */
     private void stopAllAnimations()
     {
         if(this.ATTACK.isStarted())    this.ATTACK.stop();

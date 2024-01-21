@@ -22,7 +22,7 @@ public interface IContainerItem {
     ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt);
 
     /**
-     * Method that gets a copy of itemstack from a slot of an itemstack
+     * Method that gets a copy of itemstack from a slot of an itemstack <p>
      * Made not-static to enforce readability
      * @param target        ItemStack with an associated item handling capability
      * @param id            ID of a slot
@@ -35,7 +35,7 @@ public interface IContainerItem {
         return AR.get();
     }
     /**
-     * Method that sets a copy of itemstack to a slot of an itemstack
+     * Method that sets a copy of itemstack to a slot of an itemstack <p>
      * Made not-static to enforce readability
      * @param target        ItemStack with an associated item handling capability
      * @param value         ItemStack that will have its copy placed in a slot
