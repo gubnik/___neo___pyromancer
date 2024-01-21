@@ -19,9 +19,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.entities.IFlamingGroveNativeEntity;
+import xyz.nikgub.pyromancer.entities.ISafeAnimatedEntity;
 import xyz.nikgub.pyromancer.registries.vanila.DamageSourceRegistry;
 
-public class Unburned extends Monster implements IFlamingGroveNativeEntity {
+public class Unburned extends Monster implements IFlamingGroveNativeEntity, ISafeAnimatedEntity {
     /**
      * Related to attack_bt<p>
      * Responsible for animating main attack
@@ -191,7 +192,8 @@ public class Unburned extends Monster implements IFlamingGroveNativeEntity {
      Realistically speaking, I don't need to have this because of the way MC handles animations
      But I know Mojang's code too well to not put a failsafe
      */
-    private void stopAllAnimations()
+    @Override
+    public void stopAllAnimations()
     {
         if(this.ATTACK.isStarted())    this.ATTACK.stop();
         if(this.KICK.isStarted())      this.KICK.stop();
