@@ -12,12 +12,7 @@ import java.util.function.Function;
  * Interface for {@link ItemStackMixin}'s getHoverNameMixinHead()
  */
 public interface IGradientNameItem {
-    /**
-     * Method to cast into Item
-     * @return                  This but Item
-     */
-    @SuppressWarnings("unused")
-    default Item self()
+    private Item self()
     {
         return (Item) this;
     }
