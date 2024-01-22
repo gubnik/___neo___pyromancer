@@ -18,35 +18,30 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import xyz.nikgub.pyromancer.animations.DeterminedAnimation;
 import xyz.nikgub.pyromancer.entities.IFlamingGroveNativeEntity;
 import xyz.nikgub.pyromancer.entities.ISafeAnimatedEntity;
 import xyz.nikgub.pyromancer.registries.vanila.DamageSourceRegistry;
 
+import java.util.List;
+
 public class Unburned extends Monster implements IFlamingGroveNativeEntity, ISafeAnimatedEntity {
     /**
-     * Related to attack_bt<p>
      * Responsible for animating main attack
      */
     public AnimationState    ATTACK = new AnimationState();
-    private static final byte attack_bt    = 70;
     /**
-     * Related to kick_bt<p>
      * Responsible for animating counter-shield attack
      */
     public AnimationState      KICK = new AnimationState();
-    private static final byte kick_bt      = 71;
     /**
-     * Related to explosion_bt<p>
      * Responsible for animating timed explosion
      */
     public AnimationState EXPLOSION = new AnimationState();
-    private static final byte explosion_bt = 72;
     /**
-     * Related to emerge_bt<p>
      * Responsible for animating spawn animation
      */
     public AnimationState    EMERGE = new AnimationState();
-    private static final byte emerge_bt    = 73;
 
     /**
      * When Unburned attacks, it set this field to current tickCount <p>
@@ -66,18 +61,8 @@ public class Unburned extends Monster implements IFlamingGroveNativeEntity, ISaf
     @Override
     public void handleEntityEvent(byte b)
     {
-        /*
-        Doing it this way to allow for new animations being added and/or more vanilla bt events being introduced
-        <3 the byte event thing, truly genius idea on Mojang's part
-         */
-        switch (b)
-        {
-            case (attack_bt)    -> this.ATTACK.start(this.tickCount);
-            case (kick_bt)      -> this.KICK.start(this.tickCount);
-            case (explosion_bt) -> this.EXPLOSION.start(this.tickCount);
-            case (emerge_bt)    -> this.EMERGE.start(this.tickCount);
-            default             -> super.handleEntityEvent(b);
-        }
+        // <3 the byte event thing, truly genius idea on Mojang's part
+        this.safelyHandleAnimations(b);
     }
     @Override
     public void tick()
@@ -109,7 +94,7 @@ public class Unburned extends Monster implements IFlamingGroveNativeEntity, ISaf
          */
         if(this.tickCount >= this.explosionTick + explosionTickCooldown)
         {
-            this.level().broadcastEntityEvent(this, explosion_bt);
+            this.runAnimationByState(EXPLOSION, true);
             this.explosionTick = this.tickCount;
             this.timedExplosionReady = true;
         }
@@ -144,13 +129,14 @@ public class Unburned extends Monster implements IFlamingGroveNativeEntity, ISaf
             if(entity instanceof Player player) player.getCooldowns().addCooldown(Items.SHIELD, 20);
             entity.stopUsingItem();
             entity.setDeltaMovement(this.getLookAngle().x(), 1, this.getLookAngle().z());
-            this.level().broadcastEntityEvent(this, kick_bt);
+            this.runAnimationByState(KICK, true);
             return super.doHurtTarget(entity);
         }
-        this.level().broadcastEntityEvent(this, attack_bt);
+        this.runAnimationByState(ATTACK, false);
         this.attackTick = this.tickCount;
         return super.doHurtTarget(target);
     }
+
     @Override
     public boolean hurt(@NotNull DamageSource damageSource, float amount)
     {
@@ -159,7 +145,7 @@ public class Unburned extends Monster implements IFlamingGroveNativeEntity, ISaf
         if(amount > 10f)
         {
             this.stopAllAnimations();
-            this.level().broadcastEntityEvent(this, kick_bt);
+            this.runAnimationByState(KICK, true);
             return super.hurt(damageSource, 10F + (float) Math.log(10 - amount));
         }
         return super.hurt(damageSource, amount);
@@ -188,16 +174,14 @@ public class Unburned extends Monster implements IFlamingGroveNativeEntity, ISaf
         this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
     }
-    /*
-     Realistically speaking, I don't need to have this because of the way MC handles animations
-     But I know Mojang's code too well to not put a failsafe
-     */
+
     @Override
-    public void stopAllAnimations()
-    {
-        if(this.ATTACK.isStarted())    this.ATTACK.stop();
-        if(this.KICK.isStarted())      this.KICK.stop();
-        if(this.EXPLOSION.isStarted()) this.EXPLOSION.stop();
-        if(this.EMERGE.isStarted())    this.EMERGE.stop();
+    public @NotNull List<DeterminedAnimation> getAllAnimations() {
+        return List.of(
+                new DeterminedAnimation(this.ATTACK, DeterminedAnimation.AnimationPurpose.MAIN_ATTACK      , (byte) 70, 0),
+                new DeterminedAnimation(this.EXPLOSION, DeterminedAnimation.AnimationPurpose.SPECIAL_ATTACK, (byte) 71, 2),
+                new DeterminedAnimation(this.KICK, DeterminedAnimation.AnimationPurpose.SPECIAL_ATTACK     , (byte) 72, 1),
+                new DeterminedAnimation(this.EMERGE, DeterminedAnimation.AnimationPurpose.SPAWN            , (byte) 73, 0)
+        );
     }
 }
