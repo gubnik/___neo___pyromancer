@@ -6,7 +6,7 @@ import net.minecraft.world.entity.Entity;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
 import xyz.nikgub.pyromancer.entities.attack_effects.AttackEffectEntity;
 import xyz.nikgub.pyromancer.entities.projectiles.SizzlingHandFireball;
-import xyz.nikgub.pyromancer.entities.unburned.Unburned;
+import xyz.nikgub.pyromancer.entities.unburned.UnburnedEntity;
 
 public class DamageSourceRegistry {
     public static DamageSource hellblaze(Entity entity)
@@ -42,7 +42,7 @@ public class DamageSourceRegistry {
         );
     }
 
-    public static DamageSource unburnedExplosion(Unburned unburned)
+    public static DamageSource unburnedExplosion(UnburnedEntity unburned)
     {
         assert unburned.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();return new DamageSource(
                 unburned.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.UNBURNED_KEY),

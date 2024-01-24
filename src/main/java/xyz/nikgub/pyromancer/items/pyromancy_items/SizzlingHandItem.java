@@ -1,4 +1,4 @@
-package xyz.nikgub.pyromancer.items;
+package xyz.nikgub.pyromancer.items.pyromancy_items;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
@@ -13,6 +13,7 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.animations.ClientSizzlingHandExtension;
 import xyz.nikgub.pyromancer.entities.projectiles.SizzlingHandFireball;
+import xyz.nikgub.pyromancer.items.UsablePyromancyItem;
 import xyz.nikgub.pyromancer.registries.vanila.AttributeRegistry;
 import xyz.nikgub.pyromancer.util.ItemUtils;
 

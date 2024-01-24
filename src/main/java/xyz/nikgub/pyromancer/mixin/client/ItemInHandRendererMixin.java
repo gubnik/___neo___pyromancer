@@ -10,14 +10,13 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import xyz.nikgub.pyromancer.ember.Ember;
-import xyz.nikgub.pyromancer.ember.EmberAnimation;
-import xyz.nikgub.pyromancer.registries.custom.EmberRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import xyz.nikgub.pyromancer.ember.Ember;
+import xyz.nikgub.pyromancer.registries.custom.EmberRegistry;
 
 @SuppressWarnings("unused")
 @Mixin(ItemInHandRenderer.class)
@@ -29,10 +28,6 @@ public abstract class ItemInHandRendererMixin {
     @Shadow
     public abstract void applyItemArmTransform(PoseStack poseStack, HumanoidArm arm, float f);
 
-    /**
-     * Injection that patches up first person view of itemstack with ember
-     * Refer to {@link EmberAnimation} for additional info
-     */
     @Inject(method = "renderArmWithItem", at = @At("HEAD"), cancellable = true)
     public void renderArmWithItemMixinHead(AbstractClientPlayer player, float v, float v1, InteractionHand hand, float v2, ItemStack itemStack, float v3, PoseStack poseStack, MultiBufferSource multiBufferSource, int i1,
                                         CallbackInfo callbackInfo) {

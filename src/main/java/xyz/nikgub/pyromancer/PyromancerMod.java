@@ -50,7 +50,7 @@ import xyz.nikgub.pyromancer.ember.Ember;
 import xyz.nikgub.pyromancer.enchantments.BlazingJournalEnchantment;
 import xyz.nikgub.pyromancer.entities.attack_effects.flaming_guillotine.FlamingGuillotineModel;
 import xyz.nikgub.pyromancer.entities.attack_effects.flaming_guillotine.FlamingGuillotineRenderer;
-import xyz.nikgub.pyromancer.entities.unburned.Unburned;
+import xyz.nikgub.pyromancer.entities.unburned.UnburnedEntity;
 import xyz.nikgub.pyromancer.entities.unburned.UnburnedModel;
 import xyz.nikgub.pyromancer.entities.unburned.UnburnedRenderer;
 import xyz.nikgub.pyromancer.events.BlazingJournalAttackEvent;
@@ -78,7 +78,7 @@ public class PyromancerMod
     public static final RegistryObject<CreativeModeTab> PYROMANCER_TAB = CREATIVE_MODE_TABS.register("pyromancer", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.pyromancer"))
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(Items.FIRE_CHARGE::getDefaultInstance)
+            .icon(() -> ItemRegistry.BLAZING_JOURNAL.get().getDefaultInstance())
             .build());
 
     public PyromancerMod()
@@ -117,7 +117,7 @@ public class PyromancerMod
     }
     private void entityAttributeSupplier(EntityAttributeCreationEvent event)
     {
-        event.put(EntityTypeRegistry.UNBURNED.get(), Unburned.setAttributes());
+        event.put(EntityTypeRegistry.UNBURNED.get(), UnburnedEntity.setAttributes());
     }
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {

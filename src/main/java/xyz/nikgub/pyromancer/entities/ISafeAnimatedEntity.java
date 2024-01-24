@@ -11,8 +11,15 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
+ * <p>Interface that allows for safe interjection into entity's animation behaviour
+ * by introducing generalized behaviour.</p>
+ * <h3>Possibilities</h3>
+ * <p>Starting and stopping animations solely by {@link AnimationState} or {@link xyz.nikgub.pyromancer.animations.DeterminedAnimation.AnimationPurpose}.</p>
+ * <p>Generalized byte event handling via default method.</p>
+ * <h3>Limitations</h3>
+ * <p>Determined animations must have 70 as the smallest byte signal and must not exceed 153 animations total.</p>
+ * <p>Generalized behaviour has no control over animation states that were not introduced by getAllAnimations().</p>
  * @author nikgub_
- * Interface to allow safe interference into entity's animations
  */
 @ApiStatus.Experimental
 public interface ISafeAnimatedEntity {
@@ -82,6 +89,11 @@ public interface ISafeAnimatedEntity {
         self().level().broadcastEntityEvent(self(), msg);
     }
 
+    /**
+     * Method that sends a corresponding byte as an entity event to entity's level
+     * @param animationPurpose      AnimationPurpose serving as a search key
+     * @param override              True to override currently running animation
+     */
     @ApiStatus.Internal
     default void runAnimationByPurpose(DeterminedAnimation.AnimationPurpose animationPurpose, boolean override)
     {
@@ -92,7 +104,7 @@ public interface ISafeAnimatedEntity {
 
     /**
      * Default method that handles byte events
-     * @param bt                    Byte event provided by Level.handleEntityEvent(Entity, byte)
+     * @param bt                    Byte event handled by Level.handleEntityEvent(Entity, byte)
      */
     default void safelyHandleAnimations(final byte bt)
     {

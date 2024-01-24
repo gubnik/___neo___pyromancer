@@ -25,7 +25,7 @@ import xyz.nikgub.pyromancer.registries.vanila.DamageSourceRegistry;
 
 import java.util.List;
 
-public class Unburned extends Monster implements IFlamingGroveNativeEntity, ISafeAnimatedEntity {
+public class UnburnedEntity extends Monster implements IFlamingGroveNativeEntity, ISafeAnimatedEntity {
     /**
      * Responsible for animating main attack
      */
@@ -55,7 +55,7 @@ public class Unburned extends Monster implements IFlamingGroveNativeEntity, ISaf
     private static final int explosionTickCooldown = 200;
     private boolean timedExplosionReady = false;
 
-    public Unburned(EntityType<? extends Monster> entityType, Level level) {
+    public UnburnedEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
     }
     @Override
