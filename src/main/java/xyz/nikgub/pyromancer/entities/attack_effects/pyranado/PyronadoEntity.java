@@ -20,12 +20,12 @@ public class PyronadoEntity extends AttackEffectEntity {
     public float sizeCoefficient = 0f;
     public PyronadoEntity(EntityType<? extends AttackEffectEntity> entityType, Level level) {
         super(entityType, level);
-        this.lifetime = 40;
+        this.lifetime = 60;
     }
     @Override
     public void tick()
     {
-        this.sizeCoefficient = (float) this.tickCount / 20f;
+        this.sizeCoefficient = Mth.clamp((float) this.tickCount / 20f, 0f, 2f);
         if(!(this.level() instanceof ServerLevel serverLevel)) return;
         final float c = this.sizeCoefficient;
         final double R = 4 * c;
@@ -46,15 +46,13 @@ public class PyronadoEntity extends AttackEffectEntity {
         double[] VALUES;
         double MAX;
         Vec3 direction;
-        double cx = this.getX();
-        double cy = this.getY() + 1;
-        double cz = this.getZ();
-        for(LivingEntity entity : EntityUtils.entityCollector(new Vec3(cx, cy, cz), 4 * this.sizeCoefficient, owner.level())){
+        double cy = Y + this.tickCount * 0.1;
+        for(LivingEntity entity : EntityUtils.entityCollector(new Vec3(X, cy, Z), 2 + 4 * this.sizeCoefficient, owner.level())){
             if(!entity.equals(owner)){
                 entity.hurt(DamageSourceRegistry.pyronado(this, owner), (float) owner.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get()));
-                dx = this.getX() - entity.getX();
-                dy = this.getY() - entity.getY();
-                dz = this.getZ() - entity.getZ();
+                dx = X - entity.getX();
+                dy = cy - entity.getY();
+                dz = Z - entity.getZ();
                 VALUES = new double[]{
                         Mth.abs((float)dx),
                         Mth.abs((float)dy),

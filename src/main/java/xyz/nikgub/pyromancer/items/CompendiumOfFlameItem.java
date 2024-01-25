@@ -155,7 +155,7 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
      */
     @Override
     public @NotNull Multimap<Attribute, AttributeModifier> getAttributeModifiers(@NotNull EquipmentSlot slot, ItemStack itemStack) {
-        if(!(getCurrentlyActiveItem(itemStack).getItem() instanceof UsablePyromancyItem pyromancyItem)) return new ImmutableMultimap.Builder<Attribute, AttributeModifier>().build();
+        if(!(getCurrentlyActiveItem(itemStack).getItem() instanceof UsablePyromancyItem pyromancyItem) || itemStack.getOrCreateTag().getBoolean(IS_OFFHAND)) return new ImmutableMultimap.Builder<Attribute, AttributeModifier>().build();
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
         if(slot == EquipmentSlot.MAINHAND)
         {

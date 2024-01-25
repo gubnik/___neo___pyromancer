@@ -1,6 +1,4 @@
-package xyz.nikgub.pyromancer.entities.attack_effects.pyranado;// Made with Blockbench 4.9.3
-// Exported for Minecraft version 1.17 or later with Mojang mappings
-// Paste this class into your mod and generate all required imports
+package xyz.nikgub.pyromancer.entities.attack_effects.pyranado;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -48,12 +46,8 @@ public class PyronadoModel<T extends PyronadoEntity> extends HierarchicalModel<T
 
 	@Override
 	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		//this.animate(entity.lifecycle, PyronadoAnimations.LIFECYCLE, ageInTicks);
 		ModelPart[] arr = {this.big, this.medium, this.small};
-		for(ModelPart part : arr)
-		{
-			part.yRot += (ageInTicks * 0.02f);
-		}
+		for(ModelPart part : arr) part.yRot += ageInTicks * (0.01f * entity.sizeCoefficient);
 	}
 
 	@Override
