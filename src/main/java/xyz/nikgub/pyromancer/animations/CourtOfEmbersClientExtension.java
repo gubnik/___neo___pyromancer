@@ -12,15 +12,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
-public class ClientSizzlingHandExtension implements IClientItemExtensions {
-    public static HumanoidModel.ArmPose MAIN = HumanoidModel.ArmPose.create("sizzling_hand", false, (model, entity, arm) -> {
+public class CourtOfEmbersClientExtension implements IClientItemExtensions {
+    public static HumanoidModel.ArmPose MAIN = HumanoidModel.ArmPose.create("court_of_embers", false, (model, entity, arm) -> {
         int tick;
         if(entity instanceof Player player) tick = player.getUseItemRemainingTicks();
         else return;
         if(tick <= 0) return;
         ModelPart armPart = (arm.equals(HumanoidArm.RIGHT)) ? model.rightArm : model.leftArm;
-        armPart.xRot = -1 * Mth.cos( (float) Math.PI * tick * 9 / 180) / 2 + model.head.xRot - (float) Math.PI / 2;
-        armPart.zRot = Mth.cos( (float) Math.PI * tick * 9 / 180);
+        armPart.xRot = (float) Math.PI - Mth.sin( (float) Math.PI * tick * 9 / 180) * -1 * Mth.cos( (float) Math.PI * tick * 9 / 180);
+        armPart.zRot = -1 * Mth.cos( (float) Math.PI * tick * 9 / 180) / 2;
     });
     @Override
     public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {

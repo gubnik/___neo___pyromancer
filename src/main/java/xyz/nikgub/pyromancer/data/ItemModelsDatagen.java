@@ -19,6 +19,7 @@ import net.minecraftforge.registries.RegistryObject;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.registries.vanila.ItemRegistry;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemModelsDatagen extends ItemModelProvider {
@@ -29,10 +30,11 @@ public class ItemModelsDatagen extends ItemModelProvider {
     @Override
     protected void registerModels() {
         List<Item> SPAWN_EGGS = ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).filter(item -> item instanceof ForgeSpawnEggItem).toList();
-        List<Item> TOOLS = ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).filter(item -> item instanceof TieredItem).toList();
-        List<Item> CUSTOM = List.of(ItemRegistry.SIZZLING_HAND.get());
+        List<Item> TOOLS = new ArrayList<>(ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).filter(item -> item instanceof TieredItem).toList());
+        TOOLS.add(ItemRegistry.COURT_OF_EMBERS.get());
+        List<Item> CUSTOM = List.of(ItemRegistry.SIZZLING_HAND.get(), ItemRegistry.COMPENDIUM_OF_FLAME.get());
         List<BlockItem> BLOCK_ITEM = ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).filter(item -> item instanceof BlockItem blockItem && !(blockItem.getBlock() instanceof DoorBlock)).map(item -> (BlockItem) item).toList();
-        List<Item> ALL_ELSE = ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).filter(item -> !SPAWN_EGGS.contains(item) && !CUSTOM.contains(item) && !BLOCK_ITEM.contains(item)).toList();
+        List<Item> ALL_ELSE = ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).filter(item -> !SPAWN_EGGS.contains(item) && !CUSTOM.contains(item) && !BLOCK_ITEM.contains(item) && !TOOLS.contains(item)).toList();
         for (Item item : SPAWN_EGGS)
             this.spawnEggItem(item);
         for (Item item : TOOLS) {
@@ -46,18 +48,21 @@ public class ItemModelsDatagen extends ItemModelProvider {
         for (Item item : ALL_ELSE)
             this.basicItem(item);
     }
+
     public ItemModelBuilder spawnEggItem(Item item)
     {
         return getBuilder(item.toString())
                 .parent(new ModelFile.UncheckedModelFile("item/generated"))
                 .texture("layer0", new ResourceLocation("minecraft:item/spawn_egg"));
     }
+
     public ItemModelBuilder tieredItem(ResourceLocation item)
     {
         return getBuilder(item.toString())
                 .parent(new ModelFile.UncheckedModelFile("item/handheld"))
                 .texture("layer0", new ResourceLocation(item.getNamespace(), "item/" + item.getPath()));
     }
+
     public ItemModelBuilder blockItem(BlockItem item)
     {
         String mod = "";

@@ -13,6 +13,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
@@ -44,7 +45,7 @@ public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStu
      * It is advised to limit it to scaling transformation to keep the integrity of render
      * @param poseStack     PoseStack to transform
      */
-    public void compendiumTransforms(PoseStack poseStack)
+    public void compendiumTransforms(PoseStack poseStack, ItemDisplayContext displayContext)
     {
         poseStack.scale(1f,1f,1f);
     }

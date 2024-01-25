@@ -17,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class UnburnedModel<T extends UnburnedEntity> extends HierarchicalModel<T> {
 	private final ModelPart root;
-	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(PyromancerMod.MOD_ID, "unburned"), "main");
 	private final ModelPart LegRight;
 	private final ModelPart LegLeft;

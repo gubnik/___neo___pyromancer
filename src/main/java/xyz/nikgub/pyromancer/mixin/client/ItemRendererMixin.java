@@ -101,7 +101,7 @@ public abstract class ItemRendererMixin {
         if(displayContext == ItemDisplayContext.THIRD_PERSON_LEFT_HAND || displayContext == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND) poseStack.scale(1.33f, 1.33f, 1.33f);
         if(displayContext == ItemDisplayContext.FIRST_PERSON_LEFT_HAND) poseStack.rotateAround(Axis.YP.rotationDegrees(-90), 0.5f, 0.4f, 0.5f);
         else poseStack.rotateAround(Axis.YP.rotationDegrees(90), 0.5f, 0.4f, 0.5f);
-        usablePyromancyItem.compendiumTransforms(poseStack);
+        usablePyromancyItem.compendiumTransforms(poseStack, displayContext);
         for (RenderType renderType : bakedModelPyromancy.getRenderTypes(pyromancy, true))
         {
             vertex = multiBufferSource.getBuffer(renderType);

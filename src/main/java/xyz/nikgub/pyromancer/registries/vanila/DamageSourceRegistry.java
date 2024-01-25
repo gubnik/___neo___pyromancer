@@ -5,6 +5,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
 import xyz.nikgub.pyromancer.entities.attack_effects.AttackEffectEntity;
+import xyz.nikgub.pyromancer.entities.attack_effects.pyranado.PyronadoEntity;
 import xyz.nikgub.pyromancer.entities.projectiles.SizzlingHandFireball;
 import xyz.nikgub.pyromancer.entities.unburned.UnburnedEntity;
 
@@ -17,6 +18,7 @@ public class DamageSourceRegistry {
                 entity
         );
     }
+
     public static DamageSource firebriar(Entity entity)
     {
         assert entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();return new DamageSource(
@@ -24,14 +26,25 @@ public class DamageSourceRegistry {
                 entity
         );
     }
+
     public static DamageSource sizzlingHand(SizzlingHandFireball sizzlingHandFireball, Entity owner)
     {
         assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();return new DamageSource(
-                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HELLBLAZE_KEY),
-                sizzlingHandFireball,
-                owner
-        );
+            owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.SIZZLING_HAND_KEY),
+            sizzlingHandFireball,
+            owner
+    );
     }
+
+    public static DamageSource pyronado(PyronadoEntity pyronadoEntity, Entity owner)
+    {
+        assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();return new DamageSource(
+            owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.COURT_OF_EMBERS_KEY),
+            pyronadoEntity,
+            owner
+    );
+    }
+
     public static DamageSource blazingJournal(AttackEffectEntity entity, Entity owner)
     {
         assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();

@@ -50,6 +50,8 @@ import xyz.nikgub.pyromancer.ember.Ember;
 import xyz.nikgub.pyromancer.enchantments.BlazingJournalEnchantment;
 import xyz.nikgub.pyromancer.entities.attack_effects.flaming_guillotine.FlamingGuillotineModel;
 import xyz.nikgub.pyromancer.entities.attack_effects.flaming_guillotine.FlamingGuillotineRenderer;
+import xyz.nikgub.pyromancer.entities.attack_effects.pyranado.PyronadoModel;
+import xyz.nikgub.pyromancer.entities.attack_effects.pyranado.PyronadoRenderer;
 import xyz.nikgub.pyromancer.entities.unburned.UnburnedEntity;
 import xyz.nikgub.pyromancer.entities.unburned.UnburnedModel;
 import xyz.nikgub.pyromancer.entities.unburned.UnburnedRenderer;
@@ -108,10 +110,12 @@ public class PyromancerMod
     }
     private void setupClient(final FMLCommonSetupEvent event) {
         EntityRenderers.register(EntityTypeRegistry.FLAMING_GUILLOTINE.get(), FlamingGuillotineRenderer::new);
+        EntityRenderers.register(EntityTypeRegistry.PYRONADO.get(), PyronadoRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.UNBURNED.get(), UnburnedRenderer::new);
     }
     private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(FlamingGuillotineModel.LAYER_LOCATION, FlamingGuillotineModel::createBodyLayer);
+        event.registerLayerDefinition(PyronadoModel.LAYER_LOCATION, PyronadoModel::createBodyLayer);
         event.registerLayerDefinition(UnburnedModel.LAYER_LOCATION, UnburnedModel::createBodyLayer);
         //event.registerLayerDefinition(PyromancerArmorModel.LAYER_LOCATION, PyromancerArmorModel::createBodyLayer);
     }

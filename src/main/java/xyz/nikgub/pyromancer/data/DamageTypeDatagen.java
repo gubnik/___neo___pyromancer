@@ -20,11 +20,13 @@ import java.util.concurrent.CompletableFuture;
 public class DamageTypeDatagen extends TagsProvider<DamageType> {
     public static ResourceKey<DamageType> HELLBLAZE_KEY = register("hellblaze");
     public static ResourceKey<DamageType> SIZZLING_HAND_KEY = register("sizzling_hand");
+    public static ResourceKey<DamageType> COURT_OF_EMBERS_KEY = register("court_of_embers");
     public static ResourceKey<DamageType> FIREBRIAR_KEY = register("firebriar");
     public static ResourceKey<DamageType> BLAZING_JOURNAL_PROJECTION_KEY = register("blazing_journal_projection");
     public static ResourceKey<DamageType> UNBURNED_KEY = register("unburned");
     public static DamageType HELLBLAZE = new DamageType(HELLBLAZE_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
     public static DamageType SIZZLING_HAND = new DamageType(SIZZLING_HAND_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
+    public static DamageType COURT_OF_EMBERS = new DamageType(COURT_OF_EMBERS_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
     public static DamageType FIREBRIAR = new DamageType(FIREBRIAR_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1f);
     public static DamageType BLAZING_JOURNAL_PROJECTION = new DamageType(BLAZING_JOURNAL_PROJECTION_KEY.location().getPath(), DamageScaling.NEVER, 0);
     public static DamageType UNBURNED = new DamageType(UNBURNED_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0);
@@ -48,16 +50,19 @@ public class DamageTypeDatagen extends TagsProvider<DamageType> {
         tag(JOURNAL_PROJECTION)
                 .add(BLAZING_JOURNAL_PROJECTION_KEY);
         tag(DamageTypeTags.IS_PROJECTILE)
-                .add(SIZZLING_HAND_KEY);
+                .add(SIZZLING_HAND_KEY)
+                .add(COURT_OF_EMBERS_KEY);
         tag(DamageTypeTags.IS_FIRE)
                 .add(HELLBLAZE_KEY)
                 .add(SIZZLING_HAND_KEY)
+                .add(COURT_OF_EMBERS_KEY)
                 .add(FIREBRIAR_KEY)
                 .add(BLAZING_JOURNAL_PROJECTION_KEY);
     }
     public static void generate(BootstapContext<DamageType> bootstrap) {
         bootstrap.register(HELLBLAZE_KEY, HELLBLAZE);
         bootstrap.register(SIZZLING_HAND_KEY, SIZZLING_HAND);
+        bootstrap.register(COURT_OF_EMBERS_KEY, COURT_OF_EMBERS);
         bootstrap.register(FIREBRIAR_KEY, FIREBRIAR);
         bootstrap.register(BLAZING_JOURNAL_PROJECTION_KEY, BLAZING_JOURNAL_PROJECTION);
         bootstrap.register(UNBURNED_KEY, UNBURNED);

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "pyromancer:item/iron_mace"
+    "layer0": "pyromancer:item/court_of_embers"
   }
 }

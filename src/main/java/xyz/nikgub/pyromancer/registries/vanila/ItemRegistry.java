@@ -9,6 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.items.*;
+import xyz.nikgub.pyromancer.items.pyromancy_items.CourtOfEmbersItem;
 import xyz.nikgub.pyromancer.items.pyromancy_items.SizzlingHandItem;
 import xyz.nikgub.pyromancer.util.GeneralUtils;
 
@@ -21,8 +22,7 @@ public class ItemRegistry {
             () -> new CompendiumOfFlameItem(new Item.Properties()));
     public static RegistryObject<Item> EMBER_ITEM = ITEMS.register("ember",
             () -> new EmberItem(new Item.Properties()));
-    public static RegistryObject<Item> SIZZLING_HAND = ITEMS.register("sizzling_hand",
-            () -> new SizzlingHandItem(new Item.Properties()));
+
     public static RegistryObject<Item> BLAZING_QUILL = ITEMS.register("blazing_quill",
             () -> new QuillItem(new Item.Properties(),
                     ((player, weapon, journal) -> {
@@ -35,6 +35,12 @@ public class ItemRegistry {
                 }
             }
     );
+
+    public static RegistryObject<Item> SIZZLING_HAND = ITEMS.register("sizzling_hand",
+            () -> new SizzlingHandItem(new Item.Properties()));
+    public static RegistryObject<Item> COURT_OF_EMBERS = ITEMS.register("court_of_embers",
+            () -> new CourtOfEmbersItem(new Item.Properties()));
+
     public static RegistryObject<Item> WOODEN_MACE = ITEMS.register("wooden_mace",
             () -> new MaceItem(Tiers.WOOD, new Item.Properties().stacksTo(1)));
     public static RegistryObject<Item> STONE_MACE = ITEMS.register("stone_mace",

@@ -21,12 +21,12 @@ import org.jetbrains.annotations.NotNull;
 public class SizzlingHandFireball extends Fireball implements ItemSupplier {
     public final int maxLifetime;
     public final float damage;
-    public SizzlingHandFireball(EntityType<? extends Fireball> fireball, Level level) {
+    public SizzlingHandFireball(EntityType<? extends SizzlingHandFireball> fireball, Level level) {
         super(fireball, level);
         this.damage = 4f;
         this.maxLifetime = 20;
     }
-    public SizzlingHandFireball(EntityType<? extends Fireball> fireball, Level level, float damage, int maxLifetime) {
+    public SizzlingHandFireball(EntityType<? extends SizzlingHandFireball> fireball, Level level, float damage, int maxLifetime) {
         super(fireball, level);
         this.damage = damage;
         this.maxLifetime = maxLifetime;
@@ -37,6 +37,7 @@ public class SizzlingHandFireball extends Fireball implements ItemSupplier {
         Entity owner = this.getOwner();
         if (!this.level().isClientSide && !(entity instanceof SizzlingHandFireball)) {
             entity.setSecondsOnFire(5);
+            if(owner == null) return;
             if(owner != entity) this.collisionEffect(entity.level());
             if (!entity.hurt(DamageSourceRegistry.sizzlingHand(this, owner), damage)) {
                 entity.setRemainingFireTicks(entity.getRemainingFireTicks());
