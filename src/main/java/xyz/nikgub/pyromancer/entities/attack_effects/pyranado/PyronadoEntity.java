@@ -25,6 +25,7 @@ public class PyronadoEntity extends AttackEffectEntity {
     @Override
     public void tick()
     {
+        super.tick();
         this.sizeCoefficient = Mth.clamp((float) this.tickCount / 20f, 0f, 2f);
         if(!(this.level() instanceof ServerLevel serverLevel)) return;
         final float c = this.sizeCoefficient;
@@ -36,7 +37,6 @@ public class PyronadoEntity extends AttackEffectEntity {
         final double cosK = R * Math.cos(Math.toRadians(this.tickCount * 18));
         serverLevel.sendParticles(ParticleTypes.FLAME, X + sinK, Y + this.tickCount * 0.1, Z + cosK, (int)(1 + 5 * c), 0.1, 0.1, 0.1, 0);
         serverLevel.sendParticles(ParticleTypes.FLAME, X - sinK, Y + this.tickCount * 0.1, Z - cosK, (int)(1 + 5 * c), 0.1, 0.1, 0.1, 0);
-        if(this.tickCount > lifetime) this.remove(RemovalReason.DISCARDED);
         if(this.tickCount % 5 != 0) return;
         UUID ownerUUID = this.getPlayerUuid();
         if(ownerUUID == null) return;
