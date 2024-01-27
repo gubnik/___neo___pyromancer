@@ -1,6 +1,7 @@
 package xyz.nikgub.pyromancer.registries.vanila;
 
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -9,6 +10,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.items.*;
+import xyz.nikgub.pyromancer.items.armor.MarauderArmorItem;
+import xyz.nikgub.pyromancer.items.armor.PyromancerArmorItem;
 import xyz.nikgub.pyromancer.items.pyromancy_items.CourtOfEmbersItem;
 import xyz.nikgub.pyromancer.items.pyromancy_items.SizzlingHandItem;
 import xyz.nikgub.pyromancer.util.GeneralUtils;
@@ -60,8 +63,25 @@ public class ItemRegistry {
     public static RegistryObject<Item> NETHERITE_MACE = ITEMS.register("netherite_mace",
             () -> new MaceItem(Tiers.NETHERITE, new Item.Properties().stacksTo(1)));
 
-    // SPAWN EGGS
+    // ARMOR
+    public static RegistryObject<Item> MARAUDER_HELM = ITEMS.register("marauder_helm",
+            () -> new MarauderArmorItem(ArmorItem.Type.HELMET));
+    public static RegistryObject<Item> MARAUDER_CAPE = ITEMS.register("marauder_cape",
+            () -> new MarauderArmorItem(ArmorItem.Type.CHESTPLATE));
+    public static RegistryObject<Item> MARAUDER_PANTS = ITEMS.register("marauder_pants",
+            () -> new MarauderArmorItem(ArmorItem.Type.LEGGINGS));
+    public static RegistryObject<Item> MARAUDER_BOOTS = ITEMS.register("marauder_boots",
+            () -> new MarauderArmorItem(ArmorItem.Type.BOOTS));
+    public static RegistryObject<Item> PYROMANCER_HELMET = ITEMS.register("pyromancer_helmet",
+            () -> new PyromancerArmorItem(ArmorItem.Type.HELMET));
+    public static RegistryObject<Item> PYROMANCER_CHESTPLATE = ITEMS.register("pyromancer_chestplate",
+            () -> new PyromancerArmorItem(ArmorItem.Type.CHESTPLATE));
+    public static RegistryObject<Item> PYROMANCER_LEGGINGS = ITEMS.register("pyromancer_leggings",
+            () -> new PyromancerArmorItem(ArmorItem.Type.LEGGINGS));
+    public static RegistryObject<Item> PYROMANCER_BOOTS = ITEMS.register("pyromancer_boots",
+            () -> new PyromancerArmorItem(ArmorItem.Type.BOOTS));
 
+    // SPAWN EGGS
     public static RegistryObject<Item> UNBURNED_SPAWN_EGG = ITEMS.register("unburned_spawn_egg",
             () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNBURNED, GeneralUtils.rgbaToColorInteger(140, 100, 12, 100), GeneralUtils.rgbaToColorInteger(120, 90, 0, 100), new Item.Properties()));
 }

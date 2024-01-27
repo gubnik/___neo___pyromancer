@@ -45,17 +45,18 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
+import xyz.nikgub.pyromancer.client.models.armor.PyromancerArmorModel;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
 import xyz.nikgub.pyromancer.data.RegistriesDataGeneration;
 import xyz.nikgub.pyromancer.ember.Ember;
 import xyz.nikgub.pyromancer.enchantments.BlazingJournalEnchantment;
-import xyz.nikgub.pyromancer.entities.attack_effects.flaming_guillotine.FlamingGuillotineModel;
-import xyz.nikgub.pyromancer.entities.attack_effects.flaming_guillotine.FlamingGuillotineRenderer;
-import xyz.nikgub.pyromancer.entities.attack_effects.pyranado.PyronadoModel;
-import xyz.nikgub.pyromancer.entities.attack_effects.pyranado.PyronadoRenderer;
+import xyz.nikgub.pyromancer.client.models.entities.FlamingGuillotineModel;
+import xyz.nikgub.pyromancer.client.renderers.FlamingGuillotineRenderer;
+import xyz.nikgub.pyromancer.client.models.entities.PyronadoModel;
+import xyz.nikgub.pyromancer.client.renderers.PyronadoRenderer;
 import xyz.nikgub.pyromancer.entities.unburned.UnburnedEntity;
-import xyz.nikgub.pyromancer.entities.unburned.UnburnedModel;
-import xyz.nikgub.pyromancer.entities.unburned.UnburnedRenderer;
+import xyz.nikgub.pyromancer.client.models.entities.UnburnedModel;
+import xyz.nikgub.pyromancer.client.renderers.UnburnedRenderer;
 import xyz.nikgub.pyromancer.events.BlazingJournalAttackEvent;
 import xyz.nikgub.pyromancer.items.*;
 import xyz.nikgub.pyromancer.network.NetworkCore;
@@ -109,6 +110,7 @@ public class PyromancerMod
     {
         NetworkCore.register();
     }
+
     private void setupClient(final FMLCommonSetupEvent event) {
         EntityRenderers.register(EntityTypeRegistry.BOMBSACK.get(), ThrownItemRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.SIZZLING_HAND_FIREBALL.get(), ThrownItemRenderer::new);
@@ -117,6 +119,7 @@ public class PyromancerMod
         EntityRenderers.register(EntityTypeRegistry.UNBURNED.get(), UnburnedRenderer::new);
     }
     private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(PyromancerArmorModel.LAYER_LOCATION, PyromancerArmorModel::createBodyLayer);
         event.registerLayerDefinition(FlamingGuillotineModel.LAYER_LOCATION, FlamingGuillotineModel::createBodyLayer);
         event.registerLayerDefinition(PyronadoModel.LAYER_LOCATION, PyronadoModel::createBodyLayer);
         event.registerLayerDefinition(UnburnedModel.LAYER_LOCATION, UnburnedModel::createBodyLayer);
@@ -134,6 +137,7 @@ public class PyromancerMod
             List<Item> PYROMANCY = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof IPyromancyItem && !(registryObject.get() instanceof UsablePyromancyItem)).map(RegistryObject::get).toList();
             List<Item> QUILLS = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof QuillItem).map(RegistryObject::get).toList();
             List<ItemStack> EMBERS = EmberRegistry.REGISTRY.get().getValues().stream().map(ember -> ember.applyToItemStack(new ItemStack(ItemRegistry.EMBER_ITEM.get()))).toList();
+            List<Item> ARMOR = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof ArmorItem).map(RegistryObject::get).toList();
 
             event.accept(new ItemStack(ItemRegistry.BLAZING_JOURNAL.get()));
             event.accept(new ItemStack(ItemRegistry.COMPENDIUM_OF_FLAME.get()));
@@ -143,6 +147,7 @@ public class PyromancerMod
             for(Item item : QUILLS) event.accept(item);
             event.accept(new ItemStack(ItemRegistry.EMBER_ITEM.get()));
             for(ItemStack item : EMBERS) event.accept(item);
+            for(Item item : ARMOR) event.accept(item);
         }
         else if(event.getTabKey().equals(CreativeModeTabs.BUILDING_BLOCKS))
         {
@@ -154,6 +159,7 @@ public class PyromancerMod
             event.accept(new ItemStack(ItemRegistry.UNBURNED_SPAWN_EGG.get()));
         }
     }
+
     public void gatherData(GatherDataEvent event)
     {
         DataGenerator generator = event.getGenerator();
