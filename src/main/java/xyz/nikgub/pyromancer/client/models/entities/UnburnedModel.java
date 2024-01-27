@@ -1,4 +1,4 @@
-package xyz.nikgub.pyromancer.entities.unburned;// Made with Blockbench 4.7.2
+package xyz.nikgub.pyromancer.client.models.entities;// Made with Blockbench 4.7.2
 // Exported for Minecraft version 1.17 or later with Mojang mappings
 // Paste this class into your mod and generate all required imports
 
@@ -14,6 +14,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import org.jetbrains.annotations.NotNull;
+import xyz.nikgub.pyromancer.entities.unburned.UnburnedAnimations;
+import xyz.nikgub.pyromancer.entities.unburned.UnburnedEntity;
 
 public class UnburnedModel<T extends UnburnedEntity> extends HierarchicalModel<T> {
 	private final ModelPart root;

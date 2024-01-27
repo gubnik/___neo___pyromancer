@@ -1,4 +1,4 @@
-package xyz.nikgub.pyromancer.entities.attack_effects.flaming_guillotine;
+package xyz.nikgub.pyromancer.client.models.entities;
 
 // Made with Blockbench 4.9.1
 // Exported for Minecraft version 1.17 or later with Mojang mappings
@@ -15,6 +15,8 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import org.jetbrains.annotations.NotNull;
+import xyz.nikgub.pyromancer.entities.attack_effects.flaming_guillotine.FlamingGuillotineAnimations;
+import xyz.nikgub.pyromancer.entities.attack_effects.flaming_guillotine.FlamingGuillotineEntity;
 
 public class FlamingGuillotineModel<T extends FlamingGuillotineEntity> extends HierarchicalModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor

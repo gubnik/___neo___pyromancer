@@ -1,4 +1,4 @@
-package xyz.nikgub.pyromancer.entities.attack_effects.flaming_guillotine;
+package xyz.nikgub.pyromancer.client.renderers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -10,6 +10,8 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import org.jetbrains.annotations.NotNull;
+import xyz.nikgub.pyromancer.client.models.entities.FlamingGuillotineModel;
+import xyz.nikgub.pyromancer.entities.attack_effects.flaming_guillotine.FlamingGuillotineEntity;
 
 public class FlamingGuillotineRenderer extends EntityRenderer<FlamingGuillotineEntity> {
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(PyromancerMod.MOD_ID, "textures/entity/flaming_guillotine.png");
