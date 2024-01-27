@@ -174,7 +174,6 @@ public class PyromancerMod
                 Arrays.stream(PackType.values()).collect(Collectors.toMap(Function.identity(), DetectedVersion.BUILT_IN::getPackVersion)))));
     }
 
-
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     @SuppressWarnings("unused")
     public static class ClientModEvents
