@@ -16,10 +16,13 @@ import xyz.nikgub.pyromancer.util.GeneralUtils;
 @SuppressWarnings("unused")
 public class ItemRegistry {
     public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PyromancerMod.MOD_ID);
+
     public static RegistryObject<Item> BLAZING_JOURNAL = ITEMS.register("blazing_journal",
             () -> new BlazingJournalItem(new Item.Properties()));
+
     public static RegistryObject<Item> COMPENDIUM_OF_FLAME = ITEMS.register("compendium_of_flame",
             () -> new CompendiumOfFlameItem(new Item.Properties()));
+
     public static RegistryObject<Item> EMBER_ITEM = ITEMS.register("ember",
             () -> new EmberItem(new Item.Properties()));
 
@@ -35,6 +38,9 @@ public class ItemRegistry {
                 }
             }
     );
+
+    public static RegistryObject<Item> BOMBSACK = ITEMS.register("bombsack",
+            () -> new BombsackItem(new Item.Properties()));
 
     public static RegistryObject<Item> SIZZLING_HAND = ITEMS.register("sizzling_hand",
             () -> new SizzlingHandItem(new Item.Properties()));

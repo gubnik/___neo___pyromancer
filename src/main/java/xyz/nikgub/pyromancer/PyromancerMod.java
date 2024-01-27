@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.DetectedVersion;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
@@ -109,6 +110,8 @@ public class PyromancerMod
         NetworkCore.register();
     }
     private void setupClient(final FMLCommonSetupEvent event) {
+        EntityRenderers.register(EntityTypeRegistry.BOMBSACK.get(), ThrownItemRenderer::new);
+        EntityRenderers.register(EntityTypeRegistry.SIZZLING_HAND_FIREBALL.get(), ThrownItemRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.FLAMING_GUILLOTINE.get(), FlamingGuillotineRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.PYRONADO.get(), PyronadoRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.UNBURNED.get(), UnburnedRenderer::new);
@@ -117,7 +120,6 @@ public class PyromancerMod
         event.registerLayerDefinition(FlamingGuillotineModel.LAYER_LOCATION, FlamingGuillotineModel::createBodyLayer);
         event.registerLayerDefinition(PyronadoModel.LAYER_LOCATION, PyronadoModel::createBodyLayer);
         event.registerLayerDefinition(UnburnedModel.LAYER_LOCATION, UnburnedModel::createBodyLayer);
-        //event.registerLayerDefinition(PyromancerArmorModel.LAYER_LOCATION, PyromancerArmorModel::createBodyLayer);
     }
     private void entityAttributeSupplier(EntityAttributeCreationEvent event)
     {

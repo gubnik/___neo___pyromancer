@@ -19,12 +19,15 @@ import java.util.concurrent.CompletableFuture;
 
 public class DamageTypeDatagen extends TagsProvider<DamageType> {
     public static ResourceKey<DamageType> HELLBLAZE_KEY = register("hellblaze");
+    public static final ResourceKey<DamageType> BOMBSACK_KEY = register("bombsack");
     public static ResourceKey<DamageType> SIZZLING_HAND_KEY = register("sizzling_hand");
     public static ResourceKey<DamageType> COURT_OF_EMBERS_KEY = register("court_of_embers");
     public static ResourceKey<DamageType> FIREBRIAR_KEY = register("firebriar");
     public static ResourceKey<DamageType> BLAZING_JOURNAL_PROJECTION_KEY = register("blazing_journal_projection");
     public static ResourceKey<DamageType> UNBURNED_KEY = register("unburned");
+
     public static DamageType HELLBLAZE = new DamageType(HELLBLAZE_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
+    public static DamageType BOMBSACK = new DamageType(BOMBSACK_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
     public static DamageType SIZZLING_HAND = new DamageType(SIZZLING_HAND_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
     public static DamageType COURT_OF_EMBERS = new DamageType(COURT_OF_EMBERS_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
     public static DamageType FIREBRIAR = new DamageType(FIREBRIAR_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1f);
@@ -33,8 +36,22 @@ public class DamageTypeDatagen extends TagsProvider<DamageType> {
     public static ResourceKey<DamageType> register(String name) {
         return ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(PyromancerMod.MOD_ID, name));
     }
+
+    /**
+     * Tag for damage types that are caused by Embers
+     */
     public static TagKey<DamageType> IS_EMBER = create("is_ember");
+
+    /**
+     * Tag for damage types that are brutish (bombsacks, mercury traps, rot etc.)
+     */
+    public static TagKey<DamageType> IS_BRUTISH = create("is_brutish");
+
+    /**
+     * Tag for damage types that are caused by Blazing Journal's enchantments' attacks
+     */
     public static TagKey<DamageType> JOURNAL_PROJECTION = create("journal_projection");
+
     public static TagKey<DamageType> create(String name)
     {
         return TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(PyromancerMod.MOD_ID, name));
@@ -47,10 +64,13 @@ public class DamageTypeDatagen extends TagsProvider<DamageType> {
     protected void addTags(HolderLookup.@NotNull Provider p_256380_) {
         tag(IS_EMBER)
                 .add(HELLBLAZE_KEY);
+        tag(IS_BRUTISH)
+                .add(BOMBSACK_KEY);
         tag(JOURNAL_PROJECTION)
                 .add(BLAZING_JOURNAL_PROJECTION_KEY);
         tag(DamageTypeTags.IS_PROJECTILE)
                 .add(SIZZLING_HAND_KEY)
+                .add(BOMBSACK_KEY)
                 .add(COURT_OF_EMBERS_KEY);
         tag(DamageTypeTags.IS_FIRE)
                 .add(HELLBLAZE_KEY)
@@ -61,6 +81,7 @@ public class DamageTypeDatagen extends TagsProvider<DamageType> {
     }
     public static void generate(BootstapContext<DamageType> bootstrap) {
         bootstrap.register(HELLBLAZE_KEY, HELLBLAZE);
+        bootstrap.register(BOMBSACK_KEY, BOMBSACK);
         bootstrap.register(SIZZLING_HAND_KEY, SIZZLING_HAND);
         bootstrap.register(COURT_OF_EMBERS_KEY, COURT_OF_EMBERS);
         bootstrap.register(FIREBRIAR_KEY, FIREBRIAR);
