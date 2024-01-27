@@ -29,8 +29,7 @@ public abstract class ItemInHandRendererMixin {
     public abstract void applyItemArmTransform(PoseStack poseStack, HumanoidArm arm, float f);
 
     @Inject(method = "renderArmWithItem", at = @At("HEAD"), cancellable = true)
-    public void renderArmWithItemMixinHead(AbstractClientPlayer player, float v, float v1, InteractionHand hand, float v2, ItemStack itemStack, float v3, PoseStack poseStack, MultiBufferSource multiBufferSource, int i1,
-                                        CallbackInfo callbackInfo) {
+    public void renderArmWithItemMixinHead(AbstractClientPlayer player, float v, float v1, InteractionHand hand, float v2, ItemStack itemStack, float v3, PoseStack poseStack, MultiBufferSource multiBufferSource, int i1, CallbackInfo callbackInfo) {
         if(player.getUsedItemHand().equals(hand) && player.getUseItemRemainingTicks() > 0){
             Ember ember = EmberRegistry.getFromItem(itemStack);
             if(ember == null) return;

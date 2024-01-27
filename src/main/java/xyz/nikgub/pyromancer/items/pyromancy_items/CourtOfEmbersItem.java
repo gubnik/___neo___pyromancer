@@ -2,6 +2,7 @@ package xyz.nikgub.pyromancer.items.pyromancy_items;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
+import com.mojang.math.Axis;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -50,7 +51,6 @@ public class CourtOfEmbersItem extends UsablePyromancyItem {
         final double cosK = R * Math.cos(Math.toRadians(tick * 18));
         serverLevel.sendParticles(ParticleTypes.FLAME, X + sinK, Y + tick * 0.1, Z + cosK, (int)(1 + 5 * c), 0.1, 0.1, 0.1, 0);
         serverLevel.sendParticles(ParticleTypes.FLAME, X - sinK, Y + tick * 0.1, Z - cosK, (int)(1 + 5 * c), 0.1, 0.1, 0.1, 0);
-        // Nothing happens, because the weapon spawns a pyronado after a full cast
     }
     @Override
     public void releaseUsing(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity, int tick)
@@ -90,5 +90,8 @@ public class CourtOfEmbersItem extends UsablePyromancyItem {
     @Override
     public void compendiumTransforms(PoseStack poseStack, ItemDisplayContext displayContext)
     {
+        poseStack.scale(1.25f, 1.25f, 1.25f);
+        poseStack.rotateAround(Axis.ZP.rotationDegrees(-90), 0.5f, 0.4f, 0.5f);
+        //poseStack.translate(0.65f, 0f, -1.1f);
     }
 }

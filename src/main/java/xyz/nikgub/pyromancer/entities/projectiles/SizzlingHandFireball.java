@@ -9,6 +9,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Fireball;
 import net.minecraft.world.entity.projectile.ItemSupplier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -31,6 +33,12 @@ public class SizzlingHandFireball extends Fireball implements ItemSupplier {
         this.damage = damage;
         this.maxLifetime = maxLifetime;
     }
+    @Override
+    public @NotNull ItemStack getItem()
+    {
+        return new ItemStack(Items.FIRE_CHARGE);
+    }
+
     protected void onHitEntity(@NotNull EntityHitResult entityHitResult) {
         super.onHitEntity(entityHitResult);
         Entity entity = entityHitResult.getEntity();

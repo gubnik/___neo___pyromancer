@@ -19,8 +19,8 @@ public class SizzlingHandClientExtension implements IClientItemExtensions {
         else return;
         if(tick <= 0) return;
         ModelPart armPart = (arm.equals(HumanoidArm.RIGHT)) ? model.rightArm : model.leftArm;
-        armPart.xRot = -1 * Mth.cos( (float) Math.PI * tick * 9 / 180) / 2 + model.head.xRot - (float) Math.PI / 2;
-        armPart.zRot = Mth.cos( (float) Math.PI * tick * 9 / 180);
+        armPart.xRot = -1 * Mth.cos( (float) Math.PI * tick * 18 / 180) + model.head.xRot - (float) Math.PI / 2;
+        armPart.zRot = Mth.cos( (float) Math.PI * tick * 18 / 180);
     });
     @Override
     public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {

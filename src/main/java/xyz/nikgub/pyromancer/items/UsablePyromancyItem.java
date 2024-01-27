@@ -18,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import xyz.nikgub.pyromancer.registries.vanila.AttributeRegistry;
+import xyz.nikgub.pyromancer.util.GeneralUtils;
 import xyz.nikgub.pyromancer.util.ItemUtils;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.mixin.client.ItemRendererMixin;
@@ -30,7 +31,7 @@ import java.util.function.BiFunction;
  * Class that should be extended whenever making pyromancy based on vanilla use system <p>
  * Not to be confused with {@link IPyromancyItem}, which is a general interface for any pyromancy
  */
-public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStupidTooltipItem {
+public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStupidTooltipItem, IGradientNameItem {
     private final Multimap<Attribute, AttributeModifier> defaultModifiers;
     public UsablePyromancyItem(Properties properties) {
         super(properties.stacksTo(1));
@@ -41,8 +42,7 @@ public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStu
     }
 
     /**
-     * Method to provide an optional additional logic for {@link ItemRendererMixin} pyromancyRenderManager() method <p>
-     * It is advised to limit it to scaling transformation to keep the integrity of render
+     * Method to provide an optional additional logic for {@link ItemRendererMixin} pyromancyRenderManager() method
      * @param poseStack     PoseStack to transform
      */
     public void compendiumTransforms(PoseStack poseStack, ItemDisplayContext displayContext)
@@ -103,5 +103,23 @@ public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStu
             }
             return d0;
         });
+    }
+
+    @Override
+    public boolean getGradientCondition(ItemStack itemStack) {
+        return true;
+    }
+
+    @Override
+    public Pair<Integer, Integer> getGradientColors() {
+        return Pair.of(
+                GeneralUtils.rgbToColorInteger(200, 57, 0),
+                GeneralUtils.rgbToColorInteger(240, 129, 0)
+        );
+    }
+
+    @Override
+    public int getGradientTickTime() {
+        return 60;
     }
 }

@@ -19,8 +19,8 @@ public class CourtOfEmbersClientExtension implements IClientItemExtensions {
         else return;
         if(tick <= 0) return;
         ModelPart armPart = (arm.equals(HumanoidArm.RIGHT)) ? model.rightArm : model.leftArm;
-        armPart.xRot = (float) Math.PI - Mth.sin( (float) Math.PI * tick * 9 / 180) * -1 * Mth.cos( (float) Math.PI * tick * 9 / 180);
-        armPart.zRot = -1 * Mth.cos( (float) Math.PI * tick * 9 / 180) / 2;
+        armPart.xRot = (float) Math.PI - Mth.sin( (float) Math.PI * tick * 18 / 180) * -1 * Mth.cos( (float) Math.PI * tick * 9 / 180);
+        armPart.zRot = -1 * Mth.cos( (float) Math.PI * tick * 18 / 180) / 2;
     });
     @Override
     public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
