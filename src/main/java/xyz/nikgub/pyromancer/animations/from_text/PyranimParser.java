@@ -5,7 +5,6 @@ import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 import org.joml.Vector3f;
-import xyz.nikgub.pyromancer.PyromancerMod;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -33,7 +32,6 @@ public class PyranimParser {
             BufferedReader bufferedReader = new BufferedReader(reader);
             for (String s; (s = bufferedReader.readLine()) != null;)
             {
-                PyromancerMod.LOGGER.info(s);
                 if(s.matches("!_[0-9]+(.[0-9]+)?_!"))
                 {
                     t = Float.parseFloat(s.substring(s.indexOf("!_") + 2, s.indexOf("_!")));
@@ -50,38 +48,15 @@ public class PyranimParser {
         }
     }
 
-    /*
-    Syntax of .pyranim files:
-
-    !_0.555_! # animation length
-    $_Body_$  # model part
-    R
-    @0.0@[30 0 0]
-    @0.1@[0 30 0]
-    @0.4@[0 0 30]
-    S
-    @0.0@[1 0 0]
-    @0.1@[0 1 0]
-    @0.4@[0 0 1]
-    T
-    @0.0@[2 0 0]
-    @0.1@[0 1 0]
-    @0.4@[0 0 0]
-    $$
-     */
-
     private static Vector3f parseVector(String s)
     {
         Vector3f vector3f = new Vector3f();
         String nb = s.substring(s.indexOf('(') + 1, s.indexOf(')'));
         vector3f.x = Float.parseFloat(nb.substring(0, nb.indexOf(' ')));
-        PyromancerMod.LOGGER.info(Float.parseFloat(nb.substring(0, nb.indexOf(' '))) + "");
         nb = nb.substring(nb.indexOf(" ") + 1);
         vector3f.y = Float.parseFloat(nb.substring(0, nb.indexOf(' ')));
-        PyromancerMod.LOGGER.info(Float.parseFloat(nb.substring(0, nb.indexOf(' '))) + "");
         nb = nb.substring(nb.indexOf(" ") + 1);
         vector3f.z = Float.parseFloat(nb);
-        PyromancerMod.LOGGER.info(Float.parseFloat(nb) + "");
         return vector3f;
     }
 
@@ -142,9 +117,7 @@ public class PyranimParser {
             }
             if(line.matches("[$]_[a-zA-Z]+_[$]"))
             {
-                PyromancerMod.LOGGER.info(line);
                 currKey = line.substring(line.indexOf("$_") + 2, line.indexOf("_$"));
-                PyromancerMod.LOGGER.info(currKey + " " + line.indexOf("$_") + " " + line.indexOf("_$"));
                 resMap.put(currKey, new ArrayList<>());
             }
         }
