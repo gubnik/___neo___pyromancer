@@ -14,6 +14,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * <h1>Class to convert .pyranim format files into {@link AnimationDefinition}</h1>
+ * <p>.pyranim describes an animation and consists of total animation length and model parts' keyframes.<p/>
+ * <h2>Syntax of .pyranim</h2>
+ * NOTE: in the following text %something% represents either a number or a string
+ * <h3>Total animation length</h3>
+ * <p>Announced as !_%somefloatnumber%_!, must be a first line</p>
+ * <h3>Model parts</h3>
+ * <p>Announced with $_%somemodelpart%_$, must be terminated with $$ at the end</p>
+ * <h3>Keyframes</h3>
+ * <p>Consist of 3 parts in 1 line: type-defining character (T, R or S), moment in time in which the keyframe is placed (@%somefloatnumber%)
+ * and a vector (a b c), where a, b and c are floats. All parts must be written in one line back-to-back without any symbols in between</p>
+ *
+ * <p>For further reference, see test.pyranim in resources</p>
+ */
 public class PyranimParser {
 
     private final List<String> contents;
