@@ -45,6 +45,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
+import xyz.nikgub.pyromancer.animations.from_text.PyranimParser;
 import xyz.nikgub.pyromancer.client.models.armor.PyromancerArmorModel;
 import xyz.nikgub.pyromancer.client.models.entities.FlamingGuillotineModel;
 import xyz.nikgub.pyromancer.client.models.entities.PyronadoModel;
@@ -87,6 +88,7 @@ public class PyromancerMod
 
     public PyromancerMod()
     {
+        new PyranimParser("guillotine.pyranim").create();
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setupClient);

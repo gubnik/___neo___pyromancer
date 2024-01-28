@@ -5,14 +5,12 @@ import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 import org.joml.Vector3f;
+import xyz.nikgub.pyromancer.PyromancerMod;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <h1>Class to convert .pyranim format files into {@link AnimationDefinition}</h1>
@@ -47,6 +45,7 @@ public class PyranimParser {
             BufferedReader bufferedReader = new BufferedReader(reader);
             for (String s; (s = bufferedReader.readLine()) != null;)
             {
+                PyromancerMod.LOGGER.info(">> | " + s);
                 if(s.matches("!_[0-9]+(.[0-9]+)?_!"))
                 {
                     t = Float.parseFloat(s.substring(s.indexOf("!_") + 2, s.indexOf("_!")));
@@ -77,6 +76,7 @@ public class PyranimParser {
 
     private void toMap()
     {
+        PyromancerMod.LOGGER.info("---------------------------------------");
         Vector3f vector3f;
         Map<String, List<AnimationChannel>> resMap = new HashMap<>();
         List<Keyframe> rotationKeyframes = new ArrayList<>();
@@ -94,41 +94,39 @@ public class PyranimParser {
                 kfR = rotationKeyframes.toArray(kfR);
                 kfT = translationKeyframes.toArray(kfT);
                 kfS = scaleKeyframes.toArray(kfS);
-                resMap.get(currKey).add(new AnimationChannel(AnimationChannel.Targets.POSITION, kfT));
-                resMap.get(currKey).add(new AnimationChannel(AnimationChannel.Targets.ROTATION, kfR));
-                resMap.get(currKey).add(new AnimationChannel(AnimationChannel.Targets.SCALE, kfS));
+                if(kfT.length > 0) resMap.get(currKey).add(new AnimationChannel(AnimationChannel.Targets.POSITION, kfT));
+                if(kfR.length > 0) resMap.get(currKey).add(new AnimationChannel(AnimationChannel.Targets.ROTATION, kfR));
+                if(kfS.length > 0) resMap.get(currKey).add(new AnimationChannel(AnimationChannel.Targets.SCALE, kfS));
                 rotationKeyframes = new ArrayList<>();
                 translationKeyframes = new ArrayList<>();
                 scaleKeyframes = new ArrayList<>();
-                currKey = "";
                 continue;
             }
-            if(!currKey.equals(""))
+            if(line.matches("[RST]@[0-9]+(.[0-9]+)?@[(]-?[0-9]+(.[0-9]+)? -?[0-9]+(.[0-9]+)? -?[0-9]+(.[0-9]+)?[)][LC]?"))
             {
-                if(line.matches("[RST]@[0-9]+(.[0-9]+)?@[(][0-9]+(.[0-9]+)? [0-9]+(.[0-9]+)? [0-9]+(.[0-9]+)?[)]"))
+                PyromancerMod.LOGGER.info(">> | " + line);
+                vector3f = parseVector(line.substring(line.indexOf("@(") + 2, line.indexOf(")")) + ')');
+                float moment = Float.parseFloat(line.substring(line.indexOf("T@") + 3, line.indexOf("@(")));
+                AnimationChannel.Interpolation interpolation = line.charAt(line.length()-1) == 'C' ? AnimationChannel.Interpolations.CATMULLROM : AnimationChannel.Interpolations.LINEAR;
+                switch (line.charAt(0))
                 {
-                    vector3f = parseVector(line.substring(line.indexOf("@(") + 2, line.indexOf(")")) + ')');
-                    float moment = Float.parseFloat(line.substring(line.indexOf("T@") + 3, line.indexOf("@(")));
-                    switch (line.charAt(0))
-                    {
-                        case ('T') -> translationKeyframes.add(new Keyframe(
-                                moment,
-                                KeyframeAnimations.posVec(vector3f.x, vector3f.y, vector3f.z),
-                                AnimationChannel.Interpolations.LINEAR
-                        ));
-                        case ('R') -> rotationKeyframes.add(new Keyframe(
-                                moment,
-                                KeyframeAnimations.degreeVec(vector3f.x, vector3f.y, vector3f.z),
-                                AnimationChannel.Interpolations.LINEAR
-                        ));
-                        case ('S') -> scaleKeyframes.add(new Keyframe(
-                                moment,
-                                KeyframeAnimations.scaleVec(vector3f.x, vector3f.y, vector3f.z),
-                                AnimationChannel.Interpolations.LINEAR
-                        ));
-                    }
-                    continue;
+                    case ('T') -> translationKeyframes.add(new Keyframe(
+                            moment,
+                            KeyframeAnimations.posVec(vector3f.x, vector3f.y, vector3f.z),
+                            interpolation
+                    ));
+                    case ('R') -> rotationKeyframes.add(new Keyframe(
+                            moment,
+                            KeyframeAnimations.degreeVec(vector3f.x, vector3f.y, vector3f.z),
+                            interpolation
+                    ));
+                    case ('S') -> scaleKeyframes.add(new Keyframe(
+                            moment,
+                            KeyframeAnimations.scaleVec(vector3f.x, vector3f.y, vector3f.z),
+                            interpolation
+                    ));
                 }
+                continue;
             }
             if(line.matches("[$]_[a-zA-Z]+_[$]"))
             {
@@ -147,6 +145,7 @@ public class PyranimParser {
         {
             for(AnimationChannel channel : map.get(part))
             {
+                //PyromancerMod.LOGGER.info(">> | " + Arrays.stream(channel.keyframes()).sequential() + " | " + channel.keyframes().length);
                 builder.addAnimation(part, channel);
             }
         }
