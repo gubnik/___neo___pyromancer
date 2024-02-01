@@ -69,6 +69,10 @@ public class UnburnedEntity extends Monster implements IFlamingGroveNativeEntity
     {
         // I might rethink this, not sure yet
         this.setInvulnerable(this.EXPLOSION.isStarted() || this.EMERGE.isStarted());
+
+        super.tick();
+        if(this.getTarget() == null) return;
+
         /*
         This part creates an additional explosion after attack when the time is right
         I pray to God it doesn't fail
@@ -104,7 +108,6 @@ public class UnburnedEntity extends Monster implements IFlamingGroveNativeEntity
             this.explosionTick += explosionTickCooldown - explosionTickOffset;
             this.timedExplosionReady = false;
         }
-        super.tick();
     }
 
     private void explosionAttack()
