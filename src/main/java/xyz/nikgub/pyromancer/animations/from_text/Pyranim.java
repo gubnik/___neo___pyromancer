@@ -27,13 +27,13 @@ import java.util.*;
  *
  * <p>For further reference, see test.pyranim in resources</p>
  */
-public class PyranimParser {
+public class Pyranim {
 
     private final List<String> contents;
     private Map<String, List<AnimationChannel>> map = new HashMap<>();
     private float animLength = 0f;
 
-    public PyranimParser(String location)
+    private Pyranim(String location)
     {
         float t = 0f;
         this.contents = new ArrayList<>();
@@ -128,7 +128,7 @@ public class PyranimParser {
                 }
                 continue;
             }
-            if(line.matches("[$]_[a-zA-Z]+_[$]"))
+            if(line.matches("[$]_[a-zA-Z_]+_[$]"))
             {
                 currKey = line.substring(line.indexOf("$_") + 2, line.indexOf("_$"));
                 resMap.put(currKey, new ArrayList<>());
@@ -137,7 +137,7 @@ public class PyranimParser {
         this.map = resMap;
     }
 
-    public AnimationDefinition create()
+    private AnimationDefinition createEntity()
     {
         this.toMap();
         AnimationDefinition.Builder builder = AnimationDefinition.Builder.withLength(this.animLength);
@@ -150,5 +150,10 @@ public class PyranimParser {
             }
         }
         return builder.build();
+    }
+
+    public static AnimationDefinition ofEntity(String location)
+    {
+        return new Pyranim(location).createEntity();
     }
 }
