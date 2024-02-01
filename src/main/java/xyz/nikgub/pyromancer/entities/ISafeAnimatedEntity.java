@@ -19,11 +19,14 @@ import java.util.List;
  * <h3>Limitations</h3>
  * <p>Determined animations must have 70 as the smallest byte signal and must not exceed 153 animations total.</p>
  * <p>Generalized behaviour has no control over animation states that were not introduced by getAllAnimations().</p>
+ *
  * @author nikgub_
  */
 @ApiStatus.Experimental
 public interface ISafeAnimatedEntity {
+
     byte OVERRIDE_DELTA = 32;
+
     private Entity self()
     {
         return (Entity) this;
