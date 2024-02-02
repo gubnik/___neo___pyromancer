@@ -1,4 +1,4 @@
-package xyz.nikgub.pyromancer.entities;
+package xyz.nikgub.pyromancer.animations;
 
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
