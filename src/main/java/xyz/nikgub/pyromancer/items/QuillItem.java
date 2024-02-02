@@ -32,7 +32,7 @@ public class QuillItem extends Item {
      *                      itemstack by which the attack was made, <p>
      *                      itemstack of {@link BlazingJournalItem} on which the quill is equipped
      * @param condition     bool TriFunction that is responsible for the condition of launching associated attack <p>
-     *                      Consumes the following: <p>
+     *                      Accepts the following: <p>
      *                      player who is responsible for the attack, <p>
      *                      itemstack by which the attack was made, <p>
      *                      itemstack of {@link BlazingJournalItem} on which the quill is equipped
