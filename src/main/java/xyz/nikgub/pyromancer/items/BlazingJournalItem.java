@@ -22,12 +22,13 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import xyz.nikgub.incandescent.item.IContainerItem;
+import xyz.nikgub.incandescent.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.enchantments.BlazingJournalEnchantment;
 import xyz.nikgub.pyromancer.events.BlazingJournalAttackEvent;
 import xyz.nikgub.pyromancer.items.capabilities.BlazingJournalCapability;
 import xyz.nikgub.pyromancer.registries.vanila.AttributeRegistry;
-import xyz.nikgub.pyromancer.util.GeneralUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

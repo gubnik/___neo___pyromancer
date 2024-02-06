@@ -10,12 +10,12 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
+import xyz.nikgub.incandescent.util.BlockPosShaper;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.animations.EmberAnimationList;
 import xyz.nikgub.pyromancer.ember.Ember;
 import xyz.nikgub.pyromancer.ember.EmberType;
 import xyz.nikgub.pyromancer.registries.vanila.BlockRegistry;
-import xyz.nikgub.pyromancer.util.BlockPosShaper;
 
 import java.util.Objects;
 import java.util.function.Supplier;

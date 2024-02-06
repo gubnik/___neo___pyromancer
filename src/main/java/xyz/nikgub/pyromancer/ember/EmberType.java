@@ -1,6 +1,6 @@
 package xyz.nikgub.pyromancer.ember;
 
-import xyz.nikgub.pyromancer.util.GeneralUtils;
+import xyz.nikgub.incandescent.util.GeneralUtils;
 
 import java.util.Objects;
 import java.util.function.Function;

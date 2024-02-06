@@ -8,10 +8,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import xyz.nikgub.incandescent.util.EntityUtils;
 import xyz.nikgub.pyromancer.entities.attack_effects.AttackEffectEntity;
 import xyz.nikgub.pyromancer.registries.vanila.AttributeRegistry;
 import xyz.nikgub.pyromancer.registries.vanila.DamageSourceRegistry;
-import xyz.nikgub.pyromancer.util.EntityUtils;
 
 import java.util.Arrays;
 import java.util.UUID;

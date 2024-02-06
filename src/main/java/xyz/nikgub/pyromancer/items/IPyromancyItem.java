@@ -18,18 +18,22 @@ import java.util.UUID;
  */
 @UniqueEmberBehaviour(allow = UniqueEmberBehaviour.AllowanceModifier.DENY)
 public interface IPyromancyItem {
+
     UUID BASE_BLAZE_CONSUMPTION_UUID = UUID.fromString("39f6d6b6-f4f9-11ed-a05b-0242ac120003");
     UUID BASE_PYROMANCY_DAMAGE_UUID = UUID.fromString("4ec062f8-14ff-11ee-be56-0242ac120002");
     UUID JOURNAL_BLAZE_CONSUMPTION_UUID = UUID.fromString("574d4092-16c3-11ee-be56-0242ac120002");
     UUID JOURNAL_PYROMANCY_DAMAGE_UUID = UUID.fromString("704049d2-16c3-11ee-be56-0242ac120002");
+
     private Item self()
     {
         return (Item) this;
     }
+
     /**
      * @return          Pair of blaze consumption and pyromancy damage
      */
     Pair<Integer, Float> getPyromancyModifiers();
+
     static float getAttributeBonus(Player player, Attribute attribute)
     {
         float d0 = 0;

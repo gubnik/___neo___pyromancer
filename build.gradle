@@ -108,15 +108,13 @@ repositories {
         }
     }
 }
+
 dependencies {
     if(project.hasProperty('patchouliVersion')) implementation fg.deobf("vazkii.patchouli:Patchouli:${patchouliVersion}")
-
-    // TODO: I shall remember thee, Tarnished
-    // implementation fg.deobf("curse.maven:void_tome-940466:4895219")
+    implementation fg.deobf("curse.maven:incandescent_lib-971520:5085017")
 }
 
 mixin {
-    //add sourceSets.main, "pyromancer.refmap.json"
     config "pyromancer.mixins.json"
 
     debug.export = true
@@ -149,14 +147,7 @@ publishing {
         }
     }
     repositories {
-        maven {
-            name = "GitHub___neoPyromancer___Package"
-            url = "https://maven.pkg.github.com/gubnik/___neo___pyromancer"
-            credentials {
-                username = System.getenv("GITHUB_LOGIN")
-                password = System.getenv("GITHUB_TOKEN")
-            }
-        }
+
     }
 }
 

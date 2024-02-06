@@ -8,13 +8,13 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import xyz.nikgub.incandescent.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.items.*;
 import xyz.nikgub.pyromancer.items.armor.MarauderArmorItem;
 import xyz.nikgub.pyromancer.items.armor.PyromancerArmorItem;
 import xyz.nikgub.pyromancer.items.pyromancy_items.CourtOfEmbersItem;
 import xyz.nikgub.pyromancer.items.pyromancy_items.SizzlingHandItem;
-import xyz.nikgub.pyromancer.util.GeneralUtils;
 
 @SuppressWarnings("unused")
 public class ItemRegistry {

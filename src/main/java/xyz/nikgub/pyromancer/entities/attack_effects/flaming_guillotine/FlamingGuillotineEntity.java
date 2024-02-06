@@ -9,10 +9,10 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import xyz.nikgub.incandescent.util.EntityUtils;
 import xyz.nikgub.pyromancer.registries.vanila.DamageSourceRegistry;
 import xyz.nikgub.pyromancer.entities.attack_effects.AttackEffectEntity;
 import xyz.nikgub.pyromancer.registries.vanila.AttributeRegistry;
-import xyz.nikgub.pyromancer.util.EntityUtils;
 
 public class FlamingGuillotineEntity extends AttackEffectEntity {
     public AnimationState fallAnimationState = new AnimationState();

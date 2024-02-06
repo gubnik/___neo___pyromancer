@@ -45,6 +45,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
+import xyz.nikgub.incandescent.util.GeneralUtils;
 import xyz.nikgub.pyromancer.client.models.armor.PyromancerArmorModel;
 import xyz.nikgub.pyromancer.client.models.entities.FlamingGuillotineModel;
 import xyz.nikgub.pyromancer.client.models.entities.PyronadoModel;
@@ -63,7 +64,6 @@ import xyz.nikgub.pyromancer.network.NetworkCore;
 import xyz.nikgub.pyromancer.registries.custom.EmberRegistry;
 import xyz.nikgub.pyromancer.registries.vanila.*;
 import xyz.nikgub.pyromancer.registries.vanila.enchantments.EnchantmentRegistry;
-import xyz.nikgub.pyromancer.util.GeneralUtils;
 import xyz.nikgub.pyromancer.util.ItemUtils;
 
 import java.util.Arrays;

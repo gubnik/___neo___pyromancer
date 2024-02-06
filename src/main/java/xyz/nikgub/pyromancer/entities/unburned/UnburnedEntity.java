@@ -18,9 +18,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.pyromancer.animations.DeterminedAnimation;
+import xyz.nikgub.incandescent.animations.DeterminedAnimation;
+import xyz.nikgub.incandescent.animations.ISafeAnimatedEntity;
 import xyz.nikgub.pyromancer.entities.IFlamingGroveNativeEntity;
-import xyz.nikgub.pyromancer.animations.ISafeAnimatedEntity;
 import xyz.nikgub.pyromancer.registries.vanila.DamageSourceRegistry;
 
 import java.util.List;
@@ -145,6 +145,7 @@ public class UnburnedEntity extends Monster implements IFlamingGroveNativeEntity
     {
         /* placeholder for the case of me wanting to add specific immunities */
         // if(damageSource.is(DamageTypeTags.IS_FIRE)) return false;
+
         if(amount > 10f)
         {
             this.stopAllAnimations();

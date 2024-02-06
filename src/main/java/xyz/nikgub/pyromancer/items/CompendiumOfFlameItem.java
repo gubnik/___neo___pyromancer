@@ -23,11 +23,13 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.nikgub.incandescent.item.IGradientNameItem;
+import xyz.nikgub.incandescent.item.INotStupidTooltipItem;
+import xyz.nikgub.incandescent.util.GeneralUtils;
 import xyz.nikgub.pyromancer.ember.UniqueEmberBehaviour;
 import xyz.nikgub.pyromancer.items.capabilities.CompendiumOfFlameCapability;
 import xyz.nikgub.pyromancer.mixin.client.ItemRendererMixin;
 import xyz.nikgub.pyromancer.registries.vanila.AttributeRegistry;
-import xyz.nikgub.pyromancer.util.GeneralUtils;
 
 import java.util.Map;
 import java.util.UUID;
@@ -39,16 +41,19 @@ import java.util.function.BiFunction;
  */
 @UniqueEmberBehaviour(allow = UniqueEmberBehaviour.AllowanceModifier.DENY)
 public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStupidTooltipItem, IGradientNameItem {
+
     /**
      * String of int tag associated with an active slot <p>
      * Said int tag must be between 1 and 5
      */
     public static final String ACTIVE_SLOT_TAG = "___PYROMANCER_COMPENDIUM_ACTIVE_SLOT___";
+
     /**
      * String of boolean tag associated with rendering pyromancy stored within this item <p>
      * Used in {@link ItemRendererMixin}
      */
     public static final String PYROMANCY_CUSTOM_RENDER_TAG = "___PYROMANCER_PYROMANCY_CUSTOM_RENDER___";
+
     /**
      * String of boolean tag associated with marking whether this item is in offhand <p>
      * Used in {@link ItemRendererMixin} <p>
