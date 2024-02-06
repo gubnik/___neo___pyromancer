@@ -64,19 +64,23 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     public CompendiumOfFlameItem(Properties properties) {
         super(properties);
     }
+
     private ItemStack getCurrentlyActiveItem(ItemStack itemStack)
     {
         return this.getItemFromItem(itemStack, itemStack.getOrCreateTag().getInt(ACTIVE_SLOT_TAG));
     }
+
     private void setCurrentlyActiveItem(ItemStack itemStack, ItemStack ITEM)
     {
         this.setItemInItem(itemStack, ITEM, itemStack.getOrCreateTag().getInt(ACTIVE_SLOT_TAG));
     }
+
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt)
     {
         return new CompendiumOfFlameCapability();
     }
+
     @Override
     public void inventoryTick(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull Entity entity, int tick, boolean m)
     {
@@ -89,6 +93,7 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
             if(this.getItemFromItem(itemStack, i).getItem() instanceof UsablePyromancyItem) tag.putDouble("CustomModelData", 1);
         }
     }
+
     @Override
     public boolean overrideOtherStackedOnMe(@NotNull ItemStack inSlot, @NotNull ItemStack held, @NotNull Slot slot, @NotNull ClickAction clickAction, @NotNull Player player, @NotNull SlotAccess slotAccess)
     {
@@ -108,6 +113,7 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
         }
         return true;
     }
+
     /*
     Use item part
      */
@@ -155,11 +161,13 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
             return getCurrentlyActiveItem(itemStack).getUseDuration();
         else return 0;
     }
+
     /*
     Attribute part
      */
     @Override
-    public @NotNull Multimap<Attribute, AttributeModifier> getAttributeModifiers(@NotNull EquipmentSlot slot, ItemStack itemStack) {
+    public @NotNull Multimap<Attribute, AttributeModifier> getAttributeModifiers(@NotNull EquipmentSlot slot, ItemStack itemStack)
+    {
         if(!(getCurrentlyActiveItem(itemStack).getItem() instanceof UsablePyromancyItem pyromancyItem) || itemStack.getOrCreateTag().getBoolean(IS_OFFHAND)) return new ImmutableMultimap.Builder<Attribute, AttributeModifier>().build();
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
         if(slot == EquipmentSlot.MAINHAND)
@@ -170,18 +178,24 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
         }
         return builder.build();
     }
+
     @Override
-    public Map<Attribute, Pair<UUID, ChatFormatting>> specialColoredUUID() {
+    public Map<Attribute, Pair<UUID, ChatFormatting>> specialColoredUUID()
+    {
         return Map.of(
                 AttributeRegistry.PYROMANCY_DAMAGE.get(), Pair.of(IPyromancyItem.BASE_PYROMANCY_DAMAGE_UUID, ChatFormatting.GOLD),
                 AttributeRegistry.BLAZE_CONSUMPTION.get(), Pair.of(IPyromancyItem.BASE_BLAZE_CONSUMPTION_UUID, ChatFormatting.GOLD)
         );
     }
+
     @Override
-    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus() {
-        return ((player, attribute) -> {
+    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus()
+    {
+        return ((player, attribute) ->
+        {
             double d0 = 0;
-            if (player.getOffhandItem().getItem() instanceof BlazingJournalItem) {
+            if (player.getOffhandItem().getItem() instanceof BlazingJournalItem)
+            {
                 d0 += IPyromancyItem.getAttributeBonus(player, attribute);
             }
             return d0;
@@ -189,17 +203,20 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     }
 
     @Override
-    public boolean getGradientCondition(ItemStack itemStack) {
+    public boolean getGradientCondition(ItemStack itemStack)
+    {
         return true;
     }
 
     @Override
-    public Pair<Integer, Integer> getGradientColors() {
+    public Pair<Integer, Integer> getGradientColors()
+    {
         return Pair.of(GeneralUtils.rgbToColorInteger(200, 100, 12), GeneralUtils.rgbToColorInteger(120, 30, 80));
     }
 
     @Override
-    public int getGradientTickTime() {
+    public int getGradientTickTime()
+    {
         return 60;
     }
 }
