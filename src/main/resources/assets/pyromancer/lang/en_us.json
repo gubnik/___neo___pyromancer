@@ -18,6 +18,18 @@
   "item.pyromancer.iron_mace": "Iron Mace",
   "item.pyromancer.stone_mace": "Stone Mace",
   "item.pyromancer.wooden_mace": "Wooden Mace",
+  "item.pyromancer.amber_mace": "Amber Mace",
+  "item.pyromancer.amber_pickaxe": "Amber Pickaxe",
+  "item.pyromancer.amber_axe": "Amber Axe",
+  "item.pyromancer.amber_shovel": "Amber Shovel",
+  "item.pyromancer.amber_hoe": "Amber Hoe",
+  "item.pyromancer.amber_sword": "Amber Sword",
+  "item.pyromancer.amber": "Amber",
+  "item.pyromancer.marauder_helm": "Marauder Helm",
+  "item.pyromancer.marauder_cape": "Marauder Cape",
+  "item.pyromancer.marauder_pants": "Marauder Pants",
+  "item.pyromancer.marauder_boots": "Marauder Boots",
+
 
   "[[[---ADVANCEMENTS---]]]": "",
   "advancement.pyromancer.blazing_journal.title": "Pyromancer",
@@ -44,6 +56,7 @@
   "[[[---ATTRIBUTES---]]]": "",
   "pyromancer.pyromancy_damage": "Pyromancy damage",
   "pyromancer.blaze_consumption": "Blaze consumption",
+  "pyromancer.armor_piercing": "Armor piercing",
 
   "[[[---ENCHANTMENTS---]]]": "",
   "enchantment.pyromancer.flaming_guillotine": "Flaming Guillotine",
@@ -55,6 +68,7 @@
 
   "enchantment.pyromancer.sturdiness": "Sturdiness",
   "enchantment.pyromancer.close_quarters": "Close Quarters",
+  "enchantment.pyromancer.blunt_impact": "Blunt Impact",
 
   "[[[------]]]": ""
 }

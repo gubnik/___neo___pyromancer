@@ -1,9 +1,7 @@
 package xyz.nikgub.pyromancer.registries.vanila;
 
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -19,6 +17,21 @@ import xyz.nikgub.pyromancer.items.pyromancy_items.SizzlingHandItem;
 @SuppressWarnings("unused")
 public class ItemRegistry {
     public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PyromancerMod.MOD_ID);
+
+    // MATERIALS
+    //public static RegistryObject<Item> HOGLIN_HIDE = ITEMS.register("hoglin_hide",
+    //        () -> new Item(new Item.Properties().stacksTo(64)));
+    //public static RegistryObject<Item> NETHERITE_SHARD = ITEMS.register("netherite_shard",
+    //        () -> new Item(new Item.Properties().stacksTo(64)));
+    //public static RegistryObject<Item> CINNABAR_CHUNK = ITEMS.register("cinnabar_chunk",
+    //        () -> new Item(new Item.Properties().stacksTo(64)));
+    //public static RegistryObject<Item> DROPS_OF_MERCURY = ITEMS.register("drops_of_mercury",
+    //        () -> new Item(new Item.Properties().stacksTo(64)));
+    //public static RegistryObject<Item> BRIMSTONE = ITEMS.register("brimstone",
+    //        () -> new Item(new Item.Properties().stacksTo(64)));
+    public static RegistryObject<Item> AMBER = ITEMS.register("amber",
+            () -> new Item(new Item.Properties()));
+
 
     public static RegistryObject<Item> BLAZING_JOURNAL = ITEMS.register("blazing_journal",
             () -> new BlazingJournalItem(new Item.Properties()));
@@ -50,6 +63,7 @@ public class ItemRegistry {
     public static RegistryObject<Item> COURT_OF_EMBERS = ITEMS.register("court_of_embers",
             () -> new CourtOfEmbersItem(new Item.Properties()));
 
+    // TOOLS
     public static RegistryObject<Item> WOODEN_MACE = ITEMS.register("wooden_mace",
             () -> new MaceItem(Tiers.WOOD, new Item.Properties().stacksTo(1)));
     public static RegistryObject<Item> STONE_MACE = ITEMS.register("stone_mace",
@@ -62,6 +76,18 @@ public class ItemRegistry {
             () -> new MaceItem(Tiers.DIAMOND, new Item.Properties().stacksTo(1)));
     public static RegistryObject<Item> NETHERITE_MACE = ITEMS.register("netherite_mace",
             () -> new MaceItem(Tiers.NETHERITE, new Item.Properties().stacksTo(1)));
+    public static RegistryObject<Item> AMBER_PICKAXE = ITEMS.register("amber_pickaxe",
+            () -> new PickaxeItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
+    public static RegistryObject<Item> AMBER_AXE = ITEMS.register("amber_axe",
+            () -> new AxeItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
+    public static RegistryObject<Item> AMBER_SHOVEL = ITEMS.register("amber_shovel",
+            () -> new ShovelItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
+    public static RegistryObject<Item> AMBER_HOE = ITEMS.register("amber_hoe",
+            () -> new HoeItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
+    public static RegistryObject<Item> AMBER_SWORD = ITEMS.register("amber_sword",
+            () -> new SwordItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
+    public static RegistryObject<Item> AMBER_MACE = ITEMS.register("amber_mace",
+            () -> new MaceItem(TierRegistry.AMBER, new Item.Properties()));
 
     // ARMOR
     public static RegistryObject<Item> MARAUDER_HELM = ITEMS.register("marauder_helm",
