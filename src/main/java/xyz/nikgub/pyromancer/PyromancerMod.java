@@ -18,6 +18,8 @@ import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
@@ -33,6 +35,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -66,6 +69,7 @@ import xyz.nikgub.pyromancer.registries.vanila.*;
 import xyz.nikgub.pyromancer.registries.vanila.enchantments.EnchantmentRegistry;
 import xyz.nikgub.pyromancer.util.ItemUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -132,22 +136,30 @@ public class PyromancerMod
     {
         if(event.getTab().equals(PYROMANCER_TAB.get()))
         {
-            List<Item> MACES = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof MaceItem).map(RegistryObject::get).toList();
+            List<Item> TOOLS = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof TieredItem).map(RegistryObject::get).toList();
             List<Item> USABLE_PYROMANCY = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof UsablePyromancyItem).map(RegistryObject::get).toList();
             List<Item> PYROMANCY = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof IPyromancyItem && !(registryObject.get() instanceof UsablePyromancyItem)).map(RegistryObject::get).toList();
             List<Item> QUILLS = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof QuillItem).map(RegistryObject::get).toList();
             List<ItemStack> EMBERS = EmberRegistry.REGISTRY.get().getValues().stream().map(ember -> ember.applyToItemStack(new ItemStack(ItemRegistry.EMBER_ITEM.get()))).toList();
             List<Item> ARMOR = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof ArmorItem).map(RegistryObject::get).toList();
 
+            List<Item> ALL_ELSE = new ArrayList<>(ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).filter(item -> !(item instanceof BlockItem) && !(item instanceof SpawnEggItem)).toList());
+            ALL_ELSE.removeAll(TOOLS);
+            ALL_ELSE.removeAll(USABLE_PYROMANCY);
+            ALL_ELSE.removeAll(PYROMANCY);
+            ALL_ELSE.removeAll(QUILLS);
+            ALL_ELSE.removeAll(ARMOR);
+
             event.accept(new ItemStack(ItemRegistry.BLAZING_JOURNAL.get()));
             event.accept(new ItemStack(ItemRegistry.COMPENDIUM_OF_FLAME.get()));
-            for(Item item : MACES) event.accept(item);
-            for(Item item : USABLE_PYROMANCY) event.accept(item);
-            for(Item item : PYROMANCY) event.accept(item);
-            for(Item item : QUILLS) event.accept(item);
+            for (Item item : TOOLS) event.accept(item);
+            for (Item item : USABLE_PYROMANCY) event.accept(item);
+            for (Item item : PYROMANCY) event.accept(item);
+            for (Item item : QUILLS) event.accept(item);
             event.accept(new ItemStack(ItemRegistry.EMBER_ITEM.get()));
-            for(ItemStack item : EMBERS) event.accept(item);
-            for(Item item : ARMOR) event.accept(item);
+            for (ItemStack item : EMBERS) event.accept(item);
+            for (Item item : ARMOR) event.accept(item);
+            for (Item item : ALL_ELSE) event.accept(item);
         }
         else if(event.getTabKey().equals(CreativeModeTabs.BUILDING_BLOCKS))
         {
@@ -229,13 +241,24 @@ public class PyromancerMod
         public static void entityAttributeProvider(EntityAttributeModificationEvent event){
             event.add(EntityType.PLAYER, AttributeRegistry.BLAZE_CONSUMPTION.get());
             event.add(EntityType.PLAYER, AttributeRegistry.PYROMANCY_DAMAGE.get());
+            event.add(EntityType.PLAYER, AttributeRegistry.ARMOR_PIERCING.get());
         }
     }
     @Mod.EventBusSubscriber(modid = PyromancerMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
     @SuppressWarnings("unused")
     public static class ForgeEvents {
         @SubscribeEvent
-        public static void playerAttackEvent(LivingAttackEvent event) {
+        public static void livingHurtEvent(LivingHurtEvent event)
+        {
+            if (!(event.getSource().getEntity() instanceof LivingEntity sourceEntity)) return;
+            LivingEntity entity = event.getEntity();
+            double armor_pierce = sourceEntity.getAttributeValue(AttributeRegistry.ARMOR_PIERCING.get());
+            if (armor_pierce >= entity.getAttributeValue(Attributes.ARMOR))
+                event.setAmount(event.getAmount() + (float) armor_pierce);
+        }
+
+        @SubscribeEvent
+        public static void livingAttackEvent(LivingAttackEvent event) {
             DamageSource damageSource = event.getSource();
             blazingJournalAdvancementProcessor(damageSource.getEntity(), event.getEntity(), damageSource);
             if (!(damageSource.getDirectEntity() instanceof Player player)) return;
@@ -246,6 +269,7 @@ public class PyromancerMod
             blazingJournalQuillProcessor(blazingJournalItem, journal, weapon, player, target);
             blazingJournalAttackProcessor(journal, weapon, player, target);
         }
+
         public static void blazingJournalAdvancementProcessor(Entity player, @Nullable Entity entity, @Nullable DamageSource source)
         {
             if(player == null) return;
@@ -256,6 +280,7 @@ public class PyromancerMod
                 GeneralUtils.addAdvancement(sPlayer, new ResourceLocation(PyromancerMod.MOD_ID,"pyromancer/journal_projection"));
             }
         }
+
         public static void blazingJournalQuillProcessor(BlazingJournalItem blazingJournalItem, ItemStack journal, ItemStack weapon, Player player, Entity target)
         {
             if ((blazingJournalItem.getItemFromItem(journal, 0)).getItem() instanceof QuillItem quillItem) {
@@ -265,6 +290,7 @@ public class PyromancerMod
                 }
             }
         }
+
         public static void blazingJournalAttackProcessor(ItemStack journal, ItemStack weapon, Player player, Entity target)
         {
             for (BlazingJournalEnchantment blazingJournalEnchantment : journal.getAllEnchantments().keySet().stream().filter(enchantment -> enchantment instanceof BlazingJournalEnchantment).map(enchantment -> (BlazingJournalEnchantment) enchantment).toList())
@@ -279,5 +305,6 @@ public class PyromancerMod
                 } else break;
             }
         }
+
     }
 }
