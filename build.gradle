@@ -111,7 +111,7 @@ repositories {
 
 dependencies {
     if(project.hasProperty('patchouliVersion')) implementation fg.deobf("vazkii.patchouli:Patchouli:${patchouliVersion}")
-    implementation fg.deobf("curse.maven:incandescent_lib-971520:5085017")
+    implementation fg.deobf("curse.maven:incandescent_lib-971520:5130268")
 }
 
 mixin {
