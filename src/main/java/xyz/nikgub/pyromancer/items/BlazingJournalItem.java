@@ -41,9 +41,11 @@ import java.util.List;
  */
 public class BlazingJournalItem extends Item implements IContainerItem {
     public final static String BLAZE_TAG_NAME = "PYROMANCER_BLAZING_JOURNAL_TAG";
+
     public BlazingJournalItem(Properties properties) {
         super(properties.stacksTo(1));
     }
+
     @Override
     public @NotNull Component getName(@NotNull ItemStack itemStack)
     {
@@ -51,6 +53,7 @@ public class BlazingJournalItem extends Item implements IContainerItem {
         style = style.withColor(GeneralUtils.rgbToColorInteger(255, 132, 16)).withBold(true);
         return Component.translatable(this.getDescriptionId(itemStack)).withStyle(style);
     }
+
     @Override
     public @NotNull Multimap<Attribute, AttributeModifier> getAttributeModifiers(@NotNull EquipmentSlot slot, ItemStack itemStack) {
         if(!(this.getItemFromItem(itemStack, 0).getItem() instanceof QuillItem quillItem)) return super.getAttributeModifiers(slot, itemStack);
@@ -66,17 +69,20 @@ public class BlazingJournalItem extends Item implements IContainerItem {
         }
         else return super.getAttributeModifiers(slot, itemStack);
     }
+
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt)
     {
         return new BlazingJournalCapability();
     }
+
     @Override
     public void appendHoverText(@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
     {
         String blazeLine = Component.translatable("blazing_journal.blaze_value.desc").getString() + itemStack.getOrCreateTag().getInt(BLAZE_TAG_NAME);
         list.add(Component.literal(blazeLine + " / " + PyromancerConfig.blazingJournalMaxCapacity).withStyle(ChatFormatting.GOLD));
     }
+
     @Override
     public boolean overrideOtherStackedOnMe(@NotNull ItemStack inSlot, @NotNull ItemStack held, @NotNull Slot slot, @NotNull ClickAction clickAction, @NotNull Player player, @NotNull SlotAccess slotAccess)
     {
@@ -85,6 +91,7 @@ public class BlazingJournalItem extends Item implements IContainerItem {
         if(held.getItem() == Items.BLAZE_POWDER) return this.blazeBehaviour(inSlot, slotAccess);
         return false;
     }
+
     public boolean quillBehaviour(ItemStack inSlot, ItemStack held, SlotAccess slotAccess)
     {
         if(this.getItemFromItem(inSlot, 0).getItem() instanceof QuillItem)
@@ -99,6 +106,7 @@ public class BlazingJournalItem extends Item implements IContainerItem {
         }
         return true;
     }
+
     public boolean blazeBehaviour(ItemStack inSlot, SlotAccess slotAccess)
     {
         int maxCapacity = PyromancerConfig.blazingJournalMaxCapacity,
@@ -106,7 +114,8 @@ public class BlazingJournalItem extends Item implements IContainerItem {
         CompoundTag tag = inSlot.getOrCreateTag();
         if(tag.getInt(BLAZE_TAG_NAME) <= maxCapacity - value)
         {
-            while(tag.getInt(BLAZE_TAG_NAME) <= maxCapacity - value)
+            while(tag.getInt(BLAZE_TAG_NAME) <= maxCapacity - value
+            && !slotAccess.get().isEmpty())
             {
                 slotAccess.get().shrink(1);
                 tag.putInt(BLAZE_TAG_NAME, tag.getInt(BLAZE_TAG_NAME) + value);
@@ -119,6 +128,7 @@ public class BlazingJournalItem extends Item implements IContainerItem {
         }
         return true;
     }
+
     @NotNull
     public static BlazingJournalAttackEvent getBlazingJournalAttackEvent(Player player, Entity target, ItemStack journal, ItemStack weapon, BlazingJournalEnchantment enchantment)
     {
