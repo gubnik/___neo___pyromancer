@@ -17,33 +17,46 @@ import xyz.nikgub.pyromancer.client.models.armor.PyromancerArmorModel;
 import xyz.nikgub.pyromancer.registries.vanila.ArmorMaterialsRegistry;
 import xyz.nikgub.pyromancer.registries.vanila.AttributeRegistry;
 
+import java.util.Map;
 import java.util.UUID;
 import java.util.function.Consumer;
 
 public class PyromancerArmorItem extends ArmorItem {
 
-    public final UUID PYROMANCY_DAMAGE_UUID = UUID.fromString("6aada1d8-4b50-11ee-be56-0242ac120002");
+    public final Map<EquipmentSlot, UUID> PYROMANCY_DAMAGE_UUID_MAP = Map.of(
+            EquipmentSlot.HEAD, UUID.fromString("6aada1d8-4b50-11ee-be56-0242ac120002"),
+            EquipmentSlot.CHEST, UUID.fromString("6aada1d8-4b50-11ee-be56-0242ac120003"),
+            EquipmentSlot.LEGS, UUID.fromString("6aada1d8-4b50-11ee-be56-0242ac120004"),
+            EquipmentSlot.FEET, UUID.fromString("6aada1d8-4b50-11ee-be56-0242ac120005")
+    );
+
     private final Multimap<Attribute, AttributeModifier> attributes;
 
     public PyromancerArmorItem(Type type) {
         super(ArmorMaterialsRegistry.PYROMANCER_ARMOR, type, new Properties().stacksTo(1).fireResistant().rarity(Rarity.UNCOMMON));
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.putAll(super.getDefaultAttributeModifiers(type.getSlot()));
-        builder.put(AttributeRegistry.PYROMANCY_DAMAGE.get(), new AttributeModifier(PYROMANCY_DAMAGE_UUID, "Pyromancy damage modifier", this.getAttributeValue(type.getSlot(), AttributeRegistry.PYROMANCY_DAMAGE.get()), AttributeModifier.Operation.MULTIPLY_BASE));
+        EquipmentSlot slot = type.getSlot();
+        builder.putAll(super.getDefaultAttributeModifiers(slot));
+        builder.put(AttributeRegistry.PYROMANCY_DAMAGE.get(),
+                new AttributeModifier(PYROMANCY_DAMAGE_UUID_MAP.get(slot), "Pyromancy damage modifier", this.getAttributeValue(slot, AttributeRegistry.PYROMANCY_DAMAGE.get()), AttributeModifier.Operation.MULTIPLY_BASE));
         this.attributes = builder.build();
     }
+
     @Override
     public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot equipmentSlot) {
         return equipmentSlot == this.type.getSlot() ? this.attributes : super.getDefaultAttributeModifiers(equipmentSlot);
     }
+
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
         return "pyromancer:textures/model/armor/pyromancer_armor.png";
     }
+
     public float getAttributeValue(EquipmentSlot equipmentSlot, Attribute attribute){
-        int[] VALUES = new int[]{10, 20, 15, 10};
-        return VALUES[equipmentSlot.getIndex()] * 0.01F * (attribute.equals(AttributeRegistry.PYROMANCY_DAMAGE.get()) ? 2 : 1);
+        int[] VALUES = new int[]{10, 15, 20, 10};
+        return VALUES[equipmentSlot.getIndex()] * 0.005F * (attribute.equals(AttributeRegistry.PYROMANCY_DAMAGE.get()) ? 2 : 1);
     }
+
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
