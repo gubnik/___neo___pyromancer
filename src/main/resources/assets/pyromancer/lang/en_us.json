@@ -29,6 +29,10 @@
   "item.pyromancer.marauder_cape": "Marauder Cape",
   "item.pyromancer.marauder_pants": "Marauder Pants",
   "item.pyromancer.marauder_boots": "Marauder Boots",
+  "item.pyromancer.pyromancer_helmet": "Pyromancer Helm",
+  "item.pyromancer.pyromancer_chestplate": "Pyromancer Cape",
+  "item.pyromancer.pyromancer_leggings": "Pyromancer Pants",
+  "item.pyromancer.pyromancer_boots": "Pyromancer Boots",
 
 
   "[[[---ADVANCEMENTS---]]]": "",
@@ -54,9 +58,9 @@
   "advancement.pyromancer.forest_of_rot_visited.description": "Visit Forest of Rot",
 
   "[[[---ATTRIBUTES---]]]": "",
-  "pyromancer.pyromancy_damage": "Pyromancy damage",
-  "pyromancer.blaze_consumption": "Blaze consumption",
-  "pyromancer.armor_piercing": "Armor piercing",
+  "pyromancer.pyromancy_damage": "Pyromancy Damage",
+  "pyromancer.blaze_consumption": "Blaze Consumption",
+  "pyromancer.armor_piercing": "Armor Piercing",
 
   "[[[---ENCHANTMENTS---]]]": "",
   "enchantment.pyromancer.flaming_guillotine": "Flaming Guillotine",
