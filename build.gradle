@@ -12,7 +12,6 @@ buildscript {
 
 apply plugin: 'maven-publish'
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'idea'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'eclipse'
 apply plugin: 'idea'

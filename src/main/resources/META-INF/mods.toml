@@ -5,7 +5,7 @@ license="GNU General Public License, version 3"
 modId="pyromancer" #mandatory
 version="2.0.0"
 displayName="Pyromancer" #mandatory
-credits="Thanks for this example mod goes to Java" #optional
+credits="" #optional
 authors="nikgub_" #optional
 description='''
 '''
