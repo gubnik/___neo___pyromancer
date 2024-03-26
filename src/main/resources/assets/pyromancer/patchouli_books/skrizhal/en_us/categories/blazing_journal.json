@@ -1,5 +1,5 @@
 {
-  "name": "Test Category",
-  "description": "This is a test category for testing!",
-  "icon": "minecraft:writable_book"
+  "name": "Words of Flame",
+  "description": "",
+  "icon": "pyromancer:blazing_journal"
 }
