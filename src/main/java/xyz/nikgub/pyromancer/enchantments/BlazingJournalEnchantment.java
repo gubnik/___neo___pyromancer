@@ -5,7 +5,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.enchantment.Enchantment;
-import xyz.nikgub.pyromancer.registries.vanila.enchantments.EnchantmentCategoryRegistry;
+import xyz.nikgub.pyromancer.registries.vanila.EnchantmentCategoryRegistry;
 import xyz.nikgub.pyromancer.util.ItemUtils;
 
 import java.util.function.BiConsumer;

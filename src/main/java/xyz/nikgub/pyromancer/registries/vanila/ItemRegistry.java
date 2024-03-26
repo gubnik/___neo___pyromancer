@@ -61,18 +61,6 @@ public class ItemRegistry {
             () -> new CourtOfEmbersItem(new Item.Properties()));
 
     // TOOLS
-    public static RegistryObject<Item> WOODEN_MACE = ITEMS.register("wooden_mace",
-            () -> new MaceItem(Tiers.WOOD, new Item.Properties().stacksTo(1)));
-    public static RegistryObject<Item> STONE_MACE = ITEMS.register("stone_mace",
-            () -> new MaceItem(Tiers.STONE, new Item.Properties().stacksTo(1)));
-    public static RegistryObject<Item> IRON_MACE = ITEMS.register("iron_mace",
-            () -> new MaceItem(Tiers.IRON, new Item.Properties().stacksTo(1)));
-    public static RegistryObject<Item> GOLDEN_MACE = ITEMS.register("golden_mace",
-            () -> new MaceItem(Tiers.GOLD, new Item.Properties().stacksTo(1)));
-    public static RegistryObject<Item> DIAMOND_MACE = ITEMS.register("diamond_mace",
-            () -> new MaceItem(Tiers.DIAMOND, new Item.Properties().stacksTo(1)));
-    public static RegistryObject<Item> NETHERITE_MACE = ITEMS.register("netherite_mace",
-            () -> new MaceItem(Tiers.NETHERITE, new Item.Properties().stacksTo(1)));
     public static RegistryObject<Item> AMBER_PICKAXE = ITEMS.register("amber_pickaxe",
             () -> new PickaxeItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
     public static RegistryObject<Item> AMBER_AXE = ITEMS.register("amber_axe",
@@ -83,8 +71,6 @@ public class ItemRegistry {
             () -> new HoeItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
     public static RegistryObject<Item> AMBER_SWORD = ITEMS.register("amber_sword",
             () -> new SwordItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
-    public static RegistryObject<Item> AMBER_MACE = ITEMS.register("amber_mace",
-            () -> new MaceItem(TierRegistry.AMBER, new Item.Properties()));
 
     // ARMOR
     public static RegistryObject<Item> MARAUDER_HELM = ITEMS.register("marauder_helm",

@@ -81,7 +81,7 @@ import xyz.nikgub.pyromancer.items.QuillItem;
 import xyz.nikgub.pyromancer.items.UsablePyromancyItem;
 import xyz.nikgub.pyromancer.network.NetworkCore;
 import xyz.nikgub.pyromancer.registries.vanila.*;
-import xyz.nikgub.pyromancer.registries.vanila.enchantments.EnchantmentRegistry;
+import xyz.nikgub.pyromancer.registries.vanila.EnchantmentRegistry;
 import xyz.nikgub.pyromancer.util.ItemUtils;
 
 import java.util.ArrayList;
