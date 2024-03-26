@@ -7,7 +7,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import xyz.nikgub.pyromancer.ember.UniqueEmberBehaviour;
 
 import java.util.Collection;
 import java.util.UUID;
@@ -16,7 +15,6 @@ import java.util.UUID;
  * Interface that enables pyromancy functionality <p>
  * Must be used when making any pyromancy
  */
-@UniqueEmberBehaviour(allow = UniqueEmberBehaviour.AllowanceModifier.DENY)
 public interface IPyromancyItem {
 
     UUID BASE_BLAZE_CONSUMPTION_UUID = UUID.fromString("39f6d6b6-f4f9-11ed-a05b-0242ac120003");

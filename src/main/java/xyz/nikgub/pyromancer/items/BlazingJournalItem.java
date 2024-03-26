@@ -7,6 +7,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.SlotAccess;
@@ -70,6 +72,12 @@ public class BlazingJournalItem extends Item implements IContainerItem {
         else return super.getAttributeModifiers(slot, itemStack);
     }
 
+    public void inventoryTick(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull Entity entity, int tick, boolean b)
+    {
+        if (!(entity instanceof ServerPlayer serverPlayer)) return;
+        if (this.getItemFromItem(itemStack, 0) != ItemStack.EMPTY) GeneralUtils.addAdvancement(serverPlayer, new ResourceLocation("pyromancer:pyromancer/quill_applied"));
+    }
+
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt)
     {
@@ -86,9 +94,9 @@ public class BlazingJournalItem extends Item implements IContainerItem {
     @Override
     public boolean overrideOtherStackedOnMe(@NotNull ItemStack inSlot, @NotNull ItemStack held, @NotNull Slot slot, @NotNull ClickAction clickAction, @NotNull Player player, @NotNull SlotAccess slotAccess)
     {
-        if(!(clickAction == ClickAction.SECONDARY)) return false;
-        if(held.getItem() instanceof  QuillItem) return this.quillBehaviour(inSlot, held, slotAccess);
-        if(held.getItem() == Items.BLAZE_POWDER) return this.blazeBehaviour(inSlot, slotAccess);
+        if (!(clickAction == ClickAction.SECONDARY)) return false;
+        if (held.getItem() instanceof QuillItem) return this.quillBehaviour(inSlot, held, slotAccess);
+        if (held.getItem() == Items.BLAZE_POWDER) return this.blazeBehaviour(inSlot, slotAccess);
         return false;
     }
 

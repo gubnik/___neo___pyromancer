@@ -2,60 +2,42 @@ package xyz.nikgub.pyromancer.mixin;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TieredItem;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.ember.Ember;
-import xyz.nikgub.pyromancer.items.EmberItem;
-import xyz.nikgub.pyromancer.registries.custom.EmberRegistry;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import xyz.nikgub.pyromancer.registries.vanila.TierRegistry;
 
-import java.util.function.Function;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin implements net.minecraftforge.common.extensions.IForgeItemStack {
     @Shadow
-    private static final Component DISABLED_ITEM_TOOLTIP = Component.translatable("item.disabled").withStyle(ChatFormatting.RED);
-    @Shadow
-    private static final Style LORE_STYLE = Style.EMPTY.withColor(ChatFormatting.DARK_PURPLE).withItalic(true);
-    @Shadow
-    public abstract CompoundTag getTagElement(String string);
-    @Shadow
     public abstract Item getItem();
-    @Inject(method = "getHoverName", at = @At("HEAD"), cancellable = true)
-    public void getHoverNameMixinHead(CallbackInfoReturnable<Component> retVal) {
-        ItemStack self = (ItemStack) (Object) this;
-        Function<Integer, Integer> colorFunction;
-        Ember ember = EmberRegistry.getFromItem(self);
-        if(Ember.emberItemStackPredicate(self) || self.getItem() instanceof EmberItem)
-        {
-            if(ember == null) return;
-            colorFunction = ember.getType().getTextColorFunction();
+    @Shadow
+    private CompoundTag tag;
+
+    @Inject(method = "enchant", at = @At("HEAD"), cancellable = true)
+    public void enchantMixinHead(Enchantment enchantment, int level, CallbackInfo callbackInfo) {
+        final ItemStack self = (ItemStack) (Object) this;
+        if (!(self.getItem() instanceof TieredItem tieredItem && tieredItem.getTier().equals(TierRegistry.AMBER))) return;
+        self.getOrCreateTag();
+        if (!this.tag.contains("Enchantments", 9)) {
+            this.tag.put("Enchantments", new ListTag());
         }
-        else return;
-        CompoundTag compoundtag = this.getTagElement("display");
-        if (compoundtag != null && compoundtag.contains("Name", 8))
-        {
-            try {
-                MutableComponent component = Component.Serializer.fromJson(compoundtag.getString("Name"));
-                if (component != null) {
-                    component = component.withStyle(component.getStyle().withColor(colorFunction.apply((PyromancerMod.clientTick))));
-                    retVal.setReturnValue(component);
-                }
-                compoundtag.remove("Name");
-            } catch (Exception exception) {
-                compoundtag.remove("Name");
-            }
-        }
-        MutableComponent defaultComponent = this.getItem().getName(self).copy();
-        defaultComponent = defaultComponent.withStyle(defaultComponent.getStyle().withColor(colorFunction.apply(PyromancerMod.clientTick)));
-        retVal.setReturnValue(defaultComponent);
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        ListTag listtag = this.tag.getList("Enchantments", 10);
+        if (random.nextInt(0, 11) <= 2) listtag.add(EnchantmentHelper.storeEnchantment(EnchantmentHelper.getEnchantmentId(enchantment), (byte)(level + 1)));
+        else listtag.add(EnchantmentHelper.storeEnchantment(EnchantmentHelper.getEnchantmentId(enchantment), (byte)level));
+        callbackInfo.cancel();
     }
 }

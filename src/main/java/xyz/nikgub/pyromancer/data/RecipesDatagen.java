@@ -20,13 +20,10 @@ public class RecipesDatagen extends RecipeProvider {
 
     @Override
     protected void buildRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ItemRegistry.BLAZING_JOURNAL.get())
-                .pattern(" s ")
-                .pattern(" n ")
-                .pattern(" i ")
-                .define('s', Ingredient.of(Items.FIRE_CHARGE))
-                .define('n', Ingredient.of(Items.NETHERITE_INGOT))
-                .define('i', Ingredient.of(Items.IRON_SWORD))
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.BLAZING_JOURNAL.get())
+                .pattern("bp ")
+                .define('b', Ingredient.of(Items.BOOK))
+                .define('p', Ingredient.of(Items.BLAZE_POWDER))
                 .unlockedBy("nothing", InventoryChangeTrigger.TriggerInstance.hasItems(Items.BLAZE_POWDER))
                 .save(consumer, "blazing_journal");
     }

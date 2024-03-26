@@ -26,7 +26,6 @@ import org.jetbrains.annotations.Nullable;
 import xyz.nikgub.incandescent.item.IGradientNameItem;
 import xyz.nikgub.incandescent.item.INotStupidTooltipItem;
 import xyz.nikgub.incandescent.util.GeneralUtils;
-import xyz.nikgub.pyromancer.ember.UniqueEmberBehaviour;
 import xyz.nikgub.pyromancer.items.capabilities.CompendiumOfFlameCapability;
 import xyz.nikgub.pyromancer.mixin.client.ItemRendererMixin;
 import xyz.nikgub.pyromancer.registries.vanila.AttributeRegistry;
@@ -39,7 +38,6 @@ import java.util.function.BiFunction;
  * Item that inherits {@link BlazingJournalItem}'s full functionality and is capable of storing 5 {@link UsablePyromancyItem}s <p>
  * For details regarding storage, see {@link CompendiumOfFlameCapability}
  */
-@UniqueEmberBehaviour(allow = UniqueEmberBehaviour.AllowanceModifier.DENY)
 public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStupidTooltipItem, IGradientNameItem {
 
     /**
@@ -82,7 +80,7 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     }
 
     @Override
-    public void inventoryTick(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull Entity entity, int tick, boolean m)
+    public void inventoryTick(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull Entity entity, int tick, boolean b)
     {
         CompoundTag tag = itemStack.getOrCreateTag();
         if(tag.getInt(ACTIVE_SLOT_TAG) == 0) tag.putInt(ACTIVE_SLOT_TAG, 1);

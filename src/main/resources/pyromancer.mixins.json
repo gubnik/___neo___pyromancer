@@ -3,15 +3,12 @@
   "package": "xyz.nikgub.pyromancer.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "ItemMixin",
     "ItemStackMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
-    "client/ItemInHandRendererMixin",
-    "client/ItemRendererMixin",
-    "client/HumanoidModelMixin"
+    "client/ItemInHandRendererMixin"
   ]
 }

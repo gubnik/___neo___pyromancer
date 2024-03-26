@@ -19,7 +19,6 @@
 package xyz.nikgub.pyromancer;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.ChatFormatting;
 import net.minecraft.DetectedVersion;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -44,17 +43,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
-import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -76,13 +72,14 @@ import xyz.nikgub.pyromancer.client.renderers.PyronadoRenderer;
 import xyz.nikgub.pyromancer.client.renderers.UnburnedRenderer;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
 import xyz.nikgub.pyromancer.data.RegistriesDataGeneration;
-import xyz.nikgub.pyromancer.ember.Ember;
 import xyz.nikgub.pyromancer.enchantments.BlazingJournalEnchantment;
 import xyz.nikgub.pyromancer.entities.unburned.UnburnedEntity;
 import xyz.nikgub.pyromancer.events.BlazingJournalAttackEvent;
-import xyz.nikgub.pyromancer.items.*;
+import xyz.nikgub.pyromancer.items.BlazingJournalItem;
+import xyz.nikgub.pyromancer.items.IPyromancyItem;
+import xyz.nikgub.pyromancer.items.QuillItem;
+import xyz.nikgub.pyromancer.items.UsablePyromancyItem;
 import xyz.nikgub.pyromancer.network.NetworkCore;
-import xyz.nikgub.pyromancer.registries.custom.EmberRegistry;
 import xyz.nikgub.pyromancer.registries.vanila.*;
 import xyz.nikgub.pyromancer.registries.vanila.enchantments.EnchantmentRegistry;
 import xyz.nikgub.pyromancer.util.ItemUtils;
@@ -117,7 +114,6 @@ public class PyromancerMod
         modEventBus.addListener(this::gatherData);
         modEventBus.addListener(this::entityAttributeSupplier);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PyromancerConfig.SPEC);
-        EmberRegistry.EMBERS.register(modEventBus);
         ItemRegistry.ITEMS.register(modEventBus);
         BlockRegistry.BLOCKS.register(modEventBus);
         AttributeRegistry.ATTRIBUTES.register(modEventBus);
@@ -158,7 +154,6 @@ public class PyromancerMod
             List<Item> USABLE_PYROMANCY = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof UsablePyromancyItem).map(RegistryObject::get).toList();
             List<Item> PYROMANCY = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof IPyromancyItem && !(registryObject.get() instanceof UsablePyromancyItem)).map(RegistryObject::get).toList();
             List<Item> QUILLS = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof QuillItem).map(RegistryObject::get).toList();
-            List<ItemStack> EMBERS = EmberRegistry.REGISTRY.get().getValues().stream().map(ember -> ember.applyToItemStack(new ItemStack(ItemRegistry.EMBER_ITEM.get()))).toList();
             List<Item> ARMOR = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof ArmorItem).map(RegistryObject::get).toList();
 
             List<Item> ALL_ELSE = new ArrayList<>(ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).filter(item -> !(item instanceof BlockItem) && !(item instanceof SpawnEggItem)).toList());
@@ -174,8 +169,6 @@ public class PyromancerMod
             for (Item item : USABLE_PYROMANCY) event.accept(item);
             for (Item item : PYROMANCY) event.accept(item);
             for (Item item : QUILLS) event.accept(item);
-            event.accept(new ItemStack(ItemRegistry.EMBER_ITEM.get()));
-            for (ItemStack item : EMBERS) event.accept(item);
             for (Item item : ARMOR) event.accept(item);
             for (Item item : ALL_ELSE) event.accept(item);
         }
@@ -218,33 +211,6 @@ public class PyromancerMod
     @SuppressWarnings("unused")
     public static class ClientForgeEvents
     {
-        @SubscribeEvent
-        public static void clientTick(final TickEvent.ClientTickEvent event)
-        {
-            clientTick++;
-        }
-        @SubscribeEvent
-        public static void tooltipColorEvent(RenderTooltipEvent.Color event)
-        {
-            ItemStack itemStack = event.getItemStack();
-            Ember ember = EmberRegistry.getFromItem(itemStack);
-            if((Ember.emberItemStackPredicate(itemStack) || itemStack.getItem() instanceof EmberItem)&& ember != null)
-            {
-                event.setBackgroundStart(ember.getType().getColor());
-            }
-        }
-        @SubscribeEvent
-        public static void tooltipContentsEvent(ItemTooltipEvent event)
-        {
-            ItemStack itemStack = event.getItemStack();
-            Ember ember = EmberRegistry.getFromItem(itemStack);
-            if(ember == null) return;
-            if(Ember.emberItemStackPredicate(itemStack) || itemStack.getItem() instanceof EmberItem
-            && event.getFlags() == TooltipFlag.ADVANCED)
-            {
-                event.getToolTip().add(Component.translatable(ember.toString()).withStyle(ChatFormatting.DARK_GRAY));
-            }
-        }
     }
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.DEDICATED_SERVER)
     @SuppressWarnings("unused")
@@ -265,6 +231,7 @@ public class PyromancerMod
     @Mod.EventBusSubscriber(modid = PyromancerMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
     @SuppressWarnings("unused")
     public static class ForgeEvents {
+
         @SubscribeEvent
         public static void livingHurtEvent(LivingHurtEvent event)
         {
@@ -323,6 +290,7 @@ public class PyromancerMod
                 } else break;
             }
         }
+
 
     }
 }
