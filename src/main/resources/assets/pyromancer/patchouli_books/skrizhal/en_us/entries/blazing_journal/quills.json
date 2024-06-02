@@ -1,0 +1,11 @@
+{
+  "name": "Quills",
+  "icon": "pyromancer:blazing_quill",
+  "category": "pyromancer:blazing_journal",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "One can change how words of the Flame are written, and with ths gain unexpected results from commuting with it"
+    }
+  ]
+}

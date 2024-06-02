@@ -39,16 +39,6 @@ public class AdvancementDatagen extends ForgeAdvancementProvider {
                             false, false, false)
                     .addCriterion("acquired_journal", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.BLAZING_JOURNAL.get()))
                     .save(saver, "pyromancer:pyromancer/root");
-            disp = new ItemStack(ItemRegistry.EMBER_ITEM.get());
-            Advancement ember_acquired = Advancement.Builder.advancement().parent(blazing_journal_acquired)
-                    .display(disp,
-                            Component.translatable("advancement.pyromancer.ember_obtained.title"),
-                            Component.translatable("advancement.pyromancer.ember_obtained.description"),
-                            null,
-                            FrameType.TASK,
-                            true, false, false)
-                    .addCriterion("ember_acquired", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.EMBER_ITEM.get()))
-                    .save(saver, "pyromancer:pyromancer/ember_acquired");
             disp = new ItemStack(ItemRegistry.BLAZING_QUILL.get());
             Advancement quill_applied = Advancement.Builder.advancement().parent(blazing_journal_acquired)
                     .display(disp,
@@ -59,7 +49,7 @@ public class AdvancementDatagen extends ForgeAdvancementProvider {
                             true, false, false)
                     .addCriterion("quill_applied", new ImpossibleTrigger.TriggerInstance())
                     .save(saver, "pyromancer:pyromancer/quill_applied");
-            disp = new ItemStack(ItemRegistry.EMBER_ITEM.get());
+            disp = new ItemStack(ItemRegistry.BLAZING_JOURNAL.get());
             Advancement journal_projection = Advancement.Builder.advancement().parent(blazing_journal_acquired)
                     .display(disp,
                             Component.translatable("advancement.pyromancer.journal_projection.title"),

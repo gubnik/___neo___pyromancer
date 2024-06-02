@@ -1,7 +1,8 @@
 {
-  "name": "My First Book!",
+  "name": "Skrizhal",
   "landing_text": "Welcome to Patchouli",
   "version": 1,
-  "creative_tab": "minecraft:tools_and_utilities",
+  "creative_tab": "pyromancer:pyromancer",
+  "model": "pyromancer:skrizhal",
   "use_resource_pack": true
 }

@@ -6,5 +6,4 @@ import xyz.nikgub.pyromancer.common.items.BlazingJournalItem;
 
 public class EnchantmentCategoryRegistry {
     public static final EnchantmentCategory BLAZING_JOURNAL = EnchantmentCategory.create("blazing_journal", (item -> item instanceof BlazingJournalItem));
-    public static final EnchantmentCategory MACE = EnchantmentCategory.create("mace", (item -> item instanceof MaceItem));
 }

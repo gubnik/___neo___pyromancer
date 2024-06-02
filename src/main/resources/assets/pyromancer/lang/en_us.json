@@ -45,7 +45,7 @@
   "advancement.pyromancer.journal_projection.title": "Immaterium's weaponry",
   "advancement.pyromancer.journal_projection.description": "Summon forth a flame projection via Blazing Journal",
 
-  "advancement.pyromancer.quill_applied.title": "So let it be written, so let it be done!",
+  "advancement.pyromancer.quill_applied.title": "So let it be written",
   "advancement.pyromancer.quill_applied.description": "Apply a quill to Blazing Journal",
 
   "advancement.pyromancer.pyromancy_obtained.title": "Mmmmmmmrrrrrrrpppghhh!",
@@ -56,6 +56,9 @@
 
   "advancement.pyromancer.forest_of_rot_visited.title": "Pestilence and plague",
   "advancement.pyromancer.forest_of_rot_visited.description": "Visit Forest of Rot",
+
+  "advancement.pyromancer.unburned_defeated.title": "Fixxxer",
+  "advancement.pyromancer.unburned_defeated.description": "Defeat Unburned",
 
   "[[[---ATTRIBUTES---]]]": "",
   "pyromancer.pyromancy_damage": "Pyromancy Damage",
@@ -73,6 +76,10 @@
   "enchantment.pyromancer.sturdiness": "Sturdiness",
   "enchantment.pyromancer.close_quarters": "Close Quarters",
   "enchantment.pyromancer.blunt_impact": "Blunt Impact",
+
+  "[[[---SKRIZHAL---]]]": "",
+  "pyromancer.skrizhal.blazing_journal.blazing_journal.name": "",
+  "pyromancer.skrizhal.blazing_journal.blazing_journal.text_1": "",
 
   "[[[------]]]": ""
 }
