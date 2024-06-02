@@ -8,7 +8,7 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.network.key.SwapPyromancyKeyMessage;
-import xyz.nikgub.pyromancer.registries.vanila.KeyBindsRegistry;
+import xyz.nikgub.pyromancer.common.registries.vanila.KeyBindsRegistry;
 
 /**
  * Related:

@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.client.models.entities.FlamingGuillotineModel;
-import xyz.nikgub.pyromancer.entities.attack_effects.flaming_guillotine.FlamingGuillotineEntity;
+import xyz.nikgub.pyromancer.common.entities.attack_effects.FlamingGuillotineEntity;
 
 public class FlamingGuillotineRenderer extends EntityRenderer<FlamingGuillotineEntity> {
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(PyromancerMod.MOD_ID, "textures/entity/flaming_guillotine.png");

@@ -13,9 +13,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.ember.Ember;
-import xyz.nikgub.pyromancer.items.EmberItem;
-import xyz.nikgub.pyromancer.registries.custom.EmberRegistry;
+import xyz.nikgub.pyromancer.common.ember.Ember;
+import xyz.nikgub.pyromancer.common.items.EmberItem;
+import xyz.nikgub.pyromancer.common.registries.custom.EmberRegistry;
 
 import java.util.function.Function;
 

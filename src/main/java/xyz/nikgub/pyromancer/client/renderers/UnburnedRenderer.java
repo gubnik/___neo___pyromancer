@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.client.models.entities.UnburnedModel;
-import xyz.nikgub.pyromancer.entities.unburned.UnburnedEntity;
+import xyz.nikgub.pyromancer.common.entities.unburned.UnburnedEntity;
 
 public class UnburnedRenderer extends MobRenderer<UnburnedEntity, UnburnedModel<UnburnedEntity>> {
     public UnburnedRenderer(EntityRendererProvider.Context renderManager) {

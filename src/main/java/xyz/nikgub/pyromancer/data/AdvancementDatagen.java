@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeAdvancementProvider;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.registries.vanila.ItemRegistry;
+import xyz.nikgub.pyromancer.common.registries.vanila.ItemRegistry;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

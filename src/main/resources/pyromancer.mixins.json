@@ -2,6 +2,7 @@
   "required": true,
   "package": "xyz.nikgub.pyromancer.mixin",
   "compatibilityLevel": "JAVA_17",
+  "refmap": "pyromancer.refmap.json",
   "mixins": [
     "ItemMixin",
     "ItemStackMixin"
@@ -10,8 +11,8 @@
     "defaultRequire": 1
   },
   "client": [
-    "client/ItemInHandRendererMixin",
-    "client/ItemRendererMixin",
-    "client/HumanoidModelMixin"
+    "client.ItemInHandRendererMixin",
+    "client.ItemRendererMixin",
+    "client.HumanoidModelMixin"
   ]
 }

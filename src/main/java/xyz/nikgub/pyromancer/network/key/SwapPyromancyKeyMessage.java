@@ -5,8 +5,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
-import xyz.nikgub.pyromancer.items.CompendiumOfFlameItem;
-import xyz.nikgub.pyromancer.items.capabilities.CompendiumOfFlameCapability;
+import xyz.nikgub.pyromancer.common.items.CompendiumOfFlameItem;
+import xyz.nikgub.pyromancer.common.items.capabilities.CompendiumOfFlameCapability;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;

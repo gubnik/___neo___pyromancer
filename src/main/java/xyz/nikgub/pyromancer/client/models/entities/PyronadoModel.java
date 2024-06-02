@@ -10,7 +10,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.entities.attack_effects.pyranado.PyronadoEntity;
+import xyz.nikgub.pyromancer.common.entities.attack_effects.PyronadoEntity;
 
 public class PyronadoModel<T extends PyronadoEntity> extends HierarchicalModel<T> {
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(PyromancerMod.MOD_ID, "pyronado"), "main");

@@ -17,7 +17,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.registries.vanila.ItemRegistry;
+import xyz.nikgub.pyromancer.common.registries.vanila.ItemRegistry;
 
 import java.util.ArrayList;
 import java.util.List;

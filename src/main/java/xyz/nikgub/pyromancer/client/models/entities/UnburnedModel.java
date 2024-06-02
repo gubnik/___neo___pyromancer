@@ -14,8 +14,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.pyromancer.entities.unburned.UnburnedAnimations;
-import xyz.nikgub.pyromancer.entities.unburned.UnburnedEntity;
+import xyz.nikgub.pyromancer.client.animations.UnburnedAnimations;
+import xyz.nikgub.pyromancer.common.entities.unburned.UnburnedEntity;
 
 public class UnburnedModel<T extends UnburnedEntity> extends HierarchicalModel<T> {
 	private final ModelPart root;
@@ -110,7 +110,7 @@ public class UnburnedModel<T extends UnburnedEntity> extends HierarchicalModel<T
 		this.Head.xRot = (float) Math.toRadians(headPitch);
 	}
 	public void walkingAnimation(float limbSwing, float limbWSwingAmount){
-		float f = Math.min(0.4F, 2.6F * limbWSwingAmount);
+		float f = Math.min(0.4F, 4F * limbWSwingAmount);
 		float f1 = limbSwing * 0.7F;
 		float f2 = Mth.cos(f1);
 		float f3 = Mth.sin(f1);

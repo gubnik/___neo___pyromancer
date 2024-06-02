@@ -15,8 +15,8 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.pyromancer.entities.attack_effects.flaming_guillotine.FlamingGuillotineAnimations;
-import xyz.nikgub.pyromancer.entities.attack_effects.flaming_guillotine.FlamingGuillotineEntity;
+import xyz.nikgub.pyromancer.client.animations.FlamingGuillotineAnimations;
+import xyz.nikgub.pyromancer.common.entities.attack_effects.FlamingGuillotineEntity;
 
 public class FlamingGuillotineModel<T extends FlamingGuillotineEntity> extends HierarchicalModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor

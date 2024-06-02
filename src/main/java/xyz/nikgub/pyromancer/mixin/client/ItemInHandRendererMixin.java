@@ -15,8 +15,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import xyz.nikgub.pyromancer.ember.Ember;
-import xyz.nikgub.pyromancer.registries.custom.EmberRegistry;
+import xyz.nikgub.pyromancer.common.ember.Ember;
+import xyz.nikgub.pyromancer.common.registries.custom.EmberRegistry;
 
 @SuppressWarnings("unused")
 @Mixin(ItemInHandRenderer.class)

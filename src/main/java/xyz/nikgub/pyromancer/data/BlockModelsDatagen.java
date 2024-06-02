@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.client.model.generators.BlockModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.registries.vanila.WoodTypesRegistry;
+import xyz.nikgub.pyromancer.common.registries.vanila.WoodTypesRegistry;
 
 public class BlockModelsDatagen extends BlockModelProvider {
     public BlockModelsDatagen(PackOutput output, ExistingFileHelper existingFileHelper)
