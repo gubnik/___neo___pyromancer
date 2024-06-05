@@ -1,4 +1,4 @@
-package xyz.nikgub.pyromancer.common.registries.vanila;
+package xyz.nikgub.pyromancer.common.registries;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;

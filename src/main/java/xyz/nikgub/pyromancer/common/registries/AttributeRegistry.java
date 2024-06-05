@@ -1,4 +1,4 @@
-package xyz.nikgub.pyromancer.common.registries.vanila;
+package xyz.nikgub.pyromancer.common.registries;
 
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
@@ -14,7 +14,7 @@ public class AttributeRegistry {
 
     public static RegistryObject<Attribute> BLAZE_CONSUMPTION = registerAttribute(new RangedAttribute("pyromancer.blaze_consumption", 0, 0, Integer.MAX_VALUE));
 
-    public static RegistryObject<Attribute> PYROMANCY_DAMAGE = registerAttribute(new RangedAttribute("pyromancer.pyromancy_damage", 4, 0, Integer.MAX_VALUE));
+    public static RegistryObject<Attribute> PYROMANCY_DAMAGE = registerAttribute(new RangedAttribute("pyromancer.pyromancy_damage", 0, 0, Integer.MAX_VALUE));
 
     private static RegistryObject<Attribute> registerAttribute(Attribute attribute)
     {

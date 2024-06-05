@@ -1,4 +1,4 @@
-package xyz.nikgub.pyromancer.common.registries.vanila;
+package xyz.nikgub.pyromancer.common.registries;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
