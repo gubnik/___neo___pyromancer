@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.ember.Ember;
 import xyz.nikgub.pyromancer.common.items.EmberItem;
-import xyz.nikgub.pyromancer.common.registries.custom.EmberRegistry;
 
 import java.util.function.Function;
 
@@ -33,8 +32,8 @@ public abstract class ItemStackMixin implements net.minecraftforge.common.extens
     public void getHoverNameMixinHead(CallbackInfoReturnable<Component> retVal) {
         ItemStack self = (ItemStack) (Object) this;
         Function<Integer, Integer> colorFunction;
-        Ember ember = EmberRegistry.getFromItem(self);
-        if(Ember.emberItemStackPredicate(self) || self.getItem() instanceof EmberItem)
+        Ember ember = Ember.getFromItem(self);
+        if(ember != null || self.getItem() instanceof EmberItem)
         {
             if(ember == null) return;
             colorFunction = ember.getType().getTextColorFunction();

@@ -7,7 +7,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import xyz.nikgub.pyromancer.common.events.EmberEvent;
-import xyz.nikgub.pyromancer.common.registries.custom.EmberRegistry;
+import xyz.nikgub.pyromancer.common.registries.EmberRegistry;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.atomic.AtomicReference;

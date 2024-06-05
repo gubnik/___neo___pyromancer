@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.nikgub.pyromancer.common.ember.Ember;
-import xyz.nikgub.pyromancer.common.registries.custom.EmberRegistry;
 
 @SuppressWarnings("unused")
 @Mixin(value = HumanoidModel.class)
@@ -22,11 +21,12 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
     public void poseLeftArmMixinHead(T entity, CallbackInfo callbackInfo)
     {
         ItemStack itemStack = entity.getUseItem();
-        if(Ember.emberItemStackPredicate(itemStack)) {
+        Ember ember = Ember.getFromItem(itemStack);
+        if(ember != null) {
             HumanoidModel<T> model = (HumanoidModel<T>) (Object) this;
             if (entity.getUseItemRemainingTicks() > 0 //&& Ember.emberItemStackPredicate(itemStack)
             ) {
-                EmberRegistry.getFromItem(itemStack).getAnimation().thirdPersonAnimation().accept(model, entity, HumanoidArm.LEFT);
+                ember.getAnimation().thirdPersonAnimation().run(model, entity, HumanoidArm.LEFT);
                 callbackInfo.cancel();
             }
         }
@@ -35,11 +35,12 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
     public void poseRightArmMixinHead(T entity, CallbackInfo callbackInfo)
     {
         ItemStack itemStack = entity.getUseItem();
-        if(Ember.emberItemStackPredicate(itemStack)) {
+        Ember ember = Ember.getFromItem(itemStack);
+        if(ember != null) {
             HumanoidModel<T> model = (HumanoidModel<T>) (Object) this;
             if (entity.getUseItemRemainingTicks() > 0 //&& Ember.emberItemStackPredicate(itemStack)
             ) {
-                EmberRegistry.getFromItem(itemStack).getAnimation().thirdPersonAnimation().accept((HumanoidModel<?>) (Object) this, entity, HumanoidArm.RIGHT);
+                ember.getAnimation().thirdPersonAnimation().run((HumanoidModel<?>) (Object) this, entity, HumanoidArm.RIGHT);
                 callbackInfo.cancel();
             }
         }
