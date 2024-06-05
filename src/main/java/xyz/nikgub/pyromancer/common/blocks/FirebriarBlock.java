@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import xyz.nikgub.pyromancer.common.registries.vanila.DamageSourceRegistry;
+import xyz.nikgub.pyromancer.common.registries.DamageSourceRegistry;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")

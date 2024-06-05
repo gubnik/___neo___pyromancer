@@ -13,7 +13,7 @@ import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.common.enchantments.MaceEnchantment;
-import xyz.nikgub.pyromancer.common.registries.vanila.enchantments.EnchantmentRegistry;
+import xyz.nikgub.pyromancer.common.registries.EnchantmentRegistry;
 
 import java.util.Map;
 

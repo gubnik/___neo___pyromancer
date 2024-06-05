@@ -20,14 +20,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.nikgub.incandescent.common.item.IGradientNameItem;
 import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.common.items.capabilities.CompendiumOfFlameCapability;
-import xyz.nikgub.pyromancer.common.registries.vanila.AttributeRegistry;
+import xyz.nikgub.pyromancer.common.registries.AttributeRegistry;
 import xyz.nikgub.pyromancer.common.ember.UniqueEmberBehaviour;
 import xyz.nikgub.pyromancer.mixin.client.ItemRendererMixin;
 
@@ -118,7 +117,6 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     Use item part
      */
     @Override
-    @ApiStatus.Internal
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand)
     {
         if(hand == InteractionHand.OFF_HAND)
@@ -172,8 +170,8 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
         if(slot == EquipmentSlot.MAINHAND)
         {
-            builder.put(AttributeRegistry.PYROMANCY_DAMAGE.get(), new AttributeModifier(IPyromancyItem.BASE_PYROMANCY_DAMAGE_UUID, "Weapon modifier", pyromancyItem.getPyromancyModifiers().getSecond(), AttributeModifier.Operation.ADDITION));
-            builder.put(AttributeRegistry.BLAZE_CONSUMPTION.get(), new AttributeModifier(IPyromancyItem.BASE_BLAZE_CONSUMPTION_UUID, "Weapon modifier", pyromancyItem.getPyromancyModifiers().getFirst(), AttributeModifier.Operation.ADDITION));
+            builder.put(AttributeRegistry.PYROMANCY_DAMAGE.get(), new AttributeModifier(IPyromancyItem.BASE_PYROMANCY_DAMAGE_UUID, "Weapon modifier", pyromancyItem.getDefaultPyromancyDamage(), AttributeModifier.Operation.ADDITION));
+            builder.put(AttributeRegistry.BLAZE_CONSUMPTION.get(), new AttributeModifier(IPyromancyItem.BASE_BLAZE_CONSUMPTION_UUID, "Weapon modifier", pyromancyItem.getDefaultBlazeCost(), AttributeModifier.Operation.ADDITION));
             return builder.build();
         }
         return builder.build();
@@ -194,10 +192,7 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
         return ((player, attribute) ->
         {
             double d0 = 0;
-            if (player.getOffhandItem().getItem() instanceof BlazingJournalItem)
-            {
-                d0 += IPyromancyItem.getAttributeBonus(player, attribute);
-            }
+            d0 += IPyromancyItem.getAttributeBonus(player, attribute);
             return d0;
         });
     }

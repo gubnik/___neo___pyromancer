@@ -75,17 +75,14 @@ import xyz.nikgub.pyromancer.client.renderers.FlamingGuillotineRenderer;
 import xyz.nikgub.pyromancer.client.renderers.PyronadoRenderer;
 import xyz.nikgub.pyromancer.client.renderers.UnburnedRenderer;
 import xyz.nikgub.pyromancer.common.items.*;
-import xyz.nikgub.pyromancer.common.registries.vanila.*;
+import xyz.nikgub.pyromancer.common.registries.*;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
 import xyz.nikgub.pyromancer.data.RegistriesDataGeneration;
 import xyz.nikgub.pyromancer.common.ember.Ember;
 import xyz.nikgub.pyromancer.common.enchantments.BlazingJournalEnchantment;
 import xyz.nikgub.pyromancer.common.entities.unburned.UnburnedEntity;
 import xyz.nikgub.pyromancer.common.events.BlazingJournalAttackEvent;
-import xyz.nikgub.pyromancer.common.items.*;
 import xyz.nikgub.pyromancer.network.NetworkCore;
-import xyz.nikgub.pyromancer.common.registries.custom.EmberRegistry;
-import xyz.nikgub.pyromancer.common.registries.vanila.enchantments.EnchantmentRegistry;
 import xyz.nikgub.pyromancer.common.util.ItemUtils;
 
 import java.util.ArrayList;
@@ -129,6 +126,7 @@ public class PyromancerMod
 
         MinecraftForge.EVENT_BUS.register(this);
     }
+
     private void commonSetup(final FMLCommonSetupEvent event)
     {
         NetworkCore.register();
@@ -141,16 +139,19 @@ public class PyromancerMod
         EntityRenderers.register(EntityTypeRegistry.PYRONADO.get(), PyronadoRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.UNBURNED.get(), UnburnedRenderer::new);
     }
+
     private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(PyromancerArmorModel.LAYER_LOCATION, PyromancerArmorModel::createBodyLayer);
         event.registerLayerDefinition(FlamingGuillotineModel.LAYER_LOCATION, FlamingGuillotineModel::createBodyLayer);
         event.registerLayerDefinition(PyronadoModel.LAYER_LOCATION, PyronadoModel::createBodyLayer);
         event.registerLayerDefinition(UnburnedModel.LAYER_LOCATION, UnburnedModel::createBodyLayer);
     }
+
     private void entityAttributeSupplier(EntityAttributeCreationEvent event)
     {
         event.put(EntityTypeRegistry.UNBURNED.get(), UnburnedEntity.setAttributes());
     }
+
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
         if(event.getTab().equals(PYROMANCER_TAB.get()))
@@ -169,16 +170,16 @@ public class PyromancerMod
             ALL_ELSE.removeAll(QUILLS);
             ALL_ELSE.removeAll(ARMOR);
 
+            for (Item item : ALL_ELSE) event.accept(item);
+            for (Item item : TOOLS) event.accept(item);
+            for (Item item : ARMOR) event.accept(item);
             event.accept(new ItemStack(ItemRegistry.BLAZING_JOURNAL.get()));
             event.accept(new ItemStack(ItemRegistry.COMPENDIUM_OF_FLAME.get()));
-            for (Item item : TOOLS) event.accept(item);
+            for (Item item : QUILLS) event.accept(item);
             for (Item item : USABLE_PYROMANCY) event.accept(item);
             for (Item item : PYROMANCY) event.accept(item);
-            for (Item item : QUILLS) event.accept(item);
             event.accept(new ItemStack(ItemRegistry.EMBER_ITEM.get()));
             for (ItemStack item : EMBERS) event.accept(item);
-            for (Item item : ARMOR) event.accept(item);
-            for (Item item : ALL_ELSE) event.accept(item);
         }
         else if(event.getTabKey().equals(CreativeModeTabs.BUILDING_BLOCKS))
         {
@@ -228,8 +229,8 @@ public class PyromancerMod
         public static void tooltipColorEvent(RenderTooltipEvent.Color event)
         {
             ItemStack itemStack = event.getItemStack();
-            Ember ember = EmberRegistry.getFromItem(itemStack);
-            if((Ember.emberItemStackPredicate(itemStack) || itemStack.getItem() instanceof EmberItem)&& ember != null)
+            Ember ember = Ember.getFromItem(itemStack);
+            if (ember != null)
             {
                 event.setBackgroundStart(ember.getType().getColor());
             }
@@ -238,20 +239,22 @@ public class PyromancerMod
         public static void tooltipContentsEvent(ItemTooltipEvent event)
         {
             ItemStack itemStack = event.getItemStack();
-            Ember ember = EmberRegistry.getFromItem(itemStack);
+            Ember ember = Ember.getFromItem(itemStack);
             if(ember == null) return;
-            if(Ember.emberItemStackPredicate(itemStack) || itemStack.getItem() instanceof EmberItem
+            if(itemStack.getItem() instanceof EmberItem
             && event.getFlags() == TooltipFlag.ADVANCED)
             {
                 event.getToolTip().add(Component.translatable(ember.toString()).withStyle(ChatFormatting.DARK_GRAY));
             }
         }
     }
+
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.DEDICATED_SERVER)
     @SuppressWarnings("unused")
     public static class ServerForgeEvents
     {
     }
+
     @Mod.EventBusSubscriber(modid = PyromancerMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
     @SuppressWarnings("unused")
     public static class ModEvents
@@ -263,12 +266,18 @@ public class PyromancerMod
             event.add(EntityType.PLAYER, AttributeRegistry.ARMOR_PIERCING.get());
         }
     }
+
     @Mod.EventBusSubscriber(modid = PyromancerMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
     @SuppressWarnings("unused")
     public static class ForgeEvents {
         @SubscribeEvent
         public static void livingHurtEvent(LivingHurtEvent event)
         {
+            if (event.getEntity().hasEffect(MobEffectRegistry.FLAME_RESPITE.get()) && event.getSource().getDirectEntity() instanceof LivingEntity attacker)
+            {
+                attacker.setSecondsOnFire(5);
+                event.setAmount(event.getAmount() * 0.5f);
+            }
             if (!(event.getSource().getEntity() instanceof Player sourceEntity)) return;
             LivingEntity entity = event.getEntity();
             double armor_pierce = sourceEntity.getAttributeValue(AttributeRegistry.ARMOR_PIERCING.get());
@@ -303,10 +312,8 @@ public class PyromancerMod
         public static void blazingJournalQuillProcessor(BlazingJournalItem blazingJournalItem, ItemStack journal, ItemStack weapon, Player player, Entity target)
         {
             if ((blazingJournalItem.getItemFromItem(journal, 0)).getItem() instanceof QuillItem quillItem) {
-                if (quillItem.getCondition().apply(player, weapon, journal)
-                        && !target.hurtMarked) {
-                    quillItem.getAttack().accept(player, weapon, journal);
-                }
+                if (quillItem.getCondition(player, weapon, journal) && !target.hurtMarked)
+                    quillItem.getAttack(player, weapon, journal);
             }
         }
 
@@ -316,14 +323,13 @@ public class PyromancerMod
             {
                 if (blazingJournalEnchantment.defaultCondition(player)) {
                     if (blazingJournalEnchantment.getWeaponClass().isInstance(weapon.getItem())
-                            && blazingJournalEnchantment.getCondition().apply(player, target)) {
+                            && blazingJournalEnchantment.getCondition(player, target)) {
                         BlazingJournalAttackEvent blazingJournalAttackEvent = BlazingJournalItem.getBlazingJournalAttackEvent(player, target, journal, weapon, blazingJournalEnchantment);
-                        blazingJournalEnchantment.getAttack().accept(player, target);
+                        blazingJournalEnchantment.getAttack(player, target);
                         ItemUtils.changeBlaze(player, -1);
                     }
                 } else break;
             }
         }
-
     }
 }

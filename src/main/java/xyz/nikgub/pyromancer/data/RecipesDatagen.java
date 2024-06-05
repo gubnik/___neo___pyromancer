@@ -9,7 +9,7 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.pyromancer.common.registries.vanila.ItemRegistry;
+import xyz.nikgub.pyromancer.common.registries.ItemRegistry;
 
 import java.util.function.Consumer;
 

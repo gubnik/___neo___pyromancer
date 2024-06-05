@@ -8,8 +8,8 @@ import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.common.registries.vanila.BlockRegistry;
-import xyz.nikgub.pyromancer.common.registries.vanila.WoodTypesRegistry;
+import xyz.nikgub.pyromancer.common.registries.BlockRegistry;
+import xyz.nikgub.pyromancer.common.registries.WoodTypesRegistry;
 
 import java.util.List;
 

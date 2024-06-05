@@ -5,25 +5,31 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.common.entities.projectiles.BombsackProjectile;
-import xyz.nikgub.pyromancer.common.registries.vanila.EntityTypeRegistry;
+
+import java.util.function.Supplier;
 
 public class BombsackItem extends Item {
 
-    public BombsackItem(Properties p_41383_) {
-        super(p_41383_);
+    private final Supplier<EntityType<? extends BombsackProjectile>> typeSupplier;
+
+    public BombsackItem(Properties properties, Supplier<EntityType<? extends BombsackProjectile>> typeSupplier) {
+        super(properties);
+        this.typeSupplier = typeSupplier;
     }
 
     public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, @NotNull InteractionHand interactionHand) {
         ItemStack itemstack = player.getItemInHand(interactionHand);
         level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FIRECHARGE_USE, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
         if (!level.isClientSide) {
-            BombsackProjectile bombsack = new BombsackProjectile(EntityTypeRegistry.BOMBSACK.get(), level);
+            BombsackProjectile bombsack = typeSupplier.get().create(level);
+            if (bombsack == null) return InteractionResultHolder.fail(itemstack);
             bombsack.setItem(itemstack);
             bombsack.setPos(player.getX(), player.getEyeY() - 0.1, player.getZ());
             bombsack.shoot(player.getLookAngle().x, player.getLookAngle().y, player.getLookAngle().z, 0.8f, 0.1f);
