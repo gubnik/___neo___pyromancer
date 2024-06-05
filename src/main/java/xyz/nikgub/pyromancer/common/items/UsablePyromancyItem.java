@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import xyz.nikgub.incandescent.common.item.IGradientNameItem;
 import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
-import xyz.nikgub.pyromancer.common.registries.vanila.AttributeRegistry;
+import xyz.nikgub.pyromancer.common.registries.AttributeRegistry;
 import xyz.nikgub.pyromancer.common.util.ItemUtils;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.mixin.client.ItemRendererMixin;
@@ -33,29 +33,36 @@ import java.util.function.BiFunction;
  * Class that should be extended whenever making pyromancy based on vanilla use system <p>
  * Not to be confused with {@link IPyromancyItem}, which is a general interface for any pyromancy
  */
-public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStupidTooltipItem, IGradientNameItem {
-    private final Multimap<Attribute, AttributeModifier> defaultModifiers;
+public abstract class UsablePyromancyItem extends Item implements IPyromancyItem, INotStupidTooltipItem, IGradientNameItem {
+
     public UsablePyromancyItem(Properties properties) {
         super(properties.stacksTo(1));
-        ImmutableListMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableListMultimap.builder();
-        builder.put(AttributeRegistry.PYROMANCY_DAMAGE.get(), new AttributeModifier(BASE_PYROMANCY_DAMAGE_UUID, "Weapon modifier", this.getPyromancyModifiers().getSecond(), AttributeModifier.Operation.ADDITION));
-        builder.put(AttributeRegistry.BLAZE_CONSUMPTION.get(), new AttributeModifier(BASE_BLAZE_CONSUMPTION_UUID, "Weapon modifier", this.getPyromancyModifiers().getFirst(), AttributeModifier.Operation.ADDITION));
-        this.defaultModifiers = builder.build();
     }
 
     /**
      * Method to provide an optional additional logic for {@link ItemRendererMixin} pyromancyRenderManager() method
      * @param poseStack     PoseStack to transform
      */
-    public void compendiumTransforms(PoseStack poseStack, ItemDisplayContext displayContext)
-    {
-        poseStack.scale(1f,1f,1f);
-    }
+    public abstract void compendiumTransforms(PoseStack poseStack, ItemDisplayContext displayContext);
+
     @Override
-    @SuppressWarnings("deprecation")
-    public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot slot) {
-        return slot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(slot);
+    public abstract @NotNull ItemStack finishUsingItem(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity);
+
+    @Override
+    public abstract @NotNull UseAnim getUseAnimation(@NotNull ItemStack itemStack);
+
+    @Override
+    public abstract int getUseDuration(@NotNull ItemStack itemStack);
+
+    @Override
+    public @NotNull Multimap<Attribute, AttributeModifier> getAttributeModifiers (@NotNull EquipmentSlot slot, ItemStack stack) {
+        ImmutableListMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableListMultimap.builder();
+        if (slot != EquipmentSlot.MAINHAND) return builder.build();
+        builder.put(AttributeRegistry.PYROMANCY_DAMAGE.get(), new AttributeModifier(BASE_PYROMANCY_DAMAGE_UUID, "Weapon modifier", this.getDefaultPyromancyDamage(), AttributeModifier.Operation.ADDITION));
+        builder.put(AttributeRegistry.BLAZE_CONSUMPTION.get(), new AttributeModifier(BASE_BLAZE_CONSUMPTION_UUID, "Weapon modifier", this.getDefaultBlazeCost(), AttributeModifier.Operation.ADDITION));
+        return builder.build();
     }
+
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand)
     {
@@ -66,29 +73,7 @@ public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStu
         }
         return InteractionResultHolder.fail(player.getItemInHand(hand));
     }
-    @Override
-    public void onUseTick(@NotNull Level level, @NotNull LivingEntity entity, @NotNull ItemStack itemStack, int tick)
-    {
-    }
-    @Override
-    public @NotNull ItemStack finishUsingItem(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity)
-    {
-        return itemStack;
-    }
-    @Override
-    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack itemStack)
-    {
-        return UseAnim.CUSTOM;
-    }
-    @Override
-    public int getUseDuration(@NotNull ItemStack itemStack)
-    {
-        return 72000;
-    }
-    @Override
-    public Pair<Integer, Float> getPyromancyModifiers() {
-        return Pair.of(0, 0f);
-    }
+
     @Override
     public Map<Attribute, Pair<UUID, ChatFormatting>> specialColoredUUID() {
         return Map.of(
@@ -96,13 +81,12 @@ public class UsablePyromancyItem extends Item implements IPyromancyItem, INotStu
                 AttributeRegistry.BLAZE_CONSUMPTION.get(), Pair.of(BASE_BLAZE_CONSUMPTION_UUID, ChatFormatting.GOLD)
         );
     }
+
     @Override
     public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus() {
         return ((player, attribute) -> {
             double d0 = 0;
-            if (player.getOffhandItem().getItem() instanceof BlazingJournalItem) {
-                d0 += IPyromancyItem.getAttributeBonus(player, attribute);
-            }
+            d0 += IPyromancyItem.getAttributeBonus(player, attribute);
             return d0;
         });
     }

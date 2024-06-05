@@ -1,9 +1,7 @@
 package xyz.nikgub.pyromancer.common.items.pyromancy_items;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.datafixers.util.Pair;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import com.mojang.math.Axis;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -14,36 +12,61 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.client.item_extensions.SizzlingHandClientExtension;
 import xyz.nikgub.pyromancer.common.entities.projectiles.SizzlingHandFireball;
-import xyz.nikgub.pyromancer.common.registries.vanila.AttributeRegistry;
-import xyz.nikgub.pyromancer.common.registries.vanila.EntityTypeRegistry;
+import xyz.nikgub.pyromancer.common.registries.AttributeRegistry;
+import xyz.nikgub.pyromancer.common.registries.EntityTypeRegistry;
 import xyz.nikgub.pyromancer.common.items.UsablePyromancyItem;
 import xyz.nikgub.pyromancer.common.util.ItemUtils;
 
 import java.util.function.Consumer;
 
 public class SizzlingHandItem extends UsablePyromancyItem {
+
     public SizzlingHandItem(Properties properties) {
         super(properties);
     }
+
+    @Override
+    public int getDefaultPyromancyDamage() {
+        return 4;
+    }
+
+    @Override
+    public float getDefaultBlazeCost() {
+        return 1;
+    }
+
+    @Override
+    public void initializeClient(@NotNull Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new SizzlingHandClientExtension());
+    }
+
     @Override
     public @NotNull UseAnim getUseAnimation(@NotNull ItemStack itemStack)
     {
         return UseAnim.CUSTOM;
     }
+
     @Override
-    public void initializeClient(@NotNull Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new SizzlingHandClientExtension());
-    }
-    @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand)
+    public @NotNull ItemStack finishUsingItem(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity)
     {
-        if(ItemUtils.getBlaze(player) > player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()))
-        {
-            player.startUsingItem(hand);
-            return InteractionResultHolder.success(player.getItemInHand(hand));
-        }
-        return InteractionResultHolder.fail(player.getItemInHand(hand));
+        this.releaseUsing(itemStack, level, entity, this.getUseDuration(itemStack));
+        return itemStack;
     }
+
+    @Override
+    public int getUseDuration(@NotNull ItemStack itemStack)
+    {
+        return 10;
+    }
+
+    @Override
+    public void compendiumTransforms(PoseStack poseStack, ItemDisplayContext displayContext)
+    {
+        if(displayContext == ItemDisplayContext.THIRD_PERSON_LEFT_HAND || displayContext == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND) poseStack.scale(1.33f, 1.33f, 1.33f);
+        if(displayContext == ItemDisplayContext.FIRST_PERSON_LEFT_HAND) poseStack.rotateAround(Axis.YP.rotationDegrees(-90), 0.5f, 0.4f, 0.5f);
+        else poseStack.rotateAround(Axis.YP.rotationDegrees(90), 0.5f, 0.4f, 0.5f);
+    }
+
     @Override
     public void onUseTick(@NotNull Level level, @NotNull LivingEntity entity, @NotNull ItemStack itemStack, int tick)
     {
@@ -53,9 +76,10 @@ public class SizzlingHandItem extends UsablePyromancyItem {
         fireball.setDeltaMovement(entity.getLookAngle().multiply(2d, 2d, 2d));
         if(entity.level().addFreshEntity(fireball) && entity instanceof Player player)
         {
-            ItemUtils.changeBlaze(player, -1 * (int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()));
+            ItemUtils.changeBlaze(player, -(int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()));
         }
     }
+
     @Override
     public void releaseUsing(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity, int tick)
     {
@@ -64,24 +88,5 @@ public class SizzlingHandItem extends UsablePyromancyItem {
         SizzlingHandFireball fireball = new SizzlingHandFireball(EntityTypeRegistry.SIZZLING_HAND_FIREBALL.get(), entity.level(), (float) entity.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get()), 10);
         fireball.collisionEffect(level);
         entity.stopUsingItem();
-    }
-    @Override
-    public @NotNull ItemStack finishUsingItem(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity)
-    {
-        this.releaseUsing(itemStack, level, entity, this.getUseDuration(itemStack));
-        return itemStack;
-    }
-    @Override
-    public int getUseDuration(@NotNull ItemStack itemStack)
-    {
-        return 10;
-    }
-    @Override
-    public Pair<Integer, Float> getPyromancyModifiers() {
-        return Pair.of(1, 2.5f);
-    }
-    @Override
-    public void compendiumTransforms(PoseStack poseStack, ItemDisplayContext displayContext)
-    {
     }
 }
