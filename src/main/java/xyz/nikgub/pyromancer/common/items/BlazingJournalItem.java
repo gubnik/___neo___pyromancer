@@ -2,7 +2,6 @@ package xyz.nikgub.pyromancer.common.items;
 
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.Multimap;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -30,7 +29,7 @@ import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.common.enchantments.BlazingJournalEnchantment;
 import xyz.nikgub.pyromancer.common.events.BlazingJournalAttackEvent;
 import xyz.nikgub.pyromancer.common.items.capabilities.BlazingJournalCapability;
-import xyz.nikgub.pyromancer.common.registries.vanila.AttributeRegistry;
+import xyz.nikgub.pyromancer.common.registries.AttributeRegistry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -58,18 +57,16 @@ public class BlazingJournalItem extends Item implements IContainerItem {
 
     @Override
     public @NotNull Multimap<Attribute, AttributeModifier> getAttributeModifiers(@NotNull EquipmentSlot slot, ItemStack itemStack) {
-        if(!(this.getItemFromItem(itemStack, 0).getItem() instanceof QuillItem quillItem)) return super.getAttributeModifiers(slot, itemStack);
+        ImmutableListMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableListMultimap.builder();
+        if(!(this.getItemFromItem(itemStack, 0).getItem() instanceof QuillItem quillItem)) return builder.build();
         if(slot == EquipmentSlot.OFFHAND)
         {
-            ImmutableListMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableListMultimap.builder();
-            Pair<Integer, Float> pair = quillItem.getPyromancyModifiers();
-            if(pair.getFirst() != 0)
-                builder.put(AttributeRegistry.BLAZE_CONSUMPTION.get(), new AttributeModifier(IPyromancyItem.JOURNAL_BLAZE_CONSUMPTION_UUID, "Weapon modifier", pair.getFirst(), AttributeModifier.Operation.ADDITION));
-            if(pair.getSecond() != 0)
-                builder.put(AttributeRegistry.PYROMANCY_DAMAGE.get(), new AttributeModifier(IPyromancyItem.JOURNAL_PYROMANCY_DAMAGE_UUID, "Weapon modifier", pair.getSecond(), AttributeModifier.Operation.ADDITION));
-            return builder.build();
+            if(quillItem.getDefaultBlazeCostBonus() != 0)
+                builder.put(AttributeRegistry.BLAZE_CONSUMPTION.get(), new AttributeModifier(IPyromancyItem.JOURNAL_BLAZE_CONSUMPTION_UUID, "Weapon modifier", quillItem.getDefaultBlazeCostBonus(), AttributeModifier.Operation.ADDITION));
+            if(quillItem.getDefaultPyromancyDamageBonus() != 0f)
+                builder.put(AttributeRegistry.PYROMANCY_DAMAGE.get(), new AttributeModifier(IPyromancyItem.JOURNAL_PYROMANCY_DAMAGE_UUID, "Weapon modifier", quillItem.getDefaultPyromancyDamageBonus(), AttributeModifier.Operation.ADDITION));
         }
-        else return super.getAttributeModifiers(slot, itemStack);
+        return builder.build();
     }
 
     public void inventoryTick(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull Entity entity, int tick, boolean b)
