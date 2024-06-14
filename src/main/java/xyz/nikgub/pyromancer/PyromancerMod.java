@@ -273,10 +273,9 @@ public class PyromancerMod
         @SubscribeEvent
         public static void livingHurtEvent(LivingHurtEvent event)
         {
-            if (event.getEntity().hasEffect(MobEffectRegistry.FLAME_RESPITE.get()) && event.getSource().getDirectEntity() instanceof LivingEntity attacker)
+            if (event.getEntity().hasEffect(MobEffectRegistry.FIERY_AEGIS.get()) && event.getSource().getDirectEntity() instanceof LivingEntity attacker)
             {
-                attacker.setSecondsOnFire(5);
-                event.setAmount(event.getAmount() * 0.5f);
+                event.setAmount(MobEffectRegistry.FIERY_AEGIS.get().performAttack(event.getAmount(), event.getEntity(), attacker));
             }
             if (!(event.getSource().getEntity() instanceof Player sourceEntity)) return;
             LivingEntity entity = event.getEntity();
