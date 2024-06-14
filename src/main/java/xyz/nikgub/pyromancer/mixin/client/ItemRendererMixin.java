@@ -3,7 +3,6 @@ package xyz.nikgub.pyromancer.mixin.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -13,18 +12,18 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.spongepowered.asm.mixin.Unique;
-import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.common.items.BlazingJournalItem;
-import xyz.nikgub.pyromancer.common.items.CompendiumOfFlameItem;
-import xyz.nikgub.pyromancer.common.items.UsablePyromancyItem;
-import xyz.nikgub.pyromancer.common.items.QuillItem;
-import xyz.nikgub.pyromancer.common.registries.ItemRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import xyz.nikgub.pyromancer.PyromancerMod;
+import xyz.nikgub.pyromancer.common.items.BlazingJournalItem;
+import xyz.nikgub.pyromancer.common.items.CompendiumOfFlameItem;
+import xyz.nikgub.pyromancer.common.items.QuillItem;
+import xyz.nikgub.pyromancer.common.items.UsablePyromancyItem;
+import xyz.nikgub.pyromancer.common.registries.ItemRegistry;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -36,27 +35,25 @@ public abstract class ItemRendererMixin {
     public abstract void renderModelLists(BakedModel p_115190_, ItemStack p_115191_, int p_115192_, int p_115193_, PoseStack p_115194_, VertexConsumer p_115195_);
     @Shadow
     public abstract BakedModel getModel(ItemStack p_174265_, @Nullable Level p_174266_, @Nullable LivingEntity p_174267_, int p_174268_);
-    @Shadow
-    private ItemColors itemColors;
 
     @Inject(method = "render", at = @At("TAIL"), cancellable = true)
     public void renderMixinTail(ItemStack itemStack, ItemDisplayContext displayContext, boolean b, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, BakedModel bakedModel, CallbackInfo callbackInfo) {
         if(!(itemStack.getItem() instanceof BlazingJournalItem blazingJournalItem)) return;
-        quillRenderManager(itemStack, poseStack, displayContext, multiBufferSource, b, i, j);
+        pyromancerNew$quillRenderManager(itemStack, poseStack, displayContext, multiBufferSource, b, i, j);
         if(blazingJournalItem instanceof CompendiumOfFlameItem && !itemStack.getOrCreateTag().getBoolean(CompendiumOfFlameItem.IS_OFFHAND))
-            pyromancyRenderManager(itemStack, poseStack, displayContext, multiBufferSource, b, i, j);
+            pyromancerNew$pyromancyRenderManager(itemStack, poseStack, displayContext, multiBufferSource, b, i, j);
         callbackInfo.cancel();
     }
 
     @Unique
-    public void quillRenderManager(ItemStack itemStack, PoseStack poseStack, ItemDisplayContext displayContext, MultiBufferSource multiBufferSource, boolean b, int i, int j)
+    public void pyromancerNew$quillRenderManager(ItemStack itemStack, PoseStack poseStack, ItemDisplayContext displayContext, MultiBufferSource multiBufferSource, boolean b, int i, int j)
     {
         if(!(itemStack.getItem() instanceof BlazingJournalItem blazingJournalItem)) return;
         VertexConsumer vertex;
         ItemStack quill = blazingJournalItem.getItemFromItem(itemStack, 0);
         if(!(quill.getItem() instanceof QuillItem)) quill = new ItemStack(ItemRegistry.BLAZING_QUILL.get());
         BakedModel bakedModelQuill = this.getModel(quill, null, null, (b ? ItemDisplayContext.FIRST_PERSON_LEFT_HAND : ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).ordinal());
-        bakedModelQuill = handleCameraTransforms(poseStack, bakedModelQuill, displayContext, b);
+        bakedModelQuill = pyromancerNew$handleCameraTransforms(poseStack, bakedModelQuill, displayContext, b);
         if(itemStack.getItem() instanceof CompendiumOfFlameItem)
         {
             switch (displayContext)
@@ -93,7 +90,7 @@ public abstract class ItemRendererMixin {
     }
 
     @Unique
-    public void pyromancyRenderManager(ItemStack itemStack, PoseStack poseStack, ItemDisplayContext displayContext, MultiBufferSource multiBufferSource, boolean b, int i, int j)
+    public void pyromancerNew$pyromancyRenderManager(ItemStack itemStack, PoseStack poseStack, ItemDisplayContext displayContext, MultiBufferSource multiBufferSource, boolean b, int i, int j)
     {
         if( !(itemStack.getItem() instanceof CompendiumOfFlameItem compendiumOfFlameItem
             && compendiumOfFlameItem.getItemFromItem(itemStack, itemStack.getOrCreateTag().getInt(CompendiumOfFlameItem.ACTIVE_SLOT_TAG)).getItem() instanceof UsablePyromancyItem usablePyromancyItem)
@@ -103,8 +100,7 @@ public abstract class ItemRendererMixin {
         ItemStack pyromancy = compendiumOfFlameItem.getItemFromItem(itemStack, itemStack.getOrCreateTag().getInt(CompendiumOfFlameItem.ACTIVE_SLOT_TAG));
         pyromancy.getOrCreateTag().putBoolean(CompendiumOfFlameItem.PYROMANCY_CUSTOM_RENDER_TAG, true);
         BakedModel bakedModelPyromancy = this.getModel(pyromancy, null, null, (b ? ItemDisplayContext.FIRST_PERSON_LEFT_HAND : ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).ordinal());
-        bakedModelPyromancy = handleCameraTransforms(poseStack, bakedModelPyromancy, displayContext, b);
-
+        bakedModelPyromancy = pyromancerNew$handleCameraTransforms(poseStack, bakedModelPyromancy, displayContext, b);
         usablePyromancyItem.compendiumTransforms(poseStack, displayContext);
         for (RenderType renderType : bakedModelPyromancy.getRenderTypes(pyromancy, true))
         {
@@ -125,7 +121,8 @@ public abstract class ItemRendererMixin {
             callbackInfo.cancel();
         }
     }
-    private static BakedModel handleCameraTransforms(PoseStack poseStack, BakedModel model, ItemDisplayContext cameraTransformType, boolean applyLeftHandTransform)
+    @Unique
+    private static BakedModel pyromancerNew$handleCameraTransforms(PoseStack poseStack, BakedModel model, ItemDisplayContext cameraTransformType, boolean applyLeftHandTransform)
     {
         model = model.applyTransform(cameraTransformType, poseStack, applyLeftHandTransform);
         return model;

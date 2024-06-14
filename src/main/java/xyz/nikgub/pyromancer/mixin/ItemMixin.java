@@ -43,7 +43,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, IForgeItem 
         player.startUsingItem(hand);
         callbackInfoReturnable.setReturnValue(InteractionResultHolder.success(itemStack));
     }
-    @Inject(method = "onUseTick", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "onUseTick", at = @At("HEAD"))
     public void onUseTickMixinHead(Level level, LivingEntity entity, ItemStack itemStack, int tick, CallbackInfo callbackInfo)
     {
         Ember ember = Ember.getFromItem(itemStack);
@@ -52,13 +52,13 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, IForgeItem 
         EmberEvent event = EmberUtilities.getEmberEvent(player, ember, itemStack, tick);
         ember.tickEvent(level, entity, itemStack, tick);
     }
-    @Inject(method = "finishUsingItem", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "finishUsingItem", at = @At("HEAD"))
     public void finishUsingItem(ItemStack itemStack, Level level, LivingEntity entity, CallbackInfoReturnable<ItemStack> retVal) {
         Ember ember = Ember.getFromItem(itemStack);
         if(ember == null || !ember.isValidFor(itemStack.getItem())) return;
         ember.finishEvent(itemStack, level, entity);
         if(entity instanceof Player player)
-            player.getCooldowns().addCooldown(this.asItem(), Ember.getFromItem(itemStack).getAnimation().cooldown());
+            player.getCooldowns().addCooldown(this.asItem(), Ember.getFromItem(itemStack).getAnimation().getCooldown());
     }
     @Inject(method = "getUseAnimation", at = @At("HEAD"), cancellable = true)
     public void getUseAnimationMixinHead(ItemStack itemStack, CallbackInfoReturnable<UseAnim> retVal) {
@@ -70,9 +70,9 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, IForgeItem 
     public void getUseDurationMixinHead(ItemStack itemStack, CallbackInfoReturnable<Integer> retVal) {
         Ember ember = Ember.getFromItem(itemStack);
         if(ember == null || !ember.isValidFor(itemStack.getItem())) return;
-        retVal.setReturnValue(Ember.getFromItem(itemStack).getAnimation().useTime());
+        retVal.setReturnValue(Ember.getFromItem(itemStack).getAnimation().getUseTime());
     }
-    @Inject(method = "appendHoverText", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "appendHoverText", at = @At("HEAD"))
     public void appendHoverTextMixinHead(@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag, CallbackInfo callbackInfo)
     {
         Ember ember = Ember.getFromItem(itemStack);
