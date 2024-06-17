@@ -58,12 +58,14 @@ public class UnburnedEntity extends Monster implements IFlamingGroveNativeEntity
     public UnburnedEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
     }
+
     @Override
     public void handleEntityEvent(byte b)
     {
         // <3 the byte event thing, truly genius idea on Mojang's part
         this.safelyHandleAnimations(b);
     }
+
     @Override
     public void tick()
     {
@@ -88,6 +90,7 @@ public class UnburnedEntity extends Monster implements IFlamingGroveNativeEntity
             super.tick();
             return;
         }
+
         /*
         TODO: find a way to not use timedExplosionReady, I don't like this implementation
 
@@ -154,6 +157,7 @@ public class UnburnedEntity extends Monster implements IFlamingGroveNativeEntity
         }
         return super.hurt(damageSource, amount);
     }
+
     // One attribute supplier to rule them all
     public static AttributeSupplier setAttributes()
     {
@@ -168,6 +172,7 @@ public class UnburnedEntity extends Monster implements IFlamingGroveNativeEntity
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1f)
                 .build();
     }
+
     @Override
     protected void registerGoals()
     {
