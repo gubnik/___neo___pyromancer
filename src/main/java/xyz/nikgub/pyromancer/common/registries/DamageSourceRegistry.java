@@ -11,11 +11,30 @@ import xyz.nikgub.pyromancer.common.entities.projectiles.BombsackProjectile;
 import xyz.nikgub.pyromancer.common.entities.unburned.UnburnedEntity;
 
 public class DamageSourceRegistry {
+
+    public static DamageSource flame(Entity entity)
+    {
+        assert entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
+        return new DamageSource(
+                entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HELLBLAZE_KEY),
+                entity
+        );
+    }
+
     public static DamageSource hellblaze(Entity entity)
     {
         assert entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
                 entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HELLBLAZE_KEY),
+                entity
+        );
+    }
+
+    public static DamageSource soulflame(Entity entity)
+    {
+        assert entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
+        return new DamageSource(
+                entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.SOULFLAME_KEY),
                 entity
         );
     }
