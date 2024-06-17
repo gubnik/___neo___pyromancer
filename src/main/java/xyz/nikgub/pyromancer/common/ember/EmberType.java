@@ -3,11 +3,10 @@ package xyz.nikgub.pyromancer.common.ember;
 
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 
-import java.util.Objects;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class EmberType {
+
     private static final int TICK_LIMIT = 40;
 
     private final String name;
@@ -16,11 +15,11 @@ public class EmberType {
 
     private final Function<Integer, Integer> colorFunction;
 
-    public static final Supplier<EmberType> FLAME = () -> new EmberType("fire", GeneralUtils.rgbaToColorInteger(64, 56,6,224),
-            functionBuilder(GeneralUtils.rgbToColorInteger(130, 50, 100), GeneralUtils.rgbToColorInteger(200, 130, 90)));
-    public static final Supplier<EmberType> SOULFLAME = () -> new EmberType("soulflame", GeneralUtils.rgbaToColorInteger(6, 64,56,224),
+    public static final EmberType FLAME = new EmberType("fire", GeneralUtils.rgbaToColorInteger(64, 56,6,224),
+            functionBuilder(GeneralUtils.rgbToColorInteger(160, 50, 50), GeneralUtils.rgbToColorInteger(200, 140, 40)));
+    public static final EmberType SOULFLAME = new EmberType("soulflame", GeneralUtils.rgbaToColorInteger(6, 64,56,224),
             functionBuilder(GeneralUtils.rgbToColorInteger(100, 100, 100), GeneralUtils.rgbToColorInteger(95, 200, 180)));
-    public static final Supplier<EmberType> HELLBLAZE = () -> new EmberType("hellblaze", GeneralUtils.rgbaToColorInteger(64, 32,24,224),
+    public static final EmberType HELLBLAZE = new EmberType("hellblaze", GeneralUtils.rgbaToColorInteger(64, 32,24,224),
             functionBuilder(GeneralUtils.rgbToColorInteger(140, 60, 80), GeneralUtils.rgbToColorInteger(180, 40, 100)));
 
     public EmberType(String name, int color, Function<Integer, Integer> colorFunction) {
@@ -54,28 +53,5 @@ public class EmberType {
                     blueFirst + ((blueSecond - blueFirst) / TICK_LIMIT) * cT
             );
         };
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
-        var that = (EmberType) obj;
-        return Objects.equals(this.name, that.name) &&
-                this.color == that.color &&
-                Objects.equals(this.colorFunction, that.colorFunction);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, color, colorFunction);
-    }
-
-    @Override
-    public String toString() {
-        return "EmberType[" +
-                "name=" + name + ", " +
-                "color=" + color + ", " +
-                "tickMod=" + colorFunction + ']';
     }
 }

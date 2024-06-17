@@ -8,8 +8,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
 /**
  * @author nikgub_
  */
@@ -24,43 +22,17 @@ public abstract class EmberAnimation {
         this.cooldown = cooldown;
     }
 
-    public abstract ThirdPersonAnimation thirdPersonAnimation();
+    public abstract ThirdPersonAnimation getThirdPersonAnimation();
 
-    public abstract FirstPersonAnimation firstPersonAnimation();
+    public abstract FirstPersonAnimation getFirstPersonAnimation();
 
-    public int useTime() {
+    public int getUseTime() {
         return useTime;
     }
 
-    public int cooldown() {
+    public int getCooldown() {
         return cooldown;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
-        var that = (EmberAnimation) obj;
-        return Objects.equals(this.thirdPersonAnimation(), that.thirdPersonAnimation()) &&
-                Objects.equals(this.firstPersonAnimation(), that.firstPersonAnimation()) &&
-                this.useTime == that.useTime &&
-                this.cooldown == that.cooldown;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(thirdPersonAnimation(), firstPersonAnimation(), useTime, cooldown);
-    }
-
-    @Override
-    public String toString() {
-        return "EmberAnimation[" +
-                "thirdPersonAnimation()=" + thirdPersonAnimation() + ", " +
-                "firstPersonAnimation()=" + firstPersonAnimation() + ", " +
-                "useTime=" + useTime + ", " +
-                "cooldown=" + cooldown + ']';
-    }
-
 
     public interface ThirdPersonAnimation {
         void run(HumanoidModel<?> model, LivingEntity entity, HumanoidArm arm);
