@@ -1,21 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
+  "category": "equipment",
   "key": {
-    "i": {
-      "item": "minecraft:iron_sword"
+    "b": {
+      "item": "minecraft:book"
     },
-    "n": {
-      "item": "minecraft:netherite_ingot"
-    },
-    "s": {
-      "item": "minecraft:fire_charge"
+    "p": {
+      "item": "minecraft:blaze_powder"
     }
   },
   "pattern": [
-    " s ",
-    " n ",
-    " i "
+    "bp "
   ],
   "result": {
     "item": "pyromancer:blazing_journal"

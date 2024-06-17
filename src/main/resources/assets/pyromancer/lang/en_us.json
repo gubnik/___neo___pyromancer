@@ -10,8 +10,12 @@
   "item.pyromancer.blazing_journal": "Blazing Journal",
   "item.pyromancer.compendium_of_flame": "Compendium of Flame",
   "item.pyromancer.blazing_quill": "Blazing Quill",
+
   "item.pyromancer.ember": "Ember",
+
   "item.pyromancer.sizzling_hand": "Sizzling Hand",
+  "item.pyromancer.court_of_embers": "Court of Embers",
+  
   "item.pyromancer.netherite_mace": "Netherite Mace",
   "item.pyromancer.diamond_mace": "Diamond Mace",
   "item.pyromancer.golden_mace": "Golden Mace",
@@ -24,7 +28,14 @@
   "item.pyromancer.amber_shovel": "Amber Shovel",
   "item.pyromancer.amber_hoe": "Amber Hoe",
   "item.pyromancer.amber_sword": "Amber Sword",
+
   "item.pyromancer.amber": "Amber",
+  "item.pyromancer.netherite_shard": "Netherite Shard",
+  "item.pyromancer.cinnabar_chunk": "Cinnabar Chunk",
+  "item.pyromancer.drops_of_mercury": "Netherite Shard",
+  "item.pyromancer.brimstone": "Brimstone",
+  "item.pyromancer.hoglin_hide": "Hoglin Hide",
+
   "item.pyromancer.marauder_helm": "Marauder Helm",
   "item.pyromancer.marauder_cape": "Marauder Cape",
   "item.pyromancer.marauder_pants": "Marauder Pants",
