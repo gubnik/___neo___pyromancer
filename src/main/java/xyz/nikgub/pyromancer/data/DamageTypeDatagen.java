@@ -18,7 +18,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.CompletableFuture;
 
 public class DamageTypeDatagen extends TagsProvider<DamageType> {
+
+    public static ResourceKey<DamageType> FLAME_KEY = register("flame");
     public static ResourceKey<DamageType> HELLBLAZE_KEY = register("hellblaze");
+    public static ResourceKey<DamageType> SOULFLAME_KEY = register("soulflame");
     public static final ResourceKey<DamageType> BOMBSACK_KEY = register("bombsack");
     public static ResourceKey<DamageType> SIZZLING_HAND_KEY = register("sizzling_hand");
     public static ResourceKey<DamageType> COURT_OF_EMBERS_KEY = register("court_of_embers");
@@ -26,7 +29,9 @@ public class DamageTypeDatagen extends TagsProvider<DamageType> {
     public static ResourceKey<DamageType> BLAZING_JOURNAL_PROJECTION_KEY = register("blazing_journal_projection");
     public static ResourceKey<DamageType> UNBURNED_KEY = register("unburned");
 
+    public static DamageType FLAME = new DamageType(FLAME_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
     public static DamageType HELLBLAZE = new DamageType(HELLBLAZE_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
+    public static DamageType SOULFLAME = new DamageType(SOULFLAME_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
     public static DamageType BOMBSACK = new DamageType(BOMBSACK_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
     public static DamageType SIZZLING_HAND = new DamageType(SIZZLING_HAND_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
     public static DamageType COURT_OF_EMBERS = new DamageType(COURT_OF_EMBERS_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
@@ -48,6 +53,11 @@ public class DamageTypeDatagen extends TagsProvider<DamageType> {
     public static TagKey<DamageType> IS_BRUTISH = create("is_brutish");
 
     /**
+     * Tag for pyromancies damage
+     */
+    public static TagKey<DamageType> IS_PYROMANCY = create("is_pyromancy");
+
+    /**
      * Tag for damage types that are caused by Blazing Journal's enchantments' attacks
      */
     public static TagKey<DamageType> JOURNAL_PROJECTION = create("journal_projection");
@@ -56,6 +66,7 @@ public class DamageTypeDatagen extends TagsProvider<DamageType> {
     {
         return TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(PyromancerMod.MOD_ID, name));
     }
+
     public DamageTypeDatagen(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
         super(output, Registries.DAMAGE_TYPE, lookupProvider, PyromancerMod.MOD_ID, existingFileHelper);
     }
@@ -63,7 +74,12 @@ public class DamageTypeDatagen extends TagsProvider<DamageType> {
     @Override
     protected void addTags(HolderLookup.@NotNull Provider p_256380_) {
         tag(IS_EMBER)
-                .add(HELLBLAZE_KEY);
+                .add(FLAME_KEY)
+                .add(HELLBLAZE_KEY)
+                .add(SOULFLAME_KEY);
+        tag(IS_PYROMANCY)
+                .add(SIZZLING_HAND_KEY)
+                .add(COURT_OF_EMBERS_KEY);
         tag(IS_BRUTISH)
                 .add(BOMBSACK_KEY);
         tag(JOURNAL_PROJECTION)
@@ -73,14 +89,17 @@ public class DamageTypeDatagen extends TagsProvider<DamageType> {
                 .add(BOMBSACK_KEY)
                 .add(COURT_OF_EMBERS_KEY);
         tag(DamageTypeTags.IS_FIRE)
-                .add(HELLBLAZE_KEY)
-                .add(SIZZLING_HAND_KEY)
-                .add(COURT_OF_EMBERS_KEY)
+                .addTag(IS_EMBER)
+                .addTag(JOURNAL_PROJECTION)
+                .addTag(IS_PYROMANCY)
                 .add(FIREBRIAR_KEY)
-                .add(BLAZING_JOURNAL_PROJECTION_KEY);
+                .add(BLAZING_JOURNAL_PROJECTION_KEY)
+                .add(SOULFLAME_KEY);
     }
     public static void generate(BootstapContext<DamageType> bootstrap) {
+        bootstrap.register(FLAME_KEY, FLAME);
         bootstrap.register(HELLBLAZE_KEY, HELLBLAZE);
+        bootstrap.register(SOULFLAME_KEY, SOULFLAME);
         bootstrap.register(BOMBSACK_KEY, BOMBSACK);
         bootstrap.register(SIZZLING_HAND_KEY, SIZZLING_HAND);
         bootstrap.register(COURT_OF_EMBERS_KEY, COURT_OF_EMBERS);
