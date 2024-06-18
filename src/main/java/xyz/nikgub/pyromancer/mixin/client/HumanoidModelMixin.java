@@ -26,11 +26,12 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
             HumanoidModel<T> model = (HumanoidModel<T>) (Object) this;
             if (entity.getUseItemRemainingTicks() > 0 //&& Ember.emberItemStackPredicate(itemStack)
             ) {
-                ember.getAnimation().thirdPersonAnimation().run(model, entity, HumanoidArm.LEFT);
+                ember.getAnimation().getThirdPersonAnimation().run(model, entity, HumanoidArm.LEFT);
                 callbackInfo.cancel();
             }
         }
     }
+
     @Inject(method = "poseRightArm", at = @At("HEAD"), cancellable = true)
     public void poseRightArmMixinHead(T entity, CallbackInfo callbackInfo)
     {
@@ -40,7 +41,7 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
             HumanoidModel<T> model = (HumanoidModel<T>) (Object) this;
             if (entity.getUseItemRemainingTicks() > 0 //&& Ember.emberItemStackPredicate(itemStack)
             ) {
-                ember.getAnimation().thirdPersonAnimation().run((HumanoidModel<?>) (Object) this, entity, HumanoidArm.RIGHT);
+                ember.getAnimation().getThirdPersonAnimation().run(model, entity, HumanoidArm.RIGHT);
                 callbackInfo.cancel();
             }
         }
