@@ -29,6 +29,7 @@ public class FlamingGuillotineEntity extends AttackEffectEntity {
             {
                 serverLevel.sendParticles(ParticleTypes.FLAME, this.getX(), this.getY(), this.getZ(), 30, 0.5, 2, 0.5, 0.3);
                 Entity owner = (this.getPlayerUuid() != null) ? this.level().getPlayerByUUID(this.getPlayerUuid()) : this;
+                if (owner == null) return;
                 for(LivingEntity entity : EntityUtils.entityCollector(this.position(), 3 * Mth.sqrt(this.getSize()), this.level()))
                 {
                     entity.hurt(DamageSourceRegistry.blazingJournal(this, owner),
