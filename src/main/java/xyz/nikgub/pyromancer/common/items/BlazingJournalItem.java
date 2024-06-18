@@ -86,6 +86,8 @@ public class BlazingJournalItem extends Item implements IContainerItem {
     {
         String blazeLine = Component.translatable("blazing_journal.blaze_value.desc").getString() + itemStack.getOrCreateTag().getInt(BLAZE_TAG_NAME);
         list.add(Component.literal(blazeLine + " / " + PyromancerConfig.blazingJournalMaxCapacity).withStyle(ChatFormatting.GOLD));
+        if (this.getItemFromItem(itemStack, 0).getItem() instanceof QuillItem quillItem)
+            quillItem.appendHoverText(itemStack, level, list, flag);
     }
 
     @Override

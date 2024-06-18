@@ -7,6 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.common.items.capabilities.BlazingJournalCapability;
 
 import java.util.List;
@@ -16,7 +17,8 @@ import java.util.List;
  * Quills are special items that can be inserted into {@link BlazingJournalItem}, consult {@link BlazingJournalCapability} <p>
  * Effects of quills are called when Blazing Journal activates an additional attack as per its defined enchantments
  */
-public abstract class QuillItem extends Item {
+public abstract class QuillItem extends Item implements IExtensibleTooltip {
+
     public static final String QUILL_RENDER_TAG = "PYROMANCER_QUILL_SMART_RENDER_TAG";
 
     public QuillItem(Properties properties) {
@@ -30,7 +32,18 @@ public abstract class QuillItem extends Item {
     public abstract int getDefaultBlazeCostBonus ();
 
     @Override
-    public void appendHoverText(@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
+    public final String hiddenTooltipTranslationKey() {
+        return "pyromancer.quill_hidden_line";
+    }
+
+    @Override
+    public final PyromancerConfig.Key showHiddenLinesKey() {
+        return PyromancerConfig.quillDescriptionKey;
+    }
+
+    @Override
+    public final void appendHoverText(@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
     {
+        addTooltipLines(list);
     }
 }
