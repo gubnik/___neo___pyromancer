@@ -5,7 +5,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
-import xyz.nikgub.pyromancer.common.registries.ArmorMaterialsRegistry;
+import xyz.nikgub.pyromancer.registries.ArmorMaterialsRegistry;
 
 public class MarauderArmorItem extends ArmorItem {
     public MarauderArmorItem(Type type) {

@@ -29,7 +29,7 @@ import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.common.enchantments.BlazingJournalEnchantment;
 import xyz.nikgub.pyromancer.common.events.BlazingJournalAttackEvent;
 import xyz.nikgub.pyromancer.common.items.capabilities.BlazingJournalCapability;
-import xyz.nikgub.pyromancer.common.registries.AttributeRegistry;
+import xyz.nikgub.pyromancer.registries.AttributeRegistry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

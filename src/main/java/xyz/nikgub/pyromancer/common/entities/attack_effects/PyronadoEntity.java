@@ -9,8 +9,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
-import xyz.nikgub.pyromancer.common.registries.AttributeRegistry;
-import xyz.nikgub.pyromancer.common.registries.DamageSourceRegistry;
+import xyz.nikgub.pyromancer.registries.AttributeRegistry;
+import xyz.nikgub.pyromancer.registries.DamageSourceRegistry;
 
 import java.util.UUID;
 

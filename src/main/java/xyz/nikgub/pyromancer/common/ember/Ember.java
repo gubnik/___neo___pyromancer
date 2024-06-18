@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.common.items.EmberItem;
-import xyz.nikgub.pyromancer.common.registries.EmberRegistry;
+import xyz.nikgub.pyromancer.registries.EmberRegistry;
 
 import java.util.Set;
 

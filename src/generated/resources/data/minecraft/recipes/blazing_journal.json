@@ -1,19 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "equipment",
-  "key": {
-    "b": {
-      "item": "minecraft:book"
+  "ingredients": [
+    {
+      "item": "pyromancer:amber"
     },
-    "p": {
+    {
       "item": "minecraft:blaze_powder"
+    },
+    {
+      "item": "minecraft:book"
     }
-  },
-  "pattern": [
-    "bp "
   ],
   "result": {
     "item": "pyromancer:blazing_journal"
-  },
-  "show_notification": true
+  }
 }

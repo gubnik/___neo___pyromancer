@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.incandescent.client.animations.DeterminedAnimation;
 import xyz.nikgub.incandescent.client.animations.IAnimationPurposeEntity;
-import xyz.nikgub.pyromancer.common.registries.DamageSourceRegistry;
+import xyz.nikgub.pyromancer.registries.DamageSourceRegistry;
 import xyz.nikgub.pyromancer.common.entities.IFlamingGroveNativeEntity;
 
 import java.util.List;

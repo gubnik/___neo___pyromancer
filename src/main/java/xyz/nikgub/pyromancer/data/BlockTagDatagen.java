@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.common.registries.BlockRegistry;
+import xyz.nikgub.pyromancer.registries.BlockRegistry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

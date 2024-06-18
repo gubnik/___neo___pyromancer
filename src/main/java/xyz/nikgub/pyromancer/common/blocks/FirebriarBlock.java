@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.pyromancer.common.registries.DamageSourceRegistry;
+import xyz.nikgub.pyromancer.registries.DamageSourceRegistry;
 
 @SuppressWarnings("deprecation")
 public class FirebriarBlock extends FlowerBlock implements FlamingGrovePlant {

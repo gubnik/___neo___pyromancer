@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.incandescent.common.item.ICustomSwingItem;
 import xyz.nikgub.pyromancer.common.enchantments.MaceEnchantment;
-import xyz.nikgub.pyromancer.common.registries.EnchantmentRegistry;
+import xyz.nikgub.pyromancer.registries.EnchantmentRegistry;
 
 import java.util.Map;
 

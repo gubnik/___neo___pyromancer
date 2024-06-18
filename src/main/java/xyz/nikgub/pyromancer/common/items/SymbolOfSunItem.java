@@ -24,9 +24,9 @@ import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.common.registries.AttributeRegistry;
-import xyz.nikgub.pyromancer.common.registries.MobEffectRegistry;
-import xyz.nikgub.pyromancer.common.registries.TierRegistry;
+import xyz.nikgub.pyromancer.registries.AttributeRegistry;
+import xyz.nikgub.pyromancer.registries.MobEffectRegistry;
+import xyz.nikgub.pyromancer.registries.TierRegistry;
 import xyz.nikgub.pyromancer.common.util.ItemUtils;
 
 import java.util.Collection;

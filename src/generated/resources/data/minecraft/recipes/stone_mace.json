@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "a": {
+      "tag": "minecraft:stone_tool_materials"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "aaa",
+    "asa",
+    " s "
+  ],
+  "result": {
+    "item": "pyromancer:stone_mace"
+  },
+  "show_notification": true
+}

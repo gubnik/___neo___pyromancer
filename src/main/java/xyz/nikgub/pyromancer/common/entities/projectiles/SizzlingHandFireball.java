@@ -17,7 +17,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
-import xyz.nikgub.pyromancer.common.registries.DamageSourceRegistry;
+import xyz.nikgub.pyromancer.registries.DamageSourceRegistry;
 import org.jetbrains.annotations.NotNull;
 
 public class SizzlingHandFireball extends Fireball implements ItemSupplier {

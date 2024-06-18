@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "a": {
+      "item": "minecraft:iron_ingot"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "aaa",
+    "asa",
+    " s "
+  ],
+  "result": {
+    "item": "pyromancer:iron_mace"
+  },
+  "show_notification": true
+}

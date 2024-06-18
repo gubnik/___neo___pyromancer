@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "a": {
+      "item": "pyromancer:amber"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "aaa",
+    "asa",
+    " s "
+  ],
+  "result": {
+    "item": "pyromancer:amber_mace"
+  },
+  "show_notification": true
+}

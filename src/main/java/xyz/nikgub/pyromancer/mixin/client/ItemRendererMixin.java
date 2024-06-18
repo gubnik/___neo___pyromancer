@@ -23,7 +23,7 @@ import xyz.nikgub.pyromancer.common.items.BlazingJournalItem;
 import xyz.nikgub.pyromancer.common.items.CompendiumOfFlameItem;
 import xyz.nikgub.pyromancer.common.items.QuillItem;
 import xyz.nikgub.pyromancer.common.items.UsablePyromancyItem;
-import xyz.nikgub.pyromancer.common.registries.ItemRegistry;
+import xyz.nikgub.pyromancer.registries.ItemRegistry;
 
 import javax.annotation.Nullable;
 import java.util.List;

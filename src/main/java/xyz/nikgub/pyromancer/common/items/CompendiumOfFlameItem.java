@@ -26,7 +26,7 @@ import xyz.nikgub.incandescent.common.item.IGradientNameItem;
 import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.common.items.capabilities.CompendiumOfFlameCapability;
-import xyz.nikgub.pyromancer.common.registries.AttributeRegistry;
+import xyz.nikgub.pyromancer.registries.AttributeRegistry;
 import xyz.nikgub.pyromancer.common.ember.UniqueEmberBehaviour;
 import xyz.nikgub.pyromancer.mixin.client.ItemRendererMixin;
 

@@ -6,7 +6,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import xyz.nikgub.pyromancer.common.ember.UniqueEmberBehaviour;
-import xyz.nikgub.pyromancer.common.registries.AttributeRegistry;
+import xyz.nikgub.pyromancer.registries.AttributeRegistry;
 
 import java.util.Collection;
 import java.util.UUID;

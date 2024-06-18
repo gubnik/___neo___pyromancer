@@ -20,7 +20,7 @@ import xyz.nikgub.incandescent.common.item.IGradientNameItem;
 import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerConfig;
-import xyz.nikgub.pyromancer.common.registries.AttributeRegistry;
+import xyz.nikgub.pyromancer.registries.AttributeRegistry;
 import xyz.nikgub.pyromancer.common.util.ItemUtils;
 import xyz.nikgub.pyromancer.mixin.client.ItemRendererMixin;
 

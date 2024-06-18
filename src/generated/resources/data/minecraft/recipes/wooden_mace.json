@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "a": {
+      "tag": "minecraft:planks"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "aaa",
+    "asa",
+    " s "
+  ],
+  "result": {
+    "item": "pyromancer:wooden_mace"
+  },
+  "show_notification": true
+}

@@ -1,4 +1,4 @@
-package xyz.nikgub.pyromancer.common.registries;
+package xyz.nikgub.pyromancer.registries;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
