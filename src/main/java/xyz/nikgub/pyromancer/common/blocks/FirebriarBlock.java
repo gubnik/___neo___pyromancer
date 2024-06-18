@@ -11,8 +11,8 @@ import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import xyz.nikgub.pyromancer.common.registries.DamageSourceRegistry;
 import org.jetbrains.annotations.NotNull;
+import xyz.nikgub.pyromancer.common.registries.DamageSourceRegistry;
 
 @SuppressWarnings("deprecation")
 public class FirebriarBlock extends FlowerBlock implements FlamingGrovePlant {
@@ -21,13 +21,16 @@ public class FirebriarBlock extends FlowerBlock implements FlamingGrovePlant {
         super(MobEffects.FIRE_RESISTANCE, 100, p_53514_);
         this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0));
     }
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(STAGE);
     }
+
     protected boolean mayPlaceOn(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
         return true;//BlocksUtils.flamingGrovePlantable(blockState);
     }
+
     @Override
     public void entityInside(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull Entity entity){
         double x = blockPos.getX();
