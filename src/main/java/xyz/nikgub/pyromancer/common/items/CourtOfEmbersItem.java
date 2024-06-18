@@ -28,12 +28,12 @@ public class CourtOfEmbersItem extends UsablePyromancyItem {
     }
 
     @Override
-    public int getDefaultPyromancyDamage() {
+    public float getDefaultPyromancyDamage() {
         return 3;
     }
 
     @Override
-    public float getDefaultBlazeCost() {
+    public int getDefaultBlazeCost() {
         return 16;
     }
 

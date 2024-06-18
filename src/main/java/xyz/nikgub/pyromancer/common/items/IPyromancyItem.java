@@ -4,7 +4,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import xyz.nikgub.pyromancer.common.ember.UniqueEmberBehaviour;
 import xyz.nikgub.pyromancer.common.registries.AttributeRegistry;
@@ -24,13 +23,8 @@ public interface IPyromancyItem {
     UUID JOURNAL_BLAZE_CONSUMPTION_UUID = UUID.fromString("574d4092-16c3-11ee-be56-0242ac120002");
     UUID JOURNAL_PYROMANCY_DAMAGE_UUID = UUID.fromString("704049d2-16c3-11ee-be56-0242ac120002");
 
-    private Item self()
-    {
-        return (Item) this;
-    }
-
-    int getDefaultPyromancyDamage();
-    float getDefaultBlazeCost();
+    float getDefaultPyromancyDamage();
+    int getDefaultBlazeCost();
 
     static float getAttributeBonus(Player player, Attribute attribute)
     {

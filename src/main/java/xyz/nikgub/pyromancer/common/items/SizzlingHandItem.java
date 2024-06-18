@@ -25,12 +25,12 @@ public class SizzlingHandItem extends UsablePyromancyItem {
     }
 
     @Override
-    public int getDefaultPyromancyDamage() {
+    public float getDefaultPyromancyDamage() {
         return 4;
     }
 
     @Override
-    public float getDefaultBlazeCost() {
+    public int getDefaultBlazeCost() {
         return 1;
     }
 
