@@ -1,44 +1,41 @@
 package xyz.nikgub.pyromancer.common.ember;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.common.items.EmberItem;
-import xyz.nikgub.pyromancer.common.items.MaceItem;
 import xyz.nikgub.pyromancer.common.registries.EmberRegistry;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author nikgub_
  */
 public class Ember {
 
-    public static final List<Class<? extends Item>> GENERAL_WEAPONS = List.of(SwordItem.class, AxeItem.class, MaceItem.class);
-    public static final List<Class<? extends Item>> SWORDS = List.of(SwordItem.class);
-    public static final List<Class<? extends Item>> AXES = List.of(AxeItem.class);
-    public static final List<Class<? extends Item>> MACES = List.of(MaceItem.class);
-
     private final String name;
     private final EmberType type;
-    private final List<Class<? extends Item>> acceptableItems;
+    private final Set<Class<? extends Item>> acceptableItems;
     private final EmberAnimation animation;
 
     /**
      *
      * @param name              Name of ember
      * @param type              Type of infusion, defines colouring and damage boosts
-     * @param acceptableItems   List of item classes that this ember can be applied to
+     * @param acceptableWeapons   List of item classes that this ember can be applied to
      * @param animation         Record of third person animation, first person item transforms, use duration and cooldown
      */
-    public Ember(String name, @NotNull EmberType type, List<Class<? extends Item>> acceptableItems, @NotNull EmberAnimation animation)
+    @SafeVarargs
+    public Ember(String name, @NotNull EmberType type, @NotNull EmberAnimation animation, Class<? extends Item>... acceptableWeapons)
     {
         this.name = name;
         this.type = type;
-        this.acceptableItems = acceptableItems;
+        this.acceptableItems = Set.of(acceptableWeapons);
         this.animation = animation;
     }
     @Override
@@ -65,7 +62,7 @@ public class Ember {
         return type;
     }
 
-    public List<Class<? extends Item>> getAcceptableItems() {
+    public Set<Class<? extends Item>> getAcceptableItems() {
         return acceptableItems;
     }
 
@@ -101,7 +98,7 @@ public class Ember {
                 return true;
             }
         }
-        return item instanceof TieredItem || EmberUtilities.isUniquelyAllowed(item) && !EmberUtilities.isUniquelyDenied(item);
+        return item instanceof TieredItem || EmberUtilities.isUniquelyAllowed(item);
     }
 
     @Nullable
