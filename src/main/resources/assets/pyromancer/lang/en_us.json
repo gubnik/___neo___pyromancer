@@ -3,8 +3,17 @@
   "itemGroup.pyromancer": "Pyromancer",
   "blazing_journal.blaze_value.desc": "Blaze charge: ",
   "pyromancer.ember_hidden_line": "To show Ember info press ",
+  "pyromancer.quill_hidden_line": "To show quill attack info press ",
+  "pyromancer.pyromancy_hidden_line": "To show pyromancy description info press ",
   "ember.soulflame_ignition.name": "Soulflame Ignition",
   "ember.soulflame_ignition.description": "Unleashes a vile soulflame burst",
+  "item.pyromancer.blazing_quill.desc.0": "Has no attack effect",
+
+  "item.pyromancer.symbol_of_sun.desc.0": "Perform a dash",
+  "item.pyromancer.symbol_of_sun.desc.1": "While dashing you take 50% less damage and deal fire damage to enemies you collide with",
+  "item.pyromancer.symbol_of_sun.desc.2": "Dash is performed horizontally in the direction you're moving",
+  "item.pyromancer.symbol_of_sun.desc.3": "If you are not moving, dash will be performed forward",
+  "item.pyromancer.symbol_of_sun.desc.4": "If you are swimming dash can be performed vertically",
 
   "[[[---ITEMS---]]]": "",
   "item.pyromancer.blazing_journal": "Blazing Journal",
@@ -15,6 +24,7 @@
 
   "item.pyromancer.sizzling_hand": "Sizzling Hand",
   "item.pyromancer.court_of_embers": "Court of Embers",
+  "item.pyromancer.symbol_of_sun.": "Symbol of Sun",
   
   "item.pyromancer.netherite_mace": "Netherite Mace",
   "item.pyromancer.diamond_mace": "Diamond Mace",

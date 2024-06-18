@@ -9,41 +9,31 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.items.*;
 import xyz.nikgub.pyromancer.common.items.armor.MarauderArmorItem;
 import xyz.nikgub.pyromancer.common.items.armor.PyromancerArmorItem;
-import xyz.nikgub.pyromancer.common.items.pyromancy_items.CourtOfEmbersItem;
-import xyz.nikgub.pyromancer.common.items.pyromancy_items.SizzlingHandItem;
 
 @SuppressWarnings("unused")
 public class ItemRegistry {
     public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PyromancerMod.MOD_ID);
 
     // MATERIALS
-    public static RegistryObject<Item> HOGLIN_HIDE = ITEMS.register("hoglin_hide",
-            () -> new Item(new Item.Properties().stacksTo(64)));
-    public static RegistryObject<Item> NETHERITE_SHARD = ITEMS.register("netherite_shard",
-            () -> new Item(new Item.Properties().stacksTo(64)));
-    public static RegistryObject<Item> CINNABAR_CHUNK = ITEMS.register("cinnabar_chunk",
-            () -> new Item(new Item.Properties().stacksTo(64)));
-    public static RegistryObject<Item> DROPS_OF_MERCURY = ITEMS.register("drops_of_mercury",
-            () -> new Item(new Item.Properties().stacksTo(64)));
-    public static RegistryObject<Item> BRIMSTONE = ITEMS.register("brimstone",
-            () -> new Item(new Item.Properties().stacksTo(64)));
-    public static RegistryObject<Item> AMBER = ITEMS.register("amber",
-            () -> new Item(new Item.Properties().stacksTo(64)));
+    public static RegistryObject<Item> HOGLIN_HIDE = ITEMS.register("hoglin_hide",  () -> new Item(new Item.Properties().stacksTo(64)));
+    public static RegistryObject<Item> NETHERITE_SHARD = ITEMS.register("netherite_shard", () -> new Item(new Item.Properties().stacksTo(64)));
+    public static RegistryObject<Item> CINNABAR_CHUNK = ITEMS.register("cinnabar_chunk", () -> new Item(new Item.Properties().stacksTo(64)));
+    public static RegistryObject<Item> DROPS_OF_MERCURY = ITEMS.register("drops_of_mercury", () -> new Item(new Item.Properties().stacksTo(64)));
+    public static RegistryObject<Item> BRIMSTONE = ITEMS.register("brimstone", () -> new Item(new Item.Properties().stacksTo(64)));
+    public static RegistryObject<Item> AMBER = ITEMS.register("amber", () -> new Item(new Item.Properties().stacksTo(64)));
 
 
-    public static RegistryObject<Item> BLAZING_JOURNAL = ITEMS.register("blazing_journal",
-            () -> new BlazingJournalItem(new Item.Properties()));
+    public static RegistryObject<Item> BLAZING_JOURNAL = ITEMS.register("blazing_journal", () -> new BlazingJournalItem(new Item.Properties()));
 
-    public static RegistryObject<Item> COMPENDIUM_OF_FLAME = ITEMS.register("compendium_of_flame",
-            () -> new CompendiumOfFlameItem(new Item.Properties()));
+    public static RegistryObject<Item> COMPENDIUM_OF_FLAME = ITEMS.register("compendium_of_flame", () -> new CompendiumOfFlameItem(new Item.Properties()));
 
-    public static RegistryObject<Item> EMBER_ITEM = ITEMS.register("ember",
-            () -> new EmberItem(new Item.Properties()));
+    public static RegistryObject<Item> EMBER_ITEM = ITEMS.register("ember", () -> new EmberItem(new Item.Properties()));
 
     public static RegistryObject<Item> BLAZING_QUILL = ITEMS.register("blazing_quill",
             () -> new QuillItem(new Item.Properties())
@@ -63,36 +53,36 @@ public class ItemRegistry {
                 @Override
                 public void getAttack (Player player, ItemStack weaponStack, ItemStack journalStack)
                 {
-
                 }
-
                 @Override
                 public boolean getCondition(Player player, ItemStack weaponStack, ItemStack journalStack)
                 {
-                    return player.getAttackStrengthScale(0) > 0.7;
+                    return false;
                 }
             }
     );
 
-    public static RegistryObject<Item> BOMBSACK = ITEMS.register("bombsack",
+    public static RegistryObject<BombsackItem> BOMBSACK = ITEMS.register("bombsack",
             () -> new BombsackItem(new Item.Properties(), EntityTypeRegistry.BOMBSACK::get));
 
-    public static RegistryObject<Item> SIZZLING_HAND = ITEMS.register("sizzling_hand",
+    public static RegistryObject<SizzlingHandItem> SIZZLING_HAND = ITEMS.register("sizzling_hand",
             () -> new SizzlingHandItem(new Item.Properties()));
-    public static RegistryObject<Item> COURT_OF_EMBERS = ITEMS.register("court_of_embers",
+    public static RegistryObject<CourtOfEmbersItem> COURT_OF_EMBERS = ITEMS.register("court_of_embers",
             () -> new CourtOfEmbersItem(new Item.Properties()));
+    public static RegistryObject<SymbolOfSunItem> SYMBOL_OF_SUN = ITEMS.register("symbol_of_sun",
+            () -> new SymbolOfSunItem(new Item.Properties()));
 
     // TOOLS
     public static RegistryObject<Item> AMBER_PICKAXE = ITEMS.register("amber_pickaxe",
             () -> new PickaxeItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
     public static RegistryObject<Item> AMBER_AXE = ITEMS.register("amber_axe",
-            () -> new AxeItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
+            () -> new AxeItem(TierRegistry.AMBER, 5, -3.0f, new Item.Properties()));
     public static RegistryObject<Item> AMBER_SHOVEL = ITEMS.register("amber_shovel",
             () -> new ShovelItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
     public static RegistryObject<Item> AMBER_HOE = ITEMS.register("amber_hoe",
             () -> new HoeItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
     public static RegistryObject<Item> AMBER_SWORD = ITEMS.register("amber_sword",
-            () -> new SwordItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
+            () -> new SwordItem(TierRegistry.AMBER, 3, -2.8f, new Item.Properties()));
 
     public static RegistryObject<Item> WOODEN_MACE = ITEMS.register("wooden_mace",
             () -> new MaceItem(Tiers.WOOD, new Item.Properties().stacksTo(1)));
@@ -110,7 +100,7 @@ public class ItemRegistry {
             () -> new MaceItem(TierRegistry.AMBER, new Item.Properties())
             {
                 @Override
-                public InteractionResultHolder<ItemStack> use (Level level, Player player, InteractionHand hand)
+                public @NotNull InteractionResultHolder<ItemStack> use (@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand)
                 {
                     return InteractionResultHolder.success(player.getItemInHand(hand));
                 }
