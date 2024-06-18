@@ -12,7 +12,6 @@ import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.pyromancer.common.registries.AttributeRegistry;
 import xyz.nikgub.pyromancer.common.registries.DamageSourceRegistry;
 
-import java.util.Arrays;
 import java.util.UUID;
 
 public class PyronadoEntity extends AttackEffectEntity {
@@ -42,25 +41,15 @@ public class PyronadoEntity extends AttackEffectEntity {
         Player owner = this.level().getPlayerByUUID(ownerUUID);
         if(owner == null) return;
         double dx, dy, dz;
-        double[] VALUES;
-        double MAX;
         Vec3 direction;
         double cy = Y + this.tickCount * 0.1;
-        for(LivingEntity entity : EntityUtils.entityCollector(new Vec3(X, cy, Z), 2 + 4 * this.sizeCoefficient, owner.level())){
+        for(LivingEntity entity : EntityUtils.entityCollector(new Vec3(X, cy, Z), 2 + 2 * this.sizeCoefficient, owner.level())){
             if(!entity.equals(owner)){
                 entity.hurt(DamageSourceRegistry.pyronado(this, owner), (float) owner.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get()));
                 dx = X - entity.getX();
                 dy = cy - entity.getY();
                 dz = Z - entity.getZ();
-                VALUES = new double[]{
-                        Mth.abs((float)dx),
-                        Mth.abs((float)dy),
-                        Mth.abs((float)dz)};
-                MAX = Arrays.stream(VALUES).max().getAsDouble();
-                dx = dx / MAX;
-                dy = dy / MAX;
-                dz = dz / MAX;
-                direction = new Vec3(dx, dy, dz);
+                direction = new Vec3(dx, dy, dz).normalize();
                 entity.setDeltaMovement(direction);
             }
         }
