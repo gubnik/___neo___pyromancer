@@ -3,6 +3,7 @@ package xyz.nikgub.pyromancer.common.registries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
 import xyz.nikgub.pyromancer.common.entities.attack_effects.AttackEffectEntity;
 import xyz.nikgub.pyromancer.common.entities.attack_effects.PyronadoEntity;
@@ -39,12 +40,11 @@ public class DamageSourceRegistry {
         );
     }
 
-    public static DamageSource firebriar(Entity entity)
+    public static DamageSource firebriar(Level level)
     {
-        assert entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
+        assert level.registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.FIREBRIAR_KEY),
-                entity
+                level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.FIREBRIAR_KEY)
         );
     }
 
@@ -52,9 +52,19 @@ public class DamageSourceRegistry {
     {
         assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-            owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.SIZZLING_HAND_KEY),
-            sizzlingHandFireball,
-            owner
+                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.SIZZLING_HAND_KEY),
+                sizzlingHandFireball,
+                owner
+        );
+    }
+
+    public static DamageSource symbolOfSun(Entity owner)
+    {
+        assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
+        return new DamageSource(
+                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.SYMBOL_OF_SUN_KEY),
+                owner,
+                owner
         );
     }
 
