@@ -5,6 +5,7 @@ import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -12,19 +13,18 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.incandescent.common.item.IGradientNameItem;
 import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
+import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.common.registries.AttributeRegistry;
 import xyz.nikgub.pyromancer.common.util.ItemUtils;
-import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.mixin.client.ItemRendererMixin;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.BiFunction;
@@ -33,7 +33,7 @@ import java.util.function.BiFunction;
  * Class that should be extended whenever making pyromancy based on vanilla use system <p>
  * Not to be confused with {@link IPyromancyItem}, which is a general interface for any pyromancy
  */
-public abstract class UsablePyromancyItem extends Item implements IPyromancyItem, INotStupidTooltipItem, IGradientNameItem {
+public abstract class UsablePyromancyItem extends Item implements IPyromancyItem, INotStupidTooltipItem, IGradientNameItem, IExtensibleTooltip {
 
     public UsablePyromancyItem(Properties properties) {
         super(properties.stacksTo(1));
@@ -72,6 +72,22 @@ public abstract class UsablePyromancyItem extends Item implements IPyromancyItem
             return InteractionResultHolder.success(player.getItemInHand(hand));
         }
         return InteractionResultHolder.fail(player.getItemInHand(hand));
+    }
+
+    @Override
+    public void appendHoverText(@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
+    {
+        addTooltipLines(list);
+    }
+
+    @Override
+    public String hiddenTooltipTranslationKey() {
+        return "pyromancer.pyromancy_hidden_line";
+    }
+
+    @Override
+    public PyromancerConfig.Key showHiddenLinesKey() {
+        return PyromancerConfig.pyromancyDescriptionKey;
     }
 
     @Override
