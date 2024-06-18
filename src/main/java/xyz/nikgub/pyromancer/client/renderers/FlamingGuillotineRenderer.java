@@ -26,7 +26,7 @@ public class FlamingGuillotineRenderer extends EntityRenderer<FlamingGuillotineE
         poseStack.translate(0D, -1D, 0D);
         //this.model.prepareMobModel(entity, f5, f8, p_115310_);
         this.model.setupAnim(entity, 0, 0, entity.tickCount + v1, 0, 0);
-        this.model.renderToBuffer(poseStack, vertexconsumer, p_114533_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.2F);
+        this.model.renderToBuffer(poseStack, vertexconsumer, p_114533_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.5F);
         super.render(entity, v, v1, poseStack, multiBufferSource, p_114533_);
     }
     @Override
