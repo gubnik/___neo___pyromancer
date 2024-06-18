@@ -2,13 +2,17 @@ package xyz.nikgub.pyromancer.common.registries;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.DeferredRegister;
@@ -16,10 +20,13 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
+import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.client.animations.EmberAnimationList;
 import xyz.nikgub.pyromancer.common.ember.Ember;
 import xyz.nikgub.pyromancer.common.ember.EmberType;
+import xyz.nikgub.pyromancer.common.entities.attack_effects.FlamingGuillotineEntity;
+import xyz.nikgub.pyromancer.common.items.MaceItem;
 
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
@@ -44,38 +51,84 @@ public class EmberRegistry{
                 .findFirst().orElse(null);
     }
 
-    public static RegistryObject<Ember> SOULFLAME_IGNITION = registerEmber(new Ember("soulflame_ignition", EmberType.SOULFLAME.get(), Ember.GENERAL_WEAPONS, EmberAnimationList.SOULFLAME_IGNITION)
+    public static RegistryObject<Ember> SOULFLAME_IGNITION = registerEmber(new Ember("soulflame_ignition", EmberType.SOULFLAME, EmberAnimationList.SOULFLAME_IGNITION, SwordItem.class, AxeItem.class)
     {
         @Override
         public void finishEvent (ItemStack itemStack, Level level, LivingEntity entity)
         {
             if (!(entity.level() instanceof ServerLevel serverLevel)) return;
+            final Vec3 pos = entity.getEyePosition();
+            final Vec3 initAngle = entity.getLookAngle().multiply(1.1, 1.1, 1.1);
             for (int loop = 0; loop < 4; loop++)
             {
-                final Vec3 pos = entity.getEyePosition();
-                final Vec3 initAngle = entity.getLookAngle();
                 Vec3 lookAngle = new Vec3(initAngle.x, initAngle.y, initAngle.z);
-                for (int i = 0; i < 200; i++)
+                Vec3 cPos;
+                for (int i = 0; i < 50; i++)
                 {
-                    lookAngle = lookAngle.multiply(1.05, 1.05, 1.05);
-                    final double d = 0.2;
+                    lookAngle = lookAngle.multiply(1.025, 1.025, 1.025);
+                    final double d = 0.25;
                     double dx = ThreadLocalRandom.current().nextDouble(-d, d);
-                    double dy = ThreadLocalRandom.current().nextDouble(-d, d);
+                    double dy = ThreadLocalRandom.current().nextDouble(-d / 4, d / 4);
                     double dz = ThreadLocalRandom.current().nextDouble(-d, d);
                     lookAngle = lookAngle.add(dx, dy, dz);
-                    serverLevel.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.x + lookAngle.x, pos.y + lookAngle.y, pos.z + lookAngle.z, 1, 0, 0, 0, 0);
+                    cPos = new Vec3(pos.x + lookAngle.x, pos.y + lookAngle.y, pos.z + lookAngle.z);
+                    serverLevel.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, cPos.x, cPos.y, cPos.z, 1, 0, 0, 0, 0);
+                    for (LivingEntity target : EntityUtils.entityCollector(cPos, 0.3, serverLevel))
+                    {
+                        if (target == entity) continue;
+                        target.hurt(DamageSourceRegistry.soulflame(entity), (float) entity.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                    }
                 }
             }
         }
+
+        @Override
+        public void tickEvent (Level level, LivingEntity entity, ItemStack itemStack, int tick)
+        {
+            if(!(level instanceof ServerLevel serverLevel)) return;
+            final float c = (float)(tick)/(float)(this.getAnimation().getUseTime() - 5);
+            final double R = 2.5 * c;
+            final double X = entity.getX();
+            final double Y = entity.getY();
+            final double Z = entity.getZ();
+            final double sinK = R * Math.sin(Math.toRadians(tick * 18));
+            final double cosK = R * Math.cos(Math.toRadians(tick * 18));
+            final SimpleParticleType particleType = ParticleTypes.SCULK_SOUL;
+            serverLevel.sendParticles(particleType, X + sinK, Y + tick * 0.1, Z + cosK,1, 0.1, 0.1, 0.1, 0);
+            serverLevel.sendParticles(particleType, X - sinK, Y + tick * 0.1, Z - cosK,1, 0.1, 0.1, 0.1, 0);
+        }
     });
 
-    public static RegistryObject<Ember> PRESERVING_FLAME = registerEmber(new Ember("preserving_flame", EmberType.FLAME.get(), Ember.MACES, EmberAnimationList.PRESERVING_FLAME)
+    public static RegistryObject<Ember> PRESERVING_FLAME = registerEmber(new Ember("preserving_flame", EmberType.FLAME, EmberAnimationList.PRESERVING_FLAME, MaceItem.class)
     {
         @Override
         public void tickEvent (Level level, LivingEntity entity, ItemStack itemStack, int tick)
         {
-            entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 10, 4, true, false));
-            entity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 10, 4, true, false));
+            entity.extinguishFire();
+            entity.addEffect(new MobEffectInstance(MobEffectRegistry.FIERY_AEGIS.get(), 2, 0, true, false));
+        }
+    });
+
+    public static RegistryObject<Ember> EXECUTIONERS_FIRE = registerEmber(new Ember("executioners_fire", EmberType.HELLBLAZE, EmberAnimationList.EXECUTIONERS_FIRE, AxeItem.class)
+    {
+        @Override
+        public void tickEvent (Level level, LivingEntity entity, ItemStack itemStack, int tick)
+        {
+            if (tick > 3) return;
+            for (LivingEntity target : EntityUtils.entityCollector(entity.getEyePosition(), 2, level))
+            {
+                if (target == entity) continue;
+                float multiplier = 1 / Mth.clamp(target.getHealth() / target.getMaxHealth(), 0.2f, 1f);
+                float damage = (float) entity.getAttributeValue(Attributes.ATTACK_DAMAGE) * multiplier;
+                if (!(target.hurt(DamageSourceRegistry.hellblaze(entity), damage))) continue;
+                if (target.getHealth() > target.getMaxHealth() * 0.2) continue;
+                FlamingGuillotineEntity guillotine = new FlamingGuillotineEntity(EntityTypeRegistry.FLAMING_GUILLOTINE.get(), level);
+                guillotine.setPlayerUuid(entity.getUUID());
+                guillotine.setSize(target.getBbWidth() / 0.6f);
+                guillotine.moveTo(target.position());
+                guillotine.setYRot(entity.getYRot());
+                level.addFreshEntity(guillotine);
+            }
         }
     });
 

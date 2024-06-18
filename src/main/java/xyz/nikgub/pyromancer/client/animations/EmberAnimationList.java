@@ -11,7 +11,7 @@ public class EmberAnimationList {
     public static EmberAnimation SOULFLAME_IGNITION = new EmberAnimation(15, 10)
     {
         @Override
-        public ThirdPersonAnimation thirdPersonAnimation ()
+        public ThirdPersonAnimation getThirdPersonAnimation()
         {
             return (model, entity, arm) ->
             {
@@ -19,20 +19,20 @@ public class EmberAnimationList {
                 if(entity instanceof Player player) tick = player.getUseItemRemainingTicks();
                 else return;
                 if(tick <= 0) return;
-                //tick += Minecraft.getInstance().getPartialTick();
+                final float anglePerTick = 12;
                 ModelPart armPart = (arm.equals(HumanoidArm.RIGHT)) ? model.rightArm : model.leftArm;
-                armPart.xRot = (float) Math.PI - Mth.sin( (float) Math.PI * tick * 9 / 180) * -1 * Mth.cos( (float) Math.PI * tick * 9 / 180);
-                armPart.zRot = -1 * Mth.cos( (float) Math.PI * tick * 9 / 180) / 5;
+                armPart.yRot = - (float) Mth.HALF_PI + Mth.sin( (float) Math.PI * tick * anglePerTick / 2 * 180);
+                armPart.xRot = - (float) Mth.HALF_PI / 2 - Mth.cos( (float) Math.PI * tick * anglePerTick / 180) / 3;
             };
         }
 
         @Override
-        public FirstPersonAnimation firstPersonAnimation ()
+        public FirstPersonAnimation getFirstPersonAnimation()
         {
             return (poseStack, player, arm, itemStack, partialTick, equipProgress, swingProcess) ->
             {
-                if (arm != HumanoidArm.RIGHT) return;
-                poseStack.rotateAround(Axis.XN.rotationDegrees(partialTick * 5), 0, 0,0);
+                int i = (arm == HumanoidArm.RIGHT) ? 1 : -1;
+                poseStack.rotateAround(Axis.XN.rotationDegrees(45 - Mth.sin(partialTick)), (float)i * 0.56F, -0.52F + equipProgress * -0.6F, -0.72F);
             };
         }
     };
@@ -40,7 +40,7 @@ public class EmberAnimationList {
     public static EmberAnimation PRESERVING_FLAME = new EmberAnimation(80, 40)
     {
         @Override
-        public ThirdPersonAnimation thirdPersonAnimation ()
+        public ThirdPersonAnimation getThirdPersonAnimation()
         {
             return (model, entity, arm) ->
             {
@@ -48,23 +48,54 @@ public class EmberAnimationList {
                 ModelPart pRightArm = model.rightArm;
                 ModelPart pLeftArm = model.leftArm;
                 ModelPart pHead = model.head;
-                ModelPart modelpart = pRightHanded ? pRightArm : pLeftArm;
-                ModelPart modelpart1 = pRightHanded ? pLeftArm : pRightArm;
-                float dry = (float) Math.PI / 4;
-                modelpart.yRot = (pRightHanded ? -dry : dry) + pHead.yRot;
-                modelpart1.yRot = (pRightHanded ? dry : -dry) + pHead.yRot;
-                modelpart.xRot = (-(float)Math.PI / 2F) + pHead.xRot + 0.1F;
-                modelpart1.xRot = -1.5F + pHead.xRot;
+                ModelPart main = pRightHanded ? pRightArm : pLeftArm;
+                ModelPart secondary = pRightHanded ? pLeftArm : pRightArm;
+                float dry = Mth.HALF_PI / 2;
+                main.yRot = (pRightHanded ? -dry : dry) + pHead.yRot;
+                secondary.yRot = (pRightHanded ? dry : -dry) + pHead.yRot;
+                main.xRot = (-(float)Mth.HALF_PI) + pHead.xRot + 0.1F;
+                secondary.xRot = -1.5F + pHead.xRot;
             };
         }
 
         @Override
-        public FirstPersonAnimation firstPersonAnimation ()
+        public FirstPersonAnimation getFirstPersonAnimation()
         {
             return (poseStack, player, arm, itemStack, partialTick, equipProgress, swingProcess) ->
             {
-                if (arm != HumanoidArm.RIGHT) return;
-                poseStack.rotateAround(Axis.XN.rotationDegrees(partialTick * 5), 0, 0,0);
+                poseStack.rotateAround(Axis.YN.rotationDegrees(-90), 0, 0,0);
+            };
+        }
+    };
+
+    public static EmberAnimation EXECUTIONERS_FIRE = new EmberAnimation(20, 40)
+    {
+        @Override
+        public ThirdPersonAnimation getThirdPersonAnimation()
+        {
+            return (model, entity, arm) ->
+            {
+                float tick = entity.getUseItemRemainingTicks();// + Minecraft.getInstance().getPartialTick();
+                boolean pRightHanded = arm == HumanoidArm.RIGHT;
+                final ModelPart pRightArm = model.rightArm;
+                final ModelPart pLeftArm = model.leftArm;
+                final ModelPart main = pRightHanded ? pRightArm : pLeftArm;
+                main.xRot = - Mth.HALF_PI;
+                float dry = 2.5f * (Mth.sqrt(tick / getUseTime()) - 0.5f);
+                // float dy = 40 * Mth.sqrt(tick / getUseTime());
+                main.yRot = Mth.HALF_PI * dry;
+                main.zRot = Mth.HALF_PI;
+            };
+        }
+
+        @Override
+        public FirstPersonAnimation getFirstPersonAnimation()
+        {
+            return (poseStack, player, arm, itemStack, partialTick, equipProgress, swingProcess) ->
+            {
+                float tick = player.getUseItemRemainingTicks();
+                poseStack.rotateAround(Axis.YN.rotationDegrees(-90), 0, 0,0);
+                poseStack.rotateAround(Axis.XN.rotationDegrees(45f - 90f * tick / getUseTime()), 0f, 0f, 0f);
             };
         }
     };
