@@ -39,7 +39,7 @@ public class FirebriarBlock extends FlowerBlock implements FlamingGrovePlant {
         super.entityInside(blockState, level, blockPos, entity);
         if(blockState.getBlock().getStateDefinition().getProperty("stage") instanceof IntegerProperty stage && blockState.getValue(stage) == 0){
             level.setBlock(blockPos, blockState.setValue(stage, 3), 3); // texture change
-            level.explode(null, DamageSourceRegistry.firebriar(null), null, x+0.5, y, z+0.5, 0.8f, true, Level.ExplosionInteraction.NONE);
+            level.explode(null, DamageSourceRegistry.firebriar(level), null, x+0.5, y, z+0.5, 0.8f, true, Level.ExplosionInteraction.NONE);
         }
     }
     @Override
