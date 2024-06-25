@@ -3,16 +3,16 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:wooden_mace"
+        "recipe": "pyromancer:marauder_cape"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "stick": {
+    "hoglin_hide": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:stick"
+              "pyromancer:hoglin_hide"
             ]
           }
         ]
@@ -22,13 +22,13 @@
   },
   "requirements": [
     [
-      "stick",
+      "hoglin_hide",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:wooden_mace"
+      "pyromancer:marauder_cape"
     ]
   },
   "sends_telemetry_event": false

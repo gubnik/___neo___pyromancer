@@ -3,16 +3,16 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:stone_mace"
+        "recipe": "pyromancer:marauder_helm"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "stick": {
+    "hoglin_hide": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:stick"
+              "pyromancer:hoglin_hide"
             ]
           }
         ]
@@ -22,13 +22,13 @@
   },
   "requirements": [
     [
-      "stick",
+      "hoglin_hide",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:stone_mace"
+      "pyromancer:marauder_helm"
     ]
   },
   "sends_telemetry_event": false

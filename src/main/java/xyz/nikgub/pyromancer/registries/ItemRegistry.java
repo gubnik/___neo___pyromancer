@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.items.*;
+import xyz.nikgub.pyromancer.common.items.armor.ArmorOfHellblazeMonarchItem;
 import xyz.nikgub.pyromancer.common.items.armor.MarauderArmorItem;
 import xyz.nikgub.pyromancer.common.items.armor.PyromancerArmorItem;
 
@@ -97,15 +98,7 @@ public class ItemRegistry {
     public static RegistryObject<Item> NETHERITE_MACE = ITEMS.register("netherite_mace",
             () -> new MaceItem(Tiers.NETHERITE, new Item.Properties().stacksTo(1)));
     public static RegistryObject<Item> AMBER_MACE = ITEMS.register("amber_mace",
-            () -> new MaceItem(TierRegistry.AMBER, new Item.Properties())
-            {
-                @Override
-                public @NotNull InteractionResultHolder<ItemStack> use (@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand)
-                {
-                    return InteractionResultHolder.success(player.getItemInHand(hand));
-                }
-            });
-
+            () -> new MaceItem(TierRegistry.AMBER, new Item.Properties()));
 
     // ARMOR
     public static RegistryObject<Item> MARAUDER_HELM = ITEMS.register("marauder_helm",
@@ -116,6 +109,7 @@ public class ItemRegistry {
             () -> new MarauderArmorItem(ArmorItem.Type.LEGGINGS));
     public static RegistryObject<Item> MARAUDER_BOOTS = ITEMS.register("marauder_boots",
             () -> new MarauderArmorItem(ArmorItem.Type.BOOTS));
+
     public static RegistryObject<Item> PYROMANCER_HELMET = ITEMS.register("pyromancer_helmet",
             () -> new PyromancerArmorItem(ArmorItem.Type.HELMET));
     public static RegistryObject<Item> PYROMANCER_CHESTPLATE = ITEMS.register("pyromancer_chestplate",
@@ -124,6 +118,15 @@ public class ItemRegistry {
             () -> new PyromancerArmorItem(ArmorItem.Type.LEGGINGS));
     public static RegistryObject<Item> PYROMANCER_BOOTS = ITEMS.register("pyromancer_boots",
             () -> new PyromancerArmorItem(ArmorItem.Type.BOOTS));
+
+    public static RegistryObject<Item> HELLBLAZE_MONARCH_HELMET = ITEMS.register("hellblaze_monarch_helmet",
+            () -> new ArmorOfHellblazeMonarchItem(ArmorItem.Type.HELMET));
+    public static RegistryObject<Item> HELLBLAZE_MONARCH_CHESTPLATE = ITEMS.register("hellblaze_monarch_chestplate",
+            () -> new ArmorOfHellblazeMonarchItem(ArmorItem.Type.CHESTPLATE));
+    public static RegistryObject<Item> HELLBLAZE_MONARCH_LEGGINGS = ITEMS.register("hellblaze_monarch_leggings",
+            () -> new ArmorOfHellblazeMonarchItem(ArmorItem.Type.LEGGINGS));
+    public static RegistryObject<Item> HELLBLAZE_MONARCH_BOOTS = ITEMS.register("hellblaze_monarch_boots",
+            () -> new ArmorOfHellblazeMonarchItem(ArmorItem.Type.BOOTS));
 
     // SPAWN EGGS
     public static RegistryObject<Item> UNBURNED_SPAWN_EGG = ITEMS.register("unburned_spawn_egg",

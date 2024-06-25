@@ -3,17 +3,15 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:golden_mace"
+        "recipe": "pyromancer:stone_mace"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "stick": {
+    "stone": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:stick"
-            ]
+            "tag": "minecraft:stone_tool_materials"
           }
         ]
       },
@@ -22,13 +20,13 @@
   },
   "requirements": [
     [
-      "stick",
+      "stone",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:golden_mace"
+      "pyromancer:stone_mace"
     ]
   },
   "sends_telemetry_event": false

@@ -1,34 +1,32 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "blaze_powder": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "pyromancer:wooden_mace"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "planks": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:blaze_powder"
-            ]
+            "tag": "minecraft:planks"
           }
         ]
       },
       "trigger": "minecraft:inventory_changed"
-    },
-    "has_the_recipe": {
-      "conditions": {
-        "recipe": "minecraft:blazing_journal"
-      },
-      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "blaze_powder",
+      "planks",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:blazing_journal"
+      "pyromancer:wooden_mace"
     ]
   },
   "sends_telemetry_event": false
