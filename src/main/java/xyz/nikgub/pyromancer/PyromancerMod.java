@@ -67,16 +67,19 @@ import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
+import xyz.nikgub.pyromancer.client.models.armor.ArmorOfHellblazeMonarchModel;
 import xyz.nikgub.pyromancer.client.models.armor.PyromancerArmorModel;
 import xyz.nikgub.pyromancer.client.models.entities.FlamingGuillotineModel;
 import xyz.nikgub.pyromancer.client.models.entities.PyronadoModel;
 import xyz.nikgub.pyromancer.client.models.entities.UnburnedModel;
+import xyz.nikgub.pyromancer.client.models.entities.UnburnedSpiritModel;
 import xyz.nikgub.pyromancer.client.renderers.FlamingGuillotineRenderer;
 import xyz.nikgub.pyromancer.client.renderers.PyronadoRenderer;
 import xyz.nikgub.pyromancer.client.renderers.UnburnedRenderer;
+import xyz.nikgub.pyromancer.client.renderers.UnburnedSpiritRenderer;
 import xyz.nikgub.pyromancer.common.ember.Ember;
 import xyz.nikgub.pyromancer.common.enchantments.BlazingJournalEnchantment;
-import xyz.nikgub.pyromancer.common.entities.unburned.UnburnedEntity;
+import xyz.nikgub.pyromancer.common.entities.UnburnedEntity;
 import xyz.nikgub.pyromancer.common.events.BlazingJournalAttackEvent;
 import xyz.nikgub.pyromancer.common.items.*;
 import xyz.nikgub.pyromancer.common.util.ItemUtils;
@@ -136,13 +139,16 @@ public class PyromancerMod
         EntityRenderers.register(EntityTypeRegistry.BOMBSACK.get(), ThrownItemRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.SIZZLING_HAND_FIREBALL.get(), ThrownItemRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.FLAMING_GUILLOTINE.get(), FlamingGuillotineRenderer::new);
+        EntityRenderers.register(EntityTypeRegistry.UNBURNED_SPIRIT.get(), UnburnedSpiritRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.PYRONADO.get(), PyronadoRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.UNBURNED.get(), UnburnedRenderer::new);
     }
 
     private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(PyromancerArmorModel.LAYER_LOCATION, PyromancerArmorModel::createBodyLayer);
+        event.registerLayerDefinition(ArmorOfHellblazeMonarchModel.LAYER_LOCATION, ArmorOfHellblazeMonarchModel::createBodyLayer);
         event.registerLayerDefinition(FlamingGuillotineModel.LAYER_LOCATION, FlamingGuillotineModel::createBodyLayer);
+        event.registerLayerDefinition(UnburnedSpiritModel.LAYER_LOCATION, UnburnedSpiritModel::createBodyLayer);
         event.registerLayerDefinition(PyronadoModel.LAYER_LOCATION, PyronadoModel::createBodyLayer);
         event.registerLayerDefinition(UnburnedModel.LAYER_LOCATION, UnburnedModel::createBodyLayer);
     }
