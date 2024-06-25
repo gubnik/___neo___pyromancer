@@ -1,4 +1,4 @@
-package xyz.nikgub.pyromancer.common.entities.unburned;
+package xyz.nikgub.pyromancer.common.entities;
 
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AnimationState;
@@ -21,7 +21,6 @@ import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.incandescent.client.animations.DeterminedAnimation;
 import xyz.nikgub.incandescent.client.animations.IAnimationPurposeEntity;
 import xyz.nikgub.pyromancer.registries.DamageSourceRegistry;
-import xyz.nikgub.pyromancer.common.entities.IFlamingGroveNativeEntity;
 
 import java.util.List;
 

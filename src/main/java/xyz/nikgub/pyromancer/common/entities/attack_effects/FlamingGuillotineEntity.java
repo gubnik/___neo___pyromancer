@@ -20,6 +20,7 @@ public class FlamingGuillotineEntity extends AttackEffectEntity {
         this.lifetime = 9;
         this.fallAnimationState.start(0);
     }
+
     @Override
     public void tick()
     {

@@ -15,7 +15,7 @@ import net.minecraft.util.Mth;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.client.animations.UnburnedAnimations;
-import xyz.nikgub.pyromancer.common.entities.unburned.UnburnedEntity;
+import xyz.nikgub.pyromancer.common.entities.UnburnedEntity;
 
 public class UnburnedModel<T extends UnburnedEntity> extends HierarchicalModel<T> {
 	private final ModelPart root;

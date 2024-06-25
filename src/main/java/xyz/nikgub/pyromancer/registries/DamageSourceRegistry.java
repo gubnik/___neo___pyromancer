@@ -9,7 +9,7 @@ import xyz.nikgub.pyromancer.common.entities.attack_effects.AttackEffectEntity;
 import xyz.nikgub.pyromancer.common.entities.attack_effects.PyronadoEntity;
 import xyz.nikgub.pyromancer.common.entities.projectiles.SizzlingHandFireball;
 import xyz.nikgub.pyromancer.common.entities.projectiles.BombsackProjectile;
-import xyz.nikgub.pyromancer.common.entities.unburned.UnburnedEntity;
+import xyz.nikgub.pyromancer.common.entities.UnburnedEntity;
 
 public class DamageSourceRegistry {
 
