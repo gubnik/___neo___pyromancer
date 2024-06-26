@@ -13,13 +13,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.NotNull;
+import xyz.nikgub.pyromancer.PyromancerMod;
 
 import java.util.Collections;
 import java.util.Map;
 
 public class PyromancerArmorModel<T extends LivingEntity> extends EntityModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("pyromancer", "pyromancer_armor"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(PyromancerMod.MOD_ID, "pyromancer_armor"), "main");
     public final ModelPart head;
     public final ModelPart body;
     public final ModelPart rightArm;
@@ -28,7 +29,7 @@ public class PyromancerArmorModel<T extends LivingEntity> extends EntityModel<T>
     public final ModelPart leftLeg;
     public final ModelPart rightBoot;
     public final ModelPart leftBoot;
-    private final ModelPart leggings;
+    public final ModelPart leggings;
 
     public PyromancerArmorModel(ModelPart root) {
         this.head = root.getChild("helmet");
