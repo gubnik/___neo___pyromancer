@@ -29,3 +29,10 @@ versionRange="${incandescent_lib_range}"
 ordering="NONE"
 side="BOTH"
 
+[[dependencies.${mod_id}]]
+modId="terrablender"
+mandatory=true
+versionRange="${terrablender_version_range}"
+ordering="NONE"
+side="BOTH"
+
