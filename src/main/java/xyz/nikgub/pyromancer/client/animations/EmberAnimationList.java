@@ -64,6 +64,7 @@ public class EmberAnimationList {
             return (poseStack, player, arm, itemStack, partialTick, equipProgress, swingProcess) ->
             {
                 poseStack.rotateAround(Axis.YN.rotationDegrees(-90), 0, 0,0);
+                poseStack.rotateAround(Axis.XN.rotationDegrees(45), 0, 0,0);
             };
         }
     };
