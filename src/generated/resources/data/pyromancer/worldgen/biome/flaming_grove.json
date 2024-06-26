@@ -1,6 +1,6 @@
 {
   "carvers": {
-    "air": "minecraft:nether_cave"
+    "air": "pyromancer:flaming_grove"
   },
   "downfall": 0.0,
   "effects": {
