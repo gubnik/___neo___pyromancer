@@ -1,15 +1,11 @@
 package xyz.nikgub.pyromancer.registries;
 
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.items.*;
@@ -119,13 +115,13 @@ public class ItemRegistry {
     public static RegistryObject<Item> PYROMANCER_BOOTS = ITEMS.register("pyromancer_boots",
             () -> new PyromancerArmorItem(ArmorItem.Type.BOOTS));
 
-    public static RegistryObject<Item> HELLBLAZE_MONARCH_HELMET = ITEMS.register("hellblaze_monarch_helmet",
+    public static RegistryObject<ArmorOfHellblazeMonarchItem> HELLBLAZE_MONARCH_HELMET = ITEMS.register("hellblaze_monarch_helmet",
             () -> new ArmorOfHellblazeMonarchItem(ArmorItem.Type.HELMET));
-    public static RegistryObject<Item> HELLBLAZE_MONARCH_CHESTPLATE = ITEMS.register("hellblaze_monarch_chestplate",
+    public static RegistryObject<ArmorOfHellblazeMonarchItem> HELLBLAZE_MONARCH_CHESTPLATE = ITEMS.register("hellblaze_monarch_chestplate",
             () -> new ArmorOfHellblazeMonarchItem(ArmorItem.Type.CHESTPLATE));
-    public static RegistryObject<Item> HELLBLAZE_MONARCH_LEGGINGS = ITEMS.register("hellblaze_monarch_leggings",
+    public static RegistryObject<ArmorOfHellblazeMonarchItem> HELLBLAZE_MONARCH_LEGGINGS = ITEMS.register("hellblaze_monarch_leggings",
             () -> new ArmorOfHellblazeMonarchItem(ArmorItem.Type.LEGGINGS));
-    public static RegistryObject<Item> HELLBLAZE_MONARCH_BOOTS = ITEMS.register("hellblaze_monarch_boots",
+    public static RegistryObject<ArmorOfHellblazeMonarchItem> HELLBLAZE_MONARCH_BOOTS = ITEMS.register("hellblaze_monarch_boots",
             () -> new ArmorOfHellblazeMonarchItem(ArmorItem.Type.BOOTS));
 
     // SPAWN EGGS
