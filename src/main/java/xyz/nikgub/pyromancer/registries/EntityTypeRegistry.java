@@ -22,7 +22,7 @@ public class EntityTypeRegistry {
                     .sized(0.25F, 0.25F).clientTrackingRange(16));
 
     public static final RegistryObject<EntityType<BombsackProjectile>> BOMBSACK = register("bombsack",
-            EntityType.Builder.<BombsackProjectile>of(BombsackProjectile::new, MobCategory.MISC)
+            EntityType.Builder.of(BombsackProjectile::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F).clientTrackingRange(16));
 
     public static final RegistryObject<EntityType<FlamingGuillotineEntity>> FLAMING_GUILLOTINE = register("flaming_guillotine",
