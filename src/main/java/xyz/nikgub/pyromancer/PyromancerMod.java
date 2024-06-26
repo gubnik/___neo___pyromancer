@@ -135,6 +135,7 @@ public class PyromancerMod
     private void commonSetup(final FMLCommonSetupEvent event)
     {
         NetworkCore.register();
+        NetherBiomeRegistry.setupTerrablender();
     }
 
     private void setupClient(final FMLCommonSetupEvent event) {
