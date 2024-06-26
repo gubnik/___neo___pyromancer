@@ -55,10 +55,7 @@ public class CourtOfEmbersItem extends UsablePyromancyItem {
                 || ItemUtils.getBlaze(player) - (cost = (int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get())) < 0
         ) return itemStack;
         PyronadoEntity pyronado = new PyronadoEntity(EntityTypeRegistry.PYRONADO.get(), level);
-        pyronado.setPlayerUuid(player.getUUID());
-        pyronado.setSize(1);
-        pyronado.setPos(player.position().add(new Vec3(0, pyronado.getBbHeight()/2, 0)));
-        level.addFreshEntity(pyronado);
+        pyronado.addToLevelForPlayerAt(player.level(), player, player.position().add(new Vec3(0, pyronado.getBbHeight()/2, 0)));
         ItemUtils.changeBlaze(player, -cost);
         this.releaseUsing(itemStack, level, entity, getUseDuration(itemStack));
         return itemStack;

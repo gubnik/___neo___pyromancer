@@ -45,11 +45,8 @@ public class EnchantmentRegistry {
                 public void getAttack(Player player, Entity target)
                 {
                     FlamingGuillotineEntity guillotine = new FlamingGuillotineEntity(EntityTypeRegistry.FLAMING_GUILLOTINE.get(), player.level());
-                    guillotine.setPlayerUuid(player.getUUID());
                     guillotine.setSize(target.getBbWidth() / 0.6f);
-                    guillotine.moveTo(target.position());
-                    guillotine.setYRot(player.getYRot());
-                    player.level().addFreshEntity(guillotine);
+                    guillotine.addToLevelForPlayerAt(player.level(), player, target.position());
                 }
 
                 @Override
