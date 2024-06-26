@@ -1,10 +1,10 @@
 {
   "variants": {
     "thick=false": {
-      "model": "pyromancer:block/sizzling_vine/sizzling_vine"
+      "model": "pyromancer:block/sizzling_vine"
     },
     "thick=true": {
-      "model": "pyromancer:block/sizzling_vine/sizzling_vine_thick"
+      "model": "pyromancer:block/sizzling_vine_thick"
     }
   }
 }
