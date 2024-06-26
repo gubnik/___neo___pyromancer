@@ -23,6 +23,8 @@ public class BlockStateDatagen extends BlockStateProvider {
         List<WoodType> WOOD_TYPES = WoodTypesRegistry.VALUES;
         for(RegistryObject<Block> regBlock : BlockRegistry.BLOCKS.getEntries())
         {
+            final int underscorePos = regBlock.getId().getPath().indexOf('_');
+            if (underscorePos <= 0) continue;
             final String correctName = regBlock.getId().getPath().substring(0, regBlock.getId().getPath().indexOf('_'));
             if(WOOD_TYPES.stream().noneMatch(woodType -> woodType.name().contains(correctName))) continue;
             ResourceLocation planks = getPlankFromWoodType(correctName);

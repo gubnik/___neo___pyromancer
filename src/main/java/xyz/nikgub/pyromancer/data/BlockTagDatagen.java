@@ -27,11 +27,22 @@ public class BlockTagDatagen extends IntrinsicHolderTagsProvider<Block> {
     protected BlockTagDatagen(PackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture, String modId, @Nullable ExistingFileHelper existingFileHelper) {
         super(output, Registries.BLOCK, completableFuture, (p_255627_) -> p_255627_.builtInRegistryHolder().key(), modId, existingFileHelper);
     }
+
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
-        this.tag(FLAMING_GROVE_PLANT_ON).add(Blocks.CRIMSON_NYLIUM).add(Blocks.WARPED_NYLIUM);
+        this.tag(FLAMING_GROVE_PLANT_ON)
+                .add(Blocks.CRIMSON_NYLIUM)
+                .add(Blocks.WARPED_NYLIUM)
+                .add(BlockRegistry.PYROMOSSED_NETHERRACK.get());
+
         for(Block block : BlockRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get).filter(block -> block.getDescriptionId().contains("pyrowood")).toList())
-            this.tag(FLAMING_GROVE_NATIVE).add(block);
+            this.tag(FLAMING_GROVE_NATIVE)
+                    .add(block);
+
+        this.tag(FLAMING_GROVE_NATIVE)
+                .add(BlockRegistry.SIZZLING_VINE.get())
+                .add(BlockRegistry.PYROMOSS_SPROUTS.get())
+                .add(BlockRegistry.FIREBRIAR.get());
 
         /* VANILLA */
         for(Block block : BlockRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get).filter(block -> block instanceof FenceBlock).toList())
