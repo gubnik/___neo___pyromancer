@@ -30,6 +30,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.metadata.PackMetadataGenerator;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
@@ -80,6 +81,7 @@ import xyz.nikgub.pyromancer.client.renderers.UnburnedSpiritRenderer;
 import xyz.nikgub.pyromancer.common.ember.Ember;
 import xyz.nikgub.pyromancer.common.enchantments.BlazingJournalEnchantment;
 import xyz.nikgub.pyromancer.common.entities.UnburnedEntity;
+import xyz.nikgub.pyromancer.common.entities.UnburnedSpiritEntity;
 import xyz.nikgub.pyromancer.common.events.BlazingJournalAttackEvent;
 import xyz.nikgub.pyromancer.common.items.*;
 import xyz.nikgub.pyromancer.common.util.ItemUtils;
@@ -282,6 +284,12 @@ public class PyromancerMod
             if (event.getEntity().hasEffect(MobEffectRegistry.FIERY_AEGIS.get()) && event.getSource().getDirectEntity() instanceof LivingEntity attacker)
             {
                 event.setAmount(MobEffectRegistry.FIERY_AEGIS.get().performAttack(event.getAmount(), event.getEntity(), attacker));
+            }
+            if (event.getSource().getDirectEntity() instanceof Player attacker && ItemUtils.hasFullSetEquipped(attacker, ItemRegistry.HELLBLAZE_MONARCH_HELMET.get())
+            && event.getEntity().level() instanceof ServerLevel level && event.getAmount() >= 7 && (event.getSource().is(DamageTypeDatagen.IS_PYROMANCY) || event.getSource().is(DamageTypeDatagen.IS_EMBER)))
+            {
+                UnburnedSpiritEntity spirit = new UnburnedSpiritEntity(EntityTypeRegistry.UNBURNED_SPIRIT.get(), level);
+                spirit.addToLevelForPlayerAt(level, attacker, event.getEntity().position());
             }
             if (!(event.getSource().getEntity() instanceof Player sourceEntity)) return;
             LivingEntity entity = event.getEntity();
