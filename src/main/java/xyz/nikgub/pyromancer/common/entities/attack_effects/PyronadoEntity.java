@@ -54,4 +54,12 @@ public class PyronadoEntity extends AttackEffectEntity {
             }
         }
     }
+
+    @Override
+    public void addToLevelForPlayerAt(Level level, Player player, Vec3 pos) {
+        this.setPlayerUuid(player.getUUID());
+        this.setSize(1);
+        this.setPos(pos);
+        level.addFreshEntity(this);
+    }
 }
