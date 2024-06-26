@@ -11,7 +11,11 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.PyromancerMod;
+import xyz.nikgub.pyromancer.common.blocks.FirebriarBlock;
+import xyz.nikgub.pyromancer.common.blocks.SizzlingVineBlock;
+import xyz.nikgub.pyromancer.common.util.BlockUtils;
 
 import java.util.function.Supplier;
 
@@ -42,35 +46,38 @@ public class BlockRegistry {
     //        () -> new WeirdSaplingBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING), new PyrowoodTreeGrower()), CreativeModeTab.TAB_DECORATIONS);
 
     // flaming grove
-    //public static final RegistryObject<Block> PYROMOSSED_NETHERRACK = registerBlock("pyromossed_netherrack",
-    //        () -> new Block(BlockBehaviour.Properties.of(Material.MOSS, MaterialColor.TERRACOTTA_ORANGE).strength(2.0F, 3.0F).sound(SoundType.NYLIUM)));
-    //public static final RegistryObject<Block> PYROMOSS_SPROUTS = registerBlock("pyromoss_sprouts",
-    //        () -> new TallGrassBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XYZ)){
-    //            protected boolean mayPlaceOn(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
-    //                return BlocksUtils.flamingGrovePlantable(blockState);
-    //            }
-    //        }, CreativeModeTab.TAB_DECORATIONS);
+    public static final RegistryObject<Block> PYROMOSSED_NETHERRACK = registerBlock("pyromossed_netherrack",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.MOSS_BLOCK).strength(2.0F, 3.0F).sound(SoundType.NYLIUM)));
+
+    public static final RegistryObject<Block> PYROMOSS_SPROUTS = registerBlock("pyromoss_sprouts",
+            () -> new TallGrassBlock(BlockBehaviour.Properties.copy(Blocks.MOSS_CARPET).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XYZ)){
+                protected boolean mayPlaceOn(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
+                    return BlockUtils.flamingGrovePlantable(blockState);
+                }
+            });
 //
-    //public static final RegistryObject<Block> SIZZLING_VINE = registerBlock("sizzling_vine",
-    //        () -> new SizzlingVineBlock(BlockBehaviour.Properties.of(Material.PLANT).noCollission().instabreak().sound(SoundType.CAVE_VINES).emissiveRendering(BlockRegistry::always)),
-    //        CreativeModeTab.TAB_DECORATIONS);
-    //public static final RegistryObject<Block> FIREBRIAR = registerBlock("firebriar",
-    //        () -> new FirebriarBlock(BlockBehaviour.Properties.of(Material.PLANT, MaterialColor.COLOR_ORANGE).strength(0,0).sound(SoundType.HARD_CROP).noCollission()), CreativeModeTab.TAB_DECORATIONS);
-    //public static final RegistryObject<Block> BLAZING_POPPY = registerBlock("blazing_poppy",
-    //        () -> new FlowerBlock(MobEffects.HARM, 1, BlockBehaviour.Properties.of(Material.PLANT, MaterialColor.COLOR_ORANGE).strength(0,0).sound(SoundType.HARD_CROP).noCollission()){
-    //            @Override
-    //            protected boolean mayPlaceOn(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
-    //                return BlocksUtils.flamingGrovePlantable(blockState);
-    //            }
-    //        }, CreativeModeTab.TAB_DECORATIONS);
-    //public static final RegistryObject<Block> NETHER_LILY = registerBlock("nether_lily",
-    //        () -> new FlowerBlock(MobEffects.HARM, 1, BlockBehaviour.Properties.of(Material.PLANT, MaterialColor.COLOR_ORANGE).strength(0,0).sound(SoundType.HARD_CROP).noCollission().lightLevel(i -> 7).emissiveRendering(Blocks::always)){
-    //            @Override
-    //            protected boolean mayPlaceOn(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
-    //                return BlocksUtils.flamingGrovePlantable(blockState);
-    //            }
-    //        }, CreativeModeTab.TAB_DECORATIONS);
-    //
+    public static final RegistryObject<Block> SIZZLING_VINE = registerBlock("sizzling_vine",
+            () -> new SizzlingVineBlock(BlockBehaviour.Properties.copy(Blocks.TWISTING_VINES).noCollission().instabreak().sound(SoundType.CAVE_VINES).emissiveRendering(BlockRegistry::always)));
+
+    public static final RegistryObject<Block> FIREBRIAR = registerBlock("firebriar",
+            () -> new FirebriarBlock(BlockBehaviour.Properties.copy(Blocks.POPPY).strength(0,0).sound(SoundType.HARD_CROP).noCollission()));
+
+    public static final RegistryObject<Block> BLAZING_POPPY = registerBlock("blazing_poppy",
+            () -> new FlowerBlock(() -> MobEffectRegistry.FIERY_AEGIS.get(), 1, BlockBehaviour.Properties.copy(Blocks.POPPY).strength(0,0).sound(SoundType.HARD_CROP).noCollission()){
+                @Override
+                protected boolean mayPlaceOn(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
+                    return BlockUtils.flamingGrovePlantable(blockState);
+                }
+            });
+
+    public static final RegistryObject<Block> NETHER_LILY = registerBlock("nether_lily",
+            () -> new FlowerBlock(() -> MobEffectRegistry.MELTDOWN.get(), 1, BlockBehaviour.Properties.copy(Blocks.ORANGE_TULIP).strength(0,0).sound(SoundType.HARD_CROP).noCollission().lightLevel(i -> 7).emissiveRendering(BlockRegistry::always)){
+                @Override
+                protected boolean mayPlaceOn(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
+                    return BlockUtils.flamingGrovePlantable(blockState);
+                }
+            });
+
     public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){
         RegistryObject<T> output = BLOCKS.register(name, block);
         registerBlockItem(name, output);

@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.registries.DamageSourceRegistry;
 
 @SuppressWarnings("deprecation")
-public class FirebriarBlock extends FlowerBlock implements FlamingGrovePlant {
+public class FirebriarBlock extends FlowerBlock {
     public static final IntegerProperty STAGE = IntegerProperty.create("stage", 0, 4);
     public FirebriarBlock(Properties p_53514_) {
         super(MobEffects.FIRE_RESISTANCE, 100, p_53514_);
