@@ -24,6 +24,7 @@ public abstract class ItemInHandRendererMixin {
 
     @Shadow
     public abstract void renderItem(LivingEntity entity, ItemStack itemStack, ItemDisplayContext displayContext, boolean b, PoseStack poseStack, MultiBufferSource bufferSource, int i);
+
     @Shadow
     protected abstract void applyItemArmTransform(PoseStack poseStack, HumanoidArm arm, float f);
 
@@ -47,10 +48,11 @@ public abstract class ItemInHandRendererMixin {
         if(player.getUsedItemHand() == hand && player.isUsingItem() && player.getUseItemRemainingTicks() > 0){
             this.applyItemArmTransform(poseStack, arm, equippedProgress);
             Ember ember = Ember.getFromItem(itemStack);
-            if (ember == null)
+            if (ember != null)
+            {
                 customBehaviour = true;
-            else
                 ember.getAnimation().getFirstPersonAnimation().run(poseStack, minecraft.player, arm, itemStack, partialTick, equippedProgress, swingProgress);
+            }
         }
         if (!customBehaviour) return;
         this.renderItem(minecraft.player, itemStack, isRight ? ItemDisplayContext.FIRST_PERSON_RIGHT_HAND : ItemDisplayContext.FIRST_PERSON_LEFT_HAND, !isRight, poseStack, multiBufferSource, pCombinedLight);
