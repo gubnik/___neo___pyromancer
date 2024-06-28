@@ -30,6 +30,10 @@ public class BlockTagDatagen extends IntrinsicHolderTagsProvider<Block> {
 
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
+
+        this.tag(BlockTags.NYLIUM)
+                .add(BlockRegistry.PYROMOSSED_NETHERRACK.get());
+
         this.tag(FLAMING_GROVE_PLANT_ON)
                 .add(Blocks.CRIMSON_NYLIUM)
                 .add(Blocks.WARPED_NYLIUM)
