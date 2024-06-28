@@ -60,7 +60,7 @@ public class BlockRegistry {
             () -> new SizzlingVineBlock(BlockBehaviour.Properties.copy(Blocks.TWISTING_VINES).noCollission().instabreak().sound(SoundType.CAVE_VINES).emissiveRendering(BlockRegistry::always)));
 
     public static final RegistryObject<Block> FIREBRIAR = registerBlock("firebriar",
-            () -> new FirebriarBlock(BlockBehaviour.Properties.copy(Blocks.POPPY).strength(0,0).sound(SoundType.HARD_CROP).noCollission()));
+            () -> new FirebriarBlock(BlockBehaviour.Properties.copy(Blocks.POPPY).strength(0,0).sound(SoundType.HARD_CROP).noCollission().instabreak()));
 
     public static final RegistryObject<Block> BLAZING_POPPY = registerBlock("blazing_poppy",
             () -> new FlowerBlock(() -> MobEffectRegistry.FIERY_AEGIS.get(), 1, BlockBehaviour.Properties.copy(Blocks.POPPY).strength(0,0).sound(SoundType.HARD_CROP).noCollission()){
