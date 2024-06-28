@@ -13,7 +13,7 @@ import net.minecraft.world.level.levelgen.carver.*;
 import net.minecraft.world.level.levelgen.heightproviders.UniformHeight;
 import xyz.nikgub.pyromancer.PyromancerMod;
 
-public class CarversDatagen {
+public class ConfiguredCarversDatagen {
     public static final ResourceKey<ConfiguredWorldCarver<?>> FLAMING_GROVE_CARVER = createKey("flaming_grove");
 
     private static ResourceKey<ConfiguredWorldCarver<?>> createKey(String pName) {
