@@ -85,6 +85,7 @@ import xyz.nikgub.pyromancer.common.entities.UnburnedSpiritEntity;
 import xyz.nikgub.pyromancer.common.events.BlazingJournalAttackEvent;
 import xyz.nikgub.pyromancer.common.items.*;
 import xyz.nikgub.pyromancer.common.util.ItemUtils;
+import xyz.nikgub.pyromancer.common.worldgen.NetherPyrowoodTrunkPlacer;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
 import xyz.nikgub.pyromancer.data.RegistriesDataGeneration;
 import xyz.nikgub.pyromancer.network.NetworkCore;
@@ -127,6 +128,7 @@ public class PyromancerMod
         EntityTypeRegistry.ENTITY_TYPES.register(modEventBus);
         EnchantmentRegistry.ENCHANTMENTS.register(modEventBus);
         MobEffectRegistry.MOB_EFFECTS.register(modEventBus);
+        NetherPyrowoodTrunkPlacer.TRUNK_TYPE_REGISTRY.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
