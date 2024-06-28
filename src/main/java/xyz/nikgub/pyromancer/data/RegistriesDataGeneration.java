@@ -18,10 +18,14 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class RegistriesDataGeneration extends DatapackBuiltinEntriesProvider {
+
     private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
             .add(Registries.DAMAGE_TYPE, DamageTypeDatagen::generate)
             .add(Registries.BIOME, BiomesDatagen::bootstrap)
-            .add(Registries.CONFIGURED_CARVER, CarversDatagen::bootstrap);
+            .add(Registries.CONFIGURED_CARVER, ConfiguredCarversDatagen::bootstrap)
+            .add(Registries.CONFIGURED_FEATURE, ConfiguredFeaturesDatagen::bootstrap)
+            .add(Registries.PLACED_FEATURE, PlacedFeatureDatagen::bootstrap);
+
     private RegistriesDataGeneration(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
         super(output, provider, BUILDER, Set.of("minecraft", PyromancerMod.MOD_ID));
     }
