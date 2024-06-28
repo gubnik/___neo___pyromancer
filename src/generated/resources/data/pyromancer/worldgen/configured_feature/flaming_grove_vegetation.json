@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:nether_forest_vegetation",
+  "config": {
+    "spread_height": 4,
+    "spread_width": 8,
+    "state_provider": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "pyromancer:pyromoss_sprouts"
+          },
+          "weight": 50
+        },
+        {
+          "data": {
+            "Name": "pyromancer:firebriar",
+            "Properties": {
+              "stage": "0"
+            }
+          },
+          "weight": 25
+        },
+        {
+          "data": {
+            "Name": "pyromancer:blazing_poppy"
+          },
+          "weight": 13
+        },
+        {
+          "data": {
+            "Name": "pyromancer:nether_lily"
+          },
+          "weight": 11
+        }
+      ]
+    }
+  }
+}

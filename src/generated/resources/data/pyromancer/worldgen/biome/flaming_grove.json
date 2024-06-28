@@ -31,7 +31,13 @@
       "minecraft:ore_gold_nether",
       "minecraft:ore_quartz_nether",
       "minecraft:ore_ancient_debris_large",
-      "minecraft:ore_debris_small"
+      "minecraft:ore_debris_small",
+      "pyromancer:sizzling_vine"
+    ],
+    [],
+    [
+      "pyromancer:pyrowood_nether",
+      "pyromancer:flaming_grove_vegetation"
     ]
   ],
   "has_precipitation": false,
