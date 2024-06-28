@@ -12,7 +12,6 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeAdvancementProvider;
 import xyz.nikgub.pyromancer.PyromancerMod;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -32,15 +31,16 @@ public class RegistriesDataGeneration extends DatapackBuiltinEntriesProvider {
 
     public static void addProviders(boolean isServer, DataGenerator generator, PackOutput output, CompletableFuture<HolderLookup.Provider> provider, ExistingFileHelper helper) {
         generator.addProvider(isServer, new RegistriesDataGeneration(output, provider));
-        List<ForgeAdvancementProvider.AdvancementGenerator> list = new ArrayList<>();
-        list.add(new AdvancementDatagen.PyromancerAdvancements());
-        generator.addProvider(true, new AdvancementDatagen(output, provider, helper, list));
-        generator.addProvider(true, new RecipesDatagen(output));
-        generator.addProvider(true, new BlockTagDatagen(output, provider, PyromancerMod.MOD_ID, helper));
+        List<ForgeAdvancementProvider.AdvancementGenerator> list = List.of(
+                new AdvancementDatagen.PyromancerAdvancements()
+        );
+        generator.addProvider(isServer, new AdvancementDatagen(output, provider, helper, list));
+        generator.addProvider(isServer, new RecipesDatagen(output));
+        generator.addProvider(isServer, new BlockTagDatagen(output, provider, PyromancerMod.MOD_ID, helper));
         generator.addProvider(isServer, new DamageTypeDatagen(output, provider.thenApply(RegistriesDataGeneration::append), helper));
-        generator.addProvider(true, new ItemModelsDatagen(output, helper));
-        generator.addProvider(true, new BlockModelsDatagen(output, helper));
-        generator.addProvider(true, new BlockStateDatagen(output, helper));
+        generator.addProvider(isServer, new ItemModelsDatagen(output, helper));
+        generator.addProvider(isServer, new BlockModelsDatagen(output, helper));
+        generator.addProvider(isServer, new BlockStateDatagen(output, helper));
     }
     private static HolderLookup.Provider append(HolderLookup.Provider original) {
         return RegistriesDataGeneration.BUILDER.buildPatch(RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY), original);
