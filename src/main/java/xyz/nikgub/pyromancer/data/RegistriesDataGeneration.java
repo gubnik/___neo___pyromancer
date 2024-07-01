@@ -41,7 +41,9 @@ public class RegistriesDataGeneration extends DatapackBuiltinEntriesProvider {
         generator.addProvider(isServer, new ItemModelsDatagen(output, helper));
         generator.addProvider(isServer, new BlockModelsDatagen(output, helper));
         generator.addProvider(isServer, new BlockStateDatagen(output, helper));
+        generator.addProvider(isServer, new LootTablesDatagen(output));
     }
+
     private static HolderLookup.Provider append(HolderLookup.Provider original) {
         return RegistriesDataGeneration.BUILDER.buildPatch(RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY), original);
     }
