@@ -16,16 +16,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.NetherForestVegetationConfig;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.RandomSpreadFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.RandomizedIntStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.blocks.SizzlingVineBlock;
 import xyz.nikgub.pyromancer.common.worldgen.NetherPyrowoodTrunkPlacer;
@@ -38,6 +36,7 @@ public class ConfiguredFeaturesDatagen {
     public static final ResourceKey<ConfiguredFeature<?, ?>> PYROWOOD_NETHER = createKey("pyrowood_nether");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FLAMING_GROVE_VEGETATION = createKey("flaming_grove_vegetation");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SIZZLING_VINE = createKey("sizzling_vine");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> AMBER_DEPOSIT = createKey("amber_deposit");
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context)
     {
@@ -50,10 +49,11 @@ public class ConfiguredFeaturesDatagen {
 
         context.register(FLAMING_GROVE_VEGETATION, new ConfiguredFeature<>(Feature.NETHER_FOREST_VEGETATION, new NetherForestVegetationConfig(
                 new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                        .add(BlockRegistry.PYROMOSS_SPROUTS.get().defaultBlockState(), 50)
-                        .add(BlockRegistry.FIREBRIAR.get().defaultBlockState(), 25)
-                        .add(BlockRegistry.BLAZING_POPPY.get().defaultBlockState(), 13)
-                        .add(BlockRegistry.NETHER_LILY.get().defaultBlockState(), 11))
+                        .add(BlockRegistry.PYROMOSS_SPROUTS.get().defaultBlockState(), 55)
+                        .add(BlockRegistry.FIREBRIAR.get().defaultBlockState(), 12)
+                        .add(BlockRegistry.BLAZING_POPPY.get().defaultBlockState(), 11)
+                        .add(BlockRegistry.NETHER_LILY.get().defaultBlockState(), 20)
+                        .add(BlockRegistry.PYROWOOD_SAPLING.get().defaultBlockState(), 1))
                 , 8, 4)));
 
         context.register(SIZZLING_VINE, new ConfiguredFeature<>(Feature.BLOCK_COLUMN, new BlockColumnConfiguration(
@@ -73,11 +73,10 @@ public class ConfiguredFeaturesDatagen {
                                                 .add(BlockRegistry.SIZZLING_VINE.get().defaultBlockState(), 4)
                                                 .add(BlockRegistry.SIZZLING_VINE.get().defaultBlockState().setValue(SizzlingVineBlock.THICK, Boolean.TRUE), 1)), SizzlingVineBlock.AGE, UniformInt.of(23, 25))
                         )), Direction.DOWN, BlockPredicate.ONLY_IN_AIR_PREDICATE, true)));
-    }
 
-    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> configuredFeatureKey, F feature, FC configuration)
-    {
-        context.register(configuredFeatureKey, new ConfiguredFeature<>(feature, configuration));
+        context.register(AMBER_DEPOSIT, new ConfiguredFeature<>(Feature.ORE,
+                new OreConfiguration(new TagMatchTest(BlockTagDatagen.AMBER_REPLACEABLE),
+                        BlockRegistry.NATURAL_AMBER.get().defaultBlockState(), 15, 0.05f)));
     }
 
     public static ResourceKey<ConfiguredFeature<?, ?>> createKey(String name)
