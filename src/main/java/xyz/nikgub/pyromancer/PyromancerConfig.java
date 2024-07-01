@@ -34,6 +34,10 @@ public class PyromancerConfig
             .comment("Defines max amount of blaze one Blazing Journal can hold")
             .defineInRange("blazeValue", 8, 0, 128);
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> FLAMING_GROVE_RATE = BUILDER
+            .comment("Defines how often is Flaming Grove biome generated")
+            .defineInRange("blazeValue", 5, 0, 10);
+
     public static final ForgeConfigSpec.ConfigValue<Key> EMBERS_DESCRIPTION_KEY = BUILDER
             .comment("Defines a key to show Ember description on item")
             .defineEnum("emberDescriptionKey", Key.ALT);
@@ -47,24 +51,26 @@ public class PyromancerConfig
             .defineEnum("pyromancyDescriptionKey", Key.ALT);
 
     static final ForgeConfigSpec SPEC = BUILDER.build();
-    public static Key embersDescriptionKey;
     public static List<? extends String> emberBlacklist;
     public static List<? extends String> emberAdditionalItems;
     public static int blazingJournalMaxCapacity;
     public static int blazeValue;
+    public static int flamingGroveRate;
+    public static Key embersDescriptionKey;
     public static Key quillDescriptionKey;
     public static Key pyromancyDescriptionKey;
 
     @SubscribeEvent
     public static void onLoad(final ModConfigEvent event)
     {
-        embersDescriptionKey = EMBERS_DESCRIPTION_KEY.get();
-        quillDescriptionKey = QUILL_DESCRIPTION_KEY.get();
-        pyromancyDescriptionKey = PYROMANCY_DESCRIPTION_KEY.get();
         emberBlacklist = EMBERS_BLACKLIST.get();
         emberAdditionalItems = EMBERS_ADDITIONAL_ITEMS.get();
         blazingJournalMaxCapacity = BLAZING_JOURNAL_MAX_CAPACITY.get();
         blazeValue = BLAZE_VALUE.get();
+        flamingGroveRate = FLAMING_GROVE_RATE.get();
+        embersDescriptionKey = EMBERS_DESCRIPTION_KEY.get();
+        quillDescriptionKey = QUILL_DESCRIPTION_KEY.get();
+        pyromancyDescriptionKey = PYROMANCY_DESCRIPTION_KEY.get();
     }
 
     @SuppressWarnings("unused")

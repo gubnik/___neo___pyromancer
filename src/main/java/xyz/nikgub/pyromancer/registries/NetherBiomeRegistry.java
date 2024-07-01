@@ -19,6 +19,7 @@ import terrablender.api.Region;
 import terrablender.api.RegionType;
 import terrablender.api.Regions;
 import terrablender.api.SurfaceRuleManager;
+import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.data.ConfiguredCarversDatagen;
 import xyz.nikgub.pyromancer.data.PlacedFeatureDatagen;
@@ -29,7 +30,7 @@ public class NetherBiomeRegistry {
 
     public static void setupTerrablender ()
     {
-        Regions.register(new NetherRegion(6));
+        Regions.register(new FlamingGroveNetherRegion(PyromancerConfig.flamingGroveRate));
         SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.NETHER, PyromancerMod.MOD_ID, SurfaceRule.nether());
     }
 
@@ -41,7 +42,8 @@ public class NetherBiomeRegistry {
         biomeBuilder
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, PlacedFeatureDatagen.PYROWOOD_NETHER)
                 .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, PlacedFeatureDatagen.FLAMING_GROVE_VEGETATION)
-                .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, PlacedFeatureDatagen.SIZZLING_VINE);
+                .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, PlacedFeatureDatagen.SIZZLING_VINE)
+                .addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, PlacedFeatureDatagen.AMBER_DEPOSIT);
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(false).temperature(2f).downfall(0f)
                 .specialEffects((new BiomeSpecialEffects.Builder())
@@ -54,12 +56,12 @@ public class NetherBiomeRegistry {
                 .build();
     }
 
-    public static class NetherRegion extends Region
+    public static class FlamingGroveNetherRegion extends Region
     {
 
         public static final ResourceLocation LOCATION = new ResourceLocation(PyromancerMod.MOD_ID, "nether_common");
 
-        public NetherRegion(int weight)
+        public FlamingGroveNetherRegion(int weight)
         {
             super(LOCATION, RegionType.NETHER, weight);
         }
