@@ -10,7 +10,7 @@
           "data": {
             "Name": "pyromancer:pyromoss_sprouts"
           },
-          "weight": 50
+          "weight": 55
         },
         {
           "data": {
@@ -19,19 +19,25 @@
               "stage": "0"
             }
           },
-          "weight": 25
+          "weight": 12
         },
         {
           "data": {
             "Name": "pyromancer:blazing_poppy"
           },
-          "weight": 13
+          "weight": 11
         },
         {
           "data": {
             "Name": "pyromancer:nether_lily"
           },
-          "weight": 11
+          "weight": 20
+        },
+        {
+          "data": {
+            "Name": "pyromancer:pyrowood_sapling"
+          },
+          "weight": 1
         }
       ]
     }

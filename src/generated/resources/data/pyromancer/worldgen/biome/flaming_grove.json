@@ -24,7 +24,9 @@
     [],
     [],
     [],
-    [],
+    [
+      "pyromancer:amber_deposit"
+    ],
     [
       "minecraft:ore_gravel_nether",
       "minecraft:ore_blackstone",

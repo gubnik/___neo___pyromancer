@@ -63,8 +63,8 @@
   "advancement.pyromancer.ember_obtained.title": "Ash of War",
   "advancement.pyromancer.ember_obtained.description": "Obtain an Ember, remains of a mighty death",
 
-  "advancement.pyromancer.journal_projection.title": "Immaterium's weaponry",
-  "advancement.pyromancer.journal_projection.description": "Summon forth a flame projection via Blazing Journal",
+  "advancement.pyromancer.journal_projection.title": "Power of imagination",
+  "advancement.pyromancer.journal_projection.description": "Summon a flame projection via Blazing Journal",
 
   "advancement.pyromancer.quill_applied.title": "So let it be written",
   "advancement.pyromancer.quill_applied.description": "Apply a quill to Blazing Journal",
@@ -74,9 +74,6 @@
 
   "advancement.pyromancer.flaming_grove_visited.title": "Forest, set ablaze",
   "advancement.pyromancer.flaming_grove_visited.description": "Visit Flaming Grove",
-
-  "advancement.pyromancer.forest_of_rot_visited.title": "Pestilence and plague",
-  "advancement.pyromancer.forest_of_rot_visited.description": "Visit Forest of Rot",
 
   "advancement.pyromancer.unburned_defeated.title": "Fixxxer",
   "advancement.pyromancer.unburned_defeated.description": "Defeat Unburned",
@@ -101,6 +98,29 @@
   "[[[---SKRIZHAL---]]]": "",
   "pyromancer.skrizhal.blazing_journal.blazing_journal.name": "",
   "pyromancer.skrizhal.blazing_journal.blazing_journal.text_1": "",
+
+  "[[[---DEATH MESSAGES---]]]": "",
+  "death.attack.firebriar": "%1$s was incinerated on a firebriar",
+  "death.attack.firebriar.player": "%1$s was incinerated on a firebriar while escaping %2$s",
+  "death.attack.bombsack": "%1$s was blown up by a bombsack",
+  "death.attack.bombsack.player": "%1$s was blown up by %2$s bombsack",
+  "death.attack.flame": "%1$s went up in flames",
+  "death.attack.flame.player": "%1$s went up in %2$s's flame",
+  "death.attack.flame.item": "%1$s went up in %2$s's flame thanks to %3$s",
+  "death.attack.soulflame": "%1$s's soul was burned down by a soulflame",
+  "death.attack.soulflame.player": "%1$s's soul was burned down by %2$s's soulflame",
+  "death.attack.soulflame.item": "%1$s's soul was burned down by %2$s's soulflame of %3$s",
+  "death.attack.hellblaze": "%1$s was devoured by a hellblaze",
+  "death.attack.hellblaze.player": "%1$s was devoured by hellblaze of %2$s",
+  "death.attack.hellblaze.item": "%1$s was devoured by hellblaze of %2$s using %3$s",
+  "death.attack.unburned": "%1$s was crushed by Unburned",
+  "death.attack.unburned.player": "%1$s was crushed by %2$s",
+  "death.attack.symbol_of_sun": "%1$s melted down",
+  "death.attack.symbol_of_sun.player": "%1$s was melted down by %2$s's own sun",
+  "death.attack.sizzling_hand": "%1$s was turned to ash and scattered by wind",
+  "death.attack.sizzling_hand.player": "%1$s was turned to ash and scattered by wind %2$s",
+  "death.attack.court_of_embers": "%1$s was caught in a vortex of fire",
+  "death.attack.court_of_embers.player": "%1$s was caught in a vortex of fire by %2$s",
 
   "[[[------]]]": ""
 }

@@ -1,0 +1,42 @@
+{
+  "parent": "pyromancer:pyromancer/root",
+  "criteria": {
+    "flaming_grove_visited": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "pyromancer:flaming_grove"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.pyromancer.flaming_grove_visited.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pyromancer:pyrowood_sapling"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.pyromancer.flaming_grove_visited.title"
+    }
+  },
+  "requirements": [
+    [
+      "flaming_grove_visited"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
