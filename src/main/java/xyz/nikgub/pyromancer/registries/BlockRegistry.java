@@ -1,12 +1,17 @@
 package xyz.nikgub.pyromancer.registries;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -15,35 +20,59 @@ import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.blocks.FirebriarBlock;
 import xyz.nikgub.pyromancer.common.blocks.SizzlingVineBlock;
+import xyz.nikgub.pyromancer.common.blocks.WeirdSaplingBlock;
 import xyz.nikgub.pyromancer.common.util.BlockUtils;
+import xyz.nikgub.pyromancer.data.ConfiguredFeaturesDatagen;
 
 import java.util.function.Supplier;
 
 public class BlockRegistry {
     public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, PyromancerMod.MOD_ID);
+
     //pyrowood
     public static final RegistryObject<Block> PYROWOOD_LOG = registerBlock("pyrowood_log",
             () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.CRIMSON_STEM).sound(SoundType.WOOD)));
+
     public static final RegistryObject<Block> STRIPPED_PYROWOOD_LOG = registerBlock("stripped_pyrowood_log",
             () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(PYROWOOD_LOG.get())));
+
     public static final RegistryObject<Block> PYROWOOD_PLANKS = registerBlock("pyrowood_planks",
             () -> new Block((BlockBehaviour.Properties.copy(PYROWOOD_LOG.get()))));
+
     public static final RegistryObject<Block> PYROWOOD_STAIRS = registerBlock("pyrowood_stairs",
             () -> new StairBlock(() -> PYROWOOD_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(PYROWOOD_PLANKS.get())));
+
     public static final RegistryObject<Block> PYROWOOD_SLAB = registerBlock("pyrowood_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.copy(PYROWOOD_PLANKS.get())));
+
     public static final RegistryObject<Block> PYROWOOD_FENCE = registerBlock("pyrowood_fence",
             () -> new FenceBlock(BlockBehaviour.Properties.copy(PYROWOOD_PLANKS.get())));
+
     public static final RegistryObject<Block> PYROWOOD_FENCE_GATE = registerBlock("pyrowood_fence_gate",
             () -> new FenceGateBlock(BlockBehaviour.Properties.copy(PYROWOOD_PLANKS.get()), WoodTypesRegistry.PYROWOOD));
+
     public static final RegistryObject<Block> PYROWOOD_DOOR = registerBlock("pyrowood_door",
             () -> new DoorBlock(BlockBehaviour.Properties.copy(PYROWOOD_PLANKS.get()), BlockSetTypeRegistry.PYROWOOD));
+
     public static final RegistryObject<Block> PYROWOOD_TRAPDOOR = registerBlock("pyrowood_trapdoor",
             () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(PYROWOOD_PLANKS.get()), BlockSetTypeRegistry.PYROWOOD));
+
     public static final RegistryObject<Block> PYROWOOD_LEAVES = registerBlock("pyrowood_leaves",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.JUNGLE_LEAVES).lightLevel(s -> 15).emissiveRendering(BlockRegistry::always)));
-    //public static final RegistryObject<Block> PYROWOOD_SAPLING = registerBlock("pyrowood_sapling",
-    //        () -> new WeirdSaplingBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING), new PyrowoodTreeGrower()), CreativeModeTab.TAB_DECORATIONS);
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.JUNGLE_LEAVES).lightLevel(s -> 12).emissiveRendering(BlockRegistry::always)));
+
+    public static final RegistryObject<Block> PYROWOOD_SAPLING = registerBlock("pyrowood_sapling",
+            () -> new WeirdSaplingBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING), new AbstractTreeGrower() {
+                @Override
+                protected @NotNull ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource pRandom, boolean pHasFlowers) {
+                    return ConfiguredFeaturesDatagen.PYROWOOD_NETHER;
+                }
+            }));
+
+    public static final RegistryObject<Block> AMBER_BLOCK = registerBlock("amber_block",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.EMERALD_BLOCK).mapColor(DyeColor.ORANGE).requiresCorrectToolForDrops()));
+
+    public static final RegistryObject<Block> NATURAL_AMBER = registerBlock("natural_amber",
+            () -> new Block(BlockBehaviour.Properties.copy(AMBER_BLOCK.get()).emissiveRendering(BlockRegistry::always)));
 
     // flaming grove
     public static final RegistryObject<Block> PYROMOSSED_NETHERRACK = registerBlock("pyromossed_netherrack",
@@ -86,10 +115,14 @@ public class BlockRegistry {
     public static <T extends Block> void registerBlockItem(String name, Supplier<T> block){
         ItemRegistry.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
-    public static void register(IEventBus bus){
+
+    public static void register(IEventBus bus)
+    {
         BLOCKS.register(bus);
     }
-    private static boolean always(BlockState p_50775_, BlockGetter p_50776_, BlockPos p_50777_) {
+
+    private static boolean always(BlockState p_50775_, BlockGetter p_50776_, BlockPos p_50777_)
+    {
         return true;
     }
 }
