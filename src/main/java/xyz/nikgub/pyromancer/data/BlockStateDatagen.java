@@ -13,7 +13,10 @@ import xyz.nikgub.pyromancer.registries.WoodTypesRegistry;
 
 import java.util.List;
 
+/** TODO : cleanup, see {@link BlockLootTableDatagen} for an example **/
+
 public class BlockStateDatagen extends BlockStateProvider {
+
     public BlockStateDatagen(PackOutput output, ExistingFileHelper exFileHelper) {
         super(output, PyromancerMod.MOD_ID, exFileHelper);
     }
