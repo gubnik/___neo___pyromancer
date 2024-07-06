@@ -91,7 +91,7 @@ public abstract class UsablePyromancyItem extends Item implements IPyromancyItem
     }
 
     @Override
-    public Map<Attribute, Pair<UUID, ChatFormatting>> specialColoredUUID() {
+    public Map<Attribute, Pair<UUID, ChatFormatting>> specialColoredUUID(ItemStack itemStack) {
         return Map.of(
                 AttributeRegistry.PYROMANCY_DAMAGE.get(), Pair.of(BASE_PYROMANCY_DAMAGE_UUID, ChatFormatting.GOLD),
                 AttributeRegistry.BLAZE_CONSUMPTION.get(), Pair.of(BASE_BLAZE_CONSUMPTION_UUID, ChatFormatting.GOLD)
@@ -99,7 +99,7 @@ public abstract class UsablePyromancyItem extends Item implements IPyromancyItem
     }
 
     @Override
-    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus() {
+    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus(ItemStack itemStack) {
         return ((player, attribute) -> {
             double d0 = 0;
             d0 += IPyromancyItem.getAttributeBonus(player, attribute);
@@ -113,7 +113,7 @@ public abstract class UsablePyromancyItem extends Item implements IPyromancyItem
     }
 
     @Override
-    public Pair<Integer, Integer> getGradientColors() {
+    public Pair<Integer, Integer> getGradientColors(ItemStack itemStack) {
         return Pair.of(
                 GeneralUtils.rgbToColorInteger(200, 57, 0),
                 GeneralUtils.rgbToColorInteger(240, 129, 0)
@@ -121,7 +121,7 @@ public abstract class UsablePyromancyItem extends Item implements IPyromancyItem
     }
 
     @Override
-    public int getGradientTickTime() {
+    public int getGradientTickTime(ItemStack itemStack) {
         return 60;
     }
 }

@@ -25,6 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import xyz.nikgub.incandescent.common.item.IGradientNameItem;
 import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
+import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.items.capabilities.CompendiumOfFlameCapability;
 import xyz.nikgub.pyromancer.registries.AttributeRegistry;
 import xyz.nikgub.pyromancer.common.ember.UniqueEmberBehaviour;
@@ -99,6 +100,7 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
         if(held.getItem() instanceof  UsablePyromancyItem) return pyromancyBehaviour(inSlot, held, slotAccess);
         return super.overrideOtherStackedOnMe(inSlot, held, slot, clickAction, player, slotAccess);
     }
+
     public boolean pyromancyBehaviour(ItemStack inSlot, ItemStack held, SlotAccess slotAccess)
     {
         for(int i = 1; i < CompendiumOfFlameCapability.MAX_ITEMS + 1; i++)
@@ -178,7 +180,7 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     }
 
     @Override
-    public Map<Attribute, Pair<UUID, ChatFormatting>> specialColoredUUID()
+    public Map<Attribute, Pair<UUID, ChatFormatting>> specialColoredUUID(ItemStack itemStack)
     {
         return Map.of(
                 AttributeRegistry.PYROMANCY_DAMAGE.get(), Pair.of(IPyromancyItem.BASE_PYROMANCY_DAMAGE_UUID, ChatFormatting.GOLD),
@@ -187,13 +189,18 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     }
 
     @Override
-    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus()
+    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus(ItemStack itemStack)
     {
+
         return ((player, attribute) ->
         {
-            double d0 = 0;
-            d0 += IPyromancyItem.getAttributeBonus(player, attribute);
-            return d0;
+            PyromancerMod.LOGGER.info("{}", player.getAttributeValue(attribute)  );
+            //double d0 = 0;
+            //for (var mod : this.getAttributeModifiers(EquipmentSlot.MAINHAND, itemStack).asMap().get(attribute))
+            //{
+            //    d0 += mod.getAmount();
+            //}
+            return 0d;
         });
     }
 
@@ -204,13 +211,13 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     }
 
     @Override
-    public Pair<Integer, Integer> getGradientColors()
+    public Pair<Integer, Integer> getGradientColors(ItemStack itemStack)
     {
         return Pair.of(GeneralUtils.rgbToColorInteger(200, 100, 12), GeneralUtils.rgbToColorInteger(120, 30, 80));
     }
 
     @Override
-    public int getGradientTickTime()
+    public int getGradientTickTime(ItemStack itemStack)
     {
         return 60;
     }

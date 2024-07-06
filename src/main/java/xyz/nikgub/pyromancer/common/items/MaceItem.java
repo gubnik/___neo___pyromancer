@@ -70,7 +70,7 @@ public class MaceItem extends TieredItem implements ICustomSwingItem {
     }
 
     @Override
-    public <T extends LivingEntity> void thirdPersonTransform(HumanoidModel<T> model, T entity, float ageInTicks)
+    public <T extends LivingEntity> void thirdPersonTransform(ItemStack itemStack, HumanoidModel<T> model, T entity, float ageInTicks)
     {
         if (!(model.attackTime <= 0.0F)) {
             HumanoidArm arm = entity.swingingArm == InteractionHand.MAIN_HAND ? entity.getMainArm() : entity.getMainArm().getOpposite();
@@ -104,7 +104,7 @@ public class MaceItem extends TieredItem implements ICustomSwingItem {
     }
 
     @Override
-    public void firstPersonTransform(PoseStack poseStack, float swingProgress, float equippedProgress, boolean isRight)
+    public void firstPersonTransform(ItemStack itemStack, PoseStack poseStack, float swingProgress, float equippedProgress, boolean isRight)
     {
         final int doRotation = swingProgress > 0.0F ? 1 : 0;
         HumanoidArm arm = isRight ? HumanoidArm.RIGHT : HumanoidArm.LEFT;

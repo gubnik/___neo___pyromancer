@@ -124,7 +124,7 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     }
 
     @Override
-    public Map<Attribute, Pair<UUID, ChatFormatting>> specialColoredUUID() {
+    public Map<Attribute, Pair<UUID, ChatFormatting>> specialColoredUUID(ItemStack itemStack) {
         return Map.of(
                 AttributeRegistry.PYROMANCY_DAMAGE.get(), Pair.of(BASE_PYROMANCY_DAMAGE_UUID, ChatFormatting.GOLD),
                 AttributeRegistry.BLAZE_CONSUMPTION.get(), Pair.of(BASE_BLAZE_CONSUMPTION_UUID, ChatFormatting.GOLD)
@@ -142,7 +142,7 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     }
 
     @Override
-    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus() {
+    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus(ItemStack itemStack) {
         return ((player, attribute) -> {
             double d0 = 0;
             d0 += IPyromancyItem.getAttributeBonus(player, attribute);
@@ -156,7 +156,7 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     }
 
     @Override
-    public Pair<Integer, Integer> getGradientColors() {
+    public Pair<Integer, Integer> getGradientColors(ItemStack itemStack) {
         return Pair.of(
                 GeneralUtils.rgbToColorInteger(200, 57, 0),
                 GeneralUtils.rgbToColorInteger(240, 129, 0)
@@ -164,7 +164,7 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     }
 
     @Override
-    public int getGradientTickTime() {
+    public int getGradientTickTime(ItemStack itemStack) {
         return 60;
     }
 
