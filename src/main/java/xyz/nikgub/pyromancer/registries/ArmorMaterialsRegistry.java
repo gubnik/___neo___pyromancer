@@ -11,8 +11,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 public enum ArmorMaterialsRegistry implements ArmorMaterial {
-    MARAUDER_ARMOR("marauder", 20, new int[]{2, 5, 6, 2}, 15, SoundEvents.ARMOR_EQUIP_NETHERITE, 0, 0, () -> Ingredient.of(Items.LEATHER)),
-    PYROMANCER_ARMOR("pyromancer", 20, new int[]{2, 5, 6, 2}, 15, SoundEvents.ARMOR_EQUIP_NETHERITE, 0, 0, () -> Ingredient.of(Items.LEATHER));
+    MARAUDER_ARMOR("marauder", 20, new int[]{1, 2, 3, 1}, 12, SoundEvents.ARMOR_EQUIP_NETHERITE, 0, 0.02f, () -> Ingredient.of(ItemRegistry.HOGLIN_HIDE.get())),
+    PYROMANCER_ARMOR("pyromancer", 20, new int[]{2, 3, 4, 2}, 13, SoundEvents.ARMOR_EQUIP_NETHERITE, 0, 0, () -> Ingredient.of(Items.LEATHER)),
+    HELLBLAZE_MONARCH("hellblaze_monarch", 20, new int[]{2, 5, 6, 2}, 15, SoundEvents.ARMOR_EQUIP_NETHERITE, 5, 0.1f, () -> Ingredient.of(Items.LEATHER));
 
     private static final int[] HEALTH_PER_SLOT = new int[]{13, 15, 16, 11};
     private final String name;
