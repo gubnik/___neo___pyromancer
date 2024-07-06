@@ -36,12 +36,13 @@ public class RegistriesDataGeneration extends DatapackBuiltinEntriesProvider {
         );
         generator.addProvider(isServer, new AdvancementDatagen(output, provider, helper, list));
         generator.addProvider(isServer, new RecipesDatagen(output));
-        generator.addProvider(isServer, new BlockTagDatagen(output, provider, PyromancerMod.MOD_ID, helper));
+        var blockTags = generator.addProvider(isServer, new BlockTagDatagen(output, provider, PyromancerMod.MOD_ID, helper));
         generator.addProvider(isServer, new DamageTypeDatagen(output, provider.thenApply(RegistriesDataGeneration::append), helper));
         generator.addProvider(isServer, new ItemModelsDatagen(output, helper));
         generator.addProvider(isServer, new BlockModelsDatagen(output, helper));
         generator.addProvider(isServer, new BlockStateDatagen(output, helper));
         generator.addProvider(isServer, new LootTablesDatagen(output));
+        generator.addProvider(isServer, new ItemTagsDatagen(output, provider, blockTags.contentsGetter(), helper));
     }
 
     private static HolderLookup.Provider append(HolderLookup.Provider original) {
