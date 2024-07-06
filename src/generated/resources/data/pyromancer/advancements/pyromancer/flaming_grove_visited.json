@@ -23,7 +23,7 @@
     "description": {
       "translate": "advancement.pyromancer.flaming_grove_visited.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "hidden": false,
     "icon": {
       "item": "pyromancer:pyrowood_sapling"

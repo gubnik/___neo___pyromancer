@@ -1,0 +1,38 @@
+{
+  "parent": "pyromancer:pyromancer/pyromancy_obtained",
+  "criteria": {
+    "sizzling_hand_obtained": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pyromancer:sizzling_hand"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.pyromancer.sizzling_hand_obtained.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pyromancer:sizzling_hand"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.pyromancer.sizzling_hand_obtained.title"
+    }
+  },
+  "requirements": [
+    [
+      "sizzling_hand_obtained"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

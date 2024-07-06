@@ -1,0 +1,36 @@
+{
+  "parent": "pyromancer:pyromancer/root",
+  "criteria": {
+    "pyromancy_obtained": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "minecraft:pyromancy"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.pyromancer.pyromancy_obtained.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "pyromancer:court_of_embers"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.pyromancer.pyromancy_obtained.title"
+    }
+  },
+  "requirements": [
+    [
+      "pyromancy_obtained"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

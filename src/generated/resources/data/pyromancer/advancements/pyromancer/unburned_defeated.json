@@ -1,0 +1,44 @@
+{
+  "parent": "pyromancer:pyromancer/flaming_grove_visited",
+  "criteria": {
+    "unburned_defeated": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "pyromancer:unburned"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.pyromancer.unburned_defeated.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "pyromancer:pyromancer_helmet",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.pyromancer.unburned_defeated.title"
+    }
+  },
+  "requirements": [
+    [
+      "unburned_defeated"
+    ]
+  ],
+  "rewards": {
+    "experience": 500
+  },
+  "sends_telemetry_event": true
+}

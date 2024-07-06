@@ -1,0 +1,38 @@
+{
+  "parent": "pyromancer:pyromancer/pyromancy_obtained",
+  "criteria": {
+    "court_of_embers_obtained": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pyromancer:court_of_embers"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.pyromancer.court_of_embers_obtained.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pyromancer:court_of_embers"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.pyromancer.court_of_embers_obtained.title"
+    }
+  },
+  "requirements": [
+    [
+      "court_of_embers_obtained"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

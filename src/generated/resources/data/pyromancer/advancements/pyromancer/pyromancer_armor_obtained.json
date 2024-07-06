@@ -1,0 +1,57 @@
+{
+  "parent": "pyromancer:pyromancer/unburned_defeated",
+  "criteria": {
+    "pyromancer_armor_obtained": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pyromancer:pyromancer_helmet"
+            ]
+          },
+          {
+            "items": [
+              "pyromancer:pyromancer_chestplate"
+            ]
+          },
+          {
+            "items": [
+              "pyromancer:pyromancer_leggings"
+            ]
+          },
+          {
+            "items": [
+              "pyromancer:pyromancer_boots"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.pyromancer.pyromancer_armor_obtained.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "pyromancer:pyromancer_chestplate",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.pyromancer.pyromancer_armor_obtained.title"
+    }
+  },
+  "requirements": [
+    [
+      "pyromancer_armor_obtained"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

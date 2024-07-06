@@ -69,14 +69,29 @@
   "advancement.pyromancer.quill_applied.title": "So let it be written",
   "advancement.pyromancer.quill_applied.description": "Apply a quill to Blazing Journal",
 
-  "advancement.pyromancer.pyromancy_obtained.title": "Mmmmmmmrrrrrrrpppghhh!",
+  "advancement.pyromancer.pyromancy_obtained.title": "Fire of War",
   "advancement.pyromancer.pyromancy_obtained.description": "Obtain a pyromancy, a mighty weapon fed on flames",
 
-  "advancement.pyromancer.flaming_grove_visited.title": "Forest, set ablaze",
+  "advancement.pyromancer.flaming_grove_visited.title": "Then, there was fire",
   "advancement.pyromancer.flaming_grove_visited.description": "Visit Flaming Grove",
 
   "advancement.pyromancer.unburned_defeated.title": "Fixxxer",
   "advancement.pyromancer.unburned_defeated.description": "Defeat Unburned",
+
+  "advancement.pyromancer.pyromancer_armor_obtained.title": "Ashen One",
+  "advancement.pyromancer.pyromancer_armor_obtained.description": "Wear a full set of Pyromancer armor",
+
+  "advancement.pyromancer.hellblaze_monarch_armor_obtained.title": "Lord of Sunlight",
+  "advancement.pyromancer.hellblaze_monarch_armor_obtained.description": "Wear a full set of Armor of Hellblaze Monarch",
+
+  "advancement.pyromancer.symbol_of_sun.title": "A wondrous body",
+  "advancement.pyromancer.symbol_of_sun.description": "Obtain the Symbol of Sun",
+
+  "advancement.pyromancer.sizzling_hand_obtained.title": "Melt away the curse",
+  "advancement.pyromancer.sizzling_hand_obtained.description": "Obtain the Sizzling Hand",
+
+  "advancement.pyromancer.court_of_embers_obtained.title": "Eye of the tornado",
+  "advancement.pyromancer.court_of_embers_obtained.description": "Obtain the Court of Embers",
 
   "[[[---ATTRIBUTES---]]]": "",
   "pyromancer.pyromancy_damage": "Pyromancy Damage",
