@@ -168,15 +168,13 @@ public class PyromancerMod
         if(event.getTab().equals(PYROMANCER_TAB.get()))
         {
             List<Item> TOOLS = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof TieredItem).map(RegistryObject::get).toList();
-            List<Item> USABLE_PYROMANCY = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof UsablePyromancyItem).map(RegistryObject::get).toList();
-            List<Item> PYROMANCY = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof IPyromancyItem && !(registryObject.get() instanceof UsablePyromancyItem)).map(RegistryObject::get).toList();
+            List<Item> PYROMANCY = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof IPyromancyItem).map(RegistryObject::get).toList();
             List<Item> QUILLS = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof QuillItem).map(RegistryObject::get).toList();
             List<ItemStack> EMBERS = EmberRegistry.REGISTRY.get().getValues().stream().map(ember -> ember.applyToItemStack(new ItemStack(ItemRegistry.EMBER_ITEM.get()))).toList();
             List<Item> ARMOR = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof ArmorItem).map(RegistryObject::get).toList();
 
             List<Item> ALL_ELSE = new ArrayList<>(ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).filter(item -> !(item instanceof BlockItem) && !(item instanceof SpawnEggItem)).toList());
             ALL_ELSE.removeAll(TOOLS);
-            ALL_ELSE.removeAll(USABLE_PYROMANCY);
             ALL_ELSE.removeAll(PYROMANCY);
             ALL_ELSE.removeAll(QUILLS);
             ALL_ELSE.removeAll(ARMOR);
@@ -187,7 +185,6 @@ public class PyromancerMod
             event.accept(new ItemStack(ItemRegistry.BLAZING_JOURNAL.get()));
             event.accept(new ItemStack(ItemRegistry.COMPENDIUM_OF_FLAME.get()));
             for (Item item : QUILLS) event.accept(item);
-            for (Item item : USABLE_PYROMANCY) event.accept(item);
             for (Item item : PYROMANCY) event.accept(item);
             event.accept(new ItemStack(ItemRegistry.EMBER_ITEM.get()));
             for (ItemStack item : EMBERS) event.accept(item);
