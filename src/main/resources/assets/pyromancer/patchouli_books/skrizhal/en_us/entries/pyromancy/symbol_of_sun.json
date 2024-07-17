@@ -1,0 +1,16 @@
+{
+  "name": "Symbol of Sun",
+  "icon": "pyromancer:symbol_of_sun",
+  "advancement": "pyromancer:pyromancer/symbol_of_sun_obtained",
+  "category": "pyromancer:pyromancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Symbol of Sun is a melee pyromancy that allows a wielder to propel themselves forth.$(br2)Since the ancient times, the sun was seen as the Flame's watchful eye, until is was no longer seen under endless heavy clouds"
+    },
+    {
+      "type": "patchouli:smithing",
+      "recipe": "pyromancer:symbol_of_sun"
+    }
+  ]
+}

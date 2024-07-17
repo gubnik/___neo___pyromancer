@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "pyromancer:amber"
+  },
+  "base": {
+    "item": "pyromancer:netherite_mace"
+  },
+  "result": {
+    "item": "pyromancer:symbol_of_sun"
+  },
+  "template": {
+    "item": "pyromancer:everburning_heart"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "pyromancer:hoglin_hide"
+    },
+    "a": {
+      "item": "pyromancer:amber"
+    }
+  },
+  "pattern": [
+    "#a#",
+    "#a#",
+    "#a#"
+  ],
+  "result": {
+    "item": "pyromancer:sizzling_hand"
+  },
+  "show_notification": true
+}

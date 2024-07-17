@@ -6,6 +6,10 @@
     {
       "type": "patchouli:text",
       "text": "Blazing Journal is written in words of Living Flame, and thus is blessed by it. To commute with the Flame, one shall place blaze powder within Journal to gather blaze. With blaze, miracles are performed"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "pyromancer:blazing_journal"
     }
   ]
 }

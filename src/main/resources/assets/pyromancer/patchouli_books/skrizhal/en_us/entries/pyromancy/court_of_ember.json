@@ -1,0 +1,16 @@
+{
+  "name": "Court of Embers",
+  "icon": "pyromancer:court_of_embers",
+  "advancement": "pyromancer:pyromancer/court_of_embers_obtained",
+  "category": "pyromancer:pyromancy",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Court of Embers is a mighty pyromancer capable of weaving great firestorms, if only after a brief charging.$(br2)When a great golden city of Volno had perished into a scolding tornado, only the Mother Void had shed a tear"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "pyromancer:court_of_embers"
+    }
+  ]
+}

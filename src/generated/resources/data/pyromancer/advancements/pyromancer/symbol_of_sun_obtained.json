@@ -1,7 +1,7 @@
 {
   "parent": "pyromancer:pyromancer/pyromancy_obtained",
   "criteria": {
-    "symbol_of_sun": {
+    "symbol_of_sun_obtained": {
       "conditions": {
         "items": [
           {
@@ -32,7 +32,7 @@
   },
   "requirements": [
     [
-      "symbol_of_sun"
+      "symbol_of_sun_obtained"
     ]
   ],
   "sends_telemetry_event": true
