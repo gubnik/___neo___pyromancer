@@ -18,13 +18,14 @@ public class ItemRegistry {
     public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PyromancerMod.MOD_ID);
 
     // MATERIALS
-    public static RegistryObject<Item> HOGLIN_HIDE = ITEMS.register("hoglin_hide",  () -> new Item(new Item.Properties().stacksTo(64)));
-    public static RegistryObject<Item> NETHERITE_SHARD = ITEMS.register("netherite_shard", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static RegistryObject<Item> CINNABAR_CHUNK = ITEMS.register("cinnabar_chunk", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static RegistryObject<Item> DROPS_OF_MERCURY = ITEMS.register("drops_of_mercury", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static RegistryObject<Item> BRIMSTONE = ITEMS.register("brimstone", () -> new Item(new Item.Properties().stacksTo(64)));
-    public static RegistryObject<Item> AMBER = ITEMS.register("amber", () -> new Item(new Item.Properties().stacksTo(64)));
+    public static RegistryObject<Item> HOGLIN_HIDE = ITEMS.register("hoglin_hide",  () -> new Item(new Item.Properties()));
+    public static RegistryObject<Item> NETHERITE_SHARD = ITEMS.register("netherite_shard", () -> new Item(new Item.Properties()));
+    public static RegistryObject<Item> CINNABAR_CHUNK = ITEMS.register("cinnabar_chunk", () -> new Item(new Item.Properties()));
+    public static RegistryObject<Item> DROPS_OF_MERCURY = ITEMS.register("drops_of_mercury", () -> new Item(new Item.Properties()));
+    public static RegistryObject<Item> BRIMSTONE = ITEMS.register("brimstone", () -> new Item(new Item.Properties()));
+    public static RegistryObject<Item> AMBER = ITEMS.register("amber", () -> new Item(new Item.Properties()));
 
+    public static RegistryObject<Item> EVENBURNING_HEART = ITEMS.register("everburning_heart", () -> new Item(new Item.Properties().stacksTo(1)));
 
     public static RegistryObject<Item> BLAZING_JOURNAL = ITEMS.register("blazing_journal", () -> new BlazingJournalItem(new Item.Properties()));
 
