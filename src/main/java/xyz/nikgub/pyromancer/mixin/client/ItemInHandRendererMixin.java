@@ -46,10 +46,10 @@ public abstract class ItemInHandRendererMixin {
         boolean customBehaviour = false;
         poseStack.pushPose();
         if(player.getUsedItemHand() == hand && player.isUsingItem() && player.getUseItemRemainingTicks() > 0){
-            this.applyItemArmTransform(poseStack, arm, equippedProgress);
             Ember ember = Ember.getFromItem(itemStack);
             if (ember != null)
             {
+                this.applyItemArmTransform(poseStack, arm, equippedProgress);
                 customBehaviour = true;
                 ember.getAnimation().getFirstPersonAnimation().run(poseStack, minecraft.player, arm, itemStack, partialTick, equippedProgress, swingProgress);
             }
