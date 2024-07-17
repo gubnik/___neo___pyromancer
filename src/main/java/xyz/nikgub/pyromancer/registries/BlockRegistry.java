@@ -72,7 +72,7 @@ public class BlockRegistry {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.EMERALD_BLOCK).mapColor(DyeColor.ORANGE).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> NATURAL_AMBER = registerBlock("natural_amber",
-            () -> new Block(BlockBehaviour.Properties.copy(AMBER_BLOCK.get()).emissiveRendering(BlockRegistry::always)));
+            () -> new Block(BlockBehaviour.Properties.copy(AMBER_BLOCK.get()).lightLevel(s -> 7).emissiveRendering(BlockRegistry::always)));
 
     // flaming grove
     public static final RegistryObject<Block> PYROMOSSED_NETHERRACK = registerBlock("pyromossed_netherrack",

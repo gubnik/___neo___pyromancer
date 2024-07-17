@@ -42,8 +42,6 @@ public class BlockTagDatagen extends IntrinsicHolderTagsProvider<Block> {
                 .add(BlockRegistry.PYROMOSSED_NETHERRACK.get());
 
         this.tag(FLAMING_GROVE_PLANT_ON)
-                .add(Blocks.CRIMSON_NYLIUM)
-                .add(Blocks.WARPED_NYLIUM)
                 .add(BlockRegistry.PYROMOSSED_NETHERRACK.get());
 
         for(Block block : BlockRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get).filter(block -> block.getDescriptionId().contains("pyrowood")).toList())

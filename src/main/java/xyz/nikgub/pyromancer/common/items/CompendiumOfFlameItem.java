@@ -25,11 +25,10 @@ import org.jetbrains.annotations.Nullable;
 import xyz.nikgub.incandescent.common.item.IGradientNameItem;
 import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
-import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.common.items.capabilities.CompendiumOfFlameCapability;
-import xyz.nikgub.pyromancer.registries.AttributeRegistry;
 import xyz.nikgub.pyromancer.common.ember.UniqueEmberBehaviour;
+import xyz.nikgub.pyromancer.common.items.capabilities.CompendiumOfFlameCapability;
 import xyz.nikgub.pyromancer.mixin.client.ItemRendererMixin;
+import xyz.nikgub.pyromancer.registries.AttributeRegistry;
 
 import java.util.Map;
 import java.util.UUID;
@@ -194,12 +193,6 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
 
         return ((player, attribute) ->
         {
-            PyromancerMod.LOGGER.info("{}", player.getAttributeValue(attribute)  );
-            //double d0 = 0;
-            //for (var mod : this.getAttributeModifiers(EquipmentSlot.MAINHAND, itemStack).asMap().get(attribute))
-            //{
-            //    d0 += mod.getAmount();
-            //}
             return 0d;
         });
     }
