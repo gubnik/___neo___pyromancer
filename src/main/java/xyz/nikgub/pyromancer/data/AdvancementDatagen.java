@@ -38,6 +38,7 @@ public class AdvancementDatagen extends ForgeAdvancementProvider {
                             new ResourceLocation(PyromancerMod.MOD_ID, "textures/block/pyrowood_planks.png"),
                             FrameType.TASK,
                             false, false, false)
+                    .rewards(AdvancementRewards.Builder.loot(new ResourceLocation(PyromancerMod.MOD_ID, "skrizhal_reward")))
                     .addCriterion("acquired_journal", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.BLAZING_JOURNAL.get()))
                     .save(saver, "pyromancer:pyromancer/root");
 
@@ -71,15 +72,15 @@ public class AdvancementDatagen extends ForgeAdvancementProvider {
                     .addCriterion("pyromancy_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(ItemTagsDatagen.PYROMANCY).build()))
                     .save(saver, "pyromancer:pyromancer/pyromancy_obtained");
 
-            Advancement symbol_of_sun = Advancement.Builder.advancement().parent(pyromancy_obtained)
+            Advancement symbol_of_sun_obtained = Advancement.Builder.advancement().parent(pyromancy_obtained)
                     .display(ItemRegistry.SYMBOL_OF_SUN.get(),
                             Component.translatable("advancement.pyromancer.symbol_of_sun.title"),
                             Component.translatable("advancement.pyromancer.symbol_of_sun.description"),
                             null,
                             FrameType.TASK,
                             true, true, false)
-                    .addCriterion("symbol_of_sun", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.SYMBOL_OF_SUN.get()))
-                    .save(saver, "pyromancer:pyromancer/symbol_of_sun");
+                    .addCriterion("symbol_of_sun_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.SYMBOL_OF_SUN.get()))
+                    .save(saver, "pyromancer:pyromancer/symbol_of_sun_obtained");
 
             Advancement sizzling_hand_obtained = Advancement.Builder.advancement().parent(pyromancy_obtained)
                     .display(ItemRegistry.SIZZLING_HAND.get(),
