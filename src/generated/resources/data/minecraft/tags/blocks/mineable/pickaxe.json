@@ -1,6 +1,8 @@
 {
   "values": [
     "pyromancer:amber_block",
-    "pyromancer:natural_amber"
+    "pyromancer:natural_amber",
+    "pyromancer:rimeblood_cell",
+    "pyromancer:rimeblood_block"
   ]
 }

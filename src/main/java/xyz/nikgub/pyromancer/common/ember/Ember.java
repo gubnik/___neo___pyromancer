@@ -8,7 +8,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.nikgub.pyromancer.PyromancerConfig;
-import xyz.nikgub.pyromancer.common.items.EmberItem;
+import xyz.nikgub.pyromancer.common.item.EmberItem;
 import xyz.nikgub.pyromancer.registries.EmberRegistry;
 
 import java.util.Set;
@@ -16,11 +16,14 @@ import java.util.Set;
 /**
  * @author nikgub_
  */
-public class Ember {
-
+public class Ember
+{
     private final String name;
+
     private final EmberType type;
+
     private final Set<Class<? extends Item>> acceptableItems;
+
     private final EmberAnimation animation;
 
     /**
@@ -44,7 +47,8 @@ public class Ember {
         return String.format("ember:%s/%s", this.name, this.type.getName());
     }
 
-    public String getName() {
+    public String getName()
+	{
         return name;
     }
 
@@ -58,16 +62,19 @@ public class Ember {
         return "ember." + this.name + ".name";
     }
 
-    public EmberType getType() {
+    public EmberType getType()
+	{
         return type;
     }
 
-    public Set<Class<? extends Item>> getAcceptableItems() {
+    public Set<Class<? extends Item>> getAcceptableItems()
+	{
         return acceptableItems;
     }
 
     @NotNull
-    public EmberAnimation getAnimation() {
+    public EmberAnimation getAnimation()
+	{
         return animation;
     }
 

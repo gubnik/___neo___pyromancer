@@ -4,14 +4,17 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import xyz.nikgub.pyromancer.common.entity.FrostcopperGolemEntity;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
-import xyz.nikgub.pyromancer.common.entities.attack_effects.AttackEffectEntity;
-import xyz.nikgub.pyromancer.common.entities.attack_effects.PyronadoEntity;
-import xyz.nikgub.pyromancer.common.entities.projectiles.SizzlingHandFireball;
-import xyz.nikgub.pyromancer.common.entities.projectiles.BombsackProjectile;
-import xyz.nikgub.pyromancer.common.entities.UnburnedEntity;
+import xyz.nikgub.pyromancer.common.entity.attack_effect.PyronadoEntity;
+import xyz.nikgub.pyromancer.common.entity.projectile.SizzlingHandFireball;
+import xyz.nikgub.pyromancer.common.entity.projectile.BombsackProjectile;
+import xyz.nikgub.pyromancer.common.entity.UnburnedEntity;
 
-public class DamageSourceRegistry {
+import javax.annotation.Nullable;
+
+public class DamageSourceRegistry
+{
 
     public static DamageSource flame(Entity entity)
     {
@@ -68,7 +71,8 @@ public class DamageSourceRegistry {
         );
     }
 
-    public static DamageSource bombsack(BombsackProjectile bombsackProjectile, Entity owner) {
+    public static DamageSource bombsack(BombsackProjectile bombsackProjectile, Entity owner)
+	{
         assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
                 owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.BOMBSACK_KEY),
@@ -87,11 +91,11 @@ public class DamageSourceRegistry {
         );
     }
 
-    public static DamageSource blazingJournal(AttackEffectEntity entity, Entity owner)
+    public static DamageSource blazingJournal(Entity entity, @Nullable Entity owner)
     {
-        assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
+        assert entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.BLAZING_JOURNAL_PROJECTION_KEY),
+                entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.BLAZING_JOURNAL_PROJECTION_KEY),
                 entity,
                 owner
         );
@@ -103,6 +107,36 @@ public class DamageSourceRegistry {
         return new DamageSource(
                 unburned.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.UNBURNED_KEY),
                 unburned
+        );
+    }
+
+    public static DamageSource hoarfrostGreatswordPoke(Entity owner)
+	{
+        assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
+        return new DamageSource(
+                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HOARFROST_GREATSWORD_KEY),
+                owner,
+                owner
+        );
+    }
+
+    public static DamageSource spearOfMoroz(Entity owner)
+    {
+        assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
+        return new DamageSource(
+                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.SPEAR_OF_MOROZ_KEY),
+                owner,
+                owner
+        );
+    }
+
+    public static DamageSource frostcopperGolemStomp(FrostcopperGolemEntity frostcopperGolemEntity)
+    {
+        assert frostcopperGolemEntity.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
+        return new DamageSource(
+                frostcopperGolemEntity.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.FROSTCOPPER_GOLEM_STOMP_KEY),
+                frostcopperGolemEntity,
+                frostcopperGolemEntity
         );
     }
 

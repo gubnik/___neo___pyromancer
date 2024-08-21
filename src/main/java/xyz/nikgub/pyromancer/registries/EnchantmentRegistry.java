@@ -7,9 +7,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.PickaxeItem;
-import net.minecraft.world.item.TieredItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraftforge.common.ForgeMod;
@@ -17,20 +15,42 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.common.enchantments.BlazingJournalEnchantment;
-import xyz.nikgub.pyromancer.common.enchantments.MaceEnchantment;
-import xyz.nikgub.pyromancer.common.entities.attack_effects.FlamingGuillotineEntity;
-import xyz.nikgub.pyromancer.common.items.BlazingJournalItem;
-import xyz.nikgub.pyromancer.common.items.MaceItem;
+import xyz.nikgub.pyromancer.common.enchantment.BlazingJournalEnchantment;
+import xyz.nikgub.pyromancer.common.enchantment.MaceEnchantment;
+import xyz.nikgub.pyromancer.common.entity.attack_effect.FlamingGuillotineEntity;
+import xyz.nikgub.pyromancer.common.item.BlazingJournalItem;
+import xyz.nikgub.pyromancer.common.item.MaceItem;
+import xyz.nikgub.pyromancer.data.ItemTagDatagen;
 
 import java.util.Map;
 
-public class EnchantmentRegistry {
+public class EnchantmentRegistry
+{
 
     public static DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, PyromancerMod.MOD_ID);
 
     public static final EnchantmentCategory BLAZING_JOURNAL = EnchantmentCategory.create("blazing_journal", (item -> item instanceof BlazingJournalItem));
     public static final EnchantmentCategory MACE = EnchantmentCategory.create("mace", (item -> item instanceof MaceItem));
+    public static final EnchantmentCategory FROST_WEAPONS = EnchantmentCategory.create("frost_weapons", (item) -> new ItemStack(item).is(ItemTagDatagen.FROST_WEAPON));
+
+
+    public static final RegistryObject<Enchantment> FIERCE_FROST = ENCHANTMENTS.register("fierce_frost", () -> new Enchantment(Enchantment.Rarity.UNCOMMON, FROST_WEAPONS, new EquipmentSlot[]{})
+    {
+        @Override
+        public int getMaxLevel ()
+	{
+            return 3;
+        }
+    });
+
+    public static final RegistryObject<Enchantment> MELT = ENCHANTMENTS.register("melt", () -> new Enchantment(Enchantment.Rarity.UNCOMMON, FROST_WEAPONS, new EquipmentSlot[]{})
+    {
+        @Override
+        public int getMaxLevel ()
+	{
+            return 5;
+        }
+    });
     
     public static RegistryObject<Enchantment> FLAMING_GUILLOTINE = ENCHANTMENTS.register("flaming_guillotine",
             () -> new BlazingJournalEnchantment()
@@ -78,6 +98,34 @@ public class EnchantmentRegistry {
                     return target.isOnFire();
                 }
             });
+
+    public static RegistryObject<Enchantment> METEORIC_STRIKE = ENCHANTMENTS.register("meteoric_strike",
+            () -> new BlazingJournalEnchantment()
+            {
+                @Override
+                public Class<? extends TieredItem> getWeaponClass ()
+                {
+                    return ShovelItem.class;
+                }
+
+                @Override
+                public void getAttack(Player player, Entity target)
+                {
+                    if(!(target instanceof LivingEntity livingEntity)) return;
+                    if (livingEntity.isOnFire())
+                        livingEntity.addEffect(new MobEffectInstance(MobEffectRegistry.METEORIC_STRIKE.get(), 100, 0));
+                    livingEntity.setRemainingFireTicks(livingEntity.getRemainingFireTicks() + 40);
+                    livingEntity.setDeltaMovement(player.getLookAngle().multiply(2.5, 0, 2.5).add(0, 0.2, 0));
+                }
+
+                @Override
+                public boolean getCondition (Player player, Entity target)
+                {
+                    return true;
+                }
+            });
+
+    // maces
 
     public static RegistryObject<Enchantment> STURDINESS = ENCHANTMENTS.register("sturdiness",
             () -> new MaceEnchantment(Enchantment.Rarity.COMMON, MACE, new EquipmentSlot[]{},

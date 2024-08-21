@@ -24,6 +24,7 @@ import net.minecraft.DetectedVersion;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -35,13 +36,19 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithLootingCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
@@ -50,6 +57,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
@@ -68,22 +76,17 @@ import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
-import xyz.nikgub.pyromancer.client.models.armor.ArmorOfHellblazeMonarchModel;
-import xyz.nikgub.pyromancer.client.models.armor.PyromancerArmorModel;
-import xyz.nikgub.pyromancer.client.models.entities.FlamingGuillotineModel;
-import xyz.nikgub.pyromancer.client.models.entities.PyronadoModel;
-import xyz.nikgub.pyromancer.client.models.entities.UnburnedModel;
-import xyz.nikgub.pyromancer.client.models.entities.UnburnedSpiritModel;
-import xyz.nikgub.pyromancer.client.renderers.FlamingGuillotineRenderer;
-import xyz.nikgub.pyromancer.client.renderers.PyronadoRenderer;
-import xyz.nikgub.pyromancer.client.renderers.UnburnedRenderer;
-import xyz.nikgub.pyromancer.client.renderers.UnburnedSpiritRenderer;
+import xyz.nikgub.pyromancer.client.model.armor.ArmorOfHellblazeMonarchModel;
+import xyz.nikgub.pyromancer.client.model.armor.PyromancerArmorModel;
+import xyz.nikgub.pyromancer.client.model.entity.*;
+import xyz.nikgub.pyromancer.client.renderer.*;
 import xyz.nikgub.pyromancer.common.ember.Ember;
-import xyz.nikgub.pyromancer.common.enchantments.BlazingJournalEnchantment;
-import xyz.nikgub.pyromancer.common.entities.UnburnedEntity;
-import xyz.nikgub.pyromancer.common.entities.UnburnedSpiritEntity;
-import xyz.nikgub.pyromancer.common.events.BlazingJournalAttackEvent;
-import xyz.nikgub.pyromancer.common.items.*;
+import xyz.nikgub.pyromancer.common.enchantment.BlazingJournalEnchantment;
+import xyz.nikgub.pyromancer.common.entity.FrostcopperGolemEntity;
+import xyz.nikgub.pyromancer.common.entity.UnburnedEntity;
+import xyz.nikgub.pyromancer.common.entity.UnburnedSpiritEntity;
+import xyz.nikgub.pyromancer.common.event.BlazingJournalAttackEvent;
+import xyz.nikgub.pyromancer.common.item.*;
 import xyz.nikgub.pyromancer.common.util.ItemUtils;
 import xyz.nikgub.pyromancer.common.worldgen.NetherPyrowoodTrunkPlacer;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
@@ -114,13 +117,15 @@ public class PyromancerMod
     public PyromancerMod()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        MinecraftForge.EVENT_BUS.register(this);
+
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setupClient);
         modEventBus.addListener(this::registerLayerDefinitions);
         modEventBus.addListener(this::addCreative);
         modEventBus.addListener(this::gatherData);
         modEventBus.addListener(this::entityAttributeSupplier);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PyromancerConfig.SPEC);
+
         EmberRegistry.EMBERS.register(modEventBus);
         ItemRegistry.ITEMS.register(modEventBus);
         BlockRegistry.BLOCKS.register(modEventBus);
@@ -131,7 +136,7 @@ public class PyromancerMod
         NetherPyrowoodTrunkPlacer.TRUNK_TYPE_REGISTRY.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
 
-        MinecraftForge.EVENT_BUS.register(this);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PyromancerConfig.SPEC);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
@@ -140,27 +145,32 @@ public class PyromancerMod
         NetherBiomeRegistry.setupTerrablender();
     }
 
-    private void setupClient(final FMLCommonSetupEvent event) {
+    private void setupClient(final FMLCommonSetupEvent event)
+	{
         EntityRenderers.register(EntityTypeRegistry.BOMBSACK.get(), ThrownItemRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.SIZZLING_HAND_FIREBALL.get(), ThrownItemRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.FLAMING_GUILLOTINE.get(), FlamingGuillotineRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.UNBURNED_SPIRIT.get(), UnburnedSpiritRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.PYRONADO.get(), PyronadoRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.UNBURNED.get(), UnburnedRenderer::new);
+        EntityRenderers.register(EntityTypeRegistry.FROSTCOPPER_GOLEM.get(), FrostcopperGolemRenderer::new);
     }
 
-    private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+    private void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event)
+	{
         event.registerLayerDefinition(PyromancerArmorModel.LAYER_LOCATION, PyromancerArmorModel::createBodyLayer);
         event.registerLayerDefinition(ArmorOfHellblazeMonarchModel.LAYER_LOCATION, ArmorOfHellblazeMonarchModel::createBodyLayer);
         event.registerLayerDefinition(FlamingGuillotineModel.LAYER_LOCATION, FlamingGuillotineModel::createBodyLayer);
         event.registerLayerDefinition(UnburnedSpiritModel.LAYER_LOCATION, UnburnedSpiritModel::createBodyLayer);
         event.registerLayerDefinition(PyronadoModel.LAYER_LOCATION, PyronadoModel::createBodyLayer);
         event.registerLayerDefinition(UnburnedModel.LAYER_LOCATION, UnburnedModel::createBodyLayer);
+        event.registerLayerDefinition(FrostcopperGolemModel.LAYER_LOCATION, FrostcopperGolemModel::createbodyLayer);
     }
 
     private void entityAttributeSupplier(EntityAttributeCreationEvent event)
     {
         event.put(EntityTypeRegistry.UNBURNED.get(), UnburnedEntity.setAttributes());
+        event.put(EntityTypeRegistry.FROSTCOPPER_GOLEM.get(), FrostcopperGolemEntity.setAttributes());
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event)
@@ -214,6 +224,37 @@ public class PyromancerMod
                 Arrays.stream(PackType.values()).collect(Collectors.toMap(Function.identity(), DetectedVersion.BUILT_IN::getPackVersion)))));
     }
 
+    @SubscribeEvent
+    public void lootLoad(LootTableLoadEvent event)
+	{
+        List<String> toModify = List.of(
+                "minecraft:chests/simple_dungeon",
+                "minecraft:chests/abandoned_mineshaft",
+                "minecraft:chests/igloo_chest"
+        );
+        if (toModify.stream().anyMatch((s -> event.getName().toString().equals(s)))) {
+            event.getTable().addPool(LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1.0F))
+                    .add(LootItem.lootTableItem(ItemRegistry.ANCIENT_PLATING.get()))
+                    .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.04F, 0.04F)
+                    ).build());
+        }
+    }
+
+    @Mod.EventBusSubscriber(modid = PyromancerMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    @SuppressWarnings("unused")
+    public static class ModEvents
+    {
+        @SubscribeEvent
+        public static void entityAttributeProvider(EntityAttributeModificationEvent event)
+	{
+            event.add(EntityType.PLAYER, AttributeRegistry.BLAZE_CONSUMPTION.get());
+            event.add(EntityType.PLAYER, AttributeRegistry.PYROMANCY_DAMAGE.get());
+            event.add(EntityType.PLAYER, AttributeRegistry.ARMOR_PIERCING.get());
+            event.add(EntityType.PLAYER, AttributeRegistry.COLD_BUILDUP.get());
+        }
+    }
+
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     @SuppressWarnings("unused")
     public static class ClientModEvents
@@ -224,6 +265,7 @@ public class PyromancerMod
 
         }
     }
+
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
     @SuppressWarnings("unused")
     public static class ClientForgeEvents
@@ -263,23 +305,64 @@ public class PyromancerMod
     {
     }
 
-    @Mod.EventBusSubscriber(modid = PyromancerMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-    @SuppressWarnings("unused")
-    public static class ModEvents
-    {
-        @SubscribeEvent
-        public static void entityAttributeProvider(EntityAttributeModificationEvent event){
-            event.add(EntityType.PLAYER, AttributeRegistry.BLAZE_CONSUMPTION.get());
-            event.add(EntityType.PLAYER, AttributeRegistry.PYROMANCY_DAMAGE.get());
-            event.add(EntityType.PLAYER, AttributeRegistry.ARMOR_PIERCING.get());
-        }
-    }
-
     @Mod.EventBusSubscriber(modid = PyromancerMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
     @SuppressWarnings("unused")
-    public static class ForgeEvents {
+    public static class ForgeEvents
+    {
+        public static void frostProcessor (LivingHurtEvent event)
+        {
+
+            final LivingEntity target = event.getEntity();
+
+            if (!target.canFreeze()) return;
+
+            final DamageSource damageSource = event.getSource();
+            final Entity cause = damageSource.getEntity();
+            final float damageAmount = event.getAmount();
+            final int frostburnModifier = target.hasEffect(MobEffectRegistry.FROSTBURN.get()) ? target.getEffect(MobEffectRegistry.FROSTBURN.get()).getAmplifier() : -1;
+            if (frostburnModifier >= 0)
+            {
+                if (!target.isAlive())
+                {
+                    event.setCanceled(event.isCancelable());
+                    return;
+                }
+                float newDamage = damageAmount + (float) (Math.sqrt(frostburnModifier + 1) * (1 + Math.log(frostburnModifier + 1)));
+                event.setAmount(newDamage);
+            }
+            if (GeneralUtils.isDirectDamage(damageSource))
+            {
+                if (!(cause instanceof LivingEntity entity)) return;
+
+                AttributeMap attributeMap = entity.getAttributes();
+
+                if (!(attributeMap.hasAttribute(AttributeRegistry.COLD_BUILDUP.get()))) return;
+
+                double coldBuildup = attributeMap.getValue(AttributeRegistry.COLD_BUILDUP.get());
+
+                if (coldBuildup <= 0) return;
+
+                target.setTicksFrozen(target.getTicksFrozen() + (int)(coldBuildup * (damageAmount + 1)) + 1);
+                GeneralUtils.coverInParticles(target, ParticleTypes.SNOWFLAKE, 0.002);
+                ItemStack mainHandItem = entity.getMainHandItem();
+                final int meltLevel = mainHandItem.getEnchantmentLevel(EnchantmentRegistry.MELT.get());
+                final double meltModifier = (target.isOnFire()) ? meltLevel * 0.1D : 0.0D;
+                if (meltModifier != 0)
+                {
+                    event.setAmount(event.getAmount() * (1 + meltLevel));
+                    target.extinguishFire();
+                }
+
+                if (!(target.isFullyFrozen())) return;
+
+                target.addEffect(new MobEffectInstance(MobEffectRegistry.FROSTBURN.get(), 100, frostburnModifier + 1, false, true, false));
+                target.setTicksFrozen(target.getTicksFrozen() + 200);
+            }
+
+        }
+
         @SubscribeEvent
-        public static void livingHurtEvent(LivingHurtEvent event)
+        public static void onLivingHurt (LivingHurtEvent event)
         {
             if (event.getEntity().hasEffect(MobEffectRegistry.FIERY_AEGIS.get()) && event.getSource().getDirectEntity() instanceof LivingEntity attacker)
             {
@@ -291,6 +374,7 @@ public class PyromancerMod
                 UnburnedSpiritEntity spirit = new UnburnedSpiritEntity(EntityTypeRegistry.UNBURNED_SPIRIT.get(), level);
                 spirit.addToLevelForPlayerAt(level, attacker, event.getEntity().position());
             }
+            frostProcessor(event);
             if (!(event.getSource().getEntity() instanceof Player sourceEntity)) return;
             LivingEntity entity = event.getEntity();
             double armor_pierce = sourceEntity.getAttributeValue(AttributeRegistry.ARMOR_PIERCING.get());
@@ -299,7 +383,8 @@ public class PyromancerMod
         }
 
         @SubscribeEvent
-        public static void livingAttackEvent(LivingAttackEvent event) {
+        public static void livingAttackEvent(LivingAttackEvent event)
+	{
             DamageSource damageSource = event.getSource();
             blazingJournalAdvancementProcessor(damageSource.getEntity(), event.getEntity(), damageSource);
             if (!(damageSource.getDirectEntity() instanceof Player player)) return;
@@ -324,7 +409,8 @@ public class PyromancerMod
 
         public static void blazingJournalQuillProcessor(BlazingJournalItem blazingJournalItem, ItemStack journal, ItemStack weapon, Player player, Entity target)
         {
-            if ((blazingJournalItem.getItemFromItem(journal, 0)).getItem() instanceof QuillItem quillItem) {
+            if ((blazingJournalItem.getItemFromItem(journal, 0)).getItem() instanceof QuillItem quillItem)
+	{
                 if (quillItem.getCondition(player, weapon, journal) && !target.hurtMarked)
                     quillItem.getAttack(player, weapon, journal);
             }
@@ -334,7 +420,7 @@ public class PyromancerMod
         {
             for (BlazingJournalEnchantment blazingJournalEnchantment : journal.getAllEnchantments().keySet().stream().filter(enchantment -> enchantment instanceof BlazingJournalEnchantment).map(enchantment -> (BlazingJournalEnchantment) enchantment).toList())
             {
-                if (blazingJournalEnchantment.defaultCondition(player)) {
+                if (blazingJournalEnchantment.globalCondition(player)) {
                     if (blazingJournalEnchantment.getWeaponClass().isInstance(weapon.getItem())
                             && blazingJournalEnchantment.getCondition(player, target)) {
                         BlazingJournalAttackEvent blazingJournalAttackEvent = BlazingJournalItem.getBlazingJournalAttackEvent(player, target, journal, weapon, blazingJournalEnchantment);

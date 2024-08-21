@@ -11,7 +11,8 @@ import java.lang.annotation.Target;
  */
 @Retention(value = RetentionPolicy.RUNTIME)
 @Target(value = ElementType.TYPE)
-public @interface UniqueEmberBehaviour {
+public @interface UniqueEmberBehaviour
+{
     /**
      * @return      Modifier overriding default logic
      */

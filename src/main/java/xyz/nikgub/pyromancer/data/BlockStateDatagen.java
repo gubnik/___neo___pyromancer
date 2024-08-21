@@ -15,8 +15,8 @@ import java.util.List;
 
 /** TODO : cleanup, see {@link BlockLootTableDatagen} for an example **/
 
-public class BlockStateDatagen extends BlockStateProvider {
-
+public class BlockStateDatagen extends BlockStateProvider
+{
     public BlockStateDatagen(PackOutput output, ExistingFileHelper exFileHelper) {
         super(output, PyromancerMod.MOD_ID, exFileHelper);
     }
@@ -58,6 +58,7 @@ public class BlockStateDatagen extends BlockStateProvider {
             }
         }
     }
+
     private ResourceLocation getPlankFromWoodType(String s)
     {
         return new ResourceLocation(PyromancerMod.MOD_ID, "block/" + s + "_planks");

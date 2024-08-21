@@ -3,30 +3,36 @@ package xyz.nikgub.pyromancer.registries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.common.blocks.FirebriarBlock;
-import xyz.nikgub.pyromancer.common.blocks.SizzlingVineBlock;
-import xyz.nikgub.pyromancer.common.blocks.WeirdSaplingBlock;
+import xyz.nikgub.pyromancer.common.block.FirebriarBlock;
+import xyz.nikgub.pyromancer.common.block.RimevineBlock;
+import xyz.nikgub.pyromancer.common.block.SizzlingVineBlock;
+import xyz.nikgub.pyromancer.common.block.WeirdSaplingBlock;
 import xyz.nikgub.pyromancer.common.util.BlockUtils;
-import xyz.nikgub.pyromancer.data.ConfiguredFeaturesDatagen;
+import xyz.nikgub.pyromancer.data.ConfiguredFeatureDatagen;
 
 import java.util.function.Supplier;
 
-public class BlockRegistry {
+public class BlockRegistry
+{
     public static DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, PyromancerMod.MOD_ID);
 
     //pyrowood
@@ -61,10 +67,12 @@ public class BlockRegistry {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.JUNGLE_LEAVES).lightLevel(s -> 12).emissiveRendering(BlockRegistry::always)));
 
     public static final RegistryObject<Block> PYROWOOD_SAPLING = registerBlock("pyrowood_sapling",
-            () -> new WeirdSaplingBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING), new AbstractTreeGrower() {
+            () -> new WeirdSaplingBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING), new AbstractTreeGrower()
+	{
                 @Override
-                protected @NotNull ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource pRandom, boolean pHasFlowers) {
-                    return ConfiguredFeaturesDatagen.PYROWOOD_NETHER;
+                protected @NotNull ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(@NotNull RandomSource pRandom, boolean pHasFlowers)
+	{
+                    return ConfiguredFeatureDatagen.PYROWOOD_NETHER;
                 }
             }));
 
@@ -80,7 +88,8 @@ public class BlockRegistry {
 
     public static final RegistryObject<Block> PYROMOSS_SPROUTS = registerBlock("pyromoss_sprouts",
             () -> new TallGrassBlock(BlockBehaviour.Properties.copy(Blocks.MOSS_CARPET).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XYZ)){
-                protected boolean mayPlaceOn(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
+                protected boolean mayPlaceOn(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos)
+	{
                     return BlockUtils.flamingGrovePlantable(blockState);
                 }
             });
@@ -94,7 +103,8 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLAZING_POPPY = registerBlock("blazing_poppy",
             () -> new FlowerBlock(() -> MobEffectRegistry.FIERY_AEGIS.get(), 1, BlockBehaviour.Properties.copy(Blocks.POPPY).strength(0,0).sound(SoundType.HARD_CROP).noCollission()){
                 @Override
-                protected boolean mayPlaceOn(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
+                protected boolean mayPlaceOn(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos)
+	{
                     return BlockUtils.flamingGrovePlantable(blockState);
                 }
             });
@@ -102,17 +112,35 @@ public class BlockRegistry {
     public static final RegistryObject<Block> NETHER_LILY = registerBlock("nether_lily",
             () -> new FlowerBlock(() -> MobEffectRegistry.MELTDOWN.get(), 1, BlockBehaviour.Properties.copy(Blocks.ORANGE_TULIP).strength(0,0).sound(SoundType.HARD_CROP).noCollission().lightLevel(i -> 7).emissiveRendering(BlockRegistry::always)){
                 @Override
-                protected boolean mayPlaceOn(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
+                protected boolean mayPlaceOn(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos)
+	{
                     return BlockUtils.flamingGrovePlantable(blockState);
                 }
             });
 
-    public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){
+    public static final RegistryObject<Block> RIMEBLOOD_CELL = registerBlock("rimeblood_cell", () -> new Block(BlockBehaviour.Properties.copy(Blocks.EMERALD_BLOCK).mapColor(DyeColor.CYAN))
+    {
+        @Override
+        public void onProjectileHit(@NotNull Level pLevel, @NotNull BlockState pState, @NotNull BlockHitResult pHit, @NotNull Projectile pProjectile)
+        {
+            FallingBlockEntity.fall(pLevel, pHit.getBlockPos(), pState);
+        }
+    });
+
+    public static final RegistryObject<Block> RIMEBLOOD_BLOCK = registerBlock("rimeblood_block", () -> new Block(BlockBehaviour.Properties.copy(RIMEBLOOD_CELL.get())));
+
+    public static final RegistryObject<RimevineBlock> RIMEVIME = registerBlock("rimevine",
+            () -> new RimevineBlock(BlockBehaviour.Properties.copy(Blocks.TWISTING_VINES).noCollission().instabreak().sound(SoundType.CAVE_VINES)));
+
+
+    public static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block)
+	{
         RegistryObject<T> output = BLOCKS.register(name, block);
         registerBlockItem(name, output);
         return output;
     }
-    public static <T extends Block> void registerBlockItem(String name, Supplier<T> block){
+    public static <T extends Block> void registerBlockItem(String name, Supplier<T> block)
+	{
         ItemRegistry.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 

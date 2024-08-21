@@ -20,7 +20,8 @@ import xyz.nikgub.pyromancer.common.ember.Ember;
 
 @SuppressWarnings("unused")
 @Mixin(ItemInHandRenderer.class)
-public abstract class ItemInHandRendererMixin {
+public abstract class ItemInHandRendererMixin
+{
 
     @Shadow
     public abstract void renderItem(LivingEntity entity, ItemStack itemStack, ItemDisplayContext displayContext, boolean b, PoseStack poseStack, MultiBufferSource bufferSource, int i);
@@ -39,13 +40,15 @@ public abstract class ItemInHandRendererMixin {
                                            PoseStack poseStack,
                                            MultiBufferSource multiBufferSource,
                                            int pCombinedLight,
-                                           CallbackInfo callbackInfo) {
+                                           CallbackInfo callbackInfo)
+	{
         boolean flag = hand == InteractionHand.MAIN_HAND;
         HumanoidArm arm = flag ? player.getMainArm() : player.getMainArm().getOpposite();
         boolean isRight = (arm == HumanoidArm.RIGHT);
         boolean customBehaviour = false;
         poseStack.pushPose();
-        if(player.getUsedItemHand() == hand && player.isUsingItem() && player.getUseItemRemainingTicks() > 0){
+        if(player.getUsedItemHand() == hand && player.isUsingItem() && player.getUseItemRemainingTicks() > 0)
+	    {
             Ember ember = Ember.getFromItem(itemStack);
             if (ember != null)
             {

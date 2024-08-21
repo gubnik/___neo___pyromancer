@@ -17,7 +17,7 @@ import net.minecraftforge.common.extensions.IForgeItem;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.common.ember.Ember;
 import xyz.nikgub.pyromancer.common.ember.EmberUtilities;
-import xyz.nikgub.pyromancer.common.events.EmberEvent;
+import xyz.nikgub.pyromancer.common.event.EmberEvent;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,8 +32,8 @@ import java.util.List;
  **/
 @Mixin(Item.class)
 @SuppressWarnings("unused")
-public abstract class ItemMixin implements FeatureElement, ItemLike, IForgeItem {
-
+public abstract class ItemMixin implements FeatureElement, ItemLike, IForgeItem
+{
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
     public void useMixinHead(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> callbackInfoReturnable)
     {
@@ -43,6 +43,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, IForgeItem 
         player.startUsingItem(hand);
         callbackInfoReturnable.setReturnValue(InteractionResultHolder.success(itemStack));
     }
+
     @Inject(method = "onUseTick", at = @At("HEAD"))
     public void onUseTickMixinHead(Level level, LivingEntity entity, ItemStack itemStack, int tick, CallbackInfo callbackInfo)
     {
@@ -52,26 +53,33 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, IForgeItem 
         EmberEvent event = EmberUtilities.getEmberEvent(player, ember, itemStack, tick);
         ember.tickEvent(level, entity, itemStack, tick);
     }
+
     @Inject(method = "finishUsingItem", at = @At("HEAD"))
-    public void finishUsingItem(ItemStack itemStack, Level level, LivingEntity entity, CallbackInfoReturnable<ItemStack> retVal) {
+    public void finishUsingItem(ItemStack itemStack, Level level, LivingEntity entity, CallbackInfoReturnable<ItemStack> retVal)
+	{
         Ember ember = Ember.getFromItem(itemStack);
         if(ember == null || !ember.isValidFor(itemStack.getItem())) return;
         ember.finishEvent(itemStack, level, entity);
         if(entity instanceof Player player)
             player.getCooldowns().addCooldown(this.asItem(), Ember.getFromItem(itemStack).getAnimation().getCooldown());
     }
+
     @Inject(method = "getUseAnimation", at = @At("HEAD"), cancellable = true)
-    public void getUseAnimationMixinHead(ItemStack itemStack, CallbackInfoReturnable<UseAnim> retVal) {
+    public void getUseAnimationMixinHead(ItemStack itemStack, CallbackInfoReturnable<UseAnim> retVal)
+	{
         Ember ember = Ember.getFromItem(itemStack);
         if(ember == null || !ember.isValidFor(itemStack.getItem())) return;
         retVal.setReturnValue(UseAnim.CUSTOM);
     }
+
     @Inject(method = "getUseDuration", at = @At("HEAD"), cancellable = true)
-    public void getUseDurationMixinHead(ItemStack itemStack, CallbackInfoReturnable<Integer> retVal) {
+    public void getUseDurationMixinHead(ItemStack itemStack, CallbackInfoReturnable<Integer> retVal)
+	{
         Ember ember = Ember.getFromItem(itemStack);
         if(ember == null || !ember.isValidFor(itemStack.getItem())) return;
         retVal.setReturnValue(Ember.getFromItem(itemStack).getAnimation().getUseTime());
     }
+
     @Inject(method = "appendHoverText", at = @At("HEAD"))
     public void appendHoverTextMixinHead(@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag, CallbackInfo callbackInfo)
     {

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "pyromancer:rimeblood_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "pyromancer:rimeblood"
+  }
+}

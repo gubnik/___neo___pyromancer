@@ -8,13 +8,15 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.common.items.*;
-import xyz.nikgub.pyromancer.common.items.armor.ArmorOfHellblazeMonarchItem;
-import xyz.nikgub.pyromancer.common.items.armor.MarauderArmorItem;
-import xyz.nikgub.pyromancer.common.items.armor.PyromancerArmorItem;
+import xyz.nikgub.pyromancer.common.item.*;
+import xyz.nikgub.pyromancer.common.item.armor.ArmorOfHellblazeMonarchItem;
+import xyz.nikgub.pyromancer.common.item.armor.MarauderArmorItem;
+import xyz.nikgub.pyromancer.common.item.armor.PyromancerArmorItem;
+import xyz.nikgub.pyromancer.data.ItemModelDatagen;
 
 @SuppressWarnings("unused")
-public class ItemRegistry {
+public class ItemRegistry
+{
     public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PyromancerMod.MOD_ID);
 
     // MATERIALS
@@ -24,12 +26,21 @@ public class ItemRegistry {
     public static RegistryObject<Item> DROPS_OF_MERCURY = ITEMS.register("drops_of_mercury", () -> new Item(new Item.Properties()));
     public static RegistryObject<Item> BRIMSTONE = ITEMS.register("brimstone", () -> new Item(new Item.Properties()));
     public static RegistryObject<Item> AMBER = ITEMS.register("amber", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> RIMEBLOOD = ITEMS.register("rimeblood", () -> new Item(new Item.Properties().rarity(RarityRegistry.FROST_RARITY)));
+    public static final RegistryObject<Item> RIMEBRASS_INGOT = ITEMS.register("rimebrass_ingot", () -> new Item(new Item.Properties().rarity(RarityRegistry.FROST_RARITY)));
+    public static final RegistryObject<Item> ANCIENT_PLATING = ITEMS.register("ancient_plating", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
 
     public static RegistryObject<Item> EVENBURNING_HEART = ITEMS.register("everburning_heart", () -> new Item(new Item.Properties().stacksTo(1)));
 
-    public static RegistryObject<Item> BLAZING_JOURNAL = ITEMS.register("blazing_journal", () -> new BlazingJournalItem(new Item.Properties()));
+    public static RegistryObject<BlazingJournalItem> BLAZING_JOURNAL = ITEMS.register("blazing_journal", () -> new BlazingJournalItem(new Item.Properties()));
 
-    public static RegistryObject<Item> COMPENDIUM_OF_FLAME = ITEMS.register("compendium_of_flame", () -> new CompendiumOfFlameItem(new Item.Properties()));
+    public static RegistryObject<CompendiumOfFlameItem> COMPENDIUM_OF_FLAME = ITEMS.register("compendium_of_flame",
+            () ->
+            {
+                CompendiumOfFlameItem item = new CompendiumOfFlameItem(new Item.Properties());
+                ItemModelDatagen.CUSTOM.add(item);
+                return item;
+            });
 
     public static RegistryObject<Item> EMBER_ITEM = ITEMS.register("ember", () -> new EmberItem(new Item.Properties()));
 
@@ -64,9 +75,16 @@ public class ItemRegistry {
             () -> new BombsackItem(new Item.Properties(), EntityTypeRegistry.BOMBSACK::get));
 
     public static RegistryObject<SizzlingHandItem> SIZZLING_HAND = ITEMS.register("sizzling_hand",
-            () -> new SizzlingHandItem(new Item.Properties()));
+            () ->
+            {
+                SizzlingHandItem item = new SizzlingHandItem(new Item.Properties());
+                ItemModelDatagen.CUSTOM.add(item);
+                return item;
+            });
+
     public static RegistryObject<CourtOfEmbersItem> COURT_OF_EMBERS = ITEMS.register("court_of_embers",
             () -> new CourtOfEmbersItem(new Item.Properties()));
+
     public static RegistryObject<SymbolOfSunItem> SYMBOL_OF_SUN = ITEMS.register("symbol_of_sun",
             () -> new SymbolOfSunItem(new Item.Properties()));
 
@@ -97,6 +115,27 @@ public class ItemRegistry {
     public static RegistryObject<Item> AMBER_MACE = ITEMS.register("amber_mace",
             () -> new MaceItem(TierRegistry.AMBER, new Item.Properties()));
 
+    public static final RegistryObject<Item> HOARFROST_GREATSWORD = ITEMS.register("hoarfrost_greatsword",
+            () ->
+            {
+                Item item = new HoarfrostGreatswordItem(new Item.Properties().rarity(RarityRegistry.FROST_RARITY));
+                ItemModelDatagen.CUSTOM.add(item);
+                return item;
+            });
+
+    public static final RegistryObject<Item> SPEAR_OF_MOROZ = ITEMS.register("spear_of_moroz",
+            () ->
+            {
+                Item item = new SpearOfMorozItem(new Item.Properties().rarity(RarityRegistry.FROST_RARITY));
+                ItemModelDatagen.CUSTOM.add(item);
+                return item;
+            });
+
+    public static final RegistryObject<SpawnEggItem> FROSTCOPPER_GOLEM_SPAWN_EGG = ITEMS.register("frostcopper_golem_spawn_egg",
+            () -> new ForgeSpawnEggItem(EntityTypeRegistry.FROSTCOPPER_GOLEM,
+                    GeneralUtils.rgbaToColorInteger(150, 90, 0, 255),
+                    GeneralUtils.rgbaToColorInteger(21, 90, 255, 255),
+                    new Item.Properties()));
     // ARMOR
     public static RegistryObject<Item> MARAUDER_HELM = ITEMS.register("marauder_helm",
             () -> new MarauderArmorItem(ArmorItem.Type.HELMET));

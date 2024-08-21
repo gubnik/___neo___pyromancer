@@ -5,8 +5,8 @@ import xyz.nikgub.incandescent.common.util.GeneralUtils;
 
 import java.util.function.Function;
 
-public class EmberType {
-
+public class EmberType
+{
     private static final int TICK_LIMIT = 40;
 
     private final String name;
@@ -22,21 +22,25 @@ public class EmberType {
     public static final EmberType HELLBLAZE = new EmberType("hellblaze", GeneralUtils.rgbaToColorInteger(64, 32,24,224),
             functionBuilder(GeneralUtils.rgbToColorInteger(140, 60, 80), GeneralUtils.rgbToColorInteger(180, 40, 100)));
 
-    public EmberType(String name, int color, Function<Integer, Integer> colorFunction) {
+    public EmberType(String name, int color, Function<Integer, Integer> colorFunction)
+	{
         this.name = name;
         this.color = color;
         this.colorFunction = colorFunction;
     }
 
-    public String getName() {
+    public String getName()
+	{
         return name;
     }
 
-    public int getColor() {
+    public int getColor()
+	{
         return color;
     }
 
-    public Function<Integer, Integer> getTextColorFunction() {
+    public Function<Integer, Integer> getTextColorFunction()
+	{
         return colorFunction;
     }
 

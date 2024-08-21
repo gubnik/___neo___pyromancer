@@ -15,17 +15,20 @@ import xyz.nikgub.pyromancer.common.ember.Ember;
 
 @SuppressWarnings("unused")
 @Mixin(value = HumanoidModel.class)
-public abstract class HumanoidModelMixin<T extends LivingEntity> extends AgeableListModel<T> implements ArmedModel, HeadedModel {
+public abstract class HumanoidModelMixin<T extends LivingEntity> extends AgeableListModel<T> implements ArmedModel, HeadedModel
+{
 
     @Inject(method = "poseLeftArm", at = @At("HEAD"), cancellable = true)
     public void poseLeftArmMixinHead(T entity, CallbackInfo callbackInfo)
     {
         ItemStack itemStack = entity.getUseItem();
         Ember ember = Ember.getFromItem(itemStack);
-        if(ember != null) {
+        if(ember != null)
+	    {
             HumanoidModel<T> model = (HumanoidModel<T>) (Object) this;
             if (entity.getUseItemRemainingTicks() > 0 //&& Ember.emberItemStackPredicate(itemStack)
-            ) {
+            )
+	        {
                 ember.getAnimation().getThirdPersonAnimation().run(model, entity, HumanoidArm.LEFT);
                 callbackInfo.cancel();
             }
@@ -37,10 +40,11 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
     {
         ItemStack itemStack = entity.getUseItem();
         Ember ember = Ember.getFromItem(itemStack);
-        if(ember != null) {
+        if(ember != null)
+	    {
             HumanoidModel<T> model = (HumanoidModel<T>) (Object) this;
-            if (entity.getUseItemRemainingTicks() > 0 //&& Ember.emberItemStackPredicate(itemStack)
-            ) {
+            if (entity.getUseItemRemainingTicks() > 0)
+	        {
                 ember.getAnimation().getThirdPersonAnimation().run(model, entity, HumanoidArm.RIGHT);
                 callbackInfo.cancel();
             }

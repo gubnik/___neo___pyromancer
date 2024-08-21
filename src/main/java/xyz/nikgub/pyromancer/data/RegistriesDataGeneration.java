@@ -20,9 +20,9 @@ public class RegistriesDataGeneration extends DatapackBuiltinEntriesProvider {
 
     private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
             .add(Registries.DAMAGE_TYPE, DamageTypeDatagen::generate)
-            .add(Registries.BIOME, BiomesDatagen::bootstrap)
-            .add(Registries.CONFIGURED_CARVER, ConfiguredCarversDatagen::bootstrap)
-            .add(Registries.CONFIGURED_FEATURE, ConfiguredFeaturesDatagen::bootstrap)
+            .add(Registries.BIOME, BiomeDatagen::bootstrap)
+            .add(Registries.CONFIGURED_CARVER, ConfiguredCarverDatagen::bootstrap)
+            .add(Registries.CONFIGURED_FEATURE, ConfiguredFeatureDatagen::bootstrap)
             .add(Registries.PLACED_FEATURE, PlacedFeatureDatagen::bootstrap);
 
     private RegistriesDataGeneration(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
@@ -35,14 +35,14 @@ public class RegistriesDataGeneration extends DatapackBuiltinEntriesProvider {
                 new AdvancementDatagen.PyromancerAdvancements()
         );
         generator.addProvider(isServer, new AdvancementDatagen(output, provider, helper, list));
-        generator.addProvider(isServer, new RecipesDatagen(output));
+        generator.addProvider(isServer, new RecipeDatagen(output));
         var blockTags = generator.addProvider(isServer, new BlockTagDatagen(output, provider, PyromancerMod.MOD_ID, helper));
         generator.addProvider(isServer, new DamageTypeDatagen(output, provider.thenApply(RegistriesDataGeneration::append), helper));
-        generator.addProvider(isServer, new ItemModelsDatagen(output, helper));
-        generator.addProvider(isServer, new BlockModelsDatagen(output, helper));
+        generator.addProvider(isServer, new ItemModelDatagen(output, helper));
+        var blockModelsDatagen = generator.addProvider(isServer, new BlockModelDatagen(output, helper));
         generator.addProvider(isServer, new BlockStateDatagen(output, helper));
-        generator.addProvider(isServer, new LootTablesDatagen(output));
-        generator.addProvider(isServer, new ItemTagsDatagen(output, provider, blockTags.contentsGetter(), helper));
+        generator.addProvider(isServer, new LootTableDatagen(output));
+        generator.addProvider(isServer, new ItemTagDatagen(output, provider, blockTags.contentsGetter(), helper));
     }
 
     private static HolderLookup.Provider append(HolderLookup.Provider original) {

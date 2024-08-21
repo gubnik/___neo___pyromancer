@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "pyromancer:item/hoarfrost_greatsword_big"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "pyromancer:item/hoarfrost_greatsword_small"
+    },
+    "ground": {
+      "parent": "pyromancer:item/hoarfrost_greatsword_small"
+    },
+    "fixed": {
+      "parent": "pyromancer:item/hoarfrost_greatsword_small"
+    }
+  }
+}

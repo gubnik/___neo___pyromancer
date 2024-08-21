@@ -12,12 +12,13 @@ import org.jetbrains.annotations.NotNull;
  * @author nikgub_
  */
 @NotNull
-public abstract class EmberAnimation {
-
+public abstract class EmberAnimation
+{
     private final int useTime;
     private final int cooldown;
 
-    public EmberAnimation(int useTime, int cooldown) {
+    public EmberAnimation(int useTime, int cooldown)
+	{
         this.useTime = useTime;
         this.cooldown = cooldown;
     }
@@ -26,11 +27,13 @@ public abstract class EmberAnimation {
 
     public abstract FirstPersonAnimation getFirstPersonAnimation();
 
-    public int getUseTime() {
+    public int getUseTime()
+	{
         return useTime;
     }
 
-    public int getCooldown() {
+    public int getCooldown()
+	{
         return cooldown;
     }
 

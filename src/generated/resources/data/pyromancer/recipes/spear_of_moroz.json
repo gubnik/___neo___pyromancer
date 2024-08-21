@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "pyromancer:ancient_plating"
+    },
+    "C": {
+      "item": "pyromancer:rimebrass_ingot"
+    }
+  },
+  "pattern": [
+    " # ",
+    " # ",
+    "CCC"
+  ],
+  "result": {
+    "item": "pyromancer:spear_of_moroz"
+  },
+  "show_notification": true
+}

@@ -12,26 +12,31 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageScaling;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import xyz.nikgub.pyromancer.PyromancerMod;
 import org.jetbrains.annotations.NotNull;
+import xyz.nikgub.pyromancer.PyromancerMod;
 
 import java.util.concurrent.CompletableFuture;
 
-public class DamageTypeDatagen extends TagsProvider<DamageType> {
+public class DamageTypeDatagen extends TagsProvider<DamageType>
+{
+    public static final ResourceKey<DamageType> FLAME_KEY = register("flame");
+    public static final ResourceKey<DamageType> HELLBLAZE_KEY = register("hellblaze");
+    public static final ResourceKey<DamageType> SOULFLAME_KEY = register("soulflame");
 
-    public static ResourceKey<DamageType> FLAME_KEY = register("flame");
-    public static ResourceKey<DamageType> HELLBLAZE_KEY = register("hellblaze");
-    public static ResourceKey<DamageType> SOULFLAME_KEY = register("soulflame");
+    public static final ResourceKey<DamageType> BOMBSACK_KEY = register("bombsack");
 
-    public static ResourceKey<DamageType> BOMBSACK_KEY = register("bombsack");
+    public static final ResourceKey<DamageType> SIZZLING_HAND_KEY = register("sizzling_hand");
+    public static final ResourceKey<DamageType> COURT_OF_EMBERS_KEY = register("court_of_embers");
+    public static final ResourceKey<DamageType> SYMBOL_OF_SUN_KEY = register("symbol_of_sun");
 
-    public static ResourceKey<DamageType> SIZZLING_HAND_KEY = register("sizzling_hand");
-    public static ResourceKey<DamageType> COURT_OF_EMBERS_KEY = register("court_of_embers");
-    public static ResourceKey<DamageType> SYMBOL_OF_SUN_KEY = register("symbol_of_sun");
+    public static final ResourceKey<DamageType> FIREBRIAR_KEY = register("firebriar");
+    public static final ResourceKey<DamageType> BLAZING_JOURNAL_PROJECTION_KEY = register("blazing_journal_projection");
+    public static final ResourceKey<DamageType> UNBURNED_KEY = register("unburned");
 
-    public static ResourceKey<DamageType> FIREBRIAR_KEY = register("firebriar");
-    public static ResourceKey<DamageType> BLAZING_JOURNAL_PROJECTION_KEY = register("blazing_journal_projection");
-    public static ResourceKey<DamageType> UNBURNED_KEY = register("unburned");
+    public static final ResourceKey<DamageType> HOARFROST_GREATSWORD_KEY = register("hoarfrost_greatsword");
+    public static final ResourceKey<DamageType> SPEAR_OF_MOROZ_KEY = register("spear_of_moroz");
+    public static final ResourceKey<DamageType> FROSTCOPPER_GOLEM_STOMP_KEY = register("frostcopper_golem_stomp");
+    
 
     public static DamageType FLAME = new DamageType(FLAME_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
     public static DamageType HELLBLAZE = new DamageType(HELLBLAZE_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
@@ -47,7 +52,12 @@ public class DamageTypeDatagen extends TagsProvider<DamageType> {
     public static DamageType BLAZING_JOURNAL_PROJECTION = new DamageType(BLAZING_JOURNAL_PROJECTION_KEY.location().getPath(), DamageScaling.NEVER, 0);
     public static DamageType UNBURNED = new DamageType(UNBURNED_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0);
 
-    public static ResourceKey<DamageType> register(String name) {
+    public static DamageType HOARFROST_GREATSWORD = new DamageType(HOARFROST_GREATSWORD_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1f);
+    public static DamageType SPEAR_OF_MOROZ = new DamageType(SPEAR_OF_MOROZ_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1f);
+    public static DamageType FROSTCOPPER_GOLEM_STOMP = new DamageType(FROSTCOPPER_GOLEM_STOMP_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.2f);
+
+    public static ResourceKey<DamageType> register(String name)
+	{
         return ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(PyromancerMod.MOD_ID, name));
     }
 
@@ -76,12 +86,14 @@ public class DamageTypeDatagen extends TagsProvider<DamageType> {
         return TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(PyromancerMod.MOD_ID, name));
     }
 
-    public DamageTypeDatagen(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
+    public DamageTypeDatagen(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper)
+	{
         super(output, Registries.DAMAGE_TYPE, lookupProvider, PyromancerMod.MOD_ID, existingFileHelper);
     }
 
     @Override
-    protected void addTags(HolderLookup.@NotNull Provider p_256380_) {
+    protected void addTags(HolderLookup.@NotNull Provider p_256380_)
+	{
         tag(IS_EMBER)
                 .add(FLAME_KEY)
                 .add(HELLBLAZE_KEY)
@@ -107,7 +119,8 @@ public class DamageTypeDatagen extends TagsProvider<DamageType> {
                 .add(SOULFLAME_KEY);
     }
 
-    public static void generate(BootstapContext<DamageType> bootstrap) {
+    public static void generate(BootstapContext<DamageType> bootstrap)
+	{
         bootstrap.register(FLAME_KEY, FLAME);
         bootstrap.register(HELLBLAZE_KEY, HELLBLAZE);
         bootstrap.register(SOULFLAME_KEY, SOULFLAME);
@@ -118,5 +131,8 @@ public class DamageTypeDatagen extends TagsProvider<DamageType> {
         bootstrap.register(FIREBRIAR_KEY, FIREBRIAR);
         bootstrap.register(BLAZING_JOURNAL_PROJECTION_KEY, BLAZING_JOURNAL_PROJECTION);
         bootstrap.register(UNBURNED_KEY, UNBURNED);
+        bootstrap.register(HOARFROST_GREATSWORD_KEY, HOARFROST_GREATSWORD);
+        bootstrap.register(SPEAR_OF_MOROZ_KEY, SPEAR_OF_MOROZ);
+        bootstrap.register(FROSTCOPPER_GOLEM_STOMP_KEY, FROSTCOPPER_GOLEM_STOMP);
     }
 }

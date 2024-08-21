@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "pyromancer:rimeblood"
+    },
+    {
+      "item": "pyromancer:rimeblood"
+    },
+    {
+      "item": "pyromancer:rimeblood"
+    },
+    {
+      "item": "pyromancer:rimeblood"
+    },
+    {
+      "item": "minecraft:copper_ingot"
+    },
+    {
+      "item": "minecraft:copper_ingot"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    }
+  ],
+  "result": {
+    "item": "pyromancer:rimebrass_ingot"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "pyromancer:item/spear_of_moroz_big"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "pyromancer:item/spear_of_moroz_small"
+    },
+    "ground": {
+      "parent": "pyromancer:item/spear_of_moroz_small"
+    },
+    "fixed": {
+      "parent": "pyromancer:item/spear_of_moroz_small"
+    }
+  }
+}

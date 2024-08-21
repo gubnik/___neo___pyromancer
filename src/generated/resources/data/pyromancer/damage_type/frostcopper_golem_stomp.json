@@ -1,0 +1,5 @@
+{
+  "exhaustion": 0.2,
+  "message_id": "frostcopper_golem_stomp",
+  "scaling": "when_caused_by_living_non_player"
+}

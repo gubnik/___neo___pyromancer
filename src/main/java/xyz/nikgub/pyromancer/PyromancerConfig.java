@@ -1,16 +1,15 @@
 package xyz.nikgub.pyromancer;
 
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.registries.ForgeRegistries;
+import xyz.nikgub.incandescent.Incandescent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = PyromancerMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PyromancerConfig
@@ -38,17 +37,25 @@ public class PyromancerConfig
             .comment("Defines how often is Flaming Grove biome generated")
             .defineInRange("blazeValue", 5, 0, 10);
 
-    public static final ForgeConfigSpec.ConfigValue<Key> EMBERS_DESCRIPTION_KEY = BUILDER
+    public static final ForgeConfigSpec.ConfigValue<Incandescent.Key> EMBERS_DESCRIPTION_KEY = BUILDER
             .comment("Defines a key to show Ember description on item")
-            .defineEnum("emberDescriptionKey", Key.ALT);
+            .defineEnum("emberDescriptionKey", Incandescent.Key.ALT);
 
-    public static final ForgeConfigSpec.ConfigValue<Key> QUILL_DESCRIPTION_KEY = BUILDER
+    public static final ForgeConfigSpec.ConfigValue<Incandescent.Key> QUILL_DESCRIPTION_KEY = BUILDER
             .comment("Defines a key to show quill attack description")
-            .defineEnum("quillDescriptionKey", Key.ALT);
+            .defineEnum("quillDescriptionKey", Incandescent.Key.ALT);
 
-    public static final ForgeConfigSpec.ConfigValue<Key> PYROMANCY_DESCRIPTION_KEY = BUILDER
+    public static final ForgeConfigSpec.ConfigValue<Incandescent.Key> PYROMANCY_DESCRIPTION_KEY = BUILDER
             .comment("Defines a key to show pyromancy description")
-            .defineEnum("pyromancyDescriptionKey", Key.ALT);
+            .defineEnum("pyromancyDescriptionKey", Incandescent.Key.ALT);
+
+    private static final ForgeConfigSpec.EnumValue<Incandescent.Key> DESC_TOOLTIP_KEY = BUILDER
+            .comment("Defines the key that reveals item's hidden description")
+            .defineEnum("desc_tooltip_key", Incandescent.Key.SHIFT);
+
+    private static final ForgeConfigSpec.EnumValue<Incandescent.Key> LORE_TOOLTIP_KEY = BUILDER
+            .comment("Defines the key that reveals item's hidden lore description")
+            .defineEnum("lore_tooltip_key", Incandescent.Key.ALT);
 
     static final ForgeConfigSpec SPEC = BUILDER.build();
     public static List<? extends String> emberBlacklist;
@@ -56,13 +63,17 @@ public class PyromancerConfig
     public static int blazingJournalMaxCapacity;
     public static int blazeValue;
     public static int flamingGroveRate;
-    public static Key embersDescriptionKey;
-    public static Key quillDescriptionKey;
-    public static Key pyromancyDescriptionKey;
+    public static Incandescent.Key embersDescriptionKey;
+    public static Incandescent.Key quillDescriptionKey;
+    public static Incandescent.Key pyromancyDescriptionKey;
+    public static Incandescent.Key descTooltipKey;
+    public static Incandescent.Key loreTooltipKey;
 
     @SubscribeEvent
-    public static void onLoad(final ModConfigEvent event)
+    static void onLoad (final ModConfigEvent event)
     {
+        descTooltipKey = DESC_TOOLTIP_KEY.get();
+        loreTooltipKey = LORE_TOOLTIP_KEY.get();
         emberBlacklist = EMBERS_BLACKLIST.get();
         emberAdditionalItems = EMBERS_ADDITIONAL_ITEMS.get();
         blazingJournalMaxCapacity = BLAZING_JOURNAL_MAX_CAPACITY.get();
@@ -73,23 +84,8 @@ public class PyromancerConfig
         pyromancyDescriptionKey = PYROMANCY_DESCRIPTION_KEY.get();
     }
 
-    @SuppressWarnings("unused")
-    public enum Key
-    {
-        ALT(Screen::hasAltDown),
-        CTRL(Screen::hasControlDown),
-        SHIFT(Screen::hasShiftDown);
-        private final Supplier<Boolean> supplier;
-        Key(Supplier<Boolean> supplier)
-        {
-            this.supplier = supplier;
-        }
-        public Supplier<Boolean> getSupplier() {
-            return supplier;
-        }
-    }
-
-    public static List<String> defaultBlacklist() {
+    public static List<String> defaultBlacklist()
+	{
         return new ArrayList<>();
     }
 

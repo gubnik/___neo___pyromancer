@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:block_column",
+  "config": {
+    "allowed_placement": {
+      "type": "minecraft:matching_fluids",
+      "fluids": "minecraft:empty"
+    },
+    "direction": "up",
+    "layers": [
+      {
+        "height": 1,
+        "provider": {
+          "type": "minecraft:randomized_int_state_provider",
+          "property": "layers",
+          "source": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "minecraft:snow",
+              "Properties": {
+                "layers": "1"
+              }
+            }
+          },
+          "values": {
+            "type": "minecraft:uniform",
+            "value": {
+              "max_inclusive": 6,
+              "min_inclusive": 1
+            }
+          }
+        }
+      }
+    ],
+    "prioritize_tip": true
+  }
+}

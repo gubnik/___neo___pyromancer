@@ -5,14 +5,16 @@
   "refmap": "pyromancer.refmap.json",
   "mixins": [
     "ItemMixin",
-    "ItemStackMixin"
+    "ItemStackMixin",
+    "LivingEntityMixin",
+    "PlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
+    "client.HumanoidModelMixin",
     "client.ItemInHandRendererMixin",
-    "client.ItemRendererMixin",
-    "client.HumanoidModelMixin"
+    "client.ItemRendererMixin"
   ]
 }

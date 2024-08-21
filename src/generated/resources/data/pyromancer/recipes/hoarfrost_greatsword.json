@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "pyromancer:ancient_plating"
+    },
+    "C": {
+      "item": "pyromancer:rimebrass_ingot"
+    }
+  },
+  "pattern": [
+    " # ",
+    "C#C",
+    " C "
+  ],
+  "result": {
+    "item": "pyromancer:hoarfrost_greatsword"
+  },
+  "show_notification": true
+}

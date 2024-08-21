@@ -1,0 +1,12 @@
+{
+  "feature": "pyromancer:snow_layer",
+  "placement": [
+    {
+      "type": "minecraft:count_on_every_layer",
+      "count": 64
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

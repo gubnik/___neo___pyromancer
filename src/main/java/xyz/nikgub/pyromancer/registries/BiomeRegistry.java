@@ -10,8 +10,8 @@ import xyz.nikgub.pyromancer.PyromancerMod;
 
 import java.util.List;
 
-public class BiomeRegistry {
-
+public class BiomeRegistry
+{
     private static final List<ResourceKey<Biome>> BIOMES = Lists.newArrayList();
 
     public static final ResourceKey<Biome> FLAMING_GROVE = register("flaming_grove");

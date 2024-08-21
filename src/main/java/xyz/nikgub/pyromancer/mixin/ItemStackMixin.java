@@ -14,22 +14,28 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.ember.Ember;
-import xyz.nikgub.pyromancer.common.items.EmberItem;
+import xyz.nikgub.pyromancer.common.item.EmberItem;
 
 import java.util.function.Function;
 
 @Mixin(ItemStack.class)
-public abstract class ItemStackMixin implements net.minecraftforge.common.extensions.IForgeItemStack {
+public abstract class ItemStackMixin implements net.minecraftforge.common.extensions.IForgeItemStack
+{
     @Shadow
     private static final Component DISABLED_ITEM_TOOLTIP = Component.translatable("item.disabled").withStyle(ChatFormatting.RED);
+
     @Shadow
     private static final Style LORE_STYLE = Style.EMPTY.withColor(ChatFormatting.DARK_PURPLE).withItalic(true);
+
     @Shadow
     public abstract CompoundTag getTagElement(String string);
+
     @Shadow
     public abstract Item getItem();
+
     @Inject(method = "getHoverName", at = @At("HEAD"), cancellable = true)
-    public void getHoverNameMixinHead(CallbackInfoReturnable<Component> retVal) {
+    public void getHoverNameMixinHead(CallbackInfoReturnable<Component> retVal)
+	{
         ItemStack self = (ItemStack) (Object) this;
         Function<Integer, Integer> colorFunction;
         Ember ember = Ember.getFromItem(self);
@@ -42,14 +48,18 @@ public abstract class ItemStackMixin implements net.minecraftforge.common.extens
         CompoundTag compoundtag = this.getTagElement("display");
         if (compoundtag != null && compoundtag.contains("Name", 8))
         {
-            try {
+            try
+            {
                 MutableComponent component = Component.Serializer.fromJson(compoundtag.getString("Name"));
-                if (component != null) {
+                if (component != null)
+	            {
                     component = component.withStyle(component.getStyle().withColor(colorFunction.apply((PyromancerMod.clientTick))));
                     retVal.setReturnValue(component);
                 }
                 compoundtag.remove("Name");
-            } catch (Exception exception) {
+            }
+            catch (Exception exception)
+	        {
                 compoundtag.remove("Name");
             }
         }

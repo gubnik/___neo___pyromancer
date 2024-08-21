@@ -22,21 +22,26 @@ import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.client.animations.EmberAnimationList;
+import xyz.nikgub.pyromancer.client.animation.EmberAnimationList;
 import xyz.nikgub.pyromancer.common.ember.Ember;
 import xyz.nikgub.pyromancer.common.ember.EmberType;
-import xyz.nikgub.pyromancer.common.entities.attack_effects.FlamingGuillotineEntity;
-import xyz.nikgub.pyromancer.common.items.MaceItem;
+import xyz.nikgub.pyromancer.common.entity.attack_effect.FlamingGuillotineEntity;
+import xyz.nikgub.pyromancer.common.item.MaceItem;
 
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
 
-public class EmberRegistry{
+public class EmberRegistry
+{
     public static String EMBER_TAG = "___PYROMANCER_EMBER_TAG___";
+
     public static final ResourceKey<Registry<Ember>> EMBER_REGISTRY_KEY = ResourceKey.createRegistryKey(new ResourceLocation(PyromancerMod.MOD_ID, "embers"));
+
     public static final DeferredRegister<Ember> EMBERS = DeferredRegister.create(EMBER_REGISTRY_KEY, PyromancerMod.MOD_ID);
+
     public static final Supplier<IForgeRegistry<Ember>> REGISTRY = EMBERS.makeRegistry(() -> new RegistryBuilder<Ember>().disableOverrides());
+
     public static RegistryObject<Ember> registerEmber(Ember ember)
     {
         return EMBERS.register(ember.getName(), () -> ember);

@@ -19,10 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.common.items.BlazingJournalItem;
-import xyz.nikgub.pyromancer.common.items.CompendiumOfFlameItem;
-import xyz.nikgub.pyromancer.common.items.QuillItem;
-import xyz.nikgub.pyromancer.common.items.UsablePyromancyItem;
+import xyz.nikgub.pyromancer.common.item.*;
 import xyz.nikgub.pyromancer.registries.ItemRegistry;
 
 import javax.annotation.Nullable;
@@ -30,14 +27,27 @@ import java.util.List;
 
 @Mixin(ItemRenderer.class)
 @SuppressWarnings("unused")
-public abstract class ItemRendererMixin {
+public abstract class ItemRendererMixin
+{
     @Shadow
     public abstract void renderModelLists(BakedModel p_115190_, ItemStack p_115191_, int p_115192_, int p_115193_, PoseStack p_115194_, VertexConsumer p_115195_);
+
     @Shadow
     public abstract BakedModel getModel(ItemStack p_174265_, @Nullable Level p_174266_, @Nullable LivingEntity p_174267_, int p_174268_);
 
+    @Inject(method = "render", at = @At("HEAD"), cancellable = true)
+    public void renderMixinHead(ItemStack itemStack, ItemDisplayContext displayContext, boolean b, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, BakedModel bakedModel, CallbackInfo callbackInfo)
+    {
+        if (itemStack.getItem() == ItemRegistry.SPEAR_OF_MOROZ.get() && (displayContext == ItemDisplayContext.THIRD_PERSON_LEFT_HAND || displayContext == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND)
+                && itemStack.getOrCreateTag().getInt(SpearOfMorozItem.ACTION_TAG) == 1)
+        {
+            poseStack.rotateAround(Axis.XN.rotationDegrees(180), 0, 0, 0.05F);
+        }
+    }
+
     @Inject(method = "render", at = @At("TAIL"), cancellable = true)
-    public void renderMixinTail(ItemStack itemStack, ItemDisplayContext displayContext, boolean b, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, BakedModel bakedModel, CallbackInfo callbackInfo) {
+    public void renderMixinTail(ItemStack itemStack, ItemDisplayContext displayContext, boolean b, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, BakedModel bakedModel, CallbackInfo callbackInfo)
+	{
         if(!(itemStack.getItem() instanceof BlazingJournalItem blazingJournalItem)) return;
         pyromancerNew$quillRenderManager(itemStack, poseStack, displayContext, multiBufferSource, b, i, j);
         if(blazingJournalItem instanceof CompendiumOfFlameItem && !itemStack.getOrCreateTag().getBoolean(CompendiumOfFlameItem.IS_OFFHAND))
@@ -109,10 +119,12 @@ public abstract class ItemRendererMixin {
         }
     }
     @Inject(method = "renderQuadList", at = @At("HEAD"), cancellable = true)
-    public void renderQuadList(PoseStack poseStack, VertexConsumer vertexConsumer, List<BakedQuad> bakedQuads, ItemStack itemStack, int p_115167_, int p_115168_, CallbackInfo callbackInfo){
+    public void renderQuadList(PoseStack poseStack, VertexConsumer vertexConsumer, List<BakedQuad> bakedQuads, ItemStack itemStack, int p_115167_, int p_115168_, CallbackInfo callbackInfo)
+	{
         if(itemStack.getItem() instanceof UsablePyromancyItem && itemStack.getOrCreateTag().getBoolean(CompendiumOfFlameItem.PYROMANCY_CUSTOM_RENDER_TAG)) {
             PoseStack.Pose posestack$pose = poseStack.last();
-            for (BakedQuad bakedquad : bakedQuads) {
+            for (BakedQuad bakedquad : bakedQuads)
+	{
                 float f = 1f;
                 float f1 = 0.5f;
                 float f2 = 0.0f;

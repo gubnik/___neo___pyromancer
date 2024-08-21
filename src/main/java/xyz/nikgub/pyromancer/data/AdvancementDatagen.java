@@ -21,8 +21,10 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-public class AdvancementDatagen extends ForgeAdvancementProvider {
-    public AdvancementDatagen(PackOutput output, CompletableFuture<HolderLookup.Provider> registries, ExistingFileHelper existingFileHelper, List<AdvancementGenerator> subProviders) {
+public class AdvancementDatagen extends ForgeAdvancementProvider
+{
+    public AdvancementDatagen(PackOutput output, CompletableFuture<HolderLookup.Provider> registries, ExistingFileHelper existingFileHelper, List<AdvancementGenerator> subProviders)
+	{
         super(output, registries, existingFileHelper, subProviders);
     }
 
@@ -69,7 +71,7 @@ public class AdvancementDatagen extends ForgeAdvancementProvider {
                             null,
                             FrameType.GOAL,
                             true, true, false)
-                    .addCriterion("pyromancy_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(ItemTagsDatagen.PYROMANCY).build()))
+                    .addCriterion("pyromancy_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(ItemTagDatagen.PYROMANCY).build()))
                     .save(saver, "pyromancer:pyromancer/pyromancy_obtained");
 
             Advancement symbol_of_sun_obtained = Advancement.Builder.advancement().parent(pyromancy_obtained)
