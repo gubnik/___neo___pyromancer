@@ -7,23 +7,32 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import xyz.nikgub.pyromancer.common.enchantment.BlazingJournalEnchantment;
 
 @SuppressWarnings("unused")
-public class BlazingJournalAttackEvent extends AttackEntityEvent {
+public class BlazingJournalAttackEvent extends AttackEntityEvent
+{
     private final ItemStack blazingJournal;
     private final ItemStack weapon;
     private final BlazingJournalEnchantment enchantment;
-    public BlazingJournalAttackEvent(Player player, Entity target, ItemStack blazingJournal, ItemStack weapon, BlazingJournalEnchantment enchantment) {
+
+    public BlazingJournalAttackEvent (Player player, Entity target, ItemStack blazingJournal, ItemStack weapon, BlazingJournalEnchantment enchantment)
+    {
         super(player, target);
         this.blazingJournal = blazingJournal;
         this.weapon = weapon;
         this.enchantment = enchantment;
     }
-    public ItemStack getBlazingJournal() {
+
+    public ItemStack getBlazingJournal ()
+    {
         return blazingJournal;
     }
-    public ItemStack getWeapon() {
+
+    public ItemStack getWeapon ()
+    {
         return weapon;
     }
-    public BlazingJournalEnchantment getEnchantment() {
+
+    public BlazingJournalEnchantment getEnchantment ()
+    {
         return enchantment;
     }
 }

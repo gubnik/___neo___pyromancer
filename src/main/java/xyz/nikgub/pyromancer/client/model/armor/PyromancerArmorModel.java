@@ -32,8 +32,8 @@ public class PyromancerArmorModel<T extends LivingEntity> extends EntityModel<T>
     public final ModelPart leftBoot;
     public final ModelPart leggings;
 
-    public PyromancerArmorModel(ModelPart root)
-	{
+    public PyromancerArmorModel (ModelPart root)
+    {
         this.head = root.getChild("helmet");
         this.body = root.getChild("chestplate");
         this.rightLeg = root.getChild("leg_right");
@@ -46,8 +46,8 @@ public class PyromancerArmorModel<T extends LivingEntity> extends EntityModel<T>
     }
 
     @SuppressWarnings("unused")
-    public static LayerDefinition createBodyLayer()
-	{
+    public static LayerDefinition createBodyLayer ()
+    {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
@@ -93,14 +93,40 @@ public class PyromancerArmorModel<T extends LivingEntity> extends EntityModel<T>
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
-    @Override
-    public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
-	{
+    public static HumanoidModel<? extends LivingEntity> getHumanoidModel (EquipmentSlot slot)
+    {
+        PyromancerArmorModel<LivingEntity> testModel = new PyromancerArmorModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(PyromancerArmorModel.LAYER_LOCATION));
+        return new HumanoidModel<>(new ModelPart(
+                Collections.emptyList(),
+                Map.of(
+                        "left_leg", slot.equals(EquipmentSlot.FEET) ? testModel.leftBoot :
+                                slot.equals(EquipmentSlot.LEGS) ? testModel.leftLeg : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+
+                        "right_leg", slot.equals(EquipmentSlot.FEET) ? testModel.rightBoot :
+                                slot.equals(EquipmentSlot.LEGS) ? testModel.rightLeg : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+
+                        "hat", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+
+                        "head", slot.equals(EquipmentSlot.HEAD) ? testModel.head : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+
+                        "body", slot.equals(EquipmentSlot.CHEST) ? testModel.body :
+                                slot.equals(EquipmentSlot.LEGS) ? testModel.leggings : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+
+                        "left_arm", slot.equals(EquipmentSlot.CHEST) ? testModel.leftArm : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+
+                        "right_arm", slot.equals(EquipmentSlot.CHEST) ? testModel.rightArm : new ModelPart(Collections.emptyList(), Collections.emptyMap())
+                )
+        ));
     }
 
     @Override
-    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha)
-	{
+    public void setupAnim (@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
+    {
+    }
+
+    @Override
+    public void renderToBuffer (@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha)
+    {
         head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         rightLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
@@ -109,31 +135,5 @@ public class PyromancerArmorModel<T extends LivingEntity> extends EntityModel<T>
         leftBoot.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         rightArm.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         leftArm.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-    }
-
-    public static HumanoidModel<? extends LivingEntity> getHumanoidModel(EquipmentSlot slot)
-	{
-        PyromancerArmorModel<LivingEntity> testModel = new PyromancerArmorModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(PyromancerArmorModel.LAYER_LOCATION));
-        return new HumanoidModel<>(new ModelPart(
-                Collections.emptyList(),
-                Map.of(
-                        "left_leg", slot.equals(EquipmentSlot.FEET) ? testModel.leftBoot:
-                                slot.equals(EquipmentSlot.LEGS) ? testModel.leftLeg : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-
-                        "right_leg", slot.equals(EquipmentSlot.FEET) ? testModel.rightBoot:
-                                slot.equals(EquipmentSlot.LEGS) ? testModel.rightLeg : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-
-                        "hat", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-
-                        "head", slot.equals(EquipmentSlot.HEAD) ? testModel.head : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-
-                        "body", slot.equals(EquipmentSlot.CHEST) ? testModel.body:
-                                slot.equals(EquipmentSlot.LEGS) ? testModel.leggings : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-
-                        "left_arm", slot.equals(EquipmentSlot.CHEST) ? testModel.leftArm: new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-
-                        "right_arm", slot.equals(EquipmentSlot.CHEST) ? testModel.rightArm: new ModelPart(Collections.emptyList(), Collections.emptyMap())
-                )
-        ));
     }
 }

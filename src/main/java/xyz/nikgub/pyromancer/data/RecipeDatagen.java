@@ -19,14 +19,27 @@ import java.util.function.Consumer;
 
 public class RecipeDatagen extends RecipeProvider
 {
-    public RecipeDatagen(PackOutput packOutput)
-	{
+    public RecipeDatagen (PackOutput packOutput)
+    {
         super(packOutput);
     }
 
+    protected static void nineBlockStorageRecipes (@NotNull Consumer<FinishedRecipe> pFinishedRecipeConsumer, @NotNull RecipeCategory pUnpackedCategory, ItemLike
+            pUnpacked, @NotNull RecipeCategory pPackedCategory, ItemLike pPacked)
+    {
+        nineBlockStorageRecipes(pFinishedRecipeConsumer, pUnpackedCategory, pUnpacked, pPackedCategory, pPacked, getSimpleRecipeName(pPacked), null, getSimpleRecipeName(pUnpacked), null);
+    }
+
+    protected static void nineBlockStorageRecipes (@NotNull Consumer<FinishedRecipe> pFinishedRecipeConsumer, @NotNull RecipeCategory pUnpackedCategory, ItemLike pUnpacked, @NotNull RecipeCategory pPackedCategory, ItemLike pPacked, String pPackedName, @Nullable String pPackedGroup, String pUnpackedName, @Nullable String pUnpackedGroup)
+    {
+        ShapelessRecipeBuilder.shapeless(pUnpackedCategory, pUnpacked, 9).requires(pPacked).group(pUnpackedGroup).unlockedBy(getHasName(pPacked), has(pPacked)).save(pFinishedRecipeConsumer, new ResourceLocation(PyromancerMod.MOD_ID, pUnpackedName));
+        ShapedRecipeBuilder.shaped(pPackedCategory, pPacked).define('#', pUnpacked).pattern("###").pattern("###").pattern("###").group(pPackedGroup).unlockedBy(getHasName(pUnpacked), has(pUnpacked)).save(pFinishedRecipeConsumer, new ResourceLocation(PyromancerMod.MOD_ID, pPackedName));
+
+    }
+
     @Override
-    protected void buildRecipes(@NotNull Consumer<FinishedRecipe> consumer)
-	{
+    protected void buildRecipes (@NotNull Consumer<FinishedRecipe> consumer)
+    {
         ShapelessRecipeBuilder.shapeless(RecipeCategory.COMBAT, ItemRegistry.BLAZING_JOURNAL.get())
                 .requires(ItemRegistry.AMBER.get())
                 .requires(Items.BLAZE_POWDER)
@@ -153,47 +166,34 @@ public class RecipeDatagen extends RecipeProvider
                 .save(consumer);
 
         SmithingTransformRecipeBuilder.smithing(
-                Ingredient.of(ItemRegistry.EVENBURNING_HEART.get()),
-                Ingredient.of(ItemRegistry.NETHERITE_MACE.get()),
-                Ingredient.of(ItemRegistry.AMBER.get()),
-                RecipeCategory.COMBAT,
-                ItemRegistry.SYMBOL_OF_SUN.get())
+                        Ingredient.of(ItemRegistry.EVENBURNING_HEART.get()),
+                        Ingredient.of(ItemRegistry.NETHERITE_MACE.get()),
+                        Ingredient.of(ItemRegistry.AMBER.get()),
+                        RecipeCategory.COMBAT,
+                        ItemRegistry.SYMBOL_OF_SUN.get())
                 .unlocks("everburning_heart", has(ItemRegistry.EVENBURNING_HEART.get()))
                 .save(consumer, "pyromancer:symbol_of_sun");
 
-            RecipeDatagen.nineBlockStorageRecipes(consumer, RecipeCategory.MISC, ItemRegistry.RIMEBLOOD.get(), RecipeCategory.BUILDING_BLOCKS, BlockRegistry.RIMEBLOOD_BLOCK.get());
-            ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.RIMEBRASS_INGOT.get())
-                    .requires(ItemRegistry.RIMEBLOOD.get(), 4).requires(Items.COPPER_INGOT, 2).requires(Items.IRON_INGOT, 2)
-                    .unlockedBy(getHasName(ItemRegistry.RIMEBLOOD.get()), has(ItemRegistry.RIMEBLOOD.get()))
-                    .save(consumer);
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.HOARFROST_GREATSWORD.get())
-                    .pattern(" # ")
-                    .pattern("C#C")
-                    .pattern(" C ")
-                    .define('#', ItemRegistry.ANCIENT_PLATING.get())
-                    .define('C', ItemRegistry.RIMEBRASS_INGOT.get())
-                    .unlockedBy(getHasName(ItemRegistry.ANCIENT_PLATING.get()), has(ItemRegistry.ANCIENT_PLATING.get()))
-                    .save(consumer);
-            ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.SPEAR_OF_MOROZ.get())
-                    .pattern(" # ")
-                    .pattern(" # ")
-                    .pattern("CCC")
-                    .define('#', ItemRegistry.ANCIENT_PLATING.get())
-                    .define('C', ItemRegistry.RIMEBRASS_INGOT.get())
-                    .unlockedBy(getHasName(ItemRegistry.ANCIENT_PLATING.get()), has(ItemRegistry.ANCIENT_PLATING.get()))
-                    .save(consumer);
-        }
-
-        protected static void nineBlockStorageRecipes(@NotNull Consumer<FinishedRecipe> pFinishedRecipeConsumer, @NotNull RecipeCategory pUnpackedCategory, ItemLike
-        pUnpacked, @NotNull RecipeCategory pPackedCategory, ItemLike pPacked)
-        {
-            nineBlockStorageRecipes(pFinishedRecipeConsumer, pUnpackedCategory, pUnpacked, pPackedCategory, pPacked, getSimpleRecipeName(pPacked), null, getSimpleRecipeName(pUnpacked), null);
-        }
-
-        protected static void nineBlockStorageRecipes(@NotNull Consumer<FinishedRecipe> pFinishedRecipeConsumer, @NotNull RecipeCategory pUnpackedCategory, ItemLike pUnpacked, @NotNull RecipeCategory pPackedCategory, ItemLike pPacked, String pPackedName, @Nullable String pPackedGroup, String pUnpackedName, @Nullable String pUnpackedGroup)
-        {
-            ShapelessRecipeBuilder.shapeless(pUnpackedCategory, pUnpacked, 9).requires(pPacked).group(pUnpackedGroup).unlockedBy(getHasName(pPacked), has(pPacked)).save(pFinishedRecipeConsumer, new ResourceLocation(PyromancerMod.MOD_ID, pUnpackedName));
-            ShapedRecipeBuilder.shaped(pPackedCategory, pPacked).define('#', pUnpacked).pattern("###").pattern("###").pattern("###").group(pPackedGroup).unlockedBy(getHasName(pUnpacked), has(pUnpacked)).save(pFinishedRecipeConsumer, new ResourceLocation(PyromancerMod.MOD_ID, pPackedName));
-
-        }
+        RecipeDatagen.nineBlockStorageRecipes(consumer, RecipeCategory.MISC, ItemRegistry.RIMEBLOOD.get(), RecipeCategory.BUILDING_BLOCKS, BlockRegistry.RIMEBLOOD_BLOCK.get());
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.RIMEBRASS_INGOT.get())
+                .requires(ItemRegistry.RIMEBLOOD.get(), 4).requires(Items.COPPER_INGOT, 2).requires(Items.IRON_INGOT, 2)
+                .unlockedBy(getHasName(ItemRegistry.RIMEBLOOD.get()), has(ItemRegistry.RIMEBLOOD.get()))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.HOARFROST_GREATSWORD.get())
+                .pattern(" # ")
+                .pattern("C#C")
+                .pattern(" C ")
+                .define('#', ItemRegistry.ANCIENT_PLATING.get())
+                .define('C', ItemRegistry.RIMEBRASS_INGOT.get())
+                .unlockedBy(getHasName(ItemRegistry.ANCIENT_PLATING.get()), has(ItemRegistry.ANCIENT_PLATING.get()))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.SPEAR_OF_MOROZ.get())
+                .pattern(" # ")
+                .pattern(" # ")
+                .pattern("CCC")
+                .define('#', ItemRegistry.ANCIENT_PLATING.get())
+                .define('C', ItemRegistry.RIMEBRASS_INGOT.get())
+                .unlockedBy(getHasName(ItemRegistry.ANCIENT_PLATING.get()), has(ItemRegistry.ANCIENT_PLATING.get()))
+                .save(consumer);
+    }
 }

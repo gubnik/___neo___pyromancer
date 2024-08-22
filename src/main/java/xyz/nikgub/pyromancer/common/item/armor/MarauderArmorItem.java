@@ -7,12 +7,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import xyz.nikgub.pyromancer.registries.ArmorMaterialsRegistry;
 
-public class MarauderArmorItem extends ArmorItem {
-    public MarauderArmorItem(Type type) {
+public class MarauderArmorItem extends ArmorItem
+{
+    public MarauderArmorItem (Type type)
+    {
         super(ArmorMaterialsRegistry.MARAUDER_ARMOR, type, new Properties().stacksTo(1).fireResistant().rarity(Rarity.UNCOMMON));
     }
+
     @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+    public String getArmorTexture (ItemStack stack, Entity entity, EquipmentSlot slot, String type)
+    {
         return slot == EquipmentSlot.LEGS ? "pyromancer:textures/model/armor/marauder_layer_2.png" : "pyromancer:textures/model/armor/marauder_layer_1.png";
     }
 }

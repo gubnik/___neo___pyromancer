@@ -16,14 +16,14 @@ import xyz.nikgub.pyromancer.registries.MobEffectRegistry;
 
 public class SolarCollisionEffect extends SmartMobEffect
 {
-    public SolarCollisionEffect()
-	{
+    public SolarCollisionEffect ()
+    {
         super(MobEffectCategory.NEUTRAL, 180, 70, 0);
     }
 
     @Override
-    public void applyEffectTick(@NotNull LivingEntity livingEntity, int pAmplifier)
-	{
+    public void applyEffectTick (@NotNull LivingEntity livingEntity, int pAmplifier)
+    {
         if (!(livingEntity.level() instanceof ServerLevel level)) return;
         GeneralUtils.coverInParticles(livingEntity, ParticleTypes.FLAME, 0.02);
         livingEntity.addEffect(new MobEffectInstance(MobEffectRegistry.FIERY_AEGIS.get(), 5, 0, true, false));
@@ -40,8 +40,8 @@ public class SolarCollisionEffect extends SmartMobEffect
     }
 
     @Override
-    public boolean isDurationEffectTick(int pDuration, int pAmplifier)
-	{
+    public boolean isDurationEffectTick (int pDuration, int pAmplifier)
+    {
         return true;
     }
 }

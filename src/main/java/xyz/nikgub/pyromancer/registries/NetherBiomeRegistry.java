@@ -34,8 +34,8 @@ public class NetherBiomeRegistry
         SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.NETHER, PyromancerMod.MOD_ID, SurfaceRule.nether());
     }
 
-    public static Biome FLAMING_GROVE(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers)
-	{
+    public static Biome FLAMING_GROVE (HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers)
+    {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeGenerationSettings.Builder biomeBuilder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
         biomeBuilder.addCarver(GenerationStep.Carving.AIR, ConfiguredCarverDatagen.FLAMING_GROVE_CARVER);
@@ -62,13 +62,13 @@ public class NetherBiomeRegistry
 
         public static final ResourceLocation LOCATION = new ResourceLocation(PyromancerMod.MOD_ID, "nether_common");
 
-        public FlamingGroveNetherRegion(int weight)
+        public FlamingGroveNetherRegion (int weight)
         {
             super(LOCATION, RegionType.NETHER, weight);
         }
 
         @Override
-        public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper)
+        public void addBiomes (Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper)
         {
             this.addBiome(mapper,
                     Climate.Parameter.point(0.0F),
@@ -86,8 +86,8 @@ public class NetherBiomeRegistry
         private static final SurfaceRules.RuleSource NETHERRACK = makeStateRule(Blocks.NETHERRACK);
         private static final SurfaceRules.RuleSource PYROMOSSED_NETHERRACK = makeStateRule(BlockRegistry.PYROMOSSED_NETHERRACK.get());
 
-        public static SurfaceRules.RuleSource nether()
-	    {
+        public static SurfaceRules.RuleSource nether ()
+        {
             SurfaceRules.ConditionSource isAbove32 = SurfaceRules.yStartCheck(VerticalAnchor.absolute(32), 0);
             return SurfaceRules.sequence(
                     SurfaceRules.ifTrue(
@@ -104,8 +104,8 @@ public class NetherBiomeRegistry
             );
         }
 
-        private static SurfaceRules.RuleSource makeStateRule(Block block)
-	    {
+        private static SurfaceRules.RuleSource makeStateRule (Block block)
+        {
             return SurfaceRules.state(block.defaultBlockState());
         }
     }

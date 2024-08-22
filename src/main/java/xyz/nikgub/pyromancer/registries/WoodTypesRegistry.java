@@ -11,7 +11,7 @@ public class WoodTypesRegistry
 
     public static final WoodType PYROWOOD = makeNewWoodType(new WoodType("pyrowood", BlockSetTypeRegistry.PYROWOOD));
 
-    private static WoodType makeNewWoodType(WoodType woodType)
+    private static WoodType makeNewWoodType (WoodType woodType)
     {
         WoodType.register(woodType);
         VALUES.add(woodType);

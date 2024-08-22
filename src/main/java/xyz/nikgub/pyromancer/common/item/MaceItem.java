@@ -34,28 +34,28 @@ public class MaceItem extends TieredItem implements ICustomSwingItem
 {
     public static final float DEFAULT_DAMAGE = 4f;
 
-    public MaceItem(Tier tier, Properties properties)
-	{
+    public MaceItem (Tier tier, Properties properties)
+    {
         super(tier, properties);
     }
 
     @Override
-    public @NotNull Multimap<Attribute, AttributeModifier> getAttributeModifiers(@NotNull final EquipmentSlot slot, final ItemStack itemStack)
-	{
+    public @NotNull Multimap<Attribute, AttributeModifier> getAttributeModifiers (@NotNull final EquipmentSlot slot, final ItemStack itemStack)
+    {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
-        if(slot == EquipmentSlot.MAINHAND)
+        if (slot == EquipmentSlot.MAINHAND)
         {
             builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(Item.BASE_ATTACK_DAMAGE_UUID, "Weapon modifier",
                     this.getTier().getAttackDamageBonus() + DEFAULT_DAMAGE
-                    + itemStack.getEnchantmentLevel(EnchantmentRegistry.CLOSE_QUARTERS.get()) * 0.6f,
+                            + itemStack.getEnchantmentLevel(EnchantmentRegistry.CLOSE_QUARTERS.get()) * 0.6f,
                     AttributeModifier.Operation.ADDITION));
             builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_UUID, "Weapon modifier", -2.8d, AttributeModifier.Operation.ADDITION));
             Map<Enchantment, Integer> itemEnchants = itemStack.getAllEnchantments();
-            for(Enchantment enchantment : itemEnchants.keySet().stream().toList())
+            for (Enchantment enchantment : itemEnchants.keySet().stream().toList())
             {
-                if(enchantment instanceof MaceEnchantment maceEnchantment)
+                if (enchantment instanceof MaceEnchantment maceEnchantment)
                 {
-                    for(Attribute attribute : maceEnchantment.getAttributes().keySet().stream().toList())
+                    for (Attribute attribute : maceEnchantment.getAttributes().keySet().stream().toList())
                     {
                         builder.put(attribute, maceEnchantment.getAttributes().get(attribute).apply(itemEnchants.get(enchantment)));
                     }
@@ -66,22 +66,23 @@ public class MaceItem extends TieredItem implements ICustomSwingItem
     }
 
     @Override
-    public boolean canAttackBlock(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player pPlayer)
+    public boolean canAttackBlock (@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, Player pPlayer)
     {
         return !pPlayer.isCreative();
     }
 
     @Override
-    public <T extends LivingEntity> void thirdPersonTransform(ItemStack itemStack, HumanoidModel<T> model, T entity, float ageInTicks)
+    public <T extends LivingEntity> void thirdPersonTransform (ItemStack itemStack, HumanoidModel<T> model, T entity, float ageInTicks)
     {
-        if (!(model.attackTime <= 0.0F)) {
+        if (!(model.attackTime <= 0.0F))
+        {
             HumanoidArm arm = entity.swingingArm == InteractionHand.MAIN_HAND ? entity.getMainArm() : entity.getMainArm().getOpposite();
             ModelPart modelpart = arm == HumanoidArm.LEFT ? model.leftArm : model.rightArm;
             float f = model.attackTime;
             int i = arm == HumanoidArm.LEFT ? -1 : 1;
-            model.body.yRot = Mth.sin(Mth.sqrt(f) * ((float)Math.PI * 2F)) * 0.2F;
+            model.body.yRot = Mth.sin(Mth.sqrt(f) * ((float) Math.PI * 2F)) * 0.2F;
             if (arm == HumanoidArm.LEFT)
-	{
+            {
                 model.body.yRot *= -1.0F;
             }
             float move_multiplier = 5.0F;
@@ -96,28 +97,28 @@ public class MaceItem extends TieredItem implements ICustomSwingItem
             f *= f;
             f *= f;
             f = 1.0F - f;
-            float f1 = Mth.sin(f * (float)Math.PI);
+            float f1 = Mth.sin(f * (float) Math.PI);
             //float f2 = Mth.sin(model.attackTime * (float)Math.PI) * -(model.head.xRot - 0.7F) * 4F;
             modelpart.xRot += Mth.PI / 16;
             modelpart.xRot -= f1 * 2.25F;
             modelpart.yRot += model.head.xRot;
             modelpart.zRot = -Mth.HALF_PI * i;
-            modelpart.zRot -= Mth.sin(model.attackTime * (float)Math.PI) * -0.4F;
+            modelpart.zRot -= Mth.sin(model.attackTime * (float) Math.PI) * -0.4F;
         }
     }
 
     @Override
-    public void firstPersonTransform(ItemStack itemStack, PoseStack poseStack, float swingProgress, float equippedProgress, boolean isRight)
+    public void firstPersonTransform (ItemStack itemStack, PoseStack poseStack, float swingProgress, float equippedProgress, boolean isRight)
     {
         final int doRotation = swingProgress > 0.0F ? 1 : 0;
         HumanoidArm arm = isRight ? HumanoidArm.RIGHT : HumanoidArm.LEFT;
         final int i = arm == HumanoidArm.RIGHT ? 1 : -1;
         final float f = Mth.sin(swingProgress * swingProgress * 3.1415927F);
-        poseStack.mulPose(Axis.YP.rotationDegrees((float)i * (45.0F + f * -20.0F)));
+        poseStack.mulPose(Axis.YP.rotationDegrees((float) i * (45.0F + f * -20.0F)));
         final float f1 = Mth.sin(Mth.sqrt(swingProgress) * 3.1415927F);
-        poseStack.mulPose(Axis.ZP.rotationDegrees(-90 * doRotation + (float)i * f1 * -20.0F));
+        poseStack.mulPose(Axis.ZP.rotationDegrees(-90 * doRotation + (float) i * f1 * -20.0F));
         poseStack.mulPose(Axis.XP.rotationDegrees(f1 * -80.0F));
-        poseStack.mulPose(Axis.YP.rotationDegrees((float)i * -45.0F));
+        poseStack.mulPose(Axis.YP.rotationDegrees((float) i * -45.0F));
         poseStack.translate(0, 2.75F * doRotation, 0);
         final float scaleMod = doRotation == 0 ? 1F : 2.75F;
         poseStack.scale(scaleMod, scaleMod, scaleMod);

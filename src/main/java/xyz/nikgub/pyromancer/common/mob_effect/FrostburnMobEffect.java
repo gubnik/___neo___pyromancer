@@ -11,13 +11,13 @@ import xyz.nikgub.pyromancer.registries.MobEffectRegistry;
 
 public class FrostburnMobEffect extends MobEffect
 {
-    public FrostburnMobEffect()
+    public FrostburnMobEffect ()
     {
         super(MobEffectCategory.HARMFUL, GeneralUtils.rgbToColorInteger(10, 156, 240));
     }
 
     @Override
-    public void applyEffectTick(@NotNull LivingEntity livingEntity, int pAmplifier)
+    public void applyEffectTick (@NotNull LivingEntity livingEntity, int pAmplifier)
     {
         if (livingEntity.isOnFire())
         {
@@ -28,7 +28,7 @@ public class FrostburnMobEffect extends MobEffect
     }
 
     @Override
-    public boolean isDurationEffectTick(int pDuration, int pAmplifier)
+    public boolean isDurationEffectTick (int pDuration, int pAmplifier)
     {
         return true;
     }

@@ -16,12 +16,12 @@ public class BiomeRegistry
 
     public static final ResourceKey<Biome> FLAMING_GROVE = register("flaming_grove");
 
-    public static List<ResourceKey<Biome>> getBiomes()
+    public static List<ResourceKey<Biome>> getBiomes ()
     {
         return ImmutableList.copyOf(BIOMES);
     }
 
-    private static ResourceKey<Biome> register(String name)
+    private static ResourceKey<Biome> register (String name)
     {
         ResourceKey<Biome> key = ResourceKey.create(Registries.BIOME, new ResourceLocation(PyromancerMod.MOD_ID, name));
         BIOMES.add(key);

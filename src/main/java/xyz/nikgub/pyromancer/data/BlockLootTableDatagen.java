@@ -26,14 +26,14 @@ public class BlockLootTableDatagen extends BlockLootSubProvider
             BlockRegistry.RIMEBLOOD_CELL.get(), block -> this.createSingleItemTableWithSilkTouch(block, ItemRegistry.RIMEBLOOD.get(), UniformGenerator.between(1, 5))
     );
 
-    protected BlockLootTableDatagen()
-	{
+    protected BlockLootTableDatagen ()
+    {
         super(Set.of(), FeatureFlags.REGISTRY.allFlags());
     }
 
     @Override
-    protected void generate()
-	{
+    protected void generate ()
+    {
         for (Block block : BlockRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get).toList())
         {
             if (CUSTOM_DROP_BUILDERS.containsKey(block))
@@ -44,8 +44,8 @@ public class BlockLootTableDatagen extends BlockLootSubProvider
     }
 
     @Override
-    protected @NotNull Iterable<Block> getKnownBlocks()
-	{
+    protected @NotNull Iterable<Block> getKnownBlocks ()
+    {
         return BlockRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
     }
 }

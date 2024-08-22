@@ -35,7 +35,7 @@ public class CaveBiomeProxyEventHandling
     private static final Climate.Parameter FULL_RANGE = Climate.Parameter.span(-1.0F, 1.0F);
 
     @SubscribeEvent
-    public static void onServerAboutToStart(ServerAboutToStartEvent event)
+    public static void onServerAboutToStart (ServerAboutToStartEvent event)
     {
         MinecraftServer server = event.getServer();
         Registry<DimensionType> dimensionTypeRegistry = server.registryAccess().registryOrThrow(Registries.DIMENSION_TYPE);
@@ -70,12 +70,12 @@ public class CaveBiomeProxyEventHandling
             {
                 List<SurfaceRules.RuleSource> surfaceRules = new ArrayList<>(sequenceRuleSource.sequence());
                 addSurfaceRule
-                (surfaceRules, 1,
-                        anySurfaceRule(BiomeDatagen.PERMAFROST_CAVERNS,
-                                Blocks.SNOW_BLOCK.defaultBlockState(),
-                                Blocks.SNOW_BLOCK.defaultBlockState(),
-                                Blocks.PACKED_ICE.defaultBlockState())
-                );
+                        (surfaceRules, 1,
+                                anySurfaceRule(BiomeDatagen.PERMAFROST_CAVERNS,
+                                        Blocks.SNOW_BLOCK.defaultBlockState(),
+                                        Blocks.SNOW_BLOCK.defaultBlockState(),
+                                        Blocks.PACKED_ICE.defaultBlockState())
+                        );
                 NoiseGeneratorSettings moddedNoiseGeneratorSettings = new NoiseGeneratorSettings(noiseGeneratorSettings.noiseSettings(), noiseGeneratorSettings.defaultBlock(), noiseGeneratorSettings.defaultFluid(),
                         noiseGeneratorSettings.noiseRouter(), SurfaceRules.sequence(surfaceRules.toArray(SurfaceRules.RuleSource[]::new)), noiseGeneratorSettings.spawnTarget(), noiseGeneratorSettings.seaLevel(),
                         noiseGeneratorSettings.disableMobGeneration(), noiseGeneratorSettings.aquifersEnabled(), noiseGeneratorSettings.oreVeinsEnabled(), noiseGeneratorSettings.useLegacyRandomSource());
@@ -85,7 +85,7 @@ public class CaveBiomeProxyEventHandling
         }
     }
 
-    private static SurfaceRules.RuleSource anySurfaceRule(ResourceKey<Biome> biomeKey, BlockState groundBlock, BlockState undergroundBlock, BlockState underwaterBlock)
+    private static SurfaceRules.RuleSource anySurfaceRule (ResourceKey<Biome> biomeKey, BlockState groundBlock, BlockState undergroundBlock, BlockState underwaterBlock)
     {
         return SurfaceRules.ifTrue(SurfaceRules.isBiome(biomeKey),
                 SurfaceRules.sequence(
@@ -94,13 +94,13 @@ public class CaveBiomeProxyEventHandling
                         SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(0, true, 0, CaveSurface.FLOOR), SurfaceRules.state(undergroundBlock))));
     }
 
-    private static void addParameterPoint(List<Pair<Climate.ParameterPoint, Holder<Biome>>> parameters, Pair<Climate.ParameterPoint, Holder<Biome>> point)
+    private static void addParameterPoint (List<Pair<Climate.ParameterPoint, Holder<Biome>>> parameters, Pair<Climate.ParameterPoint, Holder<Biome>> point)
     {
         if (!parameters.contains(point))
             parameters.add(point);
     }
 
-    private static void addSurfaceRule(List<SurfaceRules.RuleSource> surfaceRules, int index, SurfaceRules.RuleSource rule)
+    private static void addSurfaceRule (List<SurfaceRules.RuleSource> surfaceRules, int index, SurfaceRules.RuleSource rule)
     {
         if (!surfaceRules.contains(rule))
             surfaceRules.add(index, rule);

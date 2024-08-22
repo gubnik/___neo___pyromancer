@@ -26,10 +26,10 @@ import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.PyromancerMod;
+import xyz.nikgub.pyromancer.common.util.ItemUtils;
 import xyz.nikgub.pyromancer.registries.AttributeRegistry;
 import xyz.nikgub.pyromancer.registries.MobEffectRegistry;
 import xyz.nikgub.pyromancer.registries.TierRegistry;
-import xyz.nikgub.pyromancer.common.util.ItemUtils;
 
 import java.util.Collection;
 import java.util.List;
@@ -41,12 +41,13 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
 {
     public static final float DEFAULT_DAMAGE = 10F;
 
-    public SymbolOfSunItem(Properties properties) {
+    public SymbolOfSunItem (Properties properties)
+    {
         super(TierRegistry.SYMBOL_OF_SUN, properties.stacksTo(1));
     }
 
     @Override
-    public void onUseTick(@NotNull Level level, @NotNull LivingEntity entity, @NotNull ItemStack itemStack, int tick)
+    public void onUseTick (@NotNull Level level, @NotNull LivingEntity entity, @NotNull ItemStack itemStack, int tick)
     {
         if (!(entity instanceof Player player)) return;
         Vec3 movementVector = player.getDeltaMovement();
@@ -57,48 +58,46 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
         {
             multCoeff = 2.5D;
             directionVector = player.getLookAngle().multiply(1, 0, 1).normalize();
-        }
-        else if (player.isSwimming())
+        } else if (player.isSwimming())
         {
             multCoeff = 0.75D;
             directionVector = player.getLookAngle();
-        }
-        else directionVector  = movementVector.multiply(1, 0, 1).normalize();
+        } else directionVector = movementVector.multiply(1, 0, 1).normalize();
         player.setDeltaMovement(movementVector.x + multCoeff * directionVector.x, movementVector.y + multCoeff * directionVector.y, movementVector.z + multCoeff * directionVector.z);
         player.addEffect(new MobEffectInstance(MobEffectRegistry.SOLAR_COLLISION.get(), 10, 0, false, true));
         ItemUtils.changeBlaze(player, -(int) getDefaultBlazeCost());
     }
 
     @Override
-    public void releaseUsing(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity, int tick)
+    public void releaseUsing (@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity, int tick)
     {
-        if(!(entity instanceof Player player)) return;
+        if (!(entity instanceof Player player)) return;
         player.getCooldowns().addCooldown(itemStack.getItem(), 20);
     }
 
     @Override
-    public @NotNull ItemStack finishUsingItem(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity)
+    public @NotNull ItemStack finishUsingItem (@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity)
     {
         this.releaseUsing(itemStack, level, entity, getUseDuration(itemStack));
         return itemStack;
     }
 
     @Override
-    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack itemStack)
+    public @NotNull UseAnim getUseAnimation (@NotNull ItemStack itemStack)
     {
         return UseAnim.NONE;
     }
 
     @Override
-    public int getUseDuration(@NotNull ItemStack itemStack)
+    public int getUseDuration (@NotNull ItemStack itemStack)
     {
         return 1;
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand)
+    public @NotNull InteractionResultHolder<ItemStack> use (@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand)
     {
-        if(ItemUtils.getBlaze(player) > player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()))
+        if (ItemUtils.getBlaze(player) > player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()))
         {
             player.startUsingItem(hand);
             return InteractionResultHolder.success(player.getItemInHand(hand));
@@ -107,7 +106,8 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     }
 
     @Override
-    public @NotNull Multimap<Attribute, AttributeModifier> getAttributeModifiers (@NotNull EquipmentSlot slot, ItemStack stack) {
+    public @NotNull Multimap<Attribute, AttributeModifier> getAttributeModifiers (@NotNull EquipmentSlot slot, ItemStack stack)
+    {
         ImmutableListMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableListMultimap.builder();
         if (slot != EquipmentSlot.MAINHAND) return builder.build();
         Multimap<Attribute, AttributeModifier> parMap = super.getAttributeModifiers(slot, stack);
@@ -120,13 +120,14 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
+    public void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
     {
         gatherTooltipLines(list, "pyromancer.pyromancy_hidden_line", "desc", PyromancerConfig.pyromancyDescriptionKey);
     }
 
     @Override
-    public Map<Attribute, Pair<UUID, Style>> specialColoredUUID(ItemStack itemStack) {
+    public Map<Attribute, Pair<UUID, Style>> specialColoredUUID (ItemStack itemStack)
+    {
         return Map.of(
                 AttributeRegistry.PYROMANCY_DAMAGE.get(), Pair.of(BASE_PYROMANCY_DAMAGE_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
                 AttributeRegistry.BLAZE_CONSUMPTION.get(), Pair.of(BASE_BLAZE_CONSUMPTION_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD))
@@ -134,8 +135,10 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     }
 
     @Override
-    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus(ItemStack itemStack) {
-        return ((player, attribute) -> {
+    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus (ItemStack itemStack)
+    {
+        return ((player, attribute) ->
+        {
             double d0 = 0;
             d0 += IPyromancyItem.getAttributeBonus(player, attribute);
             return d0;
@@ -143,12 +146,14 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     }
 
     @Override
-    public boolean getGradientCondition(ItemStack itemStack) {
+    public boolean getGradientCondition (ItemStack itemStack)
+    {
         return true;
     }
 
     @Override
-    public Pair<Integer, Integer> getGradientColors(ItemStack itemStack) {
+    public Pair<Integer, Integer> getGradientColors (ItemStack itemStack)
+    {
         return Pair.of(
                 GeneralUtils.rgbToColorInteger(200, 57, 0),
                 GeneralUtils.rgbToColorInteger(240, 129, 0)
@@ -156,17 +161,20 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     }
 
     @Override
-    public int getGradientTickTime(ItemStack itemStack) {
+    public int getGradientTickTime (ItemStack itemStack)
+    {
         return 60;
     }
 
     @Override
-    public float getDefaultPyromancyDamage() {
+    public float getDefaultPyromancyDamage ()
+    {
         return DEFAULT_DAMAGE * 0.5f;
     }
 
     @Override
-    public int getDefaultBlazeCost() {
+    public int getDefaultBlazeCost ()
+    {
         return 4;
     }
 }

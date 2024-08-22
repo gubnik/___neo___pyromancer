@@ -5,8 +5,8 @@ import net.minecraft.world.entity.LivingEntity;
 
 public class FieryAegisEffect extends SmartMobEffect
 {
-    public FieryAegisEffect()
-	{
+    public FieryAegisEffect ()
+    {
         super(MobEffectCategory.BENEFICIAL, 240, 125, 0);
     }
 
@@ -14,6 +14,6 @@ public class FieryAegisEffect extends SmartMobEffect
     {
         attacker.setSecondsOnFire((int) damageAmount + 1);
         attacker.knockback(damageAmount / 2f, victim.getX() - attacker.getX(), victim.getZ() - attacker.getZ());
-        return damageAmount * 0.25f;
+        return -0.75f;
     }
 }

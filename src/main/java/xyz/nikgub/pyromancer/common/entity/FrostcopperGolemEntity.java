@@ -35,29 +35,42 @@ import java.util.List;
 public class FrostcopperGolemEntity extends Monster implements IAnimationPurposeEntity
 {
     public static final EntityDataSerializer<DeterminedAnimation.AnimationPurpose> FROSTCOPPER_GOLEM_STATE = EntityDataSerializer.simpleEnum(DeterminedAnimation.AnimationPurpose.class);
+    private static final EntityDataAccessor<DeterminedAnimation.AnimationPurpose> DATA_STATE = SynchedEntityData.defineId(FrostcopperGolemEntity.class, FROSTCOPPER_GOLEM_STATE);
+    private static final EntityDataAccessor<Integer> ATTACK_TICK = SynchedEntityData.defineId(FrostcopperGolemEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> STOMP_TICK = SynchedEntityData.defineId(FrostcopperGolemEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> STOMP_BUILDUP_COUNTER = SynchedEntityData.defineId(FrostcopperGolemEntity.class, EntityDataSerializers.INT);
 
     static
     {
         EntityDataSerializers.registerSerializer(FROSTCOPPER_GOLEM_STATE);
     }
 
-    private static final EntityDataAccessor<DeterminedAnimation.AnimationPurpose> DATA_STATE = SynchedEntityData.defineId(FrostcopperGolemEntity.class, FROSTCOPPER_GOLEM_STATE);
-
-    private static final EntityDataAccessor<Integer> ATTACK_TICK = SynchedEntityData.defineId(FrostcopperGolemEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> STOMP_TICK = SynchedEntityData.defineId(FrostcopperGolemEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> STOMP_BUILDUP_COUNTER = SynchedEntityData.defineId(FrostcopperGolemEntity.class, EntityDataSerializers.INT);
-
     public AnimationState IDLE = new AnimationState();
     public AnimationState ATTACK = new AnimationState();
     public AnimationState STOMP = new AnimationState();
 
-    public FrostcopperGolemEntity(EntityType<? extends Monster> pEntityType, Level pLevel)
+    public FrostcopperGolemEntity (EntityType<? extends Monster> pEntityType, Level pLevel)
     {
         super(pEntityType, pLevel);
         this.entityData.define(DATA_STATE, DeterminedAnimation.AnimationPurpose.IDLE);
         this.entityData.define(ATTACK_TICK, 0);
         this.entityData.define(STOMP_TICK, 0);
         this.entityData.define(STOMP_BUILDUP_COUNTER, 0);
+    }
+
+    public static AttributeSupplier setAttributes ()
+    {
+        return Monster.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 40)
+                .add(Attributes.MOVEMENT_SPEED, 0.2f)
+                .add(Attributes.ARMOR, 10)
+                .add(Attributes.ATTACK_DAMAGE, 5)
+                .add(Attributes.ATTACK_SPEED, 1)
+                .add(Attributes.ATTACK_KNOCKBACK, 0.4)
+                .add(Attributes.FOLLOW_RANGE, 16)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.25f)
+                .add(AttributeRegistry.COLD_BUILDUP.get(), 16)
+                .build();
     }
 
     public int getAttackTick ()
@@ -81,11 +94,12 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
     }
 
     @Override
-    public EntityDataAccessor<DeterminedAnimation.AnimationPurpose> getAnimationStateDataAccessor() {
+    public EntityDataAccessor<DeterminedAnimation.AnimationPurpose> getAnimationStateDataAccessor ()
+    {
         return DATA_STATE;
     }
 
-    public int getStompBuildupCounter  ()
+    public int getStompBuildupCounter ()
     {
         return entityData.get(STOMP_BUILDUP_COUNTER);
     }
@@ -106,25 +120,25 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
     }
 
     @Override
-    public void setState (DeterminedAnimation.AnimationPurpose state)
-    {
-        this.getEntityData().set(DATA_STATE, state);
-    }
-
-    @Override
     public DeterminedAnimation.AnimationPurpose getState ()
     {
         return this.getEntityData().get(DATA_STATE);
     }
 
     @Override
-    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> pKey)
+    public void setState (DeterminedAnimation.AnimationPurpose state)
+    {
+        this.getEntityData().set(DATA_STATE, state);
+    }
+
+    @Override
+    public void onSyncedDataUpdated (@NotNull EntityDataAccessor<?> pKey)
     {
         this.animationSyncedDataHandler(pKey);
     }
 
     @Override
-    protected void registerGoals()
+    protected void registerGoals ()
     {
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2f, true));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
@@ -135,7 +149,7 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
     }
 
     @Override
-    public boolean doHurtTarget(@NotNull Entity target)
+    public boolean doHurtTarget (@NotNull Entity target)
     {
         if (this.getAllAnimations().stream()
                 .filter(determinedAnimation -> determinedAnimation.animationPurpose() != DeterminedAnimation.AnimationPurpose.IDLE)
@@ -147,7 +161,8 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
     }
 
     @Override
-    public boolean hurt(@NotNull DamageSource pSource, float pAmount) {
+    public boolean hurt (@NotNull DamageSource pSource, float pAmount)
+    {
         //if (pSource.getEntity() instanceof LivingEntity livingEntity && livingEntity.position().distanceTo(this.position()) > 7)
         //{
         //    if (this.stompTick == 0) this.runAnimationOf(DeterminedAnimation.AnimationPurpose.STOMP);
@@ -160,7 +175,7 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
         return retVal && getStompTick() == 0;
     }
 
-    private void stompAttack(float pAmount)
+    private void stompAttack (float pAmount)
     {
         final int areaSize = ((int) (pAmount / 5) + 2);
         final Vec3 initPos = this.getOnPos().getCenter();
@@ -177,7 +192,7 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
     }
 
     @Override
-    public void tick()
+    public void tick ()
     {
         super.tick();
         if (this.isDeadOrDying()) return;
@@ -205,8 +220,7 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
             {
                 this.setStompTick(0);
                 this.runAnimationOf(DeterminedAnimation.AnimationPurpose.IDLE);
-            }
-            else if (this.tickCount >= stompTick + 13)
+            } else if (this.tickCount >= stompTick + 13)
             {
                 stompAttack(5);
             }
@@ -219,23 +233,8 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
         return false;
     }
 
-    public static AttributeSupplier setAttributes()
-    {
-        return Monster.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 40)
-                .add(Attributes.MOVEMENT_SPEED, 0.2f)
-                .add(Attributes.ARMOR, 10)
-                .add(Attributes.ATTACK_DAMAGE, 5)
-                .add(Attributes.ATTACK_SPEED, 1)
-                .add(Attributes.ATTACK_KNOCKBACK, 0.4)
-                .add(Attributes.FOLLOW_RANGE, 16)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.25f)
-                .add(AttributeRegistry.COLD_BUILDUP.get(), 16)
-                .build();
-    }
-
     @Override
-    public @NotNull List<DeterminedAnimation> getAllAnimations()
+    public @NotNull List<DeterminedAnimation> getAllAnimations ()
     {
         return List.of(
                 new DeterminedAnimation(ATTACK, DeterminedAnimation.AnimationPurpose.MAIN_ATTACK, (byte) 73, 0),

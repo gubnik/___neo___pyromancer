@@ -59,25 +59,31 @@ public class HoarfrostGreatswordItem extends Item implements ICustomSwingItem, I
 
     public static final String ACTION_TAG = "__FROSTBORNE_HOARFROST_GREATSWORD_ACTION__";
 
-    public HoarfrostGreatswordItem(Properties properties)
-	{
+    public HoarfrostGreatswordItem (Properties properties)
+    {
         super(properties.stacksTo(1).defaultDurability(1500));
     }
 
     @Override
-    public boolean isDamageable(ItemStack itemStack)
-    { return true; }
+    public boolean isDamageable (ItemStack itemStack)
+    {
+        return true;
+    }
 
     @Override
-    public boolean isEnchantable(@NotNull ItemStack itemStack)
-    { return true; }
+    public boolean isEnchantable (@NotNull ItemStack itemStack)
+    {
+        return true;
+    }
 
     @Override
-    public int getEnchantmentValue(ItemStack itemStack)
-    { return 15; }
+    public int getEnchantmentValue (ItemStack itemStack)
+    {
+        return 15;
+    }
 
     @Override
-    public void inventoryTick(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull Entity entity, int tick, boolean b)
+    public void inventoryTick (@NotNull ItemStack itemStack, @NotNull Level level, @NotNull Entity entity, int tick, boolean b)
     {
         if (!(entity instanceof Player player)) return;
         if (player.swingTime > 0) return;
@@ -85,17 +91,16 @@ public class HoarfrostGreatswordItem extends Item implements ICustomSwingItem, I
         if (player.isCrouching() && player.getMainHandItem() == itemStack)
         {
             tag.putInt(ACTION_TAG, 1);
-        }
-        else
+        } else
         {
             tag.putInt(ACTION_TAG, 0);
         }
     }
 
     @Override
-    public boolean hurtEnemy(@NotNull ItemStack itemStack, @NotNull LivingEntity target, @NotNull LivingEntity source)
+    public boolean hurtEnemy (@NotNull ItemStack itemStack, @NotNull LivingEntity target, @NotNull LivingEntity source)
     {
-        target.knockback(0.5, Math.sin(source.getYRot() * ((float)Math.PI / 180F)), -Math.cos(source.getYRot() * ((float)Math.PI / 180F)));
+        target.knockback(0.5, Math.sin(source.getYRot() * ((float) Math.PI / 180F)), -Math.cos(source.getYRot() * ((float) Math.PI / 180F)));
         if (itemStack.getOrCreateTag().getInt(ACTION_TAG) == 0) return false;
         source.setTicksFrozen(source.getTicksFrozen() + 70);
         if (!(source.level() instanceof ServerLevel level)) return false;
@@ -106,33 +111,33 @@ public class HoarfrostGreatswordItem extends Item implements ICustomSwingItem, I
             {
                 if (entity == target || entity == source) continue;
                 entity.hurt(DamageSourceRegistry.hoarfrostGreatswordPoke(source), (float) source.getAttributeValue(Attributes.ATTACK_DAMAGE) * 1.2f);
-                entity.knockback(1.0, Math.sin(source.getYRot() * ((float)Math.PI / 180F)), -Math.cos(source.getYRot() * ((float)Math.PI / 180F)));
+                entity.knockback(1.0, Math.sin(source.getYRot() * ((float) Math.PI / 180F)), -Math.cos(source.getYRot() * ((float) Math.PI / 180F)));
             }
         }
         return false;
     }
 
     @Override
-    public boolean canAttackBlock(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull Player player)
+    public boolean canAttackBlock (@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull Player player)
     {
         return !player.isCreative();
     }
 
     @Override
-    public boolean canPerformAction(ItemStack stack, ToolAction toolAction)
+    public boolean canPerformAction (ItemStack stack, ToolAction toolAction)
     {
         if (stack.getOrCreateTag().getInt(ACTION_TAG) == 1 && toolAction == ToolActions.SWORD_SWEEP) return false;
         return ACTIONS.contains(toolAction);
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack itemStack)
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers (EquipmentSlot slot, ItemStack itemStack)
     {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
         boolean crouchPoke = itemStack.getOrCreateTag().getInt(ACTION_TAG) == 1;
         if (slot == EquipmentSlot.MAINHAND)
         {
-            builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier",  crouchPoke? 5D : 8D, AttributeModifier.Operation.ADDITION));
+            builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", crouchPoke ? 5D : 8D, AttributeModifier.Operation.ADDITION));
             builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", crouchPoke ? -2.8D : -3.0D, AttributeModifier.Operation.ADDITION));
             final double coldAmount = ((crouchPoke) ? 12 : 10) + itemStack.getEnchantmentLevel(EnchantmentRegistry.FIERCE_FROST.get());
             builder.put(AttributeRegistry.COLD_BUILDUP.get(), new AttributeModifier(COLD_BUILDUP_UUID, "Weapon modifier", coldAmount, AttributeModifier.Operation.ADDITION));
@@ -146,40 +151,41 @@ public class HoarfrostGreatswordItem extends Item implements ICustomSwingItem, I
     }
 
     @Override
-    public Map<Attribute, Pair<UUID, Style>> specialColoredUUID(ItemStack itemStack)
+    public Map<Attribute, Pair<UUID, Style>> specialColoredUUID (ItemStack itemStack)
     {
         return Map.of(AttributeRegistry.COLD_BUILDUP.get(), Pair.of(COLD_BUILDUP_UUID, StyleRegistry.FROST_STYLE));
     }
 
     @Override
-    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus(ItemStack itemStack)
+    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus (ItemStack itemStack)
     {
         return ((player, attribute) -> 0d);
     }
 
     @Override
-    public final void appendHoverText(@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
+    public final void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
     {
         this.gatherTooltipLines(list, "pyromancer.hidden_desc", "desc", PyromancerConfig.descTooltipKey);
         this.gatherTooltipLines(list, "pyromancer.hidden_lore", "lore", PyromancerConfig.loreTooltipKey);
     }
 
     @Override
-    public <T extends LivingEntity> void thirdPersonTransform(ItemStack itemStack, HumanoidModel<T> model, T entity, float ageInTicks)
+    public <T extends LivingEntity> void thirdPersonTransform (ItemStack itemStack, HumanoidModel<T> model, T entity, float ageInTicks)
     {
         if (itemStack.getOrCreateTag().getInt(ACTION_TAG) == 1)
         {
             crouchPokeThirdPerson(model, entity);
-        }
-        else {
-            if (!(model.attackTime <= 0.0F)) {
+        } else
+        {
+            if (!(model.attackTime <= 0.0F))
+            {
                 HumanoidArm arm = entity.swingingArm == InteractionHand.MAIN_HAND ? entity.getMainArm() : entity.getMainArm().getOpposite();
                 ModelPart modelpart = arm == HumanoidArm.LEFT ? model.leftArm : model.rightArm;
                 float f = model.attackTime;
                 int i = arm == HumanoidArm.LEFT ? -1 : 1;
                 model.body.yRot = Mth.sin(Mth.sqrt(f) * ((float) Math.PI * 2F)) * 0.2F;
                 if (arm == HumanoidArm.LEFT)
-	{
+                {
                     model.body.yRot *= -1.0F;
                 }
                 float move_multiplier = 5.0F;
@@ -205,13 +211,12 @@ public class HoarfrostGreatswordItem extends Item implements ICustomSwingItem, I
     }
 
     @Override
-    public void firstPersonTransform(ItemStack itemStack, PoseStack poseStack, float swingProgress, float equippedProgress, boolean isRight)
+    public void firstPersonTransform (ItemStack itemStack, PoseStack poseStack, float swingProgress, float equippedProgress, boolean isRight)
     {
         if (itemStack.getOrCreateTag().getInt(ACTION_TAG) == 1)
         {
             crouchPokeFirstPerson(poseStack, swingProgress);
-        }
-        else
+        } else
         {
             final int doRotation = swingProgress > 0.0F ? 1 : 0;
             HumanoidArm arm = isRight ? HumanoidArm.RIGHT : HumanoidArm.LEFT;
@@ -228,15 +233,16 @@ public class HoarfrostGreatswordItem extends Item implements ICustomSwingItem, I
         }
     }
 
-    public <T extends LivingEntity> void crouchPokeThirdPerson(HumanoidModel<T> model, T entity)
+    public <T extends LivingEntity> void crouchPokeThirdPerson (HumanoidModel<T> model, T entity)
     {
-        if (!(model.attackTime <= 0.0F)) {
+        if (!(model.attackTime <= 0.0F))
+        {
             HumanoidArm arm = entity.swingingArm == InteractionHand.MAIN_HAND ? entity.getMainArm() : entity.getMainArm().getOpposite();
             ModelPart modelpart = arm == HumanoidArm.LEFT ? model.leftArm : model.rightArm;
             float f = model.attackTime;
             model.body.yRot = Mth.sin(Mth.sqrt(f) * ((float) Math.PI * 2F)) * 0.2F;
             if (arm == HumanoidArm.LEFT)
-	{
+            {
                 model.body.yRot *= -1.0F;
             }
             float move_multiplier = 5.0F;

@@ -17,24 +17,24 @@ import xyz.nikgub.pyromancer.common.ember.Ember;
 
 import java.util.Arrays;
 import java.util.List;
+
 public class EmberItem extends Item
 {
-    public EmberItem(Properties properties)
-	{
+    public EmberItem (Properties properties)
+    {
         super(properties);
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
+    public void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
     {
         Ember ember = Ember.getFromItem(itemStack);
-        if(ember == null) return;
-        if(PyromancerConfig.embersDescriptionKey.getSupplier().get())
+        if (ember == null) return;
+        if (PyromancerConfig.embersDescriptionKey.getSupplier().get())
         {
             list.add(Component.translatable(ember.getNameId()));
             list.add(Component.translatable(ember.getDescriptionId()));
-        }
-        else
+        } else
         {
             list.add(Component.translatable(
                     Component.translatable("pyromancer.ember_hidden_line").getString() + PyromancerConfig.embersDescriptionKey.toString()
@@ -43,21 +43,21 @@ public class EmberItem extends Item
     }
 
     @Override
-    public boolean overrideStackedOnOther(@NotNull ItemStack held, Slot slot, @NotNull ClickAction clickAction, @NotNull Player player)
-	{
+    public boolean overrideStackedOnOther (@NotNull ItemStack held, Slot slot, @NotNull ClickAction clickAction, @NotNull Player player)
+    {
         ItemStack inSlot = slot.getItem();
         Ember ember = Ember.getFromItem(held);
-        if(ember == null || clickAction != ClickAction.SECONDARY) return false;
-        try {
+        if (ember == null || clickAction != ClickAction.SECONDARY) return false;
+        try
+        {
             Arrays.stream(inSlot.getItem().getClass().getMethods()).filter(m -> Arrays.equals(m.getParameterTypes(), new Class<?>[]{Level.class, Player.class, InteractionHand.class}) &&
                     m.getReturnType() == InteractionResultHolder.class && m.getDeclaringClass() == Item.class).findFirst().orElseThrow(() -> new NoSuchMethodException("Use method not found"));
-        }
-        catch (NoSuchMethodException exception)
+        } catch (NoSuchMethodException exception)
         {
             return false;
         }
-        if(held.getItem() instanceof EmberItem
-        && ember.isValidFor(inSlot.getItem())
+        if (held.getItem() instanceof EmberItem
+                && ember.isValidFor(inSlot.getItem())
         )
         {
             ember.applyToItemStack(inSlot);

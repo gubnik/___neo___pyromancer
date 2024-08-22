@@ -1,8 +1,9 @@
 {
   "parent": "minecraft:block/outer_stairs",
+  "render_type": "minecraft:cutout_mipped",
   "textures": {
-    "bottom": "pyromancer:block/pyrowood_planks",
-    "side": "pyromancer:block/pyrowood_planks",
-    "top": "pyromancer:block/pyrowood_planks"
+    "bottom": "pyromancer:block/pyrowood",
+    "side": "pyromancer:block/pyrowood",
+    "top": "pyromancer:block/pyrowood"
   }
 }

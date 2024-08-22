@@ -34,28 +34,9 @@ import java.util.function.Supplier;
 
 public class EmberRegistry
 {
-    public static String EMBER_TAG = "___PYROMANCER_EMBER_TAG___";
-
     public static final ResourceKey<Registry<Ember>> EMBER_REGISTRY_KEY = ResourceKey.createRegistryKey(new ResourceLocation(PyromancerMod.MOD_ID, "embers"));
-
     public static final DeferredRegister<Ember> EMBERS = DeferredRegister.create(EMBER_REGISTRY_KEY, PyromancerMod.MOD_ID);
-
     public static final Supplier<IForgeRegistry<Ember>> REGISTRY = EMBERS.makeRegistry(() -> new RegistryBuilder<Ember>().disableOverrides());
-
-    public static RegistryObject<Ember> registerEmber(Ember ember)
-    {
-        return EMBERS.register(ember.getName(), () -> ember);
-    }
-    @Nullable
-    public static Ember getEmberByName(String name)
-    {
-        return REGISTRY.get()
-                .getValues()
-                .stream()
-                .filter((ember -> Objects.equals(ember.getName(), name)))
-                .findFirst().orElse(null);
-    }
-
     public static RegistryObject<Ember> SOULFLAME_IGNITION = registerEmber(new Ember("soulflame_ignition", EmberType.SOULFLAME, EmberAnimationList.SOULFLAME_IGNITION, SwordItem.class, AxeItem.class)
     {
         @Override
@@ -90,8 +71,8 @@ public class EmberRegistry
         @Override
         public void tickEvent (Level level, LivingEntity entity, ItemStack itemStack, int tick)
         {
-            if(!(level instanceof ServerLevel serverLevel)) return;
-            final float c = (float)(tick)/(float)(this.getAnimation().getUseTime() - 5);
+            if (!(level instanceof ServerLevel serverLevel)) return;
+            final float c = (float) (tick) / (float) (this.getAnimation().getUseTime() - 5);
             final double R = 2.5 * c;
             final double X = entity.getX();
             final double Y = entity.getY();
@@ -99,11 +80,10 @@ public class EmberRegistry
             final double sinK = R * Math.sin(Math.toRadians(tick * 18));
             final double cosK = R * Math.cos(Math.toRadians(tick * 18));
             final SimpleParticleType particleType = ParticleTypes.SCULK_SOUL;
-            serverLevel.sendParticles(particleType, X + sinK, Y + tick * 0.1, Z + cosK,1, 0.1, 0.1, 0.1, 0);
-            serverLevel.sendParticles(particleType, X - sinK, Y + tick * 0.1, Z - cosK,1, 0.1, 0.1, 0.1, 0);
+            serverLevel.sendParticles(particleType, X + sinK, Y + tick * 0.1, Z + cosK, 1, 0.1, 0.1, 0.1, 0);
+            serverLevel.sendParticles(particleType, X - sinK, Y + tick * 0.1, Z - cosK, 1, 0.1, 0.1, 0.1, 0);
         }
     });
-
     public static RegistryObject<Ember> PRESERVING_FLAME = registerEmber(new Ember("preserving_flame", EmberType.FLAME, EmberAnimationList.PRESERVING_FLAME, MaceItem.class)
     {
         @Override
@@ -113,7 +93,6 @@ public class EmberRegistry
             entity.addEffect(new MobEffectInstance(MobEffectRegistry.FIERY_AEGIS.get(), 2, 0, true, false));
         }
     });
-
     public static RegistryObject<Ember> EXECUTIONERS_FIRE = registerEmber(new Ember("executioners_fire", EmberType.HELLBLAZE, EmberAnimationList.EXECUTIONERS_FIRE, AxeItem.class)
     {
         @Override
@@ -136,5 +115,21 @@ public class EmberRegistry
             }
         }
     });
+    public static String EMBER_TAG = "___PYROMANCER_EMBER_TAG___";
+
+    public static RegistryObject<Ember> registerEmber (Ember ember)
+    {
+        return EMBERS.register(ember.getName(), () -> ember);
+    }
+
+    @Nullable
+    public static Ember getEmberByName (String name)
+    {
+        return REGISTRY.get()
+                .getValues()
+                .stream()
+                .filter((ember -> Objects.equals(ember.getName(), name)))
+                .findFirst().orElse(null);
+    }
 
 }

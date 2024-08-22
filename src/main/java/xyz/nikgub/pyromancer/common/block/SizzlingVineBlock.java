@@ -15,8 +15,8 @@ public class SizzlingVineBlock extends GrowingPlantHeadBlock implements Bonemeal
 {
     public static final BooleanProperty THICK = BooleanProperty.create("thick");
 
-    public SizzlingVineBlock(Properties properties)
-	{
+    public SizzlingVineBlock (Properties properties)
+    {
         super(properties, Direction.DOWN,
                 Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D),
                 false, 0.05);
@@ -24,27 +24,27 @@ public class SizzlingVineBlock extends GrowingPlantHeadBlock implements Bonemeal
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder)
-	{
+    protected void createBlockStateDefinition (StateDefinition.@NotNull Builder<Block, BlockState> builder)
+    {
         super.createBlockStateDefinition(builder);
         builder.add(THICK);
     }
 
     @Override
-    protected int getBlocksToGrowWhenBonemealed(@NotNull RandomSource randomSource)
-	{
+    protected int getBlocksToGrowWhenBonemealed (@NotNull RandomSource randomSource)
+    {
         return 0;
     }
 
     @Override
-    protected boolean canGrowInto(@NotNull BlockState blockState)
-	{
+    protected boolean canGrowInto (@NotNull BlockState blockState)
+    {
         return false;
     }
 
     @Override
-    protected @NotNull Block getBodyBlock()
-	{
+    protected @NotNull Block getBodyBlock ()
+    {
         return BlockRegistry.SIZZLING_VINE.get();
     }
 }

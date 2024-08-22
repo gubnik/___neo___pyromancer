@@ -40,7 +40,8 @@ import java.util.function.BiFunction;
  * For details regarding storage, see {@link CompendiumOfFlameCapability}
  */
 @UniqueEmberBehaviour(allow = UniqueEmberBehaviour.AllowanceModifier.DENY)
-public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStupidTooltipItem, IGradientNameItem {
+public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStupidTooltipItem, IGradientNameItem
+{
 
     /**
      * String of int tag associated with an active slot <p>
@@ -61,51 +62,53 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
      */
     public static final String IS_OFFHAND = "___COMPENDIUM_IS_OFFHAND___";
 
-    public CompendiumOfFlameItem(Properties properties) {
+    public CompendiumOfFlameItem (Properties properties)
+    {
         super(properties);
     }
 
-    private ItemStack getCurrentlyActiveItem(ItemStack itemStack)
+    private ItemStack getCurrentlyActiveItem (ItemStack itemStack)
     {
         return this.getItemFromItem(itemStack, itemStack.getOrCreateTag().getInt(ACTIVE_SLOT_TAG));
     }
 
-    private void setCurrentlyActiveItem(ItemStack itemStack, ItemStack ITEM)
+    private void setCurrentlyActiveItem (ItemStack itemStack, ItemStack ITEM)
     {
         this.setItemInItem(itemStack, ITEM, itemStack.getOrCreateTag().getInt(ACTIVE_SLOT_TAG));
     }
 
     @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt)
+    public ICapabilityProvider initCapabilities (ItemStack stack, @Nullable CompoundTag nbt)
     {
         return new CompendiumOfFlameCapability();
     }
 
     @Override
-    public void inventoryTick(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull Entity entity, int tick, boolean m)
+    public void inventoryTick (@NotNull ItemStack itemStack, @NotNull Level level, @NotNull Entity entity, int tick, boolean m)
     {
         CompoundTag tag = itemStack.getOrCreateTag();
-        if(tag.getInt(ACTIVE_SLOT_TAG) == 0) tag.putInt(ACTIVE_SLOT_TAG, 1);
+        if (tag.getInt(ACTIVE_SLOT_TAG) == 0) tag.putInt(ACTIVE_SLOT_TAG, 1);
         tag.putBoolean(IS_OFFHAND, (entity instanceof LivingEntity livingEntity && livingEntity.getOffhandItem().equals(itemStack)));
-        if(tag.getDouble("CustomModelData") != 0) return;
+        if (tag.getDouble("CustomModelData") != 0) return;
         for (int i = 0; i < CompendiumOfFlameCapability.MAX_ITEMS + 1; i++)
         {
-            if(this.getItemFromItem(itemStack, i).getItem() instanceof UsablePyromancyItem) tag.putDouble("CustomModelData", 1);
+            if (this.getItemFromItem(itemStack, i).getItem() instanceof UsablePyromancyItem)
+                tag.putDouble("CustomModelData", 1);
         }
     }
 
     @Override
-    public boolean overrideOtherStackedOnMe(@NotNull ItemStack inSlot, @NotNull ItemStack held, @NotNull Slot slot, @NotNull ClickAction clickAction, @NotNull Player player, @NotNull SlotAccess slotAccess)
+    public boolean overrideOtherStackedOnMe (@NotNull ItemStack inSlot, @NotNull ItemStack held, @NotNull Slot slot, @NotNull ClickAction clickAction, @NotNull Player player, @NotNull SlotAccess slotAccess)
     {
-        if(held.getItem() instanceof  UsablePyromancyItem) return pyromancyBehaviour(inSlot, held, slotAccess);
+        if (held.getItem() instanceof UsablePyromancyItem) return pyromancyBehaviour(inSlot, held, slotAccess);
         return super.overrideOtherStackedOnMe(inSlot, held, slot, clickAction, player, slotAccess);
     }
 
-    public boolean pyromancyBehaviour(ItemStack inSlot, ItemStack held, SlotAccess slotAccess)
+    public boolean pyromancyBehaviour (ItemStack inSlot, ItemStack held, SlotAccess slotAccess)
     {
-        for(int i = 1; i < CompendiumOfFlameCapability.MAX_ITEMS + 1; i++)
+        for (int i = 1; i < CompendiumOfFlameCapability.MAX_ITEMS + 1; i++)
         {
-            if(!(this.getItemFromItem(inSlot, i).getItem() instanceof UsablePyromancyItem))
+            if (!(this.getItemFromItem(inSlot, i).getItem() instanceof UsablePyromancyItem))
             {
                 this.setItemInItem(inSlot, held, i);
                 slotAccess.set(ItemStack.EMPTY);
@@ -119,45 +122,53 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     Use item part
      */
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand)
+    public @NotNull InteractionResultHolder<ItemStack> use (@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand)
     {
-        if(hand == InteractionHand.OFF_HAND)
+        if (hand == InteractionHand.OFF_HAND)
         {
             return InteractionResultHolder.fail(player.getItemInHand(hand));
         }
         ItemStack itemStack = player.getItemInHand(hand);
         ItemStack temp = this.getItemFromItem(itemStack, itemStack.getOrCreateTag().getInt(ACTIVE_SLOT_TAG));
-        if(temp == null) return InteractionResultHolder.fail(itemStack);
+        if (temp == null) return InteractionResultHolder.fail(itemStack);
         setCurrentlyActiveItem(itemStack, temp);
-        if(!(getCurrentlyActiveItem(itemStack).getItem() instanceof UsablePyromancyItem usablePyromancyItem)) return InteractionResultHolder.fail(itemStack);
+        if (!(getCurrentlyActiveItem(itemStack).getItem() instanceof UsablePyromancyItem usablePyromancyItem))
+            return InteractionResultHolder.fail(itemStack);
         return usablePyromancyItem.use(level, player, hand);
     }
+
     @Override
-    public void onUseTick(@NotNull Level level, @NotNull LivingEntity entity, @NotNull ItemStack itemStack, int tick)
+    public void onUseTick (@NotNull Level level, @NotNull LivingEntity entity, @NotNull ItemStack itemStack, int tick)
     {
-        if(getCurrentlyActiveItem(itemStack).getItem() instanceof UsablePyromancyItem)
+        if (getCurrentlyActiveItem(itemStack).getItem() instanceof UsablePyromancyItem)
             getCurrentlyActiveItem(itemStack).onUseTick(level, entity, tick);
     }
+
     @Override
-    public @NotNull ItemStack finishUsingItem(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity)
+    public @NotNull ItemStack finishUsingItem (@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity)
     {
-        if(getCurrentlyActiveItem(itemStack).getItem() instanceof UsablePyromancyItem) getCurrentlyActiveItem(itemStack).getItem().finishUsingItem(itemStack, level, entity);
+        if (getCurrentlyActiveItem(itemStack).getItem() instanceof UsablePyromancyItem)
+            getCurrentlyActiveItem(itemStack).getItem().finishUsingItem(itemStack, level, entity);
         return itemStack;
     }
+
     @Override
-    public void releaseUsing(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity, int tick)
+    public void releaseUsing (@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity, int tick)
     {
-        if(getCurrentlyActiveItem(itemStack).getItem() instanceof UsablePyromancyItem) getCurrentlyActiveItem(itemStack).getItem().releaseUsing(itemStack, level, entity, tick);
+        if (getCurrentlyActiveItem(itemStack).getItem() instanceof UsablePyromancyItem)
+            getCurrentlyActiveItem(itemStack).getItem().releaseUsing(itemStack, level, entity, tick);
     }
+
     @Override
-    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack itemStack)
+    public @NotNull UseAnim getUseAnimation (@NotNull ItemStack itemStack)
     {
         return UseAnim.BOW;
     }
+
     @Override
-    public int getUseDuration(@NotNull ItemStack itemStack)
+    public int getUseDuration (@NotNull ItemStack itemStack)
     {
-        if(getCurrentlyActiveItem(itemStack).getItem() instanceof UsablePyromancyItem)
+        if (getCurrentlyActiveItem(itemStack).getItem() instanceof UsablePyromancyItem)
             return getCurrentlyActiveItem(itemStack).getUseDuration();
         else return 0;
     }
@@ -166,11 +177,12 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     Attribute part
      */
     @Override
-    public @NotNull Multimap<Attribute, AttributeModifier> getAttributeModifiers(@NotNull EquipmentSlot slot, ItemStack itemStack)
+    public @NotNull Multimap<Attribute, AttributeModifier> getAttributeModifiers (@NotNull EquipmentSlot slot, ItemStack itemStack)
     {
-        if(!(getCurrentlyActiveItem(itemStack).getItem() instanceof UsablePyromancyItem pyromancyItem) || itemStack.getOrCreateTag().getBoolean(IS_OFFHAND)) return new ImmutableMultimap.Builder<Attribute, AttributeModifier>().build();
+        if (!(getCurrentlyActiveItem(itemStack).getItem() instanceof UsablePyromancyItem pyromancyItem) || itemStack.getOrCreateTag().getBoolean(IS_OFFHAND))
+            return new ImmutableMultimap.Builder<Attribute, AttributeModifier>().build();
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
-        if(slot == EquipmentSlot.MAINHAND)
+        if (slot == EquipmentSlot.MAINHAND)
         {
             builder.put(AttributeRegistry.PYROMANCY_DAMAGE.get(), new AttributeModifier(IPyromancyItem.BASE_PYROMANCY_DAMAGE_UUID, "Weapon modifier", pyromancyItem.getDefaultPyromancyDamage(), AttributeModifier.Operation.ADDITION));
             builder.put(AttributeRegistry.BLAZE_CONSUMPTION.get(), new AttributeModifier(IPyromancyItem.BASE_BLAZE_CONSUMPTION_UUID, "Weapon modifier", pyromancyItem.getDefaultBlazeCost(), AttributeModifier.Operation.ADDITION));
@@ -180,7 +192,8 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     }
 
     @Override
-    public Map<Attribute, Pair<UUID, Style>> specialColoredUUID(ItemStack itemStack) {
+    public Map<Attribute, Pair<UUID, Style>> specialColoredUUID (ItemStack itemStack)
+    {
         return Map.of(
                 AttributeRegistry.PYROMANCY_DAMAGE.get(), Pair.of(IPyromancyItem.BASE_PYROMANCY_DAMAGE_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
                 AttributeRegistry.BLAZE_CONSUMPTION.get(), Pair.of(IPyromancyItem.BASE_BLAZE_CONSUMPTION_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD))
@@ -188,7 +201,7 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     }
 
     @Override
-    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus(ItemStack itemStack)
+    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus (ItemStack itemStack)
     {
 
         return ((player, attribute) ->
@@ -198,19 +211,19 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     }
 
     @Override
-    public boolean getGradientCondition(ItemStack itemStack)
+    public boolean getGradientCondition (ItemStack itemStack)
     {
         return true;
     }
 
     @Override
-    public Pair<Integer, Integer> getGradientColors(ItemStack itemStack)
+    public Pair<Integer, Integer> getGradientColors (ItemStack itemStack)
     {
         return Pair.of(GeneralUtils.rgbToColorInteger(200, 100, 12), GeneralUtils.rgbToColorInteger(120, 30, 80));
     }
 
     @Override
-    public int getGradientTickTime(ItemStack itemStack)
+    public int getGradientTickTime (ItemStack itemStack)
     {
         return 60;
     }

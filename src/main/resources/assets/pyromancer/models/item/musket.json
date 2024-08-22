@@ -1,0 +1,11 @@
+{
+  "parent": "pyromancer:item/musket_melee",
+  "textures": {
+    "1": "pyromancer:item/musket",
+    "particle": "pyromancer:item/musket_melee"
+  },
+  "overrides": [
+    { "predicate": { "custom_model_data": 0}, "model": "pyromancer:item/musket_melee" },
+    { "predicate": { "custom_model_data": 1}, "model": "pyromancer:item/musket_loaded" }
+  ]
+}

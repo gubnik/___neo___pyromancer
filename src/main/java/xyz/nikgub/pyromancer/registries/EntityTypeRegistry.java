@@ -8,12 +8,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.entity.FrostcopperGolemEntity;
+import xyz.nikgub.pyromancer.common.entity.UnburnedEntity;
 import xyz.nikgub.pyromancer.common.entity.UnburnedSpiritEntity;
 import xyz.nikgub.pyromancer.common.entity.attack_effect.FlamingGuillotineEntity;
 import xyz.nikgub.pyromancer.common.entity.attack_effect.PyronadoEntity;
-import xyz.nikgub.pyromancer.common.entity.projectile.SizzlingHandFireball;
 import xyz.nikgub.pyromancer.common.entity.projectile.BombsackProjectile;
-import xyz.nikgub.pyromancer.common.entity.UnburnedEntity;
+import xyz.nikgub.pyromancer.common.entity.projectile.SizzlingHandFireball;
 
 public class EntityTypeRegistry
 {
@@ -47,8 +47,8 @@ public class EntityTypeRegistry
             EntityType.Builder.of(FrostcopperGolemEntity::new, MobCategory.MONSTER)
                     .sized(1.1f, 2.1f));
 
-    private static <T extends Entity> RegistryObject<EntityType<T>> register(String registry_name, EntityType.Builder<T> entityTypeBuilder)
-	{
+    private static <T extends Entity> RegistryObject<EntityType<T>> register (String registry_name, EntityType.Builder<T> entityTypeBuilder)
+    {
         return ENTITY_TYPES.register(registry_name, () -> entityTypeBuilder.build(registry_name));
     }
 }

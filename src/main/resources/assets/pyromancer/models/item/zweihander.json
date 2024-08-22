@@ -1,0 +1,18 @@
+{
+  "parent": "item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "pyromancer:item/zweihander_big"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "pyromancer:item/zweihander_small"
+    },
+    "ground": {
+      "parent": "pyromancer:item/zweihander_small"
+    },
+    "fixed": {
+      "parent": "pyromancer:item/zweihander_small"
+    }
+  }
+}

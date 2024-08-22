@@ -28,23 +28,22 @@ public abstract class ItemStackMixin implements net.minecraftforge.common.extens
     private static final Style LORE_STYLE = Style.EMPTY.withColor(ChatFormatting.DARK_PURPLE).withItalic(true);
 
     @Shadow
-    public abstract CompoundTag getTagElement(String string);
+    public abstract CompoundTag getTagElement (String string);
 
     @Shadow
-    public abstract Item getItem();
+    public abstract Item getItem ();
 
     @Inject(method = "getHoverName", at = @At("HEAD"), cancellable = true)
-    public void getHoverNameMixinHead(CallbackInfoReturnable<Component> retVal)
-	{
+    public void getHoverNameMixinHead (CallbackInfoReturnable<Component> retVal)
+    {
         ItemStack self = (ItemStack) (Object) this;
         Function<Integer, Integer> colorFunction;
         Ember ember = Ember.getFromItem(self);
-        if(ember != null || self.getItem() instanceof EmberItem)
+        if (ember != null || self.getItem() instanceof EmberItem)
         {
-            if(ember == null) return;
+            if (ember == null) return;
             colorFunction = ember.getType().getTextColorFunction();
-        }
-        else return;
+        } else return;
         CompoundTag compoundtag = this.getTagElement("display");
         if (compoundtag != null && compoundtag.contains("Name", 8))
         {
@@ -52,14 +51,13 @@ public abstract class ItemStackMixin implements net.minecraftforge.common.extens
             {
                 MutableComponent component = Component.Serializer.fromJson(compoundtag.getString("Name"));
                 if (component != null)
-	            {
+                {
                     component = component.withStyle(component.getStyle().withColor(colorFunction.apply((PyromancerMod.clientTick))));
                     retVal.setReturnValue(component);
                 }
                 compoundtag.remove("Name");
-            }
-            catch (Exception exception)
-	        {
+            } catch (Exception exception)
+            {
                 compoundtag.remove("Name");
             }
         }

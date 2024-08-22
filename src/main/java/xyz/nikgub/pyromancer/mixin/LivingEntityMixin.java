@@ -14,12 +14,13 @@ import xyz.nikgub.pyromancer.registries.ItemRegistry;
 public abstract class LivingEntityMixin
 {
     @Inject(method = "tryAddFrost", at = @At("HEAD"), cancellable = true)
-    protected void tryAddFrost(CallbackInfo callbackInfo)
+    protected void tryAddFrost (CallbackInfo callbackInfo)
     {
         LivingEntity self = (LivingEntity) (Object) this;
         if (!(self instanceof Player player)) return;
         ItemStack spear = player.getMainHandItem();
-        if (!(spear.getItem() == ItemRegistry.SPEAR_OF_MOROZ.get() && spear.getOrCreateTag().getInt(SpearOfMorozItem.ACTION_TAG) == 1)) return;
+        if (!(spear.getItem() == ItemRegistry.SPEAR_OF_MOROZ.get() && spear.getOrCreateTag().getInt(SpearOfMorozItem.ACTION_TAG) == 1))
+            return;
         callbackInfo.cancel();
     }
 }

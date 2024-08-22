@@ -23,7 +23,8 @@ import java.util.EnumMap;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-public class ArmorOfHellblazeMonarchItem extends ArmorItem {
+public class ArmorOfHellblazeMonarchItem extends ArmorItem
+{
 
     private static final EnumMap<Type, UUID> ARMOR_MODIFIER_UUID_PER_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) ->
     {
@@ -35,7 +36,7 @@ public class ArmorOfHellblazeMonarchItem extends ArmorItem {
 
     private final Multimap<Attribute, AttributeModifier> attributes;
 
-    public ArmorOfHellblazeMonarchItem(Type type)
+    public ArmorOfHellblazeMonarchItem (Type type)
     {
         super(ArmorMaterialsRegistry.HELLBLAZE_MONARCH, type, new Properties().stacksTo(1).fireResistant().rarity(Rarity.UNCOMMON));
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
@@ -53,30 +54,32 @@ public class ArmorOfHellblazeMonarchItem extends ArmorItem {
     }
 
     @Override
-    public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot equipmentSlot)
+    public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers (@NotNull EquipmentSlot equipmentSlot)
     {
         return equipmentSlot == this.type.getSlot() ? this.attributes : super.getDefaultAttributeModifiers(equipmentSlot);
     }
 
     @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type)
+    public String getArmorTexture (ItemStack stack, Entity entity, EquipmentSlot slot, String type)
     {
         return "pyromancer:textures/model/armor/armor_of_hellblaze_monarch.png";
     }
 
-    public float getAttributeValue(EquipmentSlot equipmentSlot, Attribute attribute)
+    public float getAttributeValue (EquipmentSlot equipmentSlot, Attribute attribute)
     {
         int[] VALUES = new int[]{10, 15, 20, 10};
         return VALUES[equipmentSlot.getIndex()] * 0.0075F * (attribute.equals(AttributeRegistry.PYROMANCY_DAMAGE.get()) ? 2 : 1);
     }
 
     @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer)
+    public void initializeClient (Consumer<IClientItemExtensions> consumer)
     {
-        consumer.accept(new IClientItemExtensions() {
+        consumer.accept(new IClientItemExtensions()
+        {
             @Override
             @SuppressWarnings("rawtypes")
-            public @NotNull HumanoidModel getHumanoidArmorModel(LivingEntity living, ItemStack stack, EquipmentSlot slot, HumanoidModel defaultModel) {
+            public @NotNull HumanoidModel getHumanoidArmorModel (LivingEntity living, ItemStack stack, EquipmentSlot slot, HumanoidModel defaultModel)
+            {
                 return ArmorOfHellblazeMonarchModel.getHumanoidModel(slot);
             }
         });

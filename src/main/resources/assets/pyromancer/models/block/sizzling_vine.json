@@ -1,8 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "pyromancer:block/sizzling_vine",
-    "particle": "pyromancer:block/sizzling_vine"
-  },
-  "render_type": "cutout"
-}

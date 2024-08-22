@@ -27,80 +27,32 @@ public class Ember
     private final EmberAnimation animation;
 
     /**
-     *
      * @param name              Name of ember
      * @param type              Type of infusion, defines colouring and damage boosts
-     * @param acceptableWeapons   List of item classes that this ember can be applied to
+     * @param acceptableWeapons List of item classes that this ember can be applied to
      * @param animation         Record of third person animation, first person item transforms, use duration and cooldown
      */
     @SafeVarargs
-    public Ember(String name, @NotNull EmberType type, @NotNull EmberAnimation animation, Class<? extends Item>... acceptableWeapons)
+    public Ember (String name, @NotNull EmberType type, @NotNull EmberAnimation animation, Class<? extends Item>... acceptableWeapons)
     {
         this.name = name;
         this.type = type;
         this.acceptableItems = Set.of(acceptableWeapons);
         this.animation = animation;
     }
-    @Override
-    public String toString()
-    {
-        return String.format("ember:%s/%s", this.name, this.type.getName());
-    }
 
-    public String getName()
-	{
-        return name;
-    }
-
-    public String getDescriptionId()
-    {
-        return "ember." + this.name + ".description";
-    }
-
-    public String getNameId()
-    {
-        return "ember." + this.name + ".name";
-    }
-
-    public EmberType getType()
-	{
-        return type;
-    }
-
-    public Set<Class<? extends Item>> getAcceptableItems()
-	{
-        return acceptableItems;
-    }
-
-    @NotNull
-    public EmberAnimation getAnimation()
-	{
-        return animation;
-    }
-
-    public ItemStack applyToItemStack(ItemStack itemStack)
-    {
-        itemStack.getOrCreateTag().putString(EmberRegistry.EMBER_TAG, this.getName());
-        return itemStack;
-    }
-
-    public boolean isValidFor(Item weapon)
-    {
-        return emberItemPredicate(weapon) && this.acceptableItems.contains(weapon.getClass());
-    }
-
-    public static boolean emberItemPredicate(Item item)
+    public static boolean emberItemPredicate (Item item)
     {
         for (String id : PyromancerConfig.emberBlacklist)
         {
-            if(id.equals(item.toString()))
+            if (id.equals(item.toString()))
             {
                 return false;
             }
         }
         for (String id : PyromancerConfig.emberAdditionalItems)
         {
-            if(id.equals(item.toString()))
+            if (id.equals(item.toString()))
             {
                 return true;
             }
@@ -109,7 +61,7 @@ public class Ember
     }
 
     @Nullable
-    public static Ember getFromItem(ItemStack itemStack)
+    public static Ember getFromItem (ItemStack itemStack)
     {
         if (itemStack.getItem() instanceof EmberItem)
             return EmberRegistry.getEmberByName(itemStack.getOrCreateTag().getString(EmberRegistry.EMBER_TAG));
@@ -117,6 +69,53 @@ public class Ember
         return EmberRegistry.getEmberByName(itemStack.getOrCreateTag().getString(EmberRegistry.EMBER_TAG));
     }
 
+    @Override
+    public String toString ()
+    {
+        return String.format("ember:%s/%s", this.name, this.type.getName());
+    }
+
+    public String getName ()
+    {
+        return name;
+    }
+
+    public String getDescriptionId ()
+    {
+        return "ember." + this.name + ".description";
+    }
+
+    public String getNameId ()
+    {
+        return "ember." + this.name + ".name";
+    }
+
+    public EmberType getType ()
+    {
+        return type;
+    }
+
+    public Set<Class<? extends Item>> getAcceptableItems ()
+    {
+        return acceptableItems;
+    }
+
+    @NotNull
+    public EmberAnimation getAnimation ()
+    {
+        return animation;
+    }
+
+    public ItemStack applyToItemStack (ItemStack itemStack)
+    {
+        itemStack.getOrCreateTag().putString(EmberRegistry.EMBER_TAG, this.getName());
+        return itemStack;
+    }
+
+    public boolean isValidFor (Item weapon)
+    {
+        return emberItemPredicate(weapon) && this.acceptableItems.contains(weapon.getClass());
+    }
 
     public void tickEvent (Level level, LivingEntity entity, ItemStack itemStack, int tick)
     {

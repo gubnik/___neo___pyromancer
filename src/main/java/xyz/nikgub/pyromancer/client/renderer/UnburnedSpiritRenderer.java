@@ -19,14 +19,14 @@ public class UnburnedSpiritRenderer extends EntityRenderer<UnburnedSpiritEntity>
 
     private final UnburnedSpiritModel<UnburnedSpiritEntity> model;
 
-    public UnburnedSpiritRenderer(EntityRendererProvider.Context context)
-	{
+    public UnburnedSpiritRenderer (EntityRendererProvider.Context context)
+    {
         super(context);
         this.model = new UnburnedSpiritModel<>(context.bakeLayer(UnburnedSpiritModel.LAYER_LOCATION));
     }
 
-    public void render(@NotNull UnburnedSpiritEntity entity, float v, float v1, @NotNull PoseStack poseStack, MultiBufferSource multiBufferSource, int p_114533_)
-	{
+    public void render (@NotNull UnburnedSpiritEntity entity, float v, float v1, @NotNull PoseStack poseStack, MultiBufferSource multiBufferSource, int p_114533_)
+    {
         VertexConsumer vertexconsumer = multiBufferSource.getBuffer(RenderType.entityTranslucentEmissive(TEXTURE_LOCATION));
         vertexconsumer.unsetDefaultColor();
         poseStack.scale(entity.getSize(), -1.0F * entity.getSize(), entity.getSize());
@@ -38,8 +38,8 @@ public class UnburnedSpiritRenderer extends EntityRenderer<UnburnedSpiritEntity>
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull UnburnedSpiritEntity p_114482_)
-	{
+    public @NotNull ResourceLocation getTextureLocation (@NotNull UnburnedSpiritEntity p_114482_)
+    {
         return TEXTURE_LOCATION;
     }
 }

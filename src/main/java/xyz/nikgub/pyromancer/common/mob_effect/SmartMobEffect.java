@@ -6,8 +6,8 @@ import xyz.nikgub.incandescent.common.util.GeneralUtils;
 
 public class SmartMobEffect extends MobEffect
 {
-    public SmartMobEffect(MobEffectCategory category, int r, int g, int b)
+    public SmartMobEffect (MobEffectCategory category, int r, int g, int b)
     {
-        super(category, GeneralUtils.rgbToColorInteger(r,g,b));
+        super(category, GeneralUtils.rgbToColorInteger(r, g, b));
     }
 }

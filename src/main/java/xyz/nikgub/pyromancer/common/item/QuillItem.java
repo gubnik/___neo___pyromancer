@@ -22,19 +22,21 @@ public abstract class QuillItem extends Item implements IExtensibleTooltipItem
 {
     public static final String QUILL_RENDER_TAG = "PYROMANCER_QUILL_SMART_RENDER_TAG";
 
-    public QuillItem(Properties properties)
-	{
+    public QuillItem (Properties properties)
+    {
         super(properties.stacksTo(1));
     }
 
-    public abstract void    getAttack    (Player player, ItemStack weaponStack, ItemStack journalStack);
+    public abstract void getAttack (Player player, ItemStack weaponStack, ItemStack journalStack);
+
     public abstract boolean getCondition (Player player, ItemStack weaponStack, ItemStack journalStack);
 
     public abstract float getDefaultPyromancyDamageBonus ();
+
     public abstract int getDefaultBlazeCostBonus ();
 
     @Override
-    public final void appendHoverText(@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
+    public final void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
     {
         gatherTooltipLines(list, "pyromancer.pyromancy_hidden_line", "desc", PyromancerConfig.quillDescriptionKey);
     }

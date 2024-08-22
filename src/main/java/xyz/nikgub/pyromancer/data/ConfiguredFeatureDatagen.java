@@ -17,7 +17,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.*;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NetherForestVegetationConfig;
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.RandomSpreadFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
@@ -43,7 +46,7 @@ public class ConfiguredFeatureDatagen
     public static final ResourceKey<ConfiguredFeature<?, ?>> BLUE_ICE_CHUNK = createKey("blue_ice_chunk");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SNOW_LAYER = createKey("snow_layer");
 
-    public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context)
+    public static void bootstrap (BootstapContext<ConfiguredFeature<?, ?>> context)
     {
         HolderGetter<PlacedFeature> placedFeatureGetter = context.lookup(Registries.PLACED_FEATURE);
 
@@ -130,7 +133,7 @@ public class ConfiguredFeatureDatagen
                 )));
     }
 
-    public static ResourceKey<ConfiguredFeature<?, ?>> createKey(String name)
+    public static ResourceKey<ConfiguredFeature<?, ?>> createKey (String name)
     {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(PyromancerMod.MOD_ID, name));
     }

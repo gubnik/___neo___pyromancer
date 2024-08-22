@@ -1,0 +1,16 @@
+{
+  "musket_load": {
+    "replace": true,
+    "sounds": [
+      "pyromancer:musket_load"
+    ],
+    "subtitle": "pyromancer.subtitle.musket_load"
+  },
+  "musket_shot": {
+    "replace": true,
+    "sounds": [
+      "pyromancer:musket_shot"
+    ],
+    "subtitle": "pyromancer.subtitle.musket_shot"
+  }
+}

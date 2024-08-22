@@ -26,8 +26,9 @@ public enum ArmorMaterialsRegistry implements ArmorMaterial
     private final float knockbackResistance;
     private final Ingredient repairIngredient;
 
-    ArmorMaterialsRegistry(String name, int durabilityMultiplier, int[] slotProtections, int enchantmentValue, SoundEvent sound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient)
-	{        this.name = name;
+    ArmorMaterialsRegistry (String name, int durabilityMultiplier, int[] slotProtections, int enchantmentValue, SoundEvent sound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient)
+    {
+        this.name = name;
         this.durabilityMultiplier = durabilityMultiplier;
         this.slotProtections = slotProtections;
         this.enchantmentValue = enchantmentValue;
@@ -38,37 +39,45 @@ public enum ArmorMaterialsRegistry implements ArmorMaterial
     }
 
     @Override
-    public int getDurabilityForType(ArmorItem.Type type)
-	{        return HEALTH_PER_SLOT[type.getSlot().getIndex()] * this.durabilityMultiplier;
+    public int getDurabilityForType (ArmorItem.Type type)
+    {
+        return HEALTH_PER_SLOT[type.getSlot().getIndex()] * this.durabilityMultiplier;
     }
 
     @Override
-    public int getDefenseForType(ArmorItem.Type type)
-	{        return this.slotProtections[type.getSlot().getIndex()];
+    public int getDefenseForType (ArmorItem.Type type)
+    {
+        return this.slotProtections[type.getSlot().getIndex()];
     }
 
-    public int getEnchantmentValue()
-	{        return this.enchantmentValue;
+    public int getEnchantmentValue ()
+    {
+        return this.enchantmentValue;
     }
 
-    public @NotNull SoundEvent getEquipSound()
-	{        return this.sound;
+    public @NotNull SoundEvent getEquipSound ()
+    {
+        return this.sound;
     }
 
-    public @NotNull Ingredient getRepairIngredient()
-	{        return this.repairIngredient;
+    public @NotNull Ingredient getRepairIngredient ()
+    {
+        return this.repairIngredient;
     }
 
-    public @NotNull String getName()
-	{        return this.name;
+    public @NotNull String getName ()
+    {
+        return this.name;
     }
 
-    public float getToughness()
-	{        return this.toughness;
+    public float getToughness ()
+    {
+        return this.toughness;
     }
 
-    public float getKnockbackResistance()
-	{        return this.knockbackResistance;
+    public float getKnockbackResistance ()
+    {
+        return this.knockbackResistance;
     }
 }
 

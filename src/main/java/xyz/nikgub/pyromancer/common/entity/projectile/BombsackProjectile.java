@@ -17,58 +17,58 @@ import xyz.nikgub.pyromancer.registries.ItemRegistry;
 
 public class BombsackProjectile extends ThrowableItemProjectile
 {
-    public BombsackProjectile(EntityType<? extends ThrowableItemProjectile> entityType, Level level)
-	{
+    public BombsackProjectile (EntityType<? extends ThrowableItemProjectile> entityType, Level level)
+    {
         super(entityType, level);
     }
 
     @Override
-    protected @NotNull Item getDefaultItem()
-	{
+    protected @NotNull Item getDefaultItem ()
+    {
         return ItemRegistry.BOMBSACK.get();
     }
 
-    private ParticleOptions getParticle()
-	{
+    private ParticleOptions getParticle ()
+    {
         ItemStack itemstack = this.getItemRaw();
         return (itemstack.isEmpty() ? ParticleTypes.SMOKE : new ItemParticleOption(ParticleTypes.ITEM, itemstack));
     }
 
     @Override
-    public void handleEntityEvent(byte b)
-	{
+    public void handleEntityEvent (byte b)
+    {
         if (b == 3)
-	    {
+        {
             ParticleOptions particleoptions = this.getParticle();
-            for(int i = 0; i < 8; ++i)
-	        {
+            for (int i = 0; i < 8; ++i)
+            {
                 this.level().addParticle(particleoptions, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
             }
         }
     }
 
     @Override
-    protected void onHitEntity(@NotNull EntityHitResult entityHitResult)
-	{
+    protected void onHitEntity (@NotNull EntityHitResult entityHitResult)
+    {
         super.onHitEntity(entityHitResult);
         Entity entity = entityHitResult.getEntity();
         entity.hurt(DamageSourceRegistry.bombsack(this, this.getOwner() != null ? this.getOwner() : this), 1);
     }
 
     @Override
-    protected void onHit(@NotNull HitResult hitResult)
-	{
+    protected void onHit (@NotNull HitResult hitResult)
+    {
         super.onHit(hitResult);
         if (!this.level().isClientSide)
-	    {
-            this.level().broadcastEntityEvent(this, (byte)3);
+        {
+            this.level().broadcastEntityEvent(this, (byte) 3);
             this.discard();
             this.collisionEffect();
         }
     }
 
-    public void collisionEffect()
-	{
+    public void collisionEffect ()
+    {
         this.level().explode(this, DamageSourceRegistry.bombsack(this, this.getOwner() != null ? this.getOwner() : this), null, this.getX(), this.getY(), this.getZ(), 1.3f, false, Level.ExplosionInteraction.NONE);
     }
 }

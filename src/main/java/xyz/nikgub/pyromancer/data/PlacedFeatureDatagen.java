@@ -29,7 +29,7 @@ public class PlacedFeatureDatagen
     public static final ResourceKey<PlacedFeature> BLUE_ICE_CHUNK = createKey("blue_ice_chunk");
     public static final ResourceKey<PlacedFeature> SNOW_LAYER = createKey("snow_layer");
 
-    public static void bootstrap(BootstapContext<PlacedFeature> context)
+    public static void bootstrap (BootstapContext<PlacedFeature> context)
     {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatureGetter = context.lookup(Registries.CONFIGURED_FEATURE);
 
@@ -60,7 +60,7 @@ public class PlacedFeatureDatagen
 
         PlacementUtils.register(context, RIMECELL_UNDERGROUND, RIMECELL_UNDERGROUND_HOLDER, List.of(CountPlacement.of(64), InSquarePlacement.spread(),
                 PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-                EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12   ),
+                EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
                 RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
                 BiomeFilter.biome()));
 
@@ -75,17 +75,17 @@ public class PlacedFeatureDatagen
         PlacementUtils.register(context, SNOW_LAYER, SNOW_LAYER_HOLDER, List.of(CountOnEveryLayerPlacement.of(64), BiomeFilter.biome()));
     }
 
-    protected static void register(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> placedFeatureKey, Holder<ConfiguredFeature<?, ?>> configuredFeature, PlacementModifier... modifiers)
+    protected static void register (BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> placedFeatureKey, Holder<ConfiguredFeature<?, ?>> configuredFeature, PlacementModifier... modifiers)
     {
         register(context, placedFeatureKey, configuredFeature, List.of(modifiers));
     }
 
-    protected static void register(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> placedFeatureKey, Holder<ConfiguredFeature<?, ?>> configuredFeature, List<PlacementModifier> modifiers)
+    protected static void register (BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> placedFeatureKey, Holder<ConfiguredFeature<?, ?>> configuredFeature, List<PlacementModifier> modifiers)
     {
         context.register(placedFeatureKey, new PlacedFeature(configuredFeature, modifiers));
     }
 
-    public static ResourceKey<PlacedFeature> createKey(String name)
+    public static ResourceKey<PlacedFeature> createKey (String name)
     {
         return ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(PyromancerMod.MOD_ID, name));
     }

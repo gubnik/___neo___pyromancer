@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "pyromancer:block/blazing_poppy"
-  }
-}

@@ -15,19 +15,23 @@ import xyz.nikgub.pyromancer.common.entity.projectile.BombsackProjectile;
 
 import java.util.function.Supplier;
 
-public class BombsackItem extends Item {
+public class BombsackItem extends Item
+{
 
     private final Supplier<EntityType<? extends BombsackProjectile>> typeSupplier;
 
-    public BombsackItem(Properties properties, Supplier<EntityType<? extends BombsackProjectile>> typeSupplier) {
+    public BombsackItem (Properties properties, Supplier<EntityType<? extends BombsackProjectile>> typeSupplier)
+    {
         super(properties);
         this.typeSupplier = typeSupplier;
     }
 
-    public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player player, @NotNull InteractionHand interactionHand) {
+    public @NotNull InteractionResultHolder<ItemStack> use (Level level, Player player, @NotNull InteractionHand interactionHand)
+    {
         ItemStack itemstack = player.getItemInHand(interactionHand);
         level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FIRECHARGE_USE, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
-        if (!level.isClientSide) {
+        if (!level.isClientSide)
+        {
             BombsackProjectile bombsack = typeSupplier.get().create(level);
             if (bombsack == null) return InteractionResultHolder.fail(itemstack);
             bombsack.setItem(itemstack);
@@ -36,7 +40,8 @@ public class BombsackItem extends Item {
             level.addFreshEntity(bombsack);
         }
         player.awardStat(Stats.ITEM_USED.get(this));
-        if (!player.getAbilities().instabuild) {
+        if (!player.getAbilities().instabuild)
+        {
             itemstack.shrink(1);
         }
         return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());

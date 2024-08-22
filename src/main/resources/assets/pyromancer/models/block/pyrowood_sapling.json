@@ -1,8 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "pyromancer:block/pyrowood_sapling",
-    "particle": "pyromancer:block/pyrowood_sapling"
-  },
-  "render_type": "cutout"
-}

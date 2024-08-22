@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "pyromancer:block/pyrowood_log_top",
+    "side": "pyromancer:block/pyrowood_log_side"
+  }
+}

@@ -20,23 +20,23 @@ import java.util.concurrent.CompletableFuture;
 
 public class ItemTagDatagen extends ItemTagsProvider
 {
-    public ItemTagDatagen(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, CompletableFuture<TagLookup<Block>> blockProvider, @Nullable ExistingFileHelper existingFileHelper)
-	{
+    public static final TagKey<Item> FROST_WEAPON = create("frost_weapon");
+    public static TagKey<Item> PYROMANCY = create("pyromancy");
+
+    public ItemTagDatagen (PackOutput output, CompletableFuture<HolderLookup.Provider> provider, CompletableFuture<TagLookup<Block>> blockProvider, @Nullable ExistingFileHelper existingFileHelper)
+    {
         super(output, provider, blockProvider, PyromancerMod.MOD_ID, existingFileHelper);
     }
 
-    private static TagKey<Item> create(String s)
-	{
+    private static TagKey<Item> create (String s)
+    {
         return TagKey.create(Registries.ITEM, new ResourceLocation(s));
     }
 
-    public static TagKey<Item> PYROMANCY = create("pyromancy");
-    public static final TagKey<Item> FROST_WEAPON = create("frost_weapon");
-
     @Override
-    protected void addTags(HolderLookup.@NotNull Provider p_256380_)
-	{
-        for (Item item :ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).toList())
+    protected void addTags (HolderLookup.@NotNull Provider p_256380_)
+    {
+        for (Item item : ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).toList())
         {
             if (item instanceof IPyromancyItem)
                 tag(PYROMANCY).add(item);

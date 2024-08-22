@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "pyromancer:item/inquisitorial_musket_ball"
+  }
+}

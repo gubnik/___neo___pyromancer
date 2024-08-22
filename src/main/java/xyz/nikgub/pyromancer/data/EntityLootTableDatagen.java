@@ -20,13 +20,13 @@ import xyz.nikgub.pyromancer.registries.ItemRegistry;
 
 public class EntityLootTableDatagen extends EntityLootSubProvider
 {
-    protected EntityLootTableDatagen()
+    protected EntityLootTableDatagen ()
     {
         super(FeatureFlags.REGISTRY.allFlags());
     }
 
     @Override
-    public void generate()
+    public void generate ()
     {
         this.add(EntityTypeRegistry.FROSTCOPPER_GOLEM.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool()
@@ -44,11 +44,11 @@ public class EntityLootTableDatagen extends EntityLootSubProvider
                         .setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(ItemRegistry.EVENBURNING_HEART.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F)))))
-                );
+        );
     }
 
     @Override
-    protected java.util.stream.@NotNull Stream<EntityType<?>> getKnownEntityTypes()
+    protected java.util.stream.@NotNull Stream<EntityType<?>> getKnownEntityTypes ()
     {
         return EntityTypeRegistry.ENTITY_TYPES.getEntries().stream().map(RegistryObject::get);
     }

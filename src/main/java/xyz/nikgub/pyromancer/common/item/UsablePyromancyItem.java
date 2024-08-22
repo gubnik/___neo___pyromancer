@@ -22,9 +22,9 @@ import xyz.nikgub.incandescent.common.item.IGradientNameItem;
 import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerConfig;
-import xyz.nikgub.pyromancer.registries.AttributeRegistry;
 import xyz.nikgub.pyromancer.common.util.ItemUtils;
 import xyz.nikgub.pyromancer.mixin.client.ItemRendererMixin;
+import xyz.nikgub.pyromancer.registries.AttributeRegistry;
 
 import java.util.List;
 import java.util.Map;
@@ -37,30 +37,31 @@ import java.util.function.BiFunction;
  */
 public abstract class UsablePyromancyItem extends Item implements IPyromancyItem, INotStupidTooltipItem, IGradientNameItem, IExtensibleTooltipItem
 {
-    public UsablePyromancyItem(Properties properties)
-	{
+    public UsablePyromancyItem (Properties properties)
+    {
         super(properties.stacksTo(1));
     }
 
     /**
      * Method to provide an optional additional logic for {@link ItemRendererMixin} pyromancyRenderManager() method
-     * @param poseStack     PoseStack to transform
+     *
+     * @param poseStack PoseStack to transform
      */
-    public abstract void compendiumTransforms(PoseStack poseStack, ItemDisplayContext displayContext);
+    public abstract void compendiumTransforms (PoseStack poseStack, ItemDisplayContext displayContext);
 
     @Override
-    public abstract @NotNull ItemStack finishUsingItem(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity);
+    public abstract @NotNull ItemStack finishUsingItem (@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity);
 
     @Override
-    public abstract @NotNull UseAnim getUseAnimation(@NotNull ItemStack itemStack);
+    public abstract @NotNull UseAnim getUseAnimation (@NotNull ItemStack itemStack);
 
     @Override
-    public abstract int getUseDuration(@NotNull ItemStack itemStack);
+    public abstract int getUseDuration (@NotNull ItemStack itemStack);
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand)
+    public @NotNull InteractionResultHolder<ItemStack> use (@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand)
     {
-        if(ItemUtils.getBlaze(player) > player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()))
+        if (ItemUtils.getBlaze(player) > player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()))
         {
             player.startUsingItem(hand);
             return InteractionResultHolder.success(player.getItemInHand(hand));
@@ -70,7 +71,7 @@ public abstract class UsablePyromancyItem extends Item implements IPyromancyItem
 
     @Override
     public @NotNull Multimap<Attribute, AttributeModifier> getAttributeModifiers (@NotNull EquipmentSlot slot, ItemStack stack)
-	{
+    {
         ImmutableListMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableListMultimap.builder();
         if (slot != EquipmentSlot.MAINHAND) return builder.build();
         builder.put(AttributeRegistry.PYROMANCY_DAMAGE.get(), new AttributeModifier(BASE_PYROMANCY_DAMAGE_UUID, "Weapon modifier", this.getDefaultPyromancyDamage(), AttributeModifier.Operation.ADDITION));
@@ -79,14 +80,14 @@ public abstract class UsablePyromancyItem extends Item implements IPyromancyItem
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
+    public void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
     {
         gatherTooltipLines(list, "pyromancer.pyromancy_hidden_line", "desc", PyromancerConfig.pyromancyDescriptionKey);
     }
 
     @Override
-    public Map<Attribute, Pair<UUID, Style>> specialColoredUUID(ItemStack itemStack)
-	{
+    public Map<Attribute, Pair<UUID, Style>> specialColoredUUID (ItemStack itemStack)
+    {
         return Map.of(
                 AttributeRegistry.PYROMANCY_DAMAGE.get(), Pair.of(BASE_PYROMANCY_DAMAGE_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
                 AttributeRegistry.BLAZE_CONSUMPTION.get(), Pair.of(BASE_BLAZE_CONSUMPTION_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD))
@@ -94,9 +95,10 @@ public abstract class UsablePyromancyItem extends Item implements IPyromancyItem
     }
 
     @Override
-    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus(ItemStack itemStack)
-	{
-        return ((player, attribute) -> {
+    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus (ItemStack itemStack)
+    {
+        return ((player, attribute) ->
+        {
             double d0 = 0;
             d0 += IPyromancyItem.getAttributeBonus(player, attribute);
             return d0;
@@ -104,14 +106,14 @@ public abstract class UsablePyromancyItem extends Item implements IPyromancyItem
     }
 
     @Override
-    public boolean getGradientCondition(ItemStack itemStack)
-	{
+    public boolean getGradientCondition (ItemStack itemStack)
+    {
         return true;
     }
 
     @Override
-    public Pair<Integer, Integer> getGradientColors(ItemStack itemStack)
-	{
+    public Pair<Integer, Integer> getGradientColors (ItemStack itemStack)
+    {
         return Pair.of(
                 GeneralUtils.rgbToColorInteger(200, 57, 0),
                 GeneralUtils.rgbToColorInteger(240, 129, 0)
@@ -119,8 +121,8 @@ public abstract class UsablePyromancyItem extends Item implements IPyromancyItem
     }
 
     @Override
-    public int getGradientTickTime(ItemStack itemStack)
-	{
+    public int getGradientTickTime (ItemStack itemStack)
+    {
         return 60;
     }
 }

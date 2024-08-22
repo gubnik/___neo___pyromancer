@@ -19,7 +19,7 @@ public class AttributeRegistry
 
     public static RegistryObject<Attribute> COLD_BUILDUP = registerAttribute(new RangedAttribute("pyromancer.cold_buildup", 0, 0, Integer.MAX_VALUE));
 
-    private static RegistryObject<Attribute> registerAttribute(Attribute attribute)
+    private static RegistryObject<Attribute> registerAttribute (Attribute attribute)
     {
         return ATTRIBUTES.register(attribute.getDescriptionId(), () -> attribute);
     }

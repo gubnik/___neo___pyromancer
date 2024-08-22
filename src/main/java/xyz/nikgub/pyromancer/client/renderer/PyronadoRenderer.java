@@ -19,14 +19,14 @@ public class PyronadoRenderer extends EntityRenderer<PyronadoEntity>
 
     private final PyronadoModel<PyronadoEntity> model;
 
-    public PyronadoRenderer(EntityRendererProvider.Context context)
-	{
+    public PyronadoRenderer (EntityRendererProvider.Context context)
+    {
         super(context);
         this.model = new PyronadoModel<>(context.bakeLayer(PyronadoModel.LAYER_LOCATION));
     }
 
-    public void render(@NotNull PyronadoEntity entity, float v, float v1, @NotNull PoseStack poseStack, MultiBufferSource multiBufferSource, int p_114533_)
-	{
+    public void render (@NotNull PyronadoEntity entity, float v, float v1, @NotNull PoseStack poseStack, MultiBufferSource multiBufferSource, int p_114533_)
+    {
         VertexConsumer vertexconsumer = multiBufferSource.getBuffer(RenderType.entityTranslucentEmissive(TEXTURE_LOCATION));
         float K = entity.sizeCoefficient;
         poseStack.scale(entity.getSize() * K, -1.0F * entity.getSize() * K, entity.getSize() * K);
@@ -37,8 +37,8 @@ public class PyronadoRenderer extends EntityRenderer<PyronadoEntity>
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(@NotNull PyronadoEntity p_114482_)
-	{
+    public @NotNull ResourceLocation getTextureLocation (@NotNull PyronadoEntity p_114482_)
+    {
         return TEXTURE_LOCATION;
     }
 }

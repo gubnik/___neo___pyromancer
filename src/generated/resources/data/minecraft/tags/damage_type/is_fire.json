@@ -5,6 +5,7 @@
     "#pyromancer:is_pyromancy",
     "pyromancer:firebriar",
     "pyromancer:blazing_journal_projection",
-    "pyromancer:soulflame"
+    "pyromancer:soulflame",
+    "pyromancer:guillotine"
   ]
 }

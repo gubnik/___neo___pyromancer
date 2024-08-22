@@ -18,18 +18,18 @@ public class PyronadoEntity extends AttackEffectEntity
 {
     public float sizeCoefficient = 0f;
 
-    public PyronadoEntity(EntityType<? extends AttackEffectEntity> entityType, Level level)
-	{
+    public PyronadoEntity (EntityType<? extends AttackEffectEntity> entityType, Level level)
+    {
         super(entityType, level);
         this.lifetime = 60;
     }
 
     @Override
-    public void tick()
+    public void tick ()
     {
         super.tick();
         this.sizeCoefficient = Mth.clamp((float) this.tickCount / 20f, 0f, 2f);
-        if(!(this.level() instanceof ServerLevel serverLevel)) return;
+        if (!(this.level() instanceof ServerLevel serverLevel)) return;
         final float c = this.sizeCoefficient;
         final double R = 4 * c;
         final double X = this.getX();
@@ -37,18 +37,20 @@ public class PyronadoEntity extends AttackEffectEntity
         final double Z = this.getZ();
         final double sinK = R * Math.sin(Math.toRadians(this.tickCount * 18));
         final double cosK = R * Math.cos(Math.toRadians(this.tickCount * 18));
-        serverLevel.sendParticles(ParticleTypes.FLAME, X + sinK, Y + this.tickCount * 0.1, Z + cosK, (int)(1 + 5 * c), 0.1, 0.1, 0.1, 0);
-        serverLevel.sendParticles(ParticleTypes.FLAME, X - sinK, Y + this.tickCount * 0.1, Z - cosK, (int)(1 + 5 * c), 0.1, 0.1, 0.1, 0);
-        if(this.tickCount % 5 != 0) return;
+        serverLevel.sendParticles(ParticleTypes.FLAME, X + sinK, Y + this.tickCount * 0.1, Z + cosK, (int) (1 + 5 * c), 0.1, 0.1, 0.1, 0);
+        serverLevel.sendParticles(ParticleTypes.FLAME, X - sinK, Y + this.tickCount * 0.1, Z - cosK, (int) (1 + 5 * c), 0.1, 0.1, 0.1, 0);
+        if (this.tickCount % 5 != 0) return;
         UUID ownerUUID = this.getPlayerUuid();
-        if(ownerUUID == null) return;
+        if (ownerUUID == null) return;
         Player owner = this.level().getPlayerByUUID(ownerUUID);
-        if(owner == null) return;
+        if (owner == null) return;
         double dx, dy, dz;
         Vec3 direction;
         double cy = Y + this.tickCount * 0.1;
-        for(LivingEntity entity : EntityUtils.entityCollector(new Vec3(X, cy, Z), 2 + 2 * this.sizeCoefficient, owner.level())){
-            if(!entity.equals(owner)){
+        for (LivingEntity entity : EntityUtils.entityCollector(new Vec3(X, cy, Z), 2 + 2 * this.sizeCoefficient, owner.level()))
+        {
+            if (!entity.equals(owner))
+            {
                 entity.hurt(DamageSourceRegistry.pyronado(this, owner), (float) owner.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get()));
                 dx = X - entity.getX();
                 dy = cy - entity.getY();
@@ -60,8 +62,8 @@ public class PyronadoEntity extends AttackEffectEntity
     }
 
     @Override
-    public void addToLevelForPlayerAt(Level level, Player player, Vec3 pos)
-	{
+    public void addToLevelForPlayerAt (Level level, Player player, Vec3 pos)
+    {
         this.setPlayerUuid(player.getUUID());
         this.setSize(1);
         this.setPos(pos);

@@ -14,14 +14,15 @@ import java.lang.annotation.Target;
 public @interface UniqueEmberBehaviour
 {
     /**
-     * @return      Modifier overriding default logic
+     * @return Modifier overriding default logic
      */
-    AllowanceModifier allow();
+    AllowanceModifier allow ();
 
     /**
-     * @return      Additive modifier applied to the cost of one ember usage
+     * @return Additive modifier applied to the cost of one ember usage
      */
-    int costModifier() default 1;
+    int costModifier () default 1;
+
     enum AllowanceModifier
     {
         /**

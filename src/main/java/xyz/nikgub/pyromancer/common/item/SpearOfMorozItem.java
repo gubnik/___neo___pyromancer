@@ -59,25 +59,31 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStup
 
     public static final String ACTION_TAG = "__FROSTBORNE_SPEAR_OF_MOROZ_ACTION__";
 
-    public SpearOfMorozItem(Properties pProperties)
+    public SpearOfMorozItem (Properties pProperties)
     {
         super(pProperties.stacksTo(1).defaultDurability(1500));
     }
 
     @Override
-    public boolean isDamageable(ItemStack itemStack)
-    { return true; }
+    public boolean isDamageable (ItemStack itemStack)
+    {
+        return true;
+    }
 
     @Override
-    public boolean isEnchantable(@NotNull ItemStack itemStack)
-    { return true; }
+    public boolean isEnchantable (@NotNull ItemStack itemStack)
+    {
+        return true;
+    }
 
     @Override
-    public int getEnchantmentValue(ItemStack itemStack)
-    { return 15; }
+    public int getEnchantmentValue (ItemStack itemStack)
+    {
+        return 15;
+    }
 
     @Override
-    public void inventoryTick(@NotNull ItemStack itemStack, @NotNull Level level, @NotNull Entity entity, int tick, boolean b)
+    public void inventoryTick (@NotNull ItemStack itemStack, @NotNull Level level, @NotNull Entity entity, int tick, boolean b)
     {
         if (!(entity instanceof Player player)) return;
         if (player.swingTime > 0) return;
@@ -88,13 +94,12 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStup
             for (LivingEntity target : EntityUtils.entityCollector(player.getEyePosition(), 1.4, level))
             {
                 if (target == player) continue;
-                target.hurt(DamageSourceRegistry.spearOfMoroz(player), (float)((int) player.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.3D) + 1.0F);
+                target.hurt(DamageSourceRegistry.spearOfMoroz(player), (float) ((int) player.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.3D) + 1.0F);
                 target.addDeltaMovement(player.getDeltaMovement().multiply(1.2, 1.2, 1.2).add(0, 0.2, 0));
                 target.addDeltaMovement(player.getLookAngle().multiply(1, 0.5, 1));
             }
             runningAttackEffect(player);
-        }
-        else
+        } else
         {
             tag.putInt(ACTION_TAG, 0);
         }
@@ -102,27 +107,26 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStup
     }
 
     @Override
-    public boolean hurtEnemy(@NotNull ItemStack itemStack, @NotNull LivingEntity target, @NotNull LivingEntity source)
+    public boolean hurtEnemy (@NotNull ItemStack itemStack, @NotNull LivingEntity target, @NotNull LivingEntity source)
     {
         if (itemStack.getOrCreateTag().getInt(ACTION_TAG) == 1)
         {
-            target.knockback(1.2, Math.sin(source.getYRot() * ((float)Math.PI / 180F)), -Math.cos(source.getYRot() * ((float)Math.PI / 180F)));
-        }
-        else
+            target.knockback(1.2, Math.sin(source.getYRot() * ((float) Math.PI / 180F)), -Math.cos(source.getYRot() * ((float) Math.PI / 180F)));
+        } else
         {
-            target.knockback(0.5, Math.sin(source.getYRot() * ((float)Math.PI / 180F)), -Math.cos(source.getYRot() * ((float)Math.PI / 180F)));
+            target.knockback(0.5, Math.sin(source.getYRot() * ((float) Math.PI / 180F)), -Math.cos(source.getYRot() * ((float) Math.PI / 180F)));
         }
         return false;
     }
 
     @Override
-    public boolean canAttackBlock(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull Player player)
+    public boolean canAttackBlock (@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull Player player)
     {
         return !player.isCreative();
     }
 
     @Override
-    public boolean canPerformAction(ItemStack stack, ToolAction toolAction)
+    public boolean canPerformAction (ItemStack stack, ToolAction toolAction)
     {
         if (toolAction == ToolActions.SWORD_SWEEP)
         {
@@ -132,13 +136,13 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStup
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack itemStack)
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers (EquipmentSlot slot, ItemStack itemStack)
     {
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = new ImmutableMultimap.Builder<>();
         int mode = itemStack.getOrCreateTag().getInt(ACTION_TAG);
         if (slot == EquipmentSlot.MAINHAND)
         {
-            builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier",  (mode == 1) ? 5D : 7D, AttributeModifier.Operation.ADDITION));
+            builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", (mode == 1) ? 5D : 7D, AttributeModifier.Operation.ADDITION));
             builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", -2.7D, AttributeModifier.Operation.ADDITION));
             if (mode == 0)
             {
@@ -155,7 +159,7 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStup
     }
 
     @Override
-    public Map<Attribute, Pair<UUID, Style>> specialColoredUUID(ItemStack itemStack)
+    public Map<Attribute, Pair<UUID, Style>> specialColoredUUID (ItemStack itemStack)
     {
         return Map.of(
                 AttributeRegistry.COLD_BUILDUP.get(), Pair.of(COLD_BUILDUP_UUID, StyleRegistry.FROST_STYLE),
@@ -164,7 +168,7 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStup
     }
 
     @Override
-    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus(ItemStack itemStack)
+    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus (ItemStack itemStack)
     {
         return ((player, attribute) ->
         {
@@ -173,22 +177,21 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStup
     }
 
     @Override
-    public final void appendHoverText(@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
+    public final void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
     {
         this.gatherTooltipLines(list, "pyromancer.hidden_desc", "desc", PyromancerConfig.descTooltipKey);
         this.gatherTooltipLines(list, "pyromancer.hidden_lore", "lore", PyromancerConfig.loreTooltipKey);
     }
 
     @Override
-    public <T extends LivingEntity> void thirdPersonTransform(ItemStack itemStack, HumanoidModel<T> model, T entity, float ageInTicks)
+    public <T extends LivingEntity> void thirdPersonTransform (ItemStack itemStack, HumanoidModel<T> model, T entity, float ageInTicks)
     {
         if (itemStack.getOrCreateTag().getInt(ACTION_TAG) == 1)
         {
             if (!(model.attackTime <= 0.0F))
             {
                 runningAttackActiveThirdPerson(model, entity);
-            }
-            else runningAttackPassiveThirdPerson(itemStack, model, entity);
+            } else runningAttackPassiveThirdPerson(itemStack, model, entity);
             return;
         }
         if (!(model.attackTime <= 0.0F))
@@ -198,7 +201,7 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStup
             float f = model.attackTime;
             model.body.yRot = Mth.sin(Mth.sqrt(f) * ((float) Math.PI * 2F)) * 0.2F;
             if (arm == HumanoidArm.LEFT)
-	        {
+            {
                 model.body.yRot *= -1.0F;
             }
             float move_multiplier = 5.0F;
@@ -221,15 +224,14 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStup
     }
 
     @Override
-    public void firstPersonTransform(ItemStack itemStack, PoseStack poseStack, float swingProgress, float equippedProgress, boolean isRight)
+    public void firstPersonTransform (ItemStack itemStack, PoseStack poseStack, float swingProgress, float equippedProgress, boolean isRight)
     {
         if (itemStack.getOrCreateTag().getInt(ACTION_TAG) == 1)
         {
             if (swingProgress > 0.0F)
             {
                 runningAttackActiveFirstPerson(poseStack, swingProgress, isRight);
-            }
-            else
+            } else
             {
                 runningAttackPassiveFirstPerson(poseStack);
             }
@@ -243,7 +245,7 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStup
         poseStack.scale(scaleMod, scaleMod, scaleMod);
     }
 
-    private <T extends LivingEntity> void runningAttackPassiveThirdPerson(ItemStack itemStack, HumanoidModel<T> model, T entity)
+    private <T extends LivingEntity> void runningAttackPassiveThirdPerson (ItemStack itemStack, HumanoidModel<T> model, T entity)
     {
 
         HumanoidArm arm = entity.getMainHandItem() == itemStack ? entity.getMainArm() : entity.getMainArm().getOpposite();
@@ -251,7 +253,7 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStup
         float f = 1;
         model.body.yRot = Mth.sin(Mth.sqrt(f) * ((float) Math.PI * 2F)) * 0.2F;
         if (arm == HumanoidArm.LEFT)
-	    {
+        {
             model.body.yRot *= -1.0F;
         }
         float move_multiplier = 5.0F;
@@ -262,15 +264,16 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStup
         modelpart.xRot += 1800;
     }
 
-    private <T extends LivingEntity> void runningAttackActiveThirdPerson(HumanoidModel<T> model, T entity)
+    private <T extends LivingEntity> void runningAttackActiveThirdPerson (HumanoidModel<T> model, T entity)
     {
-        if (!(model.attackTime <= 0.0F)) {
+        if (!(model.attackTime <= 0.0F))
+        {
             HumanoidArm arm = entity.swingingArm == InteractionHand.MAIN_HAND ? entity.getMainArm() : entity.getMainArm().getOpposite();
             ModelPart modelpart = arm == HumanoidArm.LEFT ? model.leftArm : model.rightArm;
             float f = model.attackTime;
-            model.body.yRot = Mth.sin(Mth.sqrt(f) * ((float)Math.PI * 2F)) * 0.2F;
+            model.body.yRot = Mth.sin(Mth.sqrt(f) * ((float) Math.PI * 2F)) * 0.2F;
             if (arm == HumanoidArm.LEFT)
-	        {
+            {
                 model.body.yRot *= -1.0F;
             }
 
@@ -285,15 +288,15 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStup
             f *= f;
             f *= f;
             //f = 1.0F - f;
-            float f1 = Mth.sin(f * (float)Math.PI);
-            float f2 = Mth.sin(model.attackTime * (float)Math.PI) * -(model.head.xRot - 0.7F) * 0.75F;
+            float f1 = Mth.sin(f * (float) Math.PI);
+            float f2 = Mth.sin(model.attackTime * (float) Math.PI) * -(model.head.xRot - 0.7F) * 0.75F;
             modelpart.xRot -= f1 * 1.2F + f2;
             modelpart.yRot += model.body.yRot * 2.0F;
-            modelpart.zRot += Mth.sin(model.attackTime * (float)Math.PI) * -0.4F;
+            modelpart.zRot += Mth.sin(model.attackTime * (float) Math.PI) * -0.4F;
         }
     }
 
-    public void runningAttackPassiveFirstPerson(PoseStack poseStack)
+    public void runningAttackPassiveFirstPerson (PoseStack poseStack)
     {
         final int doRotation = 1;
         final float f1 = 1;
@@ -303,7 +306,7 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStup
         poseStack.scale(scaleMod, scaleMod, scaleMod);
     }
 
-    public void runningAttackActiveFirstPerson(PoseStack poseStack, float swingProgress, boolean isRight)
+    public void runningAttackActiveFirstPerson (PoseStack poseStack, float swingProgress, boolean isRight)
     {
         final int doRotation = swingProgress > 0.0F ? 1 : 0;
         HumanoidArm arm = isRight ? HumanoidArm.RIGHT : HumanoidArm.LEFT;
@@ -332,7 +335,7 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStup
         for (int i = 0; i < 15; i++)
         {
             float rad = 24 * i * Mth.PI / 180F;
-            serverLevel.sendParticles(ParticleTypes.SNOWFLAKE, px - Mth.sin(hRad + rad) * multiplier, py, pz + Mth.cos(hRad + rad) * multiplier, 1,0.0D, 0.0D, 0.0D, 0.03D);
+            serverLevel.sendParticles(ParticleTypes.SNOWFLAKE, px - Mth.sin(hRad + rad) * multiplier, py, pz + Mth.cos(hRad + rad) * multiplier, 1, 0.0D, 0.0D, 0.0D, 0.03D);
         }
     }
 }

@@ -23,15 +23,17 @@ import java.util.function.Consumer;
 
 public class AdvancementDatagen extends ForgeAdvancementProvider
 {
-    public AdvancementDatagen(PackOutput output, CompletableFuture<HolderLookup.Provider> registries, ExistingFileHelper existingFileHelper, List<AdvancementGenerator> subProviders)
-	{
+    public AdvancementDatagen (PackOutput output, CompletableFuture<HolderLookup.Provider> registries, ExistingFileHelper existingFileHelper, List<AdvancementGenerator> subProviders)
+    {
         super(output, registries, existingFileHelper, subProviders);
     }
 
-    public static class PyromancerAdvancements implements AdvancementGenerator {
+    public static class PyromancerAdvancements implements AdvancementGenerator
+    {
         @Override
         @SuppressWarnings("unused")
-        public void generate(HolderLookup.@NotNull Provider registries, @NotNull Consumer<Advancement> saver, @NotNull ExistingFileHelper existingFileHelper) {
+        public void generate (HolderLookup.@NotNull Provider registries, @NotNull Consumer<Advancement> saver, @NotNull ExistingFileHelper existingFileHelper)
+        {
 
             Advancement blazing_journal_acquired = Advancement.Builder.advancement()
                     .display(ItemRegistry.BLAZING_JOURNAL.get(),
@@ -143,7 +145,7 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                             FrameType.CHALLENGE,
                             true, true, false)
                     .rewards(AdvancementRewards.Builder.experience(100))
-                    .addCriterion("pyromancer_armor_obtained",InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.PYROMANCER_HELMET.get(), ItemRegistry.PYROMANCER_CHESTPLATE.get(), ItemRegistry.PYROMANCER_LEGGINGS.get(), ItemRegistry.PYROMANCER_BOOTS.get()))
+                    .addCriterion("pyromancer_armor_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.PYROMANCER_HELMET.get(), ItemRegistry.PYROMANCER_CHESTPLATE.get(), ItemRegistry.PYROMANCER_LEGGINGS.get(), ItemRegistry.PYROMANCER_BOOTS.get()))
                     .save(saver, "pyromancer:pyromancer/pyromancer_armor_obtained");
 
             Advancement hellblaze_monarch_armor_obtained = Advancement.Builder.advancement().parent(pyromancer_armor_obtained)
@@ -154,7 +156,7 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                             FrameType.CHALLENGE,
                             true, true, false)
                     .rewards(AdvancementRewards.Builder.experience(200))
-                    .addCriterion("hellblaze_monarch_armor_obtained",InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.HELLBLAZE_MONARCH_HELMET.get(), ItemRegistry.HELLBLAZE_MONARCH_CHESTPLATE.get(), ItemRegistry.HELLBLAZE_MONARCH_LEGGINGS.get(), ItemRegistry.HELLBLAZE_MONARCH_BOOTS.get()))
+                    .addCriterion("hellblaze_monarch_armor_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.HELLBLAZE_MONARCH_HELMET.get(), ItemRegistry.HELLBLAZE_MONARCH_CHESTPLATE.get(), ItemRegistry.HELLBLAZE_MONARCH_LEGGINGS.get(), ItemRegistry.HELLBLAZE_MONARCH_BOOTS.get()))
                     .save(saver, "pyromancer:pyromancer/hellblaze_monarch_armor_obtained");
         }
     }

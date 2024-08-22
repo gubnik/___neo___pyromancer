@@ -10,8 +10,8 @@ import xyz.nikgub.pyromancer.common.item.SymbolOfSunItem;
 public enum TierRegistry implements Tier
 {
 
-    AMBER (256, 13f, 2f, 4, 17, ItemRegistry.AMBER.get()),
-    SYMBOL_OF_SUN (2780, 13f, SymbolOfSunItem.DEFAULT_DAMAGE - MaceItem.DEFAULT_DAMAGE - 1, 4, 0, ItemRegistry.AMBER.get());
+    AMBER(256, 13f, 2f, 4, 17, ItemRegistry.AMBER.get()),
+    SYMBOL_OF_SUN(2780, 13f, SymbolOfSunItem.DEFAULT_DAMAGE - MaceItem.DEFAULT_DAMAGE - 1, 4, 0, ItemRegistry.AMBER.get());
 
     private final int useCount;
     private final float speed;
@@ -20,7 +20,7 @@ public enum TierRegistry implements Tier
     private final int enchantmentValue;
     private final ItemLike ingredient;
 
-    TierRegistry(int uses, float speed, float attackDamageBonus, int level, int enchantmentValue, ItemLike ingredient)
+    TierRegistry (int uses, float speed, float attackDamageBonus, int level, int enchantmentValue, ItemLike ingredient)
     {
         this.useCount = uses;
         this.speed = speed;
@@ -31,38 +31,38 @@ public enum TierRegistry implements Tier
     }
 
     @Override
-    public int getUses()
-	{
+    public int getUses ()
+    {
         return this.useCount;
     }
 
     @Override
-    public float getSpeed()
-	{
+    public float getSpeed ()
+    {
         return this.speed;
     }
 
     @Override
-    public float getAttackDamageBonus()
-	{
+    public float getAttackDamageBonus ()
+    {
         return this.attackDamageBonus;
     }
 
     @Override
-    public int getLevel()
-	{
+    public int getLevel ()
+    {
         return this.level;
     }
 
     @Override
-    public int getEnchantmentValue()
-	{
+    public int getEnchantmentValue ()
+    {
         return this.enchantmentValue;
     }
 
     @Override
-    public @NotNull Ingredient getRepairIngredient()
-	{
+    public @NotNull Ingredient getRepairIngredient ()
+    {
         return Ingredient.of(this.ingredient);
     }
 }

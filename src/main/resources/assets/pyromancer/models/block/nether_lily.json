@@ -1,8 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "pyromancer:block/nether_lily",
-    "particle": "pyromancer:block/nether_lily"
-  },
-  "render_type": "cutout"
-}

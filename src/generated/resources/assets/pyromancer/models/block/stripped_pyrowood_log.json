@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pyromancer:block/stripped_pyrowood_log_top",
+    "side": "pyromancer:block/stripped_pyrowood_log_side"
+  }
+}

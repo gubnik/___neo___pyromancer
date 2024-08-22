@@ -18,14 +18,14 @@ public class MaceEnchantment extends Enchantment
 
     private final Map<Attribute, Function<Integer, AttributeModifier>> attributes;
 
-    public MaceEnchantment(Rarity rarity, EnchantmentCategory enchantmentCategory, EquipmentSlot[] equipmentSlots, Map<Attribute, Function<Integer, AttributeModifier>> attributes)
-	{
+    public MaceEnchantment (Rarity rarity, EnchantmentCategory enchantmentCategory, EquipmentSlot[] equipmentSlots, Map<Attribute, Function<Integer, AttributeModifier>> attributes)
+    {
         super(rarity, enchantmentCategory, equipmentSlots);
         this.attributes = attributes;
     }
 
-    public Map<Attribute, Function<Integer, AttributeModifier>> getAttributes()
-	{
+    public Map<Attribute, Function<Integer, AttributeModifier>> getAttributes ()
+    {
         return attributes;
     }
 }

@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:block/fence_post",
+  "render_type": "minecraft:cutout_mipped",
   "textures": {
-    "texture": "pyromancer:block/pyrowood_planks"
+    "texture": "pyromancer:block/pyrowood"
   }
 }

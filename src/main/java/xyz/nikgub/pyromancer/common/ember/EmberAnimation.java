@@ -17,31 +17,33 @@ public abstract class EmberAnimation
     private final int useTime;
     private final int cooldown;
 
-    public EmberAnimation(int useTime, int cooldown)
-	{
+    public EmberAnimation (int useTime, int cooldown)
+    {
         this.useTime = useTime;
         this.cooldown = cooldown;
     }
 
-    public abstract ThirdPersonAnimation getThirdPersonAnimation();
+    public abstract ThirdPersonAnimation getThirdPersonAnimation ();
 
-    public abstract FirstPersonAnimation getFirstPersonAnimation();
+    public abstract FirstPersonAnimation getFirstPersonAnimation ();
 
-    public int getUseTime()
-	{
+    public int getUseTime ()
+    {
         return useTime;
     }
 
-    public int getCooldown()
-	{
+    public int getCooldown ()
+    {
         return cooldown;
     }
 
-    public interface ThirdPersonAnimation {
-        void run(HumanoidModel<?> model, LivingEntity entity, HumanoidArm arm);
+    public interface ThirdPersonAnimation
+    {
+        void run (HumanoidModel<?> model, LivingEntity entity, HumanoidArm arm);
     }
 
-    public interface FirstPersonAnimation {
-        void run(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess);
+    public interface FirstPersonAnimation
+    {
+        void run (PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess);
     }
 }

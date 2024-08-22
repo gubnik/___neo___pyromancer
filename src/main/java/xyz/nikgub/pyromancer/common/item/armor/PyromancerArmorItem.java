@@ -23,9 +23,11 @@ import java.util.EnumMap;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-public class PyromancerArmorItem extends ArmorItem {
+public class PyromancerArmorItem extends ArmorItem
+{
 
-    private static final EnumMap<Type, UUID> ARMOR_MODIFIER_UUID_PER_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) -> {
+    private static final EnumMap<Type, UUID> ARMOR_MODIFIER_UUID_PER_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) ->
+    {
         map.put(ArmorItem.Type.BOOTS, UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"));
         map.put(ArmorItem.Type.LEGGINGS, UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"));
         map.put(ArmorItem.Type.CHESTPLATE, UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"));
@@ -34,7 +36,8 @@ public class PyromancerArmorItem extends ArmorItem {
 
     private final Multimap<Attribute, AttributeModifier> attributes;
 
-    public PyromancerArmorItem(Type type) {
+    public PyromancerArmorItem (Type type)
+    {
         super(ArmorMaterialsRegistry.PYROMANCER_ARMOR, type, new Properties().stacksTo(1).fireResistant().rarity(Rarity.UNCOMMON));
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         UUID uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(type);
@@ -51,26 +54,32 @@ public class PyromancerArmorItem extends ArmorItem {
     }
 
     @Override
-    public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot equipmentSlot) {
+    public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers (@NotNull EquipmentSlot equipmentSlot)
+    {
         return equipmentSlot == this.type.getSlot() ? this.attributes : super.getDefaultAttributeModifiers(equipmentSlot);
     }
 
     @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+    public String getArmorTexture (ItemStack stack, Entity entity, EquipmentSlot slot, String type)
+    {
         return "pyromancer:textures/model/armor/pyromancer_armor.png";
     }
 
-    public float getAttributeValue(EquipmentSlot equipmentSlot, Attribute attribute){
+    public float getAttributeValue (EquipmentSlot equipmentSlot, Attribute attribute)
+    {
         int[] VALUES = new int[]{10, 15, 20, 10};
         return VALUES[equipmentSlot.getIndex()] * 0.005F * (attribute.equals(AttributeRegistry.PYROMANCY_DAMAGE.get()) ? 2 : 1);
     }
 
     @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
+    public void initializeClient (Consumer<IClientItemExtensions> consumer)
+    {
+        consumer.accept(new IClientItemExtensions()
+        {
             @Override
             @SuppressWarnings("rawtypes")
-            public @NotNull HumanoidModel getHumanoidArmorModel(LivingEntity living, ItemStack stack, EquipmentSlot slot, HumanoidModel defaultModel) {
+            public @NotNull HumanoidModel getHumanoidArmorModel (LivingEntity living, ItemStack stack, EquipmentSlot slot, HumanoidModel defaultModel)
+            {
                 return PyromancerArmorModel.getHumanoidModel(slot);
             }
         });

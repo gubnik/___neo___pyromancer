@@ -22,7 +22,9 @@ import xyz.nikgub.pyromancer.registries.NetherBiomeRegistry;
 
 public class BiomeDatagen
 {
-    public static void bootstrap(BootstapContext<Biome> biomeBootstapContext)
+    public static final ResourceKey<Biome> PERMAFROST_CAVERNS = register("permafrost_caverns");
+
+    public static void bootstrap (BootstapContext<Biome> biomeBootstapContext)
     {
         HolderGetter<ConfiguredWorldCarver<?>> carverGetter = biomeBootstapContext.lookup(Registries.CONFIGURED_CARVER);
         HolderGetter<PlacedFeature> placedFeatureGetter = biomeBootstapContext.lookup(Registries.PLACED_FEATURE);
@@ -31,12 +33,10 @@ public class BiomeDatagen
         registerBiome(biomeBootstapContext, PERMAFROST_CAVERNS, permafrostCaverns(placedFeatureGetter, carverGetter));
     }
 
-    private static void register(BootstapContext<Biome> context, ResourceKey<Biome> key, Biome biome)
+    private static void register (BootstapContext<Biome> context, ResourceKey<Biome> key, Biome biome)
     {
         context.register(key, biome);
     }
-
-    public static final ResourceKey<Biome> PERMAFROST_CAVERNS = register("permafrost_caverns");
 
     public static Biome permafrostCaverns (HolderGetter<PlacedFeature> pPlacedFeatures, HolderGetter<ConfiguredWorldCarver<?>> pWorldCarvers)
     {
@@ -81,14 +81,14 @@ public class BiomeDatagen
                 .build();
     }
 
-    protected static int calculateSkyColor(float pTemperature)
+    protected static int calculateSkyColor (float pTemperature)
     {
         float $$1 = pTemperature / 3.0F;
         $$1 = Mth.clamp($$1, -1.0F, 1.0F);
         return Mth.hsvToRgb(0.62222224F - $$1 * 0.05F, 0.5F + $$1 * 0.1F, 1.0F);
     }
 
-    private static ResourceKey<Biome> register(String name)
+    private static ResourceKey<Biome> register (String name)
     {
         return ResourceKey.create(Registries.BIOME, new ResourceLocation(PyromancerMod.MOD_ID, name));
     }

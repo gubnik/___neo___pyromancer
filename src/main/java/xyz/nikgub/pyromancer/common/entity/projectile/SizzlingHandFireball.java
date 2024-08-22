@@ -16,9 +16,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.pyromancer.registries.DamageSourceRegistry;
-import org.jetbrains.annotations.NotNull;
 
 public class SizzlingHandFireball extends Fireball implements ItemSupplier
 {
@@ -26,55 +26,57 @@ public class SizzlingHandFireball extends Fireball implements ItemSupplier
 
     public final float damage;
 
-    public SizzlingHandFireball(EntityType<? extends SizzlingHandFireball> fireball, Level level)
-	{
+    public SizzlingHandFireball (EntityType<? extends SizzlingHandFireball> fireball, Level level)
+    {
         super(fireball, level);
         this.damage = 4f;
         this.maxLifetime = 20;
     }
 
-    public SizzlingHandFireball(EntityType<? extends SizzlingHandFireball> fireball, Level level, float damage, int maxLifetime)
-	{
+    public SizzlingHandFireball (EntityType<? extends SizzlingHandFireball> fireball, Level level, float damage, int maxLifetime)
+    {
         super(fireball, level);
         this.damage = damage;
         this.maxLifetime = maxLifetime;
     }
 
     @Override
-    public @NotNull ItemStack getItem()
+    public @NotNull ItemStack getItem ()
     {
         return new ItemStack(Items.FIRE_CHARGE);
     }
 
-    protected void onHitEntity(@NotNull EntityHitResult entityHitResult)
-	{
+    protected void onHitEntity (@NotNull EntityHitResult entityHitResult)
+    {
         super.onHitEntity(entityHitResult);
         Entity entity = entityHitResult.getEntity();
         Entity owner = this.getOwner();
-        if (!this.level().isClientSide && !(entity instanceof SizzlingHandFireball)) {
+        if (!this.level().isClientSide && !(entity instanceof SizzlingHandFireball))
+        {
             entity.setSecondsOnFire(5);
-            if(owner == null) return;
-            if(owner != entity) this.collisionEffect(entity.level());
-            if (!entity.hurt(DamageSourceRegistry.sizzlingHand(this, owner), damage)) {
+            if (owner == null) return;
+            if (owner != entity) this.collisionEffect(entity.level());
+            if (!entity.hurt(DamageSourceRegistry.sizzlingHand(this, owner), damage))
+            {
                 entity.setRemainingFireTicks(entity.getRemainingFireTicks());
-            }
-            else if (owner instanceof LivingEntity)
-	        {
-                this.doEnchantDamageEffects((LivingEntity)owner, entity);
+            } else if (owner instanceof LivingEntity)
+            {
+                this.doEnchantDamageEffects((LivingEntity) owner, entity);
             }
         }
     }
+
     @Override
-    protected void onHitBlock(@NotNull BlockHitResult result)
-	{
+    protected void onHitBlock (@NotNull BlockHitResult result)
+    {
         collisionEffect(this.level());
     }
 
     @Override
-    public void tick()
-	{
-        if(this.tickCount > this.maxLifetime && !this.level().isClientSide)
-	    {
+    public void tick ()
+    {
+        if (this.tickCount > this.maxLifetime && !this.level().isClientSide)
+        {
             collisionEffect(this.level());
             this.remove(RemovalReason.DISCARDED);
         }
@@ -82,51 +84,52 @@ public class SizzlingHandFireball extends Fireball implements ItemSupplier
     }
 
     @Override
-    protected boolean shouldBurn()
-	{
+    protected boolean shouldBurn ()
+    {
         return true;
     }
 
     @Override
-    protected @NotNull ParticleOptions getTrailParticle()
-	{
+    protected @NotNull ParticleOptions getTrailParticle ()
+    {
         return ParticleTypes.SMOKE;
     }
 
     @Override
-    protected float getInertia()
-	{
+    protected float getInertia ()
+    {
         return 1f;
     }
 
     @Override
-    protected void onHit(@NotNull HitResult hitResult)
-	{
+    protected void onHit (@NotNull HitResult hitResult)
+    {
         super.onHit(hitResult);
         if (!this.level().isClientSide)
-	    {
+        {
             this.discard();
         }
     }
 
     @Override
-    public boolean hurt(@NotNull DamageSource damageSource, float p_36840_)
-	{
+    public boolean hurt (@NotNull DamageSource damageSource, float p_36840_)
+    {
         return false;
     }
 
-    public void collisionEffect(Level level)
-	{
+    public void collisionEffect (Level level)
+    {
         double x = this.getX();
         double y = this.getY();
         double z = this.getZ();
         if (level instanceof ServerLevel serverLevel)
-	    {
+        {
             serverLevel.sendParticles(ParticleTypes.FLAME, x, y, z, 20, 0.25, 0.25, 0.25, 0.2);
             Vec3 center = new Vec3(x, y, z);
             for (Entity entityiterator : EntityUtils.entityCollector(center, 1 * Math.sqrt(this.damage), this.level()))
             {
-                if (!(this.getOwner() == entityiterator)) {
+                if (!(this.getOwner() == entityiterator))
+                {
                     entityiterator.hurt(DamageSourceRegistry.sizzlingHand(this, this.getOwner()), this.damage);
                 }
             }

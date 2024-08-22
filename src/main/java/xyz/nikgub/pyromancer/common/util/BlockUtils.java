@@ -5,7 +5,7 @@ import xyz.nikgub.pyromancer.data.BlockTagDatagen;
 
 public class BlockUtils
 {
-    public static boolean flamingGrovePlantable(BlockState blockState)
+    public static boolean flamingGrovePlantable (BlockState blockState)
     {
         return blockState.is(BlockTagDatagen.FLAMING_GROVE_PLANT_ON);
     }
