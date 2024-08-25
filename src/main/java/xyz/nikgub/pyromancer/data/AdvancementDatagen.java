@@ -42,7 +42,6 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                             new ResourceLocation(PyromancerMod.MOD_ID, "textures/block/pyrowood_planks.png"),
                             FrameType.TASK,
                             false, false, false)
-                    .rewards(AdvancementRewards.Builder.loot(new ResourceLocation(PyromancerMod.MOD_ID, "skrizhal_reward")))
                     .addCriterion("acquired_journal", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.BLAZING_JOURNAL.get()))
                     .save(saver, "pyromancer:pyromancer/root");
 
