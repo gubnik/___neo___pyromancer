@@ -9,7 +9,6 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.entity.attack_effect.FlamingGuillotineEntity;
 import xyz.nikgub.pyromancer.common.item.*;
@@ -87,11 +86,6 @@ public class ItemRegistry
             Ingredient.of(Items.EXPERIENCE_BOTTLE)));
     public static final RegistryObject<InfusionItem> OIL_INFUSION = ITEMS.register("oil_infusion", () -> new InfusionItem(new Item.Properties(), MobEffectRegistry.OIL_INFUSION.get(),
             Ingredient.of(Items.COAL_BLOCK)));
-    public static final RegistryObject<SpawnEggItem> FROSTCOPPER_GOLEM_SPAWN_EGG = ITEMS.register("frostcopper_golem_spawn_egg",
-            () -> new ForgeSpawnEggItem(EntityTypeRegistry.FROSTCOPPER_GOLEM,
-                    GeneralUtils.rgbaToColorInteger(150, 90, 0, 255),
-                    GeneralUtils.rgbaToColorInteger(21, 90, 255, 255),
-                    new Item.Properties()));
     // MATERIALS
     public static RegistryObject<Item> HOGLIN_HIDE = ITEMS.register("hoglin_hide", () -> new Item(new Item.Properties()));
     public static RegistryObject<Item> NETHERITE_SHARD = ITEMS.register("netherite_shard", () -> new Item(new Item.Properties()));
@@ -201,8 +195,13 @@ public class ItemRegistry
             () -> new ArmorOfHellblazeMonarchItem(ArmorItem.Type.BOOTS));
     // SPAWN EGGS
     public static RegistryObject<Item> UNBURNED_SPAWN_EGG = ITEMS.register("unburned_spawn_egg",
-            () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNBURNED,
-                    GeneralUtils.rgbaToColorInteger(140, 100, 12, 100),
-                    GeneralUtils.rgbaToColorInteger(120, 90, 0, 100),
-                    new Item.Properties()));
+            () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNBURNED, -10268354, -3297142, new Item.Properties()));
+    public static final RegistryObject<SpawnEggItem> FROSTCOPPER_GOLEM_SPAWN_EGG = ITEMS.register("frostcopper_golem_spawn_egg",
+            () -> new ForgeSpawnEggItem(EntityTypeRegistry.FROSTCOPPER_GOLEM, -2390958, -9251329, new Item.Properties()));
+    public static RegistryObject<Item> PYROENT_SPAWN_EGG = ITEMS.register("pyroent_spawn_egg",
+            () -> new ForgeSpawnEggItem(EntityTypeRegistry.PYROENT, -10725806, -2403542, new Item.Properties()));
+    public static RegistryObject<Item> PYRACORN_SPAWN_EGG = ITEMS.register("pyracorn_spawn_egg",
+            () -> new ForgeSpawnEggItem(EntityTypeRegistry.PYRACORN, -8887200, -39359, new Item.Properties()));
+    public static RegistryObject<Item> SCORCH_SPAWN_EGG = ITEMS.register("scorch_spawn_egg",
+            () -> new ForgeSpawnEggItem(EntityTypeRegistry.SCORCH, -8891844, -3775978, new Item.Properties()));
 }
