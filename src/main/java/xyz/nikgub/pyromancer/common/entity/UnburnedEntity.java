@@ -26,7 +26,7 @@ import xyz.nikgub.incandescent.client.animations.IAnimationPurposeEntity;
 
 import java.util.List;
 
-public class UnburnedEntity extends Monster implements IFlamingGroveNativeEntity, IAnimationPurposeEntity
+public class UnburnedEntity extends Monster implements IAnimationPurposeEntity
 {
     public static final EntityDataSerializer<DeterminedAnimation.AnimationPurpose> ANIMATION_STATE = EntityDataSerializer.simpleEnum(DeterminedAnimation.AnimationPurpose.class);
     private static final EntityDataAccessor<DeterminedAnimation.AnimationPurpose> DATA_STATE = SynchedEntityData.defineId(UnburnedEntity.class, ANIMATION_STATE);
