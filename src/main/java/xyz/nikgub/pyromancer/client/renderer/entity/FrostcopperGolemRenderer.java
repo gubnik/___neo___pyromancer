@@ -1,4 +1,4 @@
-package xyz.nikgub.pyromancer.client.renderer;
+package xyz.nikgub.pyromancer.client.renderer.entity;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
