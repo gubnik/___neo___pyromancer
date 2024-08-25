@@ -62,10 +62,15 @@ public class BlockTagDatagen extends IntrinsicHolderTagsProvider<Block>
                     .add(block);
         }
 
+        this.tag(BlockTags.LEAVES)
+                .add(BlockRegistry.PYROWOOD_LEAVES.get());
+
         this.tag(FLAMING_GROVE_NATIVE)
                 .add(BlockRegistry.SIZZLING_VINE.get())
                 .add(BlockRegistry.PYROMOSS_SPROUTS.get())
-                .add(BlockRegistry.FIREBRIAR.get());
+                .add(BlockRegistry.FIREBRIAR.get())
+                .add(BlockRegistry.NETHER_LILY.get())
+                .add(BlockRegistry.BLAZING_POPPY.get());
 
         this.tag(BLUE_ICE_CHUNK_REPLACEABLE)
                 .addTag(BlockTags.OVERWORLD_CARVER_REPLACEABLES)
