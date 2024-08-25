@@ -48,6 +48,7 @@ public class RegistriesDataGeneration extends DatapackBuiltinEntriesProvider
         generator.addProvider(isServer, new ItemTagDatagen(output, provider, blockTags.contentsGetter(), helper));
         generator.addProvider(isServer, new PoiTypesDatagen(output, provider, helper));
         generator.addProvider(isServer, new SoundsDefinitionsDatagen(output, helper));
+        generator.addProvider(isServer, new EntityTagDatagen(output, provider, helper));
     }
 
     private static HolderLookup.Provider append (HolderLookup.Provider original)
