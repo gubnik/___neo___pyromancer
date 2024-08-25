@@ -34,10 +34,5 @@
       "acquired_journal"
     ]
   ],
-  "rewards": {
-    "loot": [
-      "pyromancer:skrizhal_reward"
-    ]
-  },
   "sends_telemetry_event": true
 }
