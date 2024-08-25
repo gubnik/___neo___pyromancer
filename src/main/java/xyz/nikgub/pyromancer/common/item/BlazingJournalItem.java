@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.SlotAccess;
@@ -145,5 +146,31 @@ public class BlazingJournalItem extends Item implements IContainerItem
             tag.putInt(BLAZE_TAG_NAME, maxCapacity);
         }
         return true;
+    }
+
+    public static ItemStack guessJournal (Player player)
+    {
+        if (player.getOffhandItem().getItem() instanceof BlazingJournalItem) return player.getOffhandItem();
+        else if (player.getMainHandItem().getItem() instanceof BlazingJournalItem) return player.getMainHandItem();
+        else return ItemStack.EMPTY;
+    }
+
+    public static int getBlaze (Player player)
+    {
+        ItemStack supposedJournal = guessJournal(player);
+        if (supposedJournal == ItemStack.EMPTY) return 0;
+        return supposedJournal.getOrCreateTag().getInt(BlazingJournalItem.BLAZE_TAG_NAME);
+    }
+
+    public static void setBlaze (Player player, int val)
+    {
+        ItemStack supposedJournal = guessJournal(player);
+        if (supposedJournal == ItemStack.EMPTY) return;
+        supposedJournal.getOrCreateTag().putInt(BlazingJournalItem.BLAZE_TAG_NAME, Mth.clamp(val, 0, 512));
+    }
+
+    public static void changeBlaze (Player player, int val)
+    {
+        setBlaze(player, getBlaze(player) + val);
     }
 }

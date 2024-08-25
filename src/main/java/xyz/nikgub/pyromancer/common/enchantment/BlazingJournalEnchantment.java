@@ -5,6 +5,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.enchantment.Enchantment;
+import xyz.nikgub.pyromancer.common.item.BlazingJournalItem;
 import xyz.nikgub.pyromancer.common.util.ItemUtils;
 import xyz.nikgub.pyromancer.registries.EnchantmentRegistry;
 
@@ -23,6 +24,6 @@ public abstract class BlazingJournalEnchantment extends Enchantment
 
     public boolean globalCondition (Player player)
     {
-        return ItemUtils.getBlaze(player) > 0 && player.getAttackStrengthScale(0) > 0.7;
+        return BlazingJournalItem.getBlaze(player) > 0 && player.getAttackStrengthScale(0) > 0.7;
     }
 }
