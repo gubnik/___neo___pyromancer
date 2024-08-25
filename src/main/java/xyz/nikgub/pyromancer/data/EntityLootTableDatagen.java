@@ -45,6 +45,15 @@ public class EntityLootTableDatagen extends EntityLootSubProvider
                         .add(LootItem.lootTableItem(ItemRegistry.EVENBURNING_HEART.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F)))))
         );
+        this.add(EntityTypeRegistry.SCORCH.get(), LootTable.lootTable()
+                .withPool(LootPool.lootPool())
+        );
+        this.add(EntityTypeRegistry.PYRACORN.get(), LootTable.lootTable()
+                .withPool(LootPool.lootPool())
+        );
+        this.add(EntityTypeRegistry.PYROENT.get(), LootTable.lootTable()
+                .withPool(LootPool.lootPool())
+        );
     }
 
     @Override
