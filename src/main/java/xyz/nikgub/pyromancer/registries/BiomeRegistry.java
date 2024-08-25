@@ -15,6 +15,7 @@ public class BiomeRegistry
     private static final List<ResourceKey<Biome>> BIOMES = Lists.newArrayList();
 
     public static final ResourceKey<Biome> FLAMING_GROVE = register("flaming_grove");
+    public static final ResourceKey<Biome> PERMAFROST_CAVERNS = register("permafrost_caverns");
 
     public static List<ResourceKey<Biome>> getBiomes ()
     {
