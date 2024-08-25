@@ -121,7 +121,7 @@ public class BlockRegistry
                 }
             });
 
-    public static final RegistryObject<Block> RIMEBLOOD_CELL = registerBlock("rimeblood_cell", () -> new Block(BlockBehaviour.Properties.copy(Blocks.EMERALD_BLOCK).mapColor(DyeColor.CYAN))
+    public static final RegistryObject<Block> RIMEBLOOD_CELL = registerBlock("rimeblood_cell", () -> new Block(BlockBehaviour.Properties.copy(Blocks.EMERALD_BLOCK).mapColor(DyeColor.CYAN).lightLevel((s) -> 8))
     {
         @Override
         public void onProjectileHit (@NotNull Level pLevel, @NotNull BlockState pState, @NotNull BlockHitResult pHit, @NotNull Projectile pProjectile)
