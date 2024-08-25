@@ -33,8 +33,6 @@ public class AttackEffectEventHandling
         final Entity directCause = damageSource.getDirectEntity();
         final float damageAmount = event.getAmount();
 
-        PyromancerMod.LOGGER.info("Initial amount : {}", damageAmount);
-
         if (!target.isAlive())
         {
             event.setCanceled(event.isCancelable());
@@ -103,37 +101,6 @@ public class AttackEffectEventHandling
                 addition += (float) armor_pierce;
         }
 
-        PyromancerMod.LOGGER.info("Multiplier : {}", multiplier);
-        PyromancerMod.LOGGER.info("Addition : {}", addition);
-        PyromancerMod.LOGGER.info("After processing amount : {}", damageAmount * multiplier + addition);
-
         event.setAmount(damageAmount * multiplier + addition);
     }
-
-    //@SubscribeEvent
-    //public static void legacy_onLivingHurt (LivingHurtEvent event)
-    //{
-    //    final LivingEntity target = event.getEntity();
-    //    final DamageSource damageSource = event.getSource();
-    //    final Entity cause = damageSource.getEntity();
-    //    final float damageAmount = event.getAmount();
-//
-    //    OiledMobEffect.tryIgnition(event);
-    //    infusionEffects(damageSource, event);
-    //    curseOfChaos(target, damageSource);
-    //    applyColdBuildup(target, cause, damageSource, damageAmount);
-    //    event.setAmount(damageAmount * meltEffect(target, cause, damageSource));
-    //    event.setAmount(damageAmount + frostburnEffect(target, event));
-    //    event.setAmount(fieryAegisEffect(target, damageSource, damageAmount));
-    //    AOHMEffect(target, damageSource, damageAmount);
-    //    event.setAmount(event.getAmount() + (float) armorPiercing(target, cause));
-    //}
-
-    //private static double armorPiercing (LivingEntity target, Entity cause)
-    //{
-    //    if (!(cause instanceof Player sourceEntity)) return 0;
-    //    double armor_pierce = sourceEntity.getAttributeValue(AttributeRegistry.ARMOR_PIERCING.get());
-    //    if (armor_pierce >= target.getAttributeValue(Attributes.ARMOR)) return armor_pierce;
-    //    else return 0;
-    //}
 }
