@@ -7,9 +7,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.common.entity.FrostcopperGolemEntity;
-import xyz.nikgub.pyromancer.common.entity.UnburnedEntity;
-import xyz.nikgub.pyromancer.common.entity.UnburnedSpiritEntity;
+import xyz.nikgub.pyromancer.common.entity.*;
 import xyz.nikgub.pyromancer.common.entity.attack_effect.FlamingGuillotineEntity;
 import xyz.nikgub.pyromancer.common.entity.attack_effect.PyronadoEntity;
 import xyz.nikgub.pyromancer.common.entity.projectile.BombsackProjectile;
@@ -42,6 +40,17 @@ public class EntityTypeRegistry
     public static final RegistryObject<EntityType<UnburnedEntity>> UNBURNED = register("unburned",
             EntityType.Builder.of(UnburnedEntity::new, MobCategory.MONSTER)
                     .sized(1.3f, 5.2f).fireImmune());
+
+    public static final RegistryObject<EntityType<ScorchEntity>> SCORCH = register("scorch",
+            EntityType.Builder.of(ScorchEntity::new, MobCategory.MONSTER)
+                    .sized(1.3f, 1.2f).fireImmune());
+
+    public static final RegistryObject<EntityType<PyracornEntity>> PYRACORN = register("pyracorn",
+            EntityType.Builder.of(PyracornEntity::new, MobCategory.MONSTER)
+                    .sized(0.7f, 1.5f).fireImmune());
+    public static final RegistryObject<EntityType<PyroentEntity>> PYROENT = register("pyroent",
+            EntityType.Builder.of(PyroentEntity::new, MobCategory.MONSTER)
+                    .sized(1.5f, 4.0f).fireImmune());
 
     public static final RegistryObject<EntityType<FrostcopperGolemEntity>> FROSTCOPPER_GOLEM = register("frostcopper_golem",
             EntityType.Builder.of(FrostcopperGolemEntity::new, MobCategory.MONSTER)
