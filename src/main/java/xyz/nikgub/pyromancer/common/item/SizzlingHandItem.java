@@ -12,7 +12,6 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.client.item_extension.SizzlingHandClientExtension;
 import xyz.nikgub.pyromancer.common.entity.projectile.SizzlingHandFireball;
-import xyz.nikgub.pyromancer.common.util.ItemUtils;
 import xyz.nikgub.pyromancer.registries.AttributeRegistry;
 import xyz.nikgub.pyromancer.registries.EntityTypeRegistry;
 
@@ -81,7 +80,7 @@ public class SizzlingHandItem extends UsablePyromancyItem
         fireball.setDeltaMovement(entity.getLookAngle().multiply(2d, 2d, 2d));
         if (entity.level().addFreshEntity(fireball) && entity instanceof Player player)
         {
-            ItemUtils.changeBlaze(player, -(int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()));
+            BlazingJournalItem.changeBlaze(player, -(int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()));
         }
     }
 
