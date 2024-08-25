@@ -25,8 +25,6 @@ import xyz.nikgub.incandescent.common.item.IGradientNameItem;
 import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerConfig;
-import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.common.util.ItemUtils;
 import xyz.nikgub.pyromancer.registries.AttributeRegistry;
 import xyz.nikgub.pyromancer.registries.MobEffectRegistry;
 import xyz.nikgub.pyromancer.registries.TierRegistry;
@@ -52,7 +50,6 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
         if (!(entity instanceof Player player)) return;
         Vec3 movementVector = player.getDeltaMovement();
         Vec3 directionVector;
-        PyromancerMod.LOGGER.info("{}", movementVector.length());
         double multCoeff = 1.5D;
         if (movementVector.multiply(1, 0, 1).length() <= 0.125D)
         {
@@ -65,21 +62,15 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
         } else directionVector = movementVector.multiply(1, 0, 1).normalize();
         player.setDeltaMovement(movementVector.x + multCoeff * directionVector.x, movementVector.y + multCoeff * directionVector.y, movementVector.z + multCoeff * directionVector.z);
         player.addEffect(new MobEffectInstance(MobEffectRegistry.SOLAR_COLLISION.get(), 10, 0, false, true));
-        ItemUtils.changeBlaze(player, -(int) getDefaultBlazeCost());
+        BlazingJournalItem.changeBlaze(player, -(int) getDefaultBlazeCost());
+        entity.stopUsingItem();
     }
 
     @Override
-    public void releaseUsing (@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity, int tick)
+    public void onStopUsing(ItemStack itemStack, LivingEntity entity, int count)
     {
         if (!(entity instanceof Player player)) return;
-        player.getCooldowns().addCooldown(itemStack.getItem(), 20);
-    }
-
-    @Override
-    public @NotNull ItemStack finishUsingItem (@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity entity)
-    {
-        this.releaseUsing(itemStack, level, entity, getUseDuration(itemStack));
-        return itemStack;
+        player.getCooldowns().addCooldown(itemStack.getItem(), 30);
     }
 
     @Override
@@ -97,7 +88,7 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use (@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand)
     {
-        if (ItemUtils.getBlaze(player) > player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()))
+        if (BlazingJournalItem.getBlaze(player) > player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()))
         {
             player.startUsingItem(hand);
             return InteractionResultHolder.success(player.getItemInHand(hand));
