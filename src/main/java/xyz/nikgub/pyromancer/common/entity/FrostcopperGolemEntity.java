@@ -1,16 +1,16 @@
 package xyz.nikgub.pyromancer.common.entity;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -22,12 +22,14 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.incandescent.client.animations.DeterminedAnimation;
 import xyz.nikgub.incandescent.client.animations.IAnimationPurposeEntity;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.pyromancer.registries.AttributeRegistry;
+import xyz.nikgub.pyromancer.registries.BlockRegistry;
 import xyz.nikgub.pyromancer.registries.DamageSourceRegistry;
 
 import java.util.List;
@@ -135,6 +137,10 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
     public void onSyncedDataUpdated (@NotNull EntityDataAccessor<?> pKey)
     {
         this.animationSyncedDataHandler(pKey);
+    }
+
+    public static boolean spawnPredicate (EntityType<?> entityType, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
+        return pLevel.getDifficulty() != Difficulty.PEACEFUL && !pLevel.getBlockState(pPos.below()).is(BlockRegistry.RIMEBLOOD_CELL.get());
     }
 
     @Override
