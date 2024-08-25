@@ -47,11 +47,7 @@ public abstract class ItemRendererMixin
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     public void renderMixinHead (ItemStack itemStack, ItemDisplayContext displayContext, boolean b, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int j, BakedModel bakedModel, CallbackInfo callbackInfo)
     {
-        if (itemStack.getItem() == ItemRegistry.SPEAR_OF_MOROZ.get() && (displayContext == ItemDisplayContext.THIRD_PERSON_LEFT_HAND || displayContext == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND)
-                && itemStack.getOrCreateTag().getInt(SpearOfMorozItem.ACTION_TAG) == 1)
-        {
-            poseStack.rotateAround(Axis.XN.rotationDegrees(180), 0, 0, 0.05F);
-        }
+
     }
 
     @Inject(method = "render", at = @At("TAIL"), cancellable = true)

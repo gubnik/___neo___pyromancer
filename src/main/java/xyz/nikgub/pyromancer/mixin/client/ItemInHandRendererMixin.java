@@ -1,6 +1,7 @@
 package xyz.nikgub.pyromancer.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
@@ -22,9 +23,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.nikgub.pyromancer.common.ember.Ember;
+import xyz.nikgub.pyromancer.common.item.SpearOfMorozItem;
 import xyz.nikgub.pyromancer.common.item.ZweihanderItem;
 import xyz.nikgub.pyromancer.common.mob_effect.InfusionMobEffect;
 import xyz.nikgub.pyromancer.registries.EnchantmentRegistry;
+import xyz.nikgub.pyromancer.registries.ItemRegistry;
 
 @SuppressWarnings("unused")
 @Mixin(ItemInHandRenderer.class)
@@ -56,6 +59,11 @@ public abstract class ItemInHandRendererMixin
         {
             float mod = toRender.getEnchantmentLevel(EnchantmentRegistry.GIANT.get()) * 0.1f + 1f;
             poseStack.scale(mod, mod, mod);
+        }
+        if (itemStack.getItem() == ItemRegistry.SPEAR_OF_MOROZ.get() && (displayContext == ItemDisplayContext.THIRD_PERSON_LEFT_HAND || displayContext == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND)
+                && itemStack.getOrCreateTag().getInt(SpearOfMorozItem.ACTION_TAG) == 1)
+        {
+            poseStack.rotateAround(Axis.XN.rotationDegrees(180), 0, 0, 0.05F);
         }
     }
 
