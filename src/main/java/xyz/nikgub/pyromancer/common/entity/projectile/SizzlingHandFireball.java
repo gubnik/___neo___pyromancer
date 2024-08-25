@@ -85,12 +85,6 @@ public class SizzlingHandFireball extends Fireball implements ItemSupplier
     }
 
     @Override
-    protected boolean shouldBurn ()
-    {
-        return true;
-    }
-
-    @Override
     protected @NotNull ParticleOptions getTrailParticle ()
     {
         return ParticleTypes.SMOKE;
@@ -129,7 +123,7 @@ public class SizzlingHandFireball extends Fireball implements ItemSupplier
             Vec3 center = new Vec3(x, y, z);
             for (Entity entityiterator : EntityUtils.entityCollector(center, 1 * Math.sqrt(this.damage), this.level()))
             {
-                if (!(this.getOwner() == entityiterator))
+                if (!(this.getOwner() == entityiterator) && this.getOwner() != null)
                 {
                     entityiterator.hurt(DamageSourceRegistry.sizzlingHand(this, this.getOwner()), this.damage);
                 }
