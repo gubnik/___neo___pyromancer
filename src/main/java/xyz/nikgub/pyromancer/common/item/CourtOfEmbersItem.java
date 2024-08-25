@@ -15,7 +15,6 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.client.item_extension.CourtOfEmbersClientExtension;
 import xyz.nikgub.pyromancer.common.entity.attack_effect.PyronadoEntity;
-import xyz.nikgub.pyromancer.common.util.ItemUtils;
 import xyz.nikgub.pyromancer.registries.AttributeRegistry;
 import xyz.nikgub.pyromancer.registries.EntityTypeRegistry;
 
@@ -57,11 +56,11 @@ public class CourtOfEmbersItem extends UsablePyromancyItem
     {
         int cost;
         if (!(entity instanceof Player player)
-                || ItemUtils.getBlaze(player) - (cost = (int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get())) < 0
+                || BlazingJournalItem.getBlaze(player) - (cost = (int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get())) < 0
         ) return itemStack;
         PyronadoEntity pyronado = new PyronadoEntity(EntityTypeRegistry.PYRONADO.get(), level);
         pyronado.addToLevelForPlayerAt(player.level(), player, player.position().add(new Vec3(0, pyronado.getBbHeight() / 2, 0)));
-        ItemUtils.changeBlaze(player, -cost);
+        BlazingJournalItem.changeBlaze(player, -cost);
         this.releaseUsing(itemStack, level, entity, getUseDuration(itemStack));
         return itemStack;
     }
