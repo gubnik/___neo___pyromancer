@@ -58,9 +58,9 @@ public class ConfiguredFeatureDatagen
         context.register(FLAMING_GROVE_VEGETATION, new ConfiguredFeature<>(Feature.NETHER_FOREST_VEGETATION, new NetherForestVegetationConfig(
                 new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                         .add(BlockRegistry.PYROMOSS_SPROUTS.get().defaultBlockState(), 55)
-                        .add(BlockRegistry.FIREBRIAR.get().defaultBlockState(), 12)
-                        .add(BlockRegistry.BLAZING_POPPY.get().defaultBlockState(), 11)
                         .add(BlockRegistry.NETHER_LILY.get().defaultBlockState(), 20)
+                        .add(BlockRegistry.BLAZING_POPPY.get().defaultBlockState(), 11)
+                        .add(BlockRegistry.FIREBRIAR.get().defaultBlockState(), 4)
                         .add(BlockRegistry.PYROWOOD_SAPLING.get().defaultBlockState(), 1))
                 , 8, 4)));
 
