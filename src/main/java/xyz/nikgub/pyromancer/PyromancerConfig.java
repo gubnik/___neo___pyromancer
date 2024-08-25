@@ -45,7 +45,6 @@ public class PyromancerConfig
     public static final ForgeConfigSpec.ConfigValue<Incandescent.Key> PYROMANCY_DESCRIPTION_KEY = BUILDER
             .comment("Defines a key to show pyromancy description")
             .defineEnum("pyromancy_description_key", Incandescent.Key.ALT);
-    static final ForgeConfigSpec SPEC = BUILDER.build();
     private static final ForgeConfigSpec.ConfigValue<Integer> DEFAULT_CONTRACT_CREDITS = BUILDER
             .comment("Defines the amount of credits the director gets when activating Accursed Contract")
             .define("default_contract_credits", 60);
@@ -64,6 +63,9 @@ public class PyromancerConfig
     private static final ForgeConfigSpec.EnumValue<Incandescent.Key> LORE_TOOLTIP_KEY = BUILDER
             .comment("Defines the key that reveals item's hidden lore description")
             .defineEnum("lore_tooltip_key", Incandescent.Key.ALT);
+
+    static final ForgeConfigSpec SPEC = BUILDER.build();
+
     public static List<? extends String> emberBlacklist;
     public static List<? extends String> emberAdditionalItems;
     public static int blazingJournalMaxCapacity;
