@@ -32,6 +32,10 @@ public class BlockStateDatagen extends BlockStateProvider
             {
                 var builder = blockModelDatagen.modelDatagen.generatedModels.get(new ResourceLocation(PyromancerMod.MOD_ID, "block/rimeblood_cell"));
                 blockModelDatagen.simpleBlock(BlockRegistry.RIMEBLOOD_CELL.get(), builder);
+            }),
+            BlockRegistry.PYROWOOD_LEAVES.get(), (blockModelDatagen ->
+            {
+                blockModelDatagen.simpleBlock(BlockRegistry.PYROWOOD_LEAVES.get(), blockModelDatagen.models().cubeAll("pyrowood_leaves", new ResourceLocation(PyromancerMod.MOD_ID, "block/pyrowood_leaves" )).renderType("cutout_mipped"));
             })
     );
     public final BlockModelDatagen modelDatagen;
@@ -102,7 +106,7 @@ public class BlockStateDatagen extends BlockStateProvider
                 this.simpleBlock(block, models().cross(blockId, new ResourceLocation(PyromancerMod.MOD_ID, "block/" + blockId)).renderType("cutout_mipped"));
             } else
             {
-                this.cubeAll(block);
+                this.simpleBlock(block);
             }
         }
     }
