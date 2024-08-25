@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.common.util.BlockUtils;
+import xyz.nikgub.pyromancer.data.EntityTagDatagen;
 import xyz.nikgub.pyromancer.registries.DamageSourceRegistry;
 
 @SuppressWarnings("deprecation")
@@ -40,6 +41,8 @@ public class FirebriarBlock extends FlowerBlock
     @Override
     public void entityInside (@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull Entity entity)
     {
+        if (!entity.getType().is(EntityTagDatagen.FLAMING_GROVE_NATIVE)) return;
+
         double x = blockPos.getX();
         double y = blockPos.getY();
         double z = blockPos.getZ();
