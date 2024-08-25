@@ -24,7 +24,7 @@ import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import xyz.nikgub.pyromancer.data.BiomeDatagen;
+import xyz.nikgub.pyromancer.registries.BiomeRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +53,8 @@ public class CaveBiomeProxyEventHandling
             List<Pair<Climate.ParameterPoint, Holder<Biome>>> parameters = new ArrayList<>(noiseSource.parameters().values());
             addParameterPoint(parameters, new Pair<>
                     (
-                            Climate.parameters(Climate.Parameter.span(-1f, -0.6f), Climate.Parameter.span(0.2f, 1.0f), Climate.Parameter.span(0.2F, 1.0F), FULL_RANGE, Climate.Parameter.span(0.2f, 0.9f), FULL_RANGE, 0f),
-                            biomeRegistry.getHolderOrThrow(BiomeDatagen.PERMAFROST_CAVERNS)
+                            Climate.parameters(Climate.Parameter.span(-1f, -0.6f), Climate.Parameter.span(-0.2f, 0.6f), Climate.Parameter.span(0.1F, 0.6F), FULL_RANGE, Climate.Parameter.span(0.2f, 0.9f), FULL_RANGE, 0f),
+                            biomeRegistry.getHolderOrThrow(BiomeRegistry.PERMAFROST_CAVERNS)
                     )
             );
             chunkGenerator.biomeSource = MultiNoiseBiomeSource.createFromList(new Climate.ParameterList<>(parameters));
@@ -71,7 +71,7 @@ public class CaveBiomeProxyEventHandling
                 List<SurfaceRules.RuleSource> surfaceRules = new ArrayList<>(sequenceRuleSource.sequence());
                 addSurfaceRule
                         (surfaceRules, 1,
-                                anySurfaceRule(BiomeDatagen.PERMAFROST_CAVERNS,
+                                anySurfaceRule(BiomeRegistry.PERMAFROST_CAVERNS,
                                         Blocks.SNOW_BLOCK.defaultBlockState(),
                                         Blocks.SNOW_BLOCK.defaultBlockState(),
                                         Blocks.PACKED_ICE.defaultBlockState())
