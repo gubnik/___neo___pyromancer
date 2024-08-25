@@ -37,10 +37,12 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithLootingCondition;
@@ -57,6 +59,7 @@ import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -77,15 +80,14 @@ import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.client.model.armor.ArmorOfHellblazeMonarchModel;
 import xyz.nikgub.pyromancer.client.model.armor.PyromancerArmorModel;
 import xyz.nikgub.pyromancer.client.model.entity.*;
-import xyz.nikgub.pyromancer.client.renderer.*;
+import xyz.nikgub.pyromancer.client.renderer.entity.*;
 import xyz.nikgub.pyromancer.common.ember.Ember;
 import xyz.nikgub.pyromancer.common.enchantment.BlazingJournalEnchantment;
-import xyz.nikgub.pyromancer.common.entity.FrostcopperGolemEntity;
-import xyz.nikgub.pyromancer.common.entity.UnburnedEntity;
+import xyz.nikgub.pyromancer.common.entity.*;
 import xyz.nikgub.pyromancer.common.event.BlazingJournalAttackEvent;
 import xyz.nikgub.pyromancer.common.item.*;
-import xyz.nikgub.pyromancer.common.util.ItemUtils;
 import xyz.nikgub.pyromancer.common.worldgen.NetherPyrowoodTrunkPlacer;
+import xyz.nikgub.pyromancer.data.BiomeDatagen;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
 import xyz.nikgub.pyromancer.data.RegistriesDataGeneration;
 import xyz.nikgub.pyromancer.network.NetworkCore;
@@ -122,6 +124,7 @@ public class PyromancerMod
         modEventBus.addListener(this::addCreative);
         modEventBus.addListener(this::gatherData);
         modEventBus.addListener(this::entityAttributeSupplier);
+        modEventBus.addListener(this::registerSpawnPlacements);
 
         EmberRegistry.EMBERS.register(modEventBus);
         ContractRegistry.CONTRACTS.register(modEventBus);
@@ -142,7 +145,7 @@ public class PyromancerMod
     private void commonSetup (final FMLCommonSetupEvent event)
     {
         NetworkCore.register();
-        NetherBiomeRegistry.setupTerrablender();
+        BiomeDatagen.setupTerrablender();
         event.enqueueWork(InfusionItem::makeRecipes);
     }
 
@@ -155,6 +158,9 @@ public class PyromancerMod
         EntityRenderers.register(EntityTypeRegistry.PYRONADO.get(), PyronadoRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.UNBURNED.get(), UnburnedRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.FROSTCOPPER_GOLEM.get(), FrostcopperGolemRenderer::new);
+        EntityRenderers.register(EntityTypeRegistry.SCORCH.get(), ScorchRenderer::new);
+        EntityRenderers.register(EntityTypeRegistry.PYRACORN.get(), PyracornRender::new);
+        EntityRenderers.register(EntityTypeRegistry.PYROENT.get(), PyroentRenderer::new);
     }
 
     private void registerLayerDefinitions (EntityRenderersEvent.RegisterLayerDefinitions event)
@@ -166,12 +172,18 @@ public class PyromancerMod
         event.registerLayerDefinition(PyronadoModel.LAYER_LOCATION, PyronadoModel::createBodyLayer);
         event.registerLayerDefinition(UnburnedModel.LAYER_LOCATION, UnburnedModel::createBodyLayer);
         event.registerLayerDefinition(FrostcopperGolemModel.LAYER_LOCATION, FrostcopperGolemModel::createbodyLayer);
+        event.registerLayerDefinition(ScorchModel.LAYER_LOCATION, ScorchModel::createBodyLayer);
+        event.registerLayerDefinition(PyracornModel.LAYER_LOCATION, PyracornModel::createBodyLayer);
+        event.registerLayerDefinition(PyroentModel.LAYER_LOCATION, PyroentModel::createBodyLayer);
     }
 
     private void entityAttributeSupplier (EntityAttributeCreationEvent event)
     {
         event.put(EntityTypeRegistry.UNBURNED.get(), UnburnedEntity.setAttributes());
         event.put(EntityTypeRegistry.FROSTCOPPER_GOLEM.get(), FrostcopperGolemEntity.setAttributes());
+        event.put(EntityTypeRegistry.SCORCH.get(), ScorchEntity.setAttributes());
+        event.put(EntityTypeRegistry.PYRACORN.get(), PyracornEntity.setAttributes());
+        event.put(EntityTypeRegistry.PYROENT.get(), PyroentEntity.setAttributes());
     }
 
     private void addCreative (BuildCreativeModeTabContentsEvent event)
@@ -229,6 +241,14 @@ public class PyromancerMod
                 Component.literal("Resources for Pyromancer"),
                 DetectedVersion.BUILT_IN.getPackVersion(PackType.CLIENT_RESOURCES),
                 Arrays.stream(PackType.values()).collect(Collectors.toMap(Function.identity(), DetectedVersion.BUILT_IN::getPackVersion)))));
+    }
+
+    public void registerSpawnPlacements (SpawnPlacementRegisterEvent event)
+    {
+        //event.register(EntityTypeRegistry.FROSTCOPPER_GOLEM.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostcopperGolemEntity::spawnPredicate, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(EntityTypeRegistry.PYRACORN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PyracornEntity::spawnPredicate, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(EntityTypeRegistry.SCORCH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ScorchEntity::spawnPredicate, SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(EntityTypeRegistry.PYROENT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PyroentEntity::spawnPredicate, SpawnPlacementRegisterEvent.Operation.OR);
     }
 
     @SubscribeEvent
@@ -383,7 +403,7 @@ public class PyromancerMod
             if (!(damageSource.getDirectEntity() instanceof Player player)) return;
             Entity target = event.getEntity();
             ItemStack weapon = player.getMainHandItem();
-            ItemStack journal = ItemUtils.guessJournal(player);
+            ItemStack journal = BlazingJournalItem.guessJournal(player);
             if (journal == ItemStack.EMPTY || !(journal.getItem() instanceof BlazingJournalItem blazingJournalItem))
                 return;
             blazingJournalQuillProcessor(blazingJournalItem, journal, weapon, player, target);
@@ -420,7 +440,7 @@ public class PyromancerMod
                     {
                         BlazingJournalAttackEvent blazingJournalAttackEvent = BlazingJournalItem.getBlazingJournalAttackEvent(player, target, journal, weapon, blazingJournalEnchantment);
                         blazingJournalEnchantment.getAttack(player, target);
-                        ItemUtils.changeBlaze(player, -1);
+                        BlazingJournalItem.changeBlaze(player, -1);
                     }
                 } else break;
             }
