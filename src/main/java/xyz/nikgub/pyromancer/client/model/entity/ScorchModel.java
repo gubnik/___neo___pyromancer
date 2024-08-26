@@ -98,14 +98,32 @@ public class ScorchModel<T extends ScorchEntity> extends HierarchicalModel<T>
     public void setupAnim (@NotNull ScorchEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.walkingAnim(limbSwing, limbSwingAmount);
+        this.attackAnim(ageInTicks);
+        this.head.yRot = (float) Math.toRadians(netHeadYaw);
+        this.head.xRot = (float) Math.toRadians(headPitch);
+    }
+
+    public void walkingAnim (float limbSwing, float limbSwingAmount)
+    {
         this.right_front_leg.yRot = Mth.cos(limbSwing) * 1.0F * limbSwingAmount;
         this.left_back_leg.yRot = Mth.cos(limbSwing * 0.6662F) * limbSwingAmount;
         this.right_back_leg.yRot = Mth.cos(limbSwing) * 1.0F * limbSwingAmount;
         this.left_middle_leg.yRot = Mth.cos(limbSwing) * 1.0F * limbSwingAmount;
         this.right_middle_leg.yRot = Mth.cos(limbSwing) * -1.0F * limbSwingAmount;
         this.left_front_leg.yRot = Mth.cos(limbSwing) * -1.0F * limbSwingAmount;
-        this.head.yRot = (float) Math.toRadians(netHeadYaw);
-        this.head.xRot = (float) Math.toRadians(headPitch);
+    }
+
+    public void attackAnim (float pAgeInTicks)
+    {
+        float f = Mth.sin(this.attackTime * (float)Math.PI);
+        float f1 = Mth.sin((1.0F - (1.0F - this.attackTime) * (1.0F - this.attackTime)) * (float)Math.PI);
+        this.right_wing.zRot = 0.0F;
+        this.left_wing.zRot = 0.0F;
+        this.right_wing.yRot = -(0.1F - f * 0.6F);
+        this.left_wing.yRot = 0.1F - f * 0.6F;
+        this.right_wing.xRot += f * 1.2F - f1 * 0.4F;
+        this.left_wing.xRot += f * 1.2F - f1 * 0.4F;
     }
 
     @Override
