@@ -179,6 +179,7 @@ public class RecipeDatagen extends RecipeProvider
                 .requires(ItemRegistry.RIMEBLOOD.get(), 4).requires(Items.COPPER_INGOT, 2).requires(Items.IRON_INGOT, 2)
                 .unlockedBy(getHasName(ItemRegistry.RIMEBLOOD.get()), has(ItemRegistry.RIMEBLOOD.get()))
                 .save(consumer);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.HOARFROST_GREATSWORD.get())
                 .pattern(" # ")
                 .pattern("C#C")
@@ -187,6 +188,7 @@ public class RecipeDatagen extends RecipeProvider
                 .define('C', ItemRegistry.RIMEBRASS_INGOT.get())
                 .unlockedBy(getHasName(ItemRegistry.ANCIENT_PLATING.get()), has(ItemRegistry.ANCIENT_PLATING.get()))
                 .save(consumer);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.SPEAR_OF_MOROZ.get())
                 .pattern(" # ")
                 .pattern(" # ")
