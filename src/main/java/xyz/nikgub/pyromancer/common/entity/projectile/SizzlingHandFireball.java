@@ -63,7 +63,6 @@ public class SizzlingHandFireball extends Fireball implements ItemSupplier
             {
                 this.doEnchantDamageEffects((LivingEntity) owner, entity);
             }
-            entity.invulnerableTime = 0;
         }
     }
 
