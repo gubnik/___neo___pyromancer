@@ -54,19 +54,19 @@
         "type": "pyromancer:pyracorn",
         "maxCount": 6,
         "minCount": 1,
-        "weight": 150
+        "weight": 95
       },
       {
         "type": "pyromancer:scorch",
-        "maxCount": 3,
-        "minCount": 2,
-        "weight": 100
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 65
       },
       {
         "type": "pyromancer:pyroent",
         "maxCount": 6,
         "minCount": 4,
-        "weight": 200
+        "weight": 75
       }
     ],
     "underground_water_creature": [],

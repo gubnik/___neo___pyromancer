@@ -14,12 +14,9 @@
         },
         {
           "data": {
-            "Name": "pyromancer:firebriar",
-            "Properties": {
-              "stage": "0"
-            }
+            "Name": "pyromancer:nether_lily"
           },
-          "weight": 12
+          "weight": 20
         },
         {
           "data": {
@@ -29,9 +26,12 @@
         },
         {
           "data": {
-            "Name": "pyromancer:nether_lily"
+            "Name": "pyromancer:firebriar",
+            "Properties": {
+              "stage": "0"
+            }
           },
-          "weight": 20
+          "weight": 4
         },
         {
           "data": {
