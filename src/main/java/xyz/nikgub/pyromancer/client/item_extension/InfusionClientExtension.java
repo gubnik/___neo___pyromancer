@@ -45,7 +45,10 @@ public class InfusionClientExtension implements IClientItemExtensions
     {
         if (player.getUseItemRemainingTicks() > 0)
         {
-            this.applyItemArmTransform(poseStack, arm, swingProcess);
+            float remTicks = (float) player.getUseItemRemainingTicks();
+            float useTicks = (float) itemInHand.getUseDuration();
+            float f = (remTicks) / useTicks;
+            this.applyItemArmTransform(poseStack, arm, f);
             return true;
         }
         return false;
@@ -54,6 +57,7 @@ public class InfusionClientExtension implements IClientItemExtensions
     private void applyItemArmTransform (PoseStack poseStack, HumanoidArm arm, float v)
     {
         int i = arm == HumanoidArm.RIGHT ? 1 : -1;
-        poseStack.translate((float) i * 0.56F, -0.52F + v * -0.6F, -0.72F);
+        float f = Mth.clamp(v, 0F, 1F);
+        poseStack.translate((float) -i * 0.56, - f / 3, -0.72F);
     }
 }
