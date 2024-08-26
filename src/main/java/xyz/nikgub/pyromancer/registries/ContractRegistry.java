@@ -20,12 +20,6 @@ public class ContractRegistry
     public static final ResourceKey<Registry<AccursedContractEntry<?>>> REGISTRY_KEY = ResourceKey.createRegistryKey(new ResourceLocation(PyromancerMod.MOD_ID, "contracts"));
     public static final DeferredRegister<AccursedContractEntry<?>> CONTRACTS = DeferredRegister.create(REGISTRY_KEY, PyromancerMod.MOD_ID);
     public static final Supplier<IForgeRegistry<AccursedContractEntry<?>>> REGISTRY = CONTRACTS.makeRegistry(() -> new RegistryBuilder<AccursedContractEntry<?>>().disableOverrides());
-    public static RegistryObject<AccursedContractEntry<?>> ZOMBIE = CONTRACTS.register("zombie",
-            () -> new AccursedContractEntry<>(EntityType.ZOMBIE, 1));
-    public static RegistryObject<AccursedContractEntry<?>> SKELETON = CONTRACTS.register("skeleton",
-            () -> new AccursedContractEntry<>(EntityType.SKELETON, 5));
-    public static RegistryObject<AccursedContractEntry<?>> CREEPER = CONTRACTS.register("creeper",
-            () -> new AccursedContractEntry<>(EntityType.CREEPER, 20));
 
     public static RegistryObject<AccursedContractEntry<?>> registerContractEntry (String name, AccursedContractEntry<?> entry)
     {
@@ -41,4 +35,10 @@ public class ContractRegistry
                 .collect(Collectors.toSet());
     }
 
+    public static RegistryObject<AccursedContractEntry<?>> ZOMBIE = CONTRACTS.register("zombie",
+            () -> new AccursedContractEntry<>(EntityType.ZOMBIE, 1));
+    public static RegistryObject<AccursedContractEntry<?>> SKELETON = CONTRACTS.register("skeleton",
+            () -> new AccursedContractEntry<>(EntityType.SKELETON, 5));
+    public static RegistryObject<AccursedContractEntry<?>> CREEPER = CONTRACTS.register("creeper",
+            () -> new AccursedContractEntry<>(EntityType.CREEPER, 20));
 }
