@@ -22,7 +22,7 @@ public class EmberItem extends Item
 {
     public EmberItem (Properties properties)
     {
-        super(properties);
+        super(properties.stacksTo(1));
     }
 
     @Override
@@ -32,13 +32,13 @@ public class EmberItem extends Item
         if (ember == null) return;
         if (PyromancerConfig.embersDescriptionKey.getSupplier().get())
         {
-            list.add(Component.translatable(ember.getNameId()));
-            list.add(Component.translatable(ember.getDescriptionId()));
+            list.add(Component.translatable(ember.getNameId()).withStyle(ChatFormatting.GRAY));
+            list.add(Component.translatable(ember.getDescriptionId()).withStyle(ChatFormatting.GRAY));
         } else
         {
             list.add(Component.translatable(
                     Component.translatable("pyromancer.ember_hidden_line").getString() + PyromancerConfig.embersDescriptionKey.toString()
-            ).withStyle(ChatFormatting.GRAY));
+            ).withStyle(ChatFormatting.DARK_GRAY).withStyle(ChatFormatting.BOLD));
         }
     }
 

@@ -22,7 +22,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.common.ember.Ember;
-import xyz.nikgub.pyromancer.common.ember.EmberUtilities;
 import xyz.nikgub.pyromancer.common.event.EmberEvent;
 
 import java.util.List;
@@ -51,7 +50,12 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, IForgeItem
         Ember ember = Ember.getFromItem(itemStack);
         if (ember == null || !ember.isValidFor(itemStack.getItem())) return;
         if (!(entity instanceof Player player)) return;
-        EmberEvent event = EmberUtilities.getEmberEvent(player, ember, itemStack, tick);
+        if (!ember.consumeBlazeOnTick(entity))
+        {
+            entity.stopUsingItem();
+            return;
+        }
+        EmberEvent event = Ember.getEmberEvent(player, ember, itemStack, tick);
         ember.tickEvent(level, entity, itemStack, tick);
     }
 
@@ -60,9 +64,10 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, IForgeItem
     {
         Ember ember = Ember.getFromItem(itemStack);
         if (ember == null || !ember.isValidFor(itemStack.getItem())) return;
+        if (!ember.consumeBlazeOnFinish(entity)) return;
         ember.finishEvent(itemStack, level, entity);
         if (entity instanceof Player player)
-            player.getCooldowns().addCooldown(this.asItem(), Ember.getFromItem(itemStack).getAnimation().getCooldown());
+            player.getCooldowns().addCooldown(this.asItem(), ember.getAnimation().getCooldown());
     }
 
     @Inject(method = "getUseAnimation", at = @At("HEAD"), cancellable = true)
@@ -78,7 +83,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, IForgeItem
     {
         Ember ember = Ember.getFromItem(itemStack);
         if (ember == null || !ember.isValidFor(itemStack.getItem())) return;
-        retVal.setReturnValue(Ember.getFromItem(itemStack).getAnimation().getUseTime());
+        retVal.setReturnValue(ember.getAnimation().getUseTime());
     }
 
     @Inject(method = "appendHoverText", at = @At("HEAD"))
@@ -88,13 +93,13 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, IForgeItem
         if (ember == null) return;
         if (PyromancerConfig.embersDescriptionKey.getSupplier().get())
         {
-            list.add(Component.translatable(ember.getNameId()));
-            list.add(Component.translatable(ember.getDescriptionId()));
+            list.add(Component.translatable(ember.getNameId()).withStyle(ChatFormatting.GRAY));
+            list.add(Component.translatable(ember.getDescriptionId()).withStyle(ChatFormatting.GRAY));
         } else
         {
             list.add(Component.translatable(
                     Component.translatable("pyromancer.ember_hidden_line").getString() + PyromancerConfig.embersDescriptionKey.toString()
-            ).withStyle(ChatFormatting.GRAY));
+            ).withStyle(ChatFormatting.DARK_GRAY).withStyle(ChatFormatting.BOLD));
         }
         //callbackInfo.cancel();
     }

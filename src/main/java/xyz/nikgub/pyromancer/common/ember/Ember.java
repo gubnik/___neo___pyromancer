@@ -1,13 +1,17 @@
 package xyz.nikgub.pyromancer.common.ember;
 
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.MinecraftForge;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.nikgub.pyromancer.PyromancerConfig;
+import xyz.nikgub.pyromancer.common.event.EmberEvent;
+import xyz.nikgub.pyromancer.common.item.BlazingJournalItem;
 import xyz.nikgub.pyromancer.common.item.EmberItem;
 import xyz.nikgub.pyromancer.registries.EmberRegistry;
 
@@ -22,6 +26,10 @@ public class Ember
 
     private final EmberType type;
 
+    private final int costOnFinish;
+
+    private final int costOnTick;
+
     private final Set<Class<? extends Item>> acceptableItems;
 
     private final EmberAnimation animation;
@@ -33,10 +41,12 @@ public class Ember
      * @param animation         Record of third person animation, first person item transforms, use duration and cooldown
      */
     @SafeVarargs
-    public Ember (String name, @NotNull EmberType type, @NotNull EmberAnimation animation, Class<? extends Item>... acceptableWeapons)
+    public Ember (String name, @NotNull EmberType type, int costOnFinish, int costOnTick, @NotNull EmberAnimation animation, Class<? extends Item>... acceptableWeapons)
     {
         this.name = name;
         this.type = type;
+        this.costOnFinish = costOnFinish;
+        this.costOnTick = costOnTick;
         this.acceptableItems = Set.of(acceptableWeapons);
         this.animation = animation;
     }
@@ -57,7 +67,7 @@ public class Ember
                 return true;
             }
         }
-        return item instanceof TieredItem || EmberUtilities.isUniquelyAllowed(item);
+        return item instanceof TieredItem || isUniquelyAllowed(item);
     }
 
     @Nullable
@@ -72,7 +82,7 @@ public class Ember
     @Override
     public String toString ()
     {
-        return String.format("ember:%s/%s", this.name, this.type.getName());
+        return String.format("ember:%s/%s", this.type.getName(), this.name);
     }
 
     public String getName ()
@@ -88,6 +98,16 @@ public class Ember
     public String getNameId ()
     {
         return "ember." + this.name + ".name";
+    }
+
+    public int getCostOnFinish ()
+    {
+        return costOnFinish;
+    }
+
+    public int getCostOnTick ()
+    {
+        return costOnTick;
     }
 
     public EmberType getType ()
@@ -125,5 +145,71 @@ public class Ember
     public void finishEvent (ItemStack itemStack, Level level, LivingEntity entity)
     {
 
+    }
+
+    public boolean checkBlazeOnTick (@NotNull LivingEntity entity)
+    {
+        ItemStack journal = BlazingJournalItem.guessJournal(entity);
+        if (journal == ItemStack.EMPTY) return false;
+        return BlazingJournalItem.getBlaze(entity) >= this.costOnTick;
+    }
+
+    public boolean consumeBlazeOnTick (@NotNull LivingEntity entity)
+    {
+        boolean retVal = checkBlazeOnTick(entity);
+        if (retVal)
+        {
+            BlazingJournalItem.changeBlaze(entity, -this.costOnTick);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkBlazeOnFinish (@NotNull LivingEntity entity)
+    {
+        ItemStack journal = BlazingJournalItem.guessJournal(entity);
+        if (journal == ItemStack.EMPTY) return false;
+        return BlazingJournalItem.getBlaze(entity) >= this.costOnFinish;
+    }
+
+    public boolean consumeBlazeOnFinish (@NotNull LivingEntity entity)
+    {
+        boolean retVal = checkBlazeOnFinish(entity);
+        if (retVal)
+        {
+            BlazingJournalItem.changeBlaze(entity, -this.costOnFinish);
+            return true;
+        }
+        return false;
+    }
+
+    @NotNull
+    public static EmberEvent getEmberEvent (Player player, Ember ember, ItemStack itemStack, int tick)
+    {
+        EmberEvent event = new EmberEvent(player, ember, itemStack, tick);
+        MinecraftForge.EVENT_BUS.post(event);
+        return event;
+    }
+
+    public static boolean isUniquelyDenied (ItemStack itemStack)
+    {
+        return (itemStack.getItem().getClass().isAnnotationPresent(UniqueEmberBehaviour.class)) && itemStack.getItem().getClass().getAnnotation(UniqueEmberBehaviour.class).allow() == UniqueEmberBehaviour.AllowanceModifier.DENY;
+    }
+
+    public static boolean isUniquelyDenied (Item item)
+    {
+        return (item.getClass().isAnnotationPresent(UniqueEmberBehaviour.class)) && item.getClass().getAnnotation(UniqueEmberBehaviour.class).allow() == UniqueEmberBehaviour.AllowanceModifier.DENY;
+    }
+
+    public static boolean isUniquelyAllowed (ItemStack itemStack)
+    {
+        return (itemStack.getItem().getClass().isAnnotationPresent(UniqueEmberBehaviour.class)) && itemStack.getItem().getClass().getAnnotation(UniqueEmberBehaviour.class).allow() == UniqueEmberBehaviour.AllowanceModifier.ALLOW
+                && !isUniquelyDenied(itemStack);
+    }
+
+    public static boolean isUniquelyAllowed (Item item)
+    {
+        return (item.getClass().isAnnotationPresent(UniqueEmberBehaviour.class)) && item.getClass().getAnnotation(UniqueEmberBehaviour.class).allow() == UniqueEmberBehaviour.AllowanceModifier.ALLOW
+                && !isUniquelyDenied(item);
     }
 }

@@ -37,7 +37,7 @@ public class EmberRegistry
     public static final ResourceKey<Registry<Ember>> EMBER_REGISTRY_KEY = ResourceKey.createRegistryKey(new ResourceLocation(PyromancerMod.MOD_ID, "embers"));
     public static final DeferredRegister<Ember> EMBERS = DeferredRegister.create(EMBER_REGISTRY_KEY, PyromancerMod.MOD_ID);
     public static final Supplier<IForgeRegistry<Ember>> REGISTRY = EMBERS.makeRegistry(() -> new RegistryBuilder<Ember>().disableOverrides());
-    public static RegistryObject<Ember> SOULFLAME_IGNITION = registerEmber(new Ember("soulflame_ignition", EmberType.SOULFLAME, EmberAnimationList.SOULFLAME_IGNITION, SwordItem.class, AxeItem.class)
+    public static RegistryObject<Ember> SOULFLAME_IGNITION = registerEmber(new Ember("soulflame_ignition", EmberType.SOULFLAME, 12, 0, EmberAnimationList.SOULFLAME_IGNITION, SwordItem.class, AxeItem.class)
     {
         @Override
         public void finishEvent (ItemStack itemStack, Level level, LivingEntity entity)
@@ -84,7 +84,7 @@ public class EmberRegistry
             serverLevel.sendParticles(particleType, X - sinK, Y + tick * 0.1, Z - cosK, 1, 0.1, 0.1, 0.1, 0);
         }
     });
-    public static RegistryObject<Ember> PRESERVING_FLAME = registerEmber(new Ember("preserving_flame", EmberType.FLAME, EmberAnimationList.PRESERVING_FLAME, MaceItem.class)
+    public static RegistryObject<Ember> PRESERVING_FLAME = registerEmber(new Ember("preserving_flame", EmberType.FLAME, 0, 1, EmberAnimationList.PRESERVING_FLAME, MaceItem.class)
     {
         @Override
         public void tickEvent (Level level, LivingEntity entity, ItemStack itemStack, int tick)
@@ -93,7 +93,7 @@ public class EmberRegistry
             entity.addEffect(new MobEffectInstance(MobEffectRegistry.FIERY_AEGIS.get(), 2, 0, true, false));
         }
     });
-    public static RegistryObject<Ember> EXECUTIONERS_FIRE = registerEmber(new Ember("executioners_fire", EmberType.HELLBLAZE, EmberAnimationList.EXECUTIONERS_FIRE, AxeItem.class)
+    public static RegistryObject<Ember> EXECUTIONERS_FIRE = registerEmber(new Ember("executioners_fire", EmberType.HELLBLAZE, 8, 0, EmberAnimationList.EXECUTIONERS_FIRE, AxeItem.class)
     {
         @Override
         public void tickEvent (Level level, LivingEntity entity, ItemStack itemStack, int tick)
