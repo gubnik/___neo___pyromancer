@@ -45,6 +45,7 @@ public class SizzlingHandClientExtension implements IClientItemExtensions
     private void applyItemArmTransform (PoseStack poseStack, HumanoidArm arm, float v)
     {
         int i = arm == HumanoidArm.RIGHT ? 1 : -1;
-        poseStack.translate((float) i * 0.56F, -0.52F + v * -0.6F, -0.72F);
+        float f = Mth.clamp(v, 0F, 1F);
+        poseStack.translate((float) i * 0.5F + f * -0.5F, -0.52F, -0.72F);
     }
 }
