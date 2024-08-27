@@ -12,8 +12,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.pyromancer.registries.DamageSourceRegistry;
-import xyz.nikgub.pyromancer.registries.ItemRegistry;
+import xyz.nikgub.pyromancer.registry.DamageSourceRegistry;
+import xyz.nikgub.pyromancer.registry.ItemRegistry;
 
 public class BombsackProjectile extends ThrowableItemProjectile
 {

@@ -33,7 +33,7 @@ import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.common.enchantment.BlazingJournalEnchantment;
 import xyz.nikgub.pyromancer.common.event.BlazingJournalAttackEvent;
 import xyz.nikgub.pyromancer.common.item_capability.BlazingJournalCapability;
-import xyz.nikgub.pyromancer.registries.AttributeRegistry;
+import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 
 import java.util.List;
 

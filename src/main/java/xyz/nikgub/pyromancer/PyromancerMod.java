@@ -91,7 +91,7 @@ import xyz.nikgub.pyromancer.data.BiomeDatagen;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
 import xyz.nikgub.pyromancer.data.RegistriesDataGeneration;
 import xyz.nikgub.pyromancer.network.NetworkCore;
-import xyz.nikgub.pyromancer.registries.*;
+import xyz.nikgub.pyromancer.registry.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;

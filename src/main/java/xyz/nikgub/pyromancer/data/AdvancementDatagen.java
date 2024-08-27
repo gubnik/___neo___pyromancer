@@ -12,10 +12,10 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeAdvancementProvider;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.registries.BiomeRegistry;
-import xyz.nikgub.pyromancer.registries.BlockRegistry;
-import xyz.nikgub.pyromancer.registries.EntityTypeRegistry;
-import xyz.nikgub.pyromancer.registries.ItemRegistry;
+import xyz.nikgub.pyromancer.registry.BiomeRegistry;
+import xyz.nikgub.pyromancer.registry.BlockRegistry;
+import xyz.nikgub.pyromancer.registry.EntityTypeRegistry;
+import xyz.nikgub.pyromancer.registry.ItemRegistry;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

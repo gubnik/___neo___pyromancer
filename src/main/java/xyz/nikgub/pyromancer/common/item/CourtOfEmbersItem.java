@@ -15,8 +15,8 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.client.item_extension.CourtOfEmbersClientExtension;
 import xyz.nikgub.pyromancer.common.entity.attack_effect.PyronadoEntity;
-import xyz.nikgub.pyromancer.registries.AttributeRegistry;
-import xyz.nikgub.pyromancer.registries.EntityTypeRegistry;
+import xyz.nikgub.pyromancer.registry.AttributeRegistry;
+import xyz.nikgub.pyromancer.registry.EntityTypeRegistry;
 
 import java.util.function.Consumer;
 

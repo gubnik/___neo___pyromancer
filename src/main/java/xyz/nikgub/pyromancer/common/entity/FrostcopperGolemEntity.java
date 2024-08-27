@@ -28,9 +28,9 @@ import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.incandescent.client.animations.DeterminedAnimation;
 import xyz.nikgub.incandescent.client.animations.IAnimationPurposeEntity;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
-import xyz.nikgub.pyromancer.registries.AttributeRegistry;
-import xyz.nikgub.pyromancer.registries.BlockRegistry;
-import xyz.nikgub.pyromancer.registries.DamageSourceRegistry;
+import xyz.nikgub.pyromancer.registry.AttributeRegistry;
+import xyz.nikgub.pyromancer.registry.BlockRegistry;
+import xyz.nikgub.pyromancer.registry.DamageSourceRegistry;
 
 import java.util.List;
 
