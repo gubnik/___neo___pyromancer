@@ -1,4 +1,4 @@
-package xyz.nikgub.pyromancer.registries;
+package xyz.nikgub.pyromancer.registry;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.MobType;

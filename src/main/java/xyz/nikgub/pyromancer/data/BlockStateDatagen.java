@@ -8,7 +8,7 @@ import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.registries.BlockRegistry;
+import xyz.nikgub.pyromancer.registry.BlockRegistry;
 
 import java.util.List;
 import java.util.Map;

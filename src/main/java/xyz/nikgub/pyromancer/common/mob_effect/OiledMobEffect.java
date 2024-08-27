@@ -10,7 +10,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
-import xyz.nikgub.pyromancer.registries.MobEffectRegistry;
+import xyz.nikgub.pyromancer.registry.MobEffectRegistry;
 
 public class OiledMobEffect extends MobEffect
 {

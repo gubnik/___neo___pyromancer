@@ -1,4 +1,4 @@
-package xyz.nikgub.pyromancer.registries;
+package xyz.nikgub.pyromancer.registry;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.damagesource.DamageSource;

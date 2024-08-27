@@ -19,7 +19,7 @@ import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.client.item_extension.InfusionClientExtension;
 import xyz.nikgub.pyromancer.common.mob_effect.InfusionMobEffect;
-import xyz.nikgub.pyromancer.registries.ItemRegistry;
+import xyz.nikgub.pyromancer.registry.ItemRegistry;
 
 import javax.annotation.Nullable;
 import java.util.List;

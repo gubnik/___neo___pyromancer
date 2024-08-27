@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.incandescent.client.animations.DeterminedAnimation;
 import xyz.nikgub.incandescent.client.animations.IAnimationPurposeEntity;
 import xyz.nikgub.pyromancer.data.BlockTagDatagen;
-import xyz.nikgub.pyromancer.registries.BlockRegistry;
+import xyz.nikgub.pyromancer.registry.BlockRegistry;
 
 import java.util.List;
 

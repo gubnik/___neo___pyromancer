@@ -13,7 +13,7 @@ import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.common.event.EmberEvent;
 import xyz.nikgub.pyromancer.common.item.BlazingJournalItem;
 import xyz.nikgub.pyromancer.common.item.EmberItem;
-import xyz.nikgub.pyromancer.registries.EmberRegistry;
+import xyz.nikgub.pyromancer.registry.EmberRegistry;
 
 import java.util.Set;
 

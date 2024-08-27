@@ -13,7 +13,7 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.registries.BlockRegistry;
+import xyz.nikgub.pyromancer.registry.BlockRegistry;
 
 import java.util.List;
 

@@ -10,9 +10,9 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
-import xyz.nikgub.pyromancer.registries.AttributeRegistry;
-import xyz.nikgub.pyromancer.registries.DamageSourceRegistry;
-import xyz.nikgub.pyromancer.registries.MobEffectRegistry;
+import xyz.nikgub.pyromancer.registry.AttributeRegistry;
+import xyz.nikgub.pyromancer.registry.DamageSourceRegistry;
+import xyz.nikgub.pyromancer.registry.MobEffectRegistry;
 
 public class SolarCollisionEffect extends SmartMobEffect
 {

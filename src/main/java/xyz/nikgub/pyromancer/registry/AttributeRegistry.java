@@ -1,4 +1,4 @@
-package xyz.nikgub.pyromancer.registries;
+package xyz.nikgub.pyromancer.registry;
 
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;

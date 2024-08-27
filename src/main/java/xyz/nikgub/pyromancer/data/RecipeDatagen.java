@@ -11,8 +11,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.registries.BlockRegistry;
-import xyz.nikgub.pyromancer.registries.ItemRegistry;
+import xyz.nikgub.pyromancer.registry.BlockRegistry;
+import xyz.nikgub.pyromancer.registry.ItemRegistry;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;

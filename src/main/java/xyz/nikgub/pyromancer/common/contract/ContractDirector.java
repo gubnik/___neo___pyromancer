@@ -5,7 +5,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import xyz.nikgub.pyromancer.PyromancerConfig;
-import xyz.nikgub.pyromancer.registries.ContractRegistry;
+import xyz.nikgub.pyromancer.registry.ContractRegistry;
 
 import java.util.ArrayList;
 import java.util.List;

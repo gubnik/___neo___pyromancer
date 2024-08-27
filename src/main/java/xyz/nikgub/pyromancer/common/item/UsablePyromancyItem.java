@@ -23,7 +23,7 @@ import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.mixin.client.ItemRendererMixin;
-import xyz.nikgub.pyromancer.registries.AttributeRegistry;
+import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 
 import java.util.List;
 import java.util.Map;

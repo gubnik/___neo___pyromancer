@@ -39,10 +39,10 @@ import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerConfig;
-import xyz.nikgub.pyromancer.registries.AttributeRegistry;
-import xyz.nikgub.pyromancer.registries.DamageSourceRegistry;
-import xyz.nikgub.pyromancer.registries.EnchantmentRegistry;
-import xyz.nikgub.pyromancer.registries.StyleRegistry;
+import xyz.nikgub.pyromancer.registry.AttributeRegistry;
+import xyz.nikgub.pyromancer.registry.DamageSourceRegistry;
+import xyz.nikgub.pyromancer.registry.EnchantmentRegistry;
+import xyz.nikgub.pyromancer.registry.StyleRegistry;
 
 import java.util.List;
 import java.util.Map;

@@ -31,7 +31,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.block.SizzlingVineBlock;
 import xyz.nikgub.pyromancer.common.worldgen.NetherPyrowoodTrunkPlacer;
-import xyz.nikgub.pyromancer.registries.BlockRegistry;
+import xyz.nikgub.pyromancer.registry.BlockRegistry;
 
 import java.util.List;
 

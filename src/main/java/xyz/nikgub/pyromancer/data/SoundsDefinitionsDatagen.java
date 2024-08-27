@@ -5,7 +5,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.SoundDefinition;
 import net.minecraftforge.common.data.SoundDefinitionsProvider;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.registries.SoundEventRegistry;
+import xyz.nikgub.pyromancer.registry.SoundEventRegistry;
 
 public class SoundsDefinitionsDatagen extends SoundDefinitionsProvider
 {

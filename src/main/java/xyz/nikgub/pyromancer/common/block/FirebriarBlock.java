@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.common.util.BlockUtils;
 import xyz.nikgub.pyromancer.data.EntityTagDatagen;
-import xyz.nikgub.pyromancer.registries.DamageSourceRegistry;
+import xyz.nikgub.pyromancer.registry.DamageSourceRegistry;
 
 @SuppressWarnings("deprecation")
 public class FirebriarBlock extends FlowerBlock

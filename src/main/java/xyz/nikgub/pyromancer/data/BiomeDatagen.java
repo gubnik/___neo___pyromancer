@@ -27,9 +27,9 @@ import terrablender.api.Regions;
 import terrablender.api.SurfaceRuleManager;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.registries.BiomeRegistry;
-import xyz.nikgub.pyromancer.registries.BlockRegistry;
-import xyz.nikgub.pyromancer.registries.EntityTypeRegistry;
+import xyz.nikgub.pyromancer.registry.BiomeRegistry;
+import xyz.nikgub.pyromancer.registry.BlockRegistry;
+import xyz.nikgub.pyromancer.registry.EntityTypeRegistry;
 
 import java.util.function.Consumer;
 

@@ -6,8 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import xyz.nikgub.pyromancer.common.item.BlazingJournalItem;
-import xyz.nikgub.pyromancer.common.util.ItemUtils;
-import xyz.nikgub.pyromancer.registries.EnchantmentRegistry;
+import xyz.nikgub.pyromancer.registry.EnchantmentRegistry;
 
 public abstract class BlazingJournalEnchantment extends Enchantment
 {

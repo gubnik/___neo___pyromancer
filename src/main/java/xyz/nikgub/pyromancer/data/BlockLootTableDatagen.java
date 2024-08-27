@@ -8,8 +8,8 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.pyromancer.registries.BlockRegistry;
-import xyz.nikgub.pyromancer.registries.ItemRegistry;
+import xyz.nikgub.pyromancer.registry.BlockRegistry;
+import xyz.nikgub.pyromancer.registry.ItemRegistry;
 
 import java.util.Map;
 import java.util.Set;

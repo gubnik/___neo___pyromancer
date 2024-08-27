@@ -29,7 +29,7 @@ import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.common.ember.UniqueEmberBehaviour;
 import xyz.nikgub.pyromancer.common.item_capability.CompendiumOfFlameCapability;
 import xyz.nikgub.pyromancer.mixin.client.ItemRendererMixin;
-import xyz.nikgub.pyromancer.registries.AttributeRegistry;
+import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 
 import java.util.Map;
 import java.util.UUID;

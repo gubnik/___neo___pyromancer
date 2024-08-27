@@ -41,8 +41,8 @@ import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.client.item_extension.MusketClientExtension;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
-import xyz.nikgub.pyromancer.registries.EnchantmentRegistry;
-import xyz.nikgub.pyromancer.registries.ItemRegistry;
+import xyz.nikgub.pyromancer.registry.EnchantmentRegistry;
+import xyz.nikgub.pyromancer.registry.ItemRegistry;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;

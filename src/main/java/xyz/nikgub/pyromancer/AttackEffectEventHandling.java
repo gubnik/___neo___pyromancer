@@ -19,7 +19,7 @@ import xyz.nikgub.pyromancer.common.mob_effect.InfusionMobEffect;
 import xyz.nikgub.pyromancer.common.mob_effect.OiledMobEffect;
 import xyz.nikgub.pyromancer.common.util.ItemUtils;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
-import xyz.nikgub.pyromancer.registries.*;
+import xyz.nikgub.pyromancer.registry.*;
 
 @Mod.EventBusSubscriber(modid = PyromancerMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class AttackEffectEventHandling

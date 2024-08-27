@@ -1,4 +1,4 @@
-package xyz.nikgub.pyromancer.registries;
+package xyz.nikgub.pyromancer.registry;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;

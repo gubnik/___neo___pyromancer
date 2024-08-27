@@ -10,7 +10,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeEntityTypeTagsProvider;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.registries.EntityTypeRegistry;
+import xyz.nikgub.pyromancer.registry.EntityTypeRegistry;
 
 import java.util.concurrent.CompletableFuture;
 

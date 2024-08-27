@@ -12,8 +12,8 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.client.item_extension.SizzlingHandClientExtension;
 import xyz.nikgub.pyromancer.common.entity.projectile.SizzlingHandFireball;
-import xyz.nikgub.pyromancer.registries.AttributeRegistry;
-import xyz.nikgub.pyromancer.registries.EntityTypeRegistry;
+import xyz.nikgub.pyromancer.registry.AttributeRegistry;
+import xyz.nikgub.pyromancer.registry.EntityTypeRegistry;
 
 import java.util.function.Consumer;
 

@@ -15,8 +15,8 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.pyromancer.registries.EntityTypeRegistry;
-import xyz.nikgub.pyromancer.registries.ItemRegistry;
+import xyz.nikgub.pyromancer.registry.EntityTypeRegistry;
+import xyz.nikgub.pyromancer.registry.ItemRegistry;
 
 public class EntityLootTableDatagen extends EntityLootSubProvider
 {

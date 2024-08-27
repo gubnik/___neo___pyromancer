@@ -26,8 +26,8 @@ import xyz.nikgub.pyromancer.common.ember.Ember;
 import xyz.nikgub.pyromancer.common.item.SpearOfMorozItem;
 import xyz.nikgub.pyromancer.common.item.ZweihanderItem;
 import xyz.nikgub.pyromancer.common.mob_effect.InfusionMobEffect;
-import xyz.nikgub.pyromancer.registries.EnchantmentRegistry;
-import xyz.nikgub.pyromancer.registries.ItemRegistry;
+import xyz.nikgub.pyromancer.registry.EnchantmentRegistry;
+import xyz.nikgub.pyromancer.registry.ItemRegistry;
 
 @SuppressWarnings("unused")
 @Mixin(ItemInHandRenderer.class)

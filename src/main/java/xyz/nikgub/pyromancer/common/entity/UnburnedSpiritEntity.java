@@ -12,8 +12,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.pyromancer.common.entity.attack_effect.AttackEffectEntity;
-import xyz.nikgub.pyromancer.registries.AttributeRegistry;
-import xyz.nikgub.pyromancer.registries.DamageSourceRegistry;
+import xyz.nikgub.pyromancer.registry.AttributeRegistry;
+import xyz.nikgub.pyromancer.registry.DamageSourceRegistry;
 
 import java.util.Comparator;
 import java.util.List;

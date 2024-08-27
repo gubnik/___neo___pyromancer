@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.item.*;
 import xyz.nikgub.pyromancer.common.mob_effect.InfusionMobEffect;
-import xyz.nikgub.pyromancer.registries.ItemRegistry;
+import xyz.nikgub.pyromancer.registry.ItemRegistry;
 
 import javax.annotation.Nullable;
 import java.util.List;

@@ -19,7 +19,7 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.pyromancer.registries.EnchantmentRegistry;
+import xyz.nikgub.pyromancer.registry.EnchantmentRegistry;
 
 import java.util.Set;
 import java.util.UUID;

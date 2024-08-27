@@ -24,7 +24,7 @@ import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import xyz.nikgub.pyromancer.registries.BiomeRegistry;
+import xyz.nikgub.pyromancer.registry.BiomeRegistry;
 
 import java.util.ArrayList;
 import java.util.List;

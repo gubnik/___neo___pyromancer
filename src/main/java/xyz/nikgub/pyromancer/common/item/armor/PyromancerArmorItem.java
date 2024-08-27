@@ -16,8 +16,8 @@ import net.minecraft.world.item.Rarity;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.client.model.armor.PyromancerArmorModel;
-import xyz.nikgub.pyromancer.registries.ArmorMaterialsRegistry;
-import xyz.nikgub.pyromancer.registries.AttributeRegistry;
+import xyz.nikgub.pyromancer.registry.ArmorMaterialsRegistry;
+import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 
 import java.util.EnumMap;
 import java.util.UUID;
