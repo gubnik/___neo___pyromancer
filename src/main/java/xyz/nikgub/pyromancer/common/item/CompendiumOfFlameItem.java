@@ -250,9 +250,7 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     {
 
         return ((player, attribute) ->
-        {
-            return 0d;
-        });
+                0d);
     }
 
     @Override
