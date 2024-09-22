@@ -29,6 +29,8 @@ public class EmberItem extends Item
     public void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
     {
         Ember ember = Ember.getFromItem(itemStack);
+        // Alpha
+        list.add(Component.translatable("pyromancer.alpha_desc").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.RED));
         if (ember == null) return;
         if (PyromancerConfig.embersDescriptionKey.getSupplier().get())
         {

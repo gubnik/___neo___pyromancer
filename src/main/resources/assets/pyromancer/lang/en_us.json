@@ -232,5 +232,6 @@
   "tooltip.pyromancer.midas_infusion": "Generates XP from attacks",
   "tooltip.pyromancer.musket": "Ammo: ",
   "tooltip.pyromancer.oil_infusion": "Covers enemies in oil",
-  "tooltip.pyromancer.silver_infusion": "Empowers attacks against undead"
+  "tooltip.pyromancer.silver_infusion": "Empowers attacks against undead",
+  "pyromancer.alpha_desc": "Warning! This feature is EXPERIMENTAL, and may not work or be accessible in survival"
 }

@@ -44,11 +44,12 @@ public class SwapPyromancyKeyMessage
     public static void pressAction (@Nullable Player entity, int type, int pressedms)
     {
         if (entity == null) return;
-        if (entity.getMainHandItem().getItem() instanceof CompendiumOfFlameItem)
+        if (entity.getMainHandItem().getItem() instanceof CompendiumOfFlameItem compendiumOfFlameItem)
         {
             ItemStack compendium = entity.getMainHandItem();
             CompoundTag nbt = compendium.getOrCreateTag();
             nbt.putInt(CompendiumOfFlameItem.ACTIVE_SLOT_TAG, (nbt.getInt(CompendiumOfFlameItem.ACTIVE_SLOT_TAG) >= CompendiumOfFlameCapability.MAX_ITEMS) ? 1 : nbt.getInt(CompendiumOfFlameItem.ACTIVE_SLOT_TAG) + 1);
+            if (compendiumOfFlameItem.getCurrentlyActiveItem(compendium).isEmpty()) compendiumOfFlameItem.fixIndexing(compendium);
         }
     }
 }

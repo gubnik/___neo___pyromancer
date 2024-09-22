@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "pyromancer:item/silver_musket_ball"
+    "layer0": "pyromancer:item/smoldering_twig"
   }
 }

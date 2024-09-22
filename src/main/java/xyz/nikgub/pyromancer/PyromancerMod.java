@@ -40,7 +40,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -64,7 +63,6 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -95,6 +93,7 @@ import xyz.nikgub.pyromancer.registry.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
@@ -135,7 +134,6 @@ public class PyromancerMod
         EnchantmentRegistry.ENCHANTMENTS.register(modEventBus);
         MobEffectRegistry.MOB_EFFECTS.register(modEventBus);
         NetherPyrowoodTrunkPlacer.TRUNK_TYPE_REGISTRY.register(modEventBus);
-        VillagerProfessionRegistry.PROFESSIONS.register(modEventBus);
         SoundEventRegistry.SOUNDS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
 
@@ -223,7 +221,8 @@ public class PyromancerMod
         {
             List<Block> BLOCKS = BlockRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get).toList();
             for (Block block : BLOCKS) event.accept(block);
-        } else if (event.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS))
+        }
+        else if (event.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS))
         {
             ItemRegistry.ITEMS.getEntries().stream().filter(itemRegistryObject -> itemRegistryObject.get() instanceof SpawnEggItem).forEach(itemRegistryObject -> event.accept(itemRegistryObject.get()));
         }
@@ -249,39 +248,6 @@ public class PyromancerMod
         event.register(EntityTypeRegistry.PYRACORN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PyracornEntity::spawnPredicate, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(EntityTypeRegistry.SCORCH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ScorchEntity::spawnPredicate, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(EntityTypeRegistry.PYROENT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PyroentEntity::spawnPredicate, SpawnPlacementRegisterEvent.Operation.OR);
-    }
-
-    @SubscribeEvent
-    public void villagerTrades (VillagerTradesEvent event)
-    {
-        if (event.getType() == VillagerProfessionRegistry.DEMONOLOGIST.get())
-        {
-            event.getTrades().get(1).add(((entity, randomSource) -> new MerchantOffer(
-                    new ItemStack(Items.EMERALD, 16),
-                    new ItemStack(ItemRegistry.ACCURSED_CONTRACT.get()),
-                    5, 0, 0
-            )));
-            event.getTrades().get(1).add(((entity, randomSource) -> new MerchantOffer(
-                    new ItemStack(ItemRegistry.UNBOUND_BLOOD.get(), 1),
-                    new ItemStack(ItemRegistry.BLESSED_SILVER_INGOT.get()),
-                    16, 8, 0.02f
-            )));
-            event.getTrades().get(2).add(((entity, randomSource) -> new MerchantOffer(
-                    new ItemStack(ItemRegistry.UNBOUND_BLOOD.get(), 4),
-                    new ItemStack(ItemRegistry.ACCURSED_CONTRACT.get()),
-                    5, 16, 0.02f
-            )));
-            event.getTrades().get(2).add(((entity, randomSource) -> new MerchantOffer(
-                    new ItemStack(ItemRegistry.UNBOUND_BLOOD.get(), 3),
-                    new ItemStack(Items.EXPERIENCE_BOTTLE, 2),
-                    12, 16, 0.025f
-            )));
-            event.getTrades().get(3).add(((entity, randomSource) -> new MerchantOffer(
-                    new ItemStack(ItemRegistry.UNBOUND_BLOOD.get(), 16),
-                    new ItemStack(ItemRegistry.MUSKET.get()),
-                    16, 32, 0.02f
-            )));
-        }
     }
 
     @SubscribeEvent

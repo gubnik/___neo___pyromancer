@@ -46,7 +46,6 @@ public class RegistriesDataGeneration extends DatapackBuiltinEntriesProvider
         generator.addProvider(isServer, new BlockStateDatagen(output, helper, blockModelsDatagen));
         generator.addProvider(isServer, new LootTableDatagen(output));
         generator.addProvider(isServer, new ItemTagDatagen(output, provider, blockTags.contentsGetter(), helper));
-        generator.addProvider(isServer, new PoiTypesDatagen(output, provider, helper));
         generator.addProvider(isServer, new SoundsDefinitionsDatagen(output, helper));
         generator.addProvider(isServer, new EntityTagDatagen(output, provider, helper));
     }

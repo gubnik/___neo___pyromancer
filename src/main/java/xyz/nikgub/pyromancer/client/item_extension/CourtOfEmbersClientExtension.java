@@ -1,6 +1,7 @@
 package xyz.nikgub.pyromancer.client.item_extension;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.player.LocalPlayer;
@@ -36,7 +37,7 @@ public class CourtOfEmbersClientExtension implements IClientItemExtensions
     {
         if (player.getUseItemRemainingTicks() > 0)
         {
-            this.applyItemArmTransform(poseStack, arm, swingProcess);
+            this.applyItemArmTransform(poseStack, arm, equipProcess);
             return true;
         }
         return false;
@@ -45,6 +46,8 @@ public class CourtOfEmbersClientExtension implements IClientItemExtensions
     private void applyItemArmTransform (PoseStack poseStack, HumanoidArm arm, float v)
     {
         int i = arm == HumanoidArm.RIGHT ? 1 : -1;
-        poseStack.translate((float) i * 0.56F, -0.52F + v * -0.6F, -0.72F);
+        float f = Mth.clamp(v, 0F, 1F);
+        poseStack.rotateAround(Axis.XN.rotationDegrees(0), (float) i * 0.5F + f * -0.5F, - f / 3, -0.72F);
+        //poseStack.translate((float) i * 0.5F + f * -0.5F, - f / 3, -0.72F);
     }
 }

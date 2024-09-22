@@ -1,7 +1,6 @@
 package xyz.nikgub.pyromancer.registry;
 
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -21,21 +20,8 @@ import xyz.nikgub.pyromancer.data.ItemModelDatagen;
 public class ItemRegistry
 {
     public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PyromancerMod.MOD_ID);
-    public static final RegistryObject<Item> RIMEBLOOD = ITEMS.register("rimeblood", () -> new Item(new Item.Properties().rarity(RarityRegistry.FROST_RARITY)));
-    public static final RegistryObject<Item> RIMEBRASS_INGOT = ITEMS.register("rimebrass_ingot", () -> new Item(new Item.Properties().rarity(RarityRegistry.FROST_RARITY)));
-    public static final RegistryObject<Item> ANCIENT_PLATING = ITEMS.register("ancient_plating", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<Item> UNBOUND_BLOOD = ITEMS.register("unbound_blood", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> BLESSED_SILVER_INGOT = ITEMS.register("blessed_silver_ingot", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<InfusionItem> SILVER_INFUSION = ITEMS.register("silver_infusion", () -> new InfusionItem(new Item.Properties(), MobEffectRegistry.SILVER_INFUSION.get(),
-            Ingredient.of(ItemRegistry.BLESSED_SILVER_INGOT.get())));
-    public static final RegistryObject<Item> INCENSE = ITEMS.register("incense", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<AccursedContractItem> ACCURSED_CONTRACT = ITEMS.register("accursed_contract", () -> new AccursedContractItem(new Item.Properties().stacksTo(1)));
+
     public static final RegistryObject<MusketAmmunitionItem> IRON_MUSKET_BALL = ITEMS.register("iron_musket_ball", () -> new MusketAmmunitionItem(new Item.Properties(), (itemStack, source, entity) -> 1f));
-    public static final RegistryObject<MusketAmmunitionItem> SILVER_MUSKET_BALL = ITEMS.register("silver_musket_ball", () -> new MusketAmmunitionItem(new Item.Properties(), (itemStack, source, entity) ->
-    {
-        if (entity.getMobType() == MobType.UNDEAD) return 1.2f;
-        else return 0.8f;
-    }));
     public static final RegistryObject<MusketAmmunitionItem> INQUISITORIAL_MUSKET_BALL = ITEMS.register("inquisitorial_musket_ball", () -> new MusketAmmunitionItem(new Item.Properties(), (itemStack, source, entity) ->
     {
         if (!(entity.level() instanceof ServerLevel level)) return 0.5f;
@@ -47,6 +33,7 @@ public class ItemRegistry
         level.addFreshEntity(guillotine);
         return 0.5f;
     }));
+
     public static final RegistryObject<Item> HOARFROST_GREATSWORD = ITEMS.register("hoarfrost_greatsword",
             () ->
             {
@@ -75,6 +62,8 @@ public class ItemRegistry
                 ItemModelDatagen.CUSTOM.add(item);
                 return item;
             });
+
+
     // infusion
     public static final RegistryObject<InfusionItem> FIERY_INFUSION = ITEMS.register("fiery_infusion", () -> new InfusionItem(new Item.Properties(), MobEffectRegistry.FIERY_INFUSION.get(),
             Ingredient.of(Items.BLAZE_POWDER)));
@@ -86,6 +75,8 @@ public class ItemRegistry
             Ingredient.of(Items.EXPERIENCE_BOTTLE)));
     public static final RegistryObject<InfusionItem> OIL_INFUSION = ITEMS.register("oil_infusion", () -> new InfusionItem(new Item.Properties(), MobEffectRegistry.OIL_INFUSION.get(),
             Ingredient.of(Items.COAL_BLOCK)));
+
+
     // MATERIALS
     public static RegistryObject<Item> HOGLIN_HIDE = ITEMS.register("hoglin_hide", () -> new Item(new Item.Properties()));
     public static RegistryObject<Item> NETHERITE_SHARD = ITEMS.register("netherite_shard", () -> new Item(new Item.Properties()));
@@ -94,6 +85,12 @@ public class ItemRegistry
     public static RegistryObject<Item> BRIMSTONE = ITEMS.register("brimstone", () -> new Item(new Item.Properties()));
     public static RegistryObject<Item> AMBER = ITEMS.register("amber", () -> new Item(new Item.Properties()));
     public static RegistryObject<Item> EVENBURNING_HEART = ITEMS.register("everburning_heart", () -> new Item(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> RIMEBLOOD = ITEMS.register("rimeblood", () -> new Item(new Item.Properties().rarity(RarityRegistry.FROST_RARITY)));
+    public static final RegistryObject<Item> RIMEBRASS_INGOT = ITEMS.register("rimebrass_ingot", () -> new Item(new Item.Properties().rarity(RarityRegistry.FROST_RARITY)));
+    public static final RegistryObject<Item> ANCIENT_PLATING = ITEMS.register("ancient_plating", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<AccursedContractItem> ACCURSED_CONTRACT = ITEMS.register("accursed_contract", () -> new AccursedContractItem(new Item.Properties().stacksTo(1)));
+
+
     public static RegistryObject<BlazingJournalItem> BLAZING_JOURNAL = ITEMS.register("blazing_journal", () -> new BlazingJournalItem(new Item.Properties()));
     public static RegistryObject<CompendiumOfFlameItem> COMPENDIUM_OF_FLAME = ITEMS.register("compendium_of_flame",
             () ->
@@ -102,6 +99,8 @@ public class ItemRegistry
                 ItemModelDatagen.CUSTOM.add(item);
                 return item;
             });
+
+
     public static RegistryObject<Item> EMBER_ITEM = ITEMS.register("ember", () -> new EmberItem(new Item.Properties()));
     public static RegistryObject<Item> BLAZING_QUILL = ITEMS.register("blazing_quill",
             () -> new QuillItem(new Item.Properties())
@@ -130,6 +129,35 @@ public class ItemRegistry
                 }
             }
     );
+    public static RegistryObject<Item> SMOLDERING_TWIG = ITEMS.register("smoldering_twig",
+            () -> new QuillItem(new Item.Properties())
+            {
+                @Override
+                public float getDefaultPyromancyDamageBonus ()
+                {
+                    return 0;
+                }
+
+                @Override
+                public int getDefaultBlazeCostBonus ()
+                {
+                    return 1;
+                }
+
+                @Override
+                public void getAttack (Player player, ItemStack weaponStack, ItemStack journalStack)
+                {
+                }
+
+                @Override
+                public boolean getCondition (Player player, ItemStack weaponStack, ItemStack journalStack)
+                {
+                    return false;
+                }
+            }
+    );
+
+
     public static RegistryObject<BombsackItem> BOMBSACK = ITEMS.register("bombsack",
             () -> new BombsackItem(new Item.Properties(), EntityTypeRegistry.BOMBSACK::get));
     public static RegistryObject<SizzlingHandItem> SIZZLING_HAND = ITEMS.register("sizzling_hand",

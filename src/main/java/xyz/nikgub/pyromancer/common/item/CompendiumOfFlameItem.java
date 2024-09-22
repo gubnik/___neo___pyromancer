@@ -5,7 +5,9 @@ import com.google.common.collect.Multimap;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -18,9 +20,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.nikgub.incandescent.common.item.IGradientNameItem;
@@ -31,6 +35,7 @@ import xyz.nikgub.pyromancer.common.item_capability.CompendiumOfFlameCapability;
 import xyz.nikgub.pyromancer.mixin.client.ItemRendererMixin;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.BiFunction;
@@ -67,12 +72,12 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
         super(properties);
     }
 
-    private ItemStack getCurrentlyActiveItem (ItemStack itemStack)
+    public ItemStack getCurrentlyActiveItem (ItemStack itemStack)
     {
         return this.getItemFromItem(itemStack, itemStack.getOrCreateTag().getInt(ACTIVE_SLOT_TAG));
     }
 
-    private void setCurrentlyActiveItem (ItemStack itemStack, ItemStack ITEM)
+    public void setCurrentlyActiveItem (ItemStack itemStack, ItemStack ITEM)
     {
         this.setItemInItem(itemStack, ITEM, itemStack.getOrCreateTag().getInt(ACTIVE_SLOT_TAG));
     }
@@ -100,6 +105,13 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     @Override
     public boolean overrideOtherStackedOnMe (@NotNull ItemStack inSlot, @NotNull ItemStack held, @NotNull Slot slot, @NotNull ClickAction clickAction, @NotNull Player player, @NotNull SlotAccess slotAccess)
     {
+        if (held.isEmpty() && !this.getCurrentlyActiveItem(inSlot).isEmpty() && clickAction == ClickAction.SECONDARY)
+        {
+            slotAccess.set(this.getCurrentlyActiveItem(inSlot));
+            this.setCurrentlyActiveItem(inSlot, ItemStack.EMPTY);
+            fixIndexing(inSlot);
+            return true;
+        }
         if (held.getItem() instanceof UsablePyromancyItem) return pyromancyBehaviour(inSlot, held, slotAccess);
         return super.overrideOtherStackedOnMe(inSlot, held, slot, clickAction, player, slotAccess);
     }
@@ -115,7 +127,40 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
                 break;
             }
         }
+        fixIndexing(inSlot);
         return true;
+    }
+
+    public void fixIndexing (ItemStack itemStack)
+    {
+        int flag = 0;
+        for (int i = 1; i < CompendiumOfFlameCapability.MAX_ITEMS + 1; i++) if (!this.getItemFromItem(itemStack, i).isEmpty())
+        {
+            flag = i;
+            break;
+        }
+        if (flag != 0)
+        {
+            itemStack.getOrCreateTag().putInt(ACTIVE_SLOT_TAG, flag);
+        }
+    }
+
+    @Override
+    public void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
+    {
+        super.appendHoverText(itemStack, level, list, flag);
+        for (int i = 1; i < CompendiumOfFlameCapability.MAX_ITEMS + 1; i++)
+        {
+            ItemStack stack = this.getItemFromItem(itemStack, i);
+            if (stack.isEmpty()) continue;
+            ResourceLocation location = ForgeRegistries.ITEMS.getKey(stack.getItem());
+            if (location == null) continue;
+            if (i != itemStack.getOrCreateTag().getInt(ACTIVE_SLOT_TAG))
+                list.add(Component.translatable("item." + location.toLanguageKey()).withStyle(ChatFormatting.DARK_GRAY));
+            else
+                list.add(Component.translatable("item." + location.toLanguageKey()).withStyle(ChatFormatting.GOLD).withStyle(ChatFormatting.BOLD));
+        }
+
     }
 
     /*

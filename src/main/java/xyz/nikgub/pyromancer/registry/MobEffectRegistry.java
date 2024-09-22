@@ -42,17 +42,6 @@ public class MobEffectRegistry
                         }
                         return 0F;
                     })));
-    public static final RegistryObject<InfusionMobEffect> SILVER_INFUSION = MOB_EFFECTS.register("silver_infusion",
-            () -> new InfusionMobEffect(MobEffectCategory.BENEFICIAL, 0, new InfusionMobEffect.Colors(0.7f, 0.7f, 1f, 1f),
-                    ((target, directCause, damageSource, damageAmount) ->
-                    {
-                        if (target.getMobType() == MobType.UNDEAD)
-                        {
-                            GeneralUtils.coverInParticles(target, ParticleTypes.CRIT, 0.2D);
-                            return 0.2F;
-                        }
-                        return 0F;
-                    })));
     public static RegistryObject<MeltdownEffect> MELTDOWN = MOB_EFFECTS.register("meltdown", MeltdownEffect::new);
     public static RegistryObject<FieryAegisEffect> FIERY_AEGIS = MOB_EFFECTS.register("fiery_aegis", FieryAegisEffect::new);
     public static RegistryObject<SolarCollisionEffect> SOLAR_COLLISION = MOB_EFFECTS.register("solar_collision", SolarCollisionEffect::new);

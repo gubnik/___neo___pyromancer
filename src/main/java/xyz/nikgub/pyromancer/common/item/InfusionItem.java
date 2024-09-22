@@ -40,7 +40,7 @@ public class InfusionItem extends Item
 
     public static void makeRecipes ()
     {
-        final Ingredient base = Ingredient.of(ItemRegistry.UNBOUND_BLOOD.get());
+        final Ingredient base = Ingredient.of(ItemRegistry.DROPS_OF_MERCURY.get());
         for (Item item : ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).toList())
         {
             if (item instanceof InfusionItem infusionItem)
