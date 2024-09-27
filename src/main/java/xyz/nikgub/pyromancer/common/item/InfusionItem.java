@@ -1,6 +1,5 @@
 package xyz.nikgub.pyromancer.common.item;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -17,6 +16,8 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
+import xyz.nikgub.incandescent.common.item.IExtensibleTooltipItem;
+import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.client.item_extension.InfusionClientExtension;
 import xyz.nikgub.pyromancer.common.mob_effect.InfusionMobEffect;
 import xyz.nikgub.pyromancer.registry.ItemRegistry;
@@ -25,7 +26,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class InfusionItem extends Item
+public class InfusionItem extends Item implements IExtensibleTooltipItem
 {
     private final InfusionMobEffect effect;
 
@@ -56,15 +57,10 @@ public class InfusionItem extends Item
         return effect;
     }
 
-    public Ingredient getIngredient ()
-    {
-        return ingredient;
-    }
-
     @Override
     public void appendHoverText (@NotNull ItemStack itemStack, @Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
     {
-        list.add(Component.translatable("tooltip.pyromancer." + itemStack.getItem()).withStyle(ChatFormatting.DARK_GRAY));
+        this.gatherTooltipLines(list, "pyromancer.hidden_desc", "desc", PyromancerConfig.descTooltipKey);
     }
 
     @Override
