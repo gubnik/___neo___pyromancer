@@ -81,7 +81,8 @@ public abstract class UsablePyromancyItem extends Item implements IPyromancyItem
     @Override
     public void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
     {
-        gatherTooltipLines(list, "pyromancer.pyromancy_hidden_line", "desc", PyromancerConfig.pyromancyDescriptionKey);
+        this.gatherTooltipLines(list, "pyromancer.hidden_desc", "desc", PyromancerConfig.descTooltipKey);
+        this.gatherTooltipLines(list, "pyromancer.hidden_lore", "lore", PyromancerConfig.loreTooltipKey);
     }
 
     @Override
