@@ -34,7 +34,8 @@ public class ItemModelDatagen extends ItemModelProvider
             ItemRegistry.HOARFROST_GREATSWORD,
             ItemRegistry.SPEAR_OF_MOROZ,
             ItemRegistry.ZWEIHANDER,
-            ItemRegistry.MUSKET
+            ItemRegistry.MUSKET,
+            ItemRegistry.COMPENDIUM_OF_FLAME
     ));
 
     private static final ItemDisplayContext THIRDPERSON = ItemDisplayContext.create("thirdperson", ResourceLocation.tryParse("thirdperson"), ItemDisplayContext.THIRD_PERSON_RIGHT_HAND);
