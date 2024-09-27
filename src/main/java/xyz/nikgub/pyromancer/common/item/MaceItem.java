@@ -116,7 +116,7 @@ public class MaceItem extends TieredItem implements ICustomSwingItem
         final float f = Mth.sin(swingProgress * swingProgress * 3.1415927F);
         poseStack.mulPose(Axis.YP.rotationDegrees((float) i * (45.0F + f * -20.0F)));
         final float f1 = Mth.sin(Mth.sqrt(swingProgress) * 3.1415927F);
-        poseStack.mulPose(Axis.ZP.rotationDegrees(-90 * doRotation + (float) i * f1 * -20.0F));
+        poseStack.mulPose(Axis.ZP.rotationDegrees(i * -90 * doRotation + (float) i * f1 * -20.0F));
         poseStack.mulPose(Axis.XP.rotationDegrees(f1 * -80.0F));
         poseStack.mulPose(Axis.YP.rotationDegrees((float) i * -45.0F));
         poseStack.translate(0, 2.75F * doRotation, 0);
