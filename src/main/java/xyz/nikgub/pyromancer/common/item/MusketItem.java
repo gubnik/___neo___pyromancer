@@ -135,6 +135,19 @@ public class MusketItem extends Item
     }
 
     @Override
+    public void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
+    {
+        if (!isLoaded(itemStack)) return;
+        String first = Component.translatable("item.pyromancer." + itemStack.getItem() + ".desc.0").getString();
+        MusketAmmunitionItem ammunitionItem = getAmmoOrNull(itemStack);
+        if (ammunitionItem == null) ammunitionItem = ItemRegistry.IRON_MUSKET_BALL.get();
+        ResourceLocation ammoLocation = ForgeRegistries.ITEMS.getKey(ammunitionItem);
+        if (ammoLocation == null) return;
+        String second = Component.translatable("item." + ammoLocation.getNamespace() + "." + ammoLocation.getPath()).getString();
+        list.add(Component.literal(first + second).withStyle(ChatFormatting.DARK_GRAY));
+    }
+
+    @Override
     public void inventoryTick (@NotNull ItemStack itemStack, @NotNull Level level, @NotNull Entity entity, int index, boolean isVanillaIndex)
     {
         if (isLoaded(itemStack))
@@ -220,19 +233,6 @@ public class MusketItem extends Item
             }
         }
         return builder.build();
-    }
-
-    @Override
-    public void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
-    {
-        if (!isLoaded(itemStack)) return;
-        String first = Component.translatable("tooltip.pyromancer." + itemStack.getItem()).getString();
-        MusketAmmunitionItem ammunitionItem = getAmmoOrNull(itemStack);
-        if (ammunitionItem == null) ammunitionItem = ItemRegistry.IRON_MUSKET_BALL.get();
-        ResourceLocation ammoLocation = ForgeRegistries.ITEMS.getKey(ammunitionItem);
-        if (ammoLocation == null) return;
-        String second = Component.translatable("item." + ammoLocation.getNamespace() + "." + ammoLocation.getPath()).getString();
-        list.add(Component.literal(first + second).withStyle(ChatFormatting.DARK_GRAY));
     }
 
     @Override
