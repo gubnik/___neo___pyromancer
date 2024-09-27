@@ -13,14 +13,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.nikgub.pyromancer.registry.ItemRegistry;
 
-import java.util.UUID;
-
-@SuppressWarnings("unused")
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityMixin extends Entity
 {
-    @Shadow
-    private UUID thrower;
 
     public ItemEntityMixin (EntityType<?> entityType, Level level)
     {
@@ -36,7 +31,7 @@ public abstract class ItemEntityMixin extends Entity
         if (this.getItem().getItem() == ItemRegistry.EVENBURNING_HEART.get())
         {
             //this.level().addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.0D, 0.0D);
-            this.level().addParticle(ParticleTypes.FLAME, this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.01D, 0.0D);
+            this.level().addParticle(ParticleTypes.FLAME, this.getX(), this.getY() + 0.55D, this.getZ(), 0.0D, 0.012D, 0.0D);
         }
     }
 }
