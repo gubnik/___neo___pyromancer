@@ -23,7 +23,6 @@
   "advancement.pyromancer.symbol_of_sun.title": "A wondrous body",
   "advancement.pyromancer.unburned_defeated.description": "Defeat Unburned",
   "advancement.pyromancer.unburned_defeated.title": "Fixxxer",
-
   "blazing_journal.blaze_value.desc": "Blaze charge: ",
   "block.pyromancer.amber_block": "Amber Block",
   "block.pyromancer.blazing_poppy": "Blazing Poppy",
@@ -47,7 +46,6 @@
   "block.pyromancer.rimevine": "Rimevine",
   "block.pyromancer.sizzling_vine": "Sizzling Vine",
   "block.pyromancer.stripped_pyrowood_log": "Stripped Pyrowood Log",
-
   "death.attack.bombsack": "%1$s was blown up by a bombsack",
   "death.attack.bombsack.player": "%1$s was blown up by %2$s bombsack",
   "death.attack.court_of_embers": "%1$s was caught in a vortex of fire",
@@ -78,21 +76,18 @@
   "death.attack.symbol_of_sun.player": "%1$s was melted down by %2$s's own sun",
   "death.attack.unburned": "%1$s was crushed by Unburned",
   "death.attack.unburned.player": "%1$s was crushed by %2$s",
-
   "effect.pyromancer.creeper_infusion": "Creeper Infusion",
   "effect.pyromancer.fiery_infusion": "Fiery Infusion",
   "effect.pyromancer.ice_infusion": "Ice Infusion",
   "effect.pyromancer.midas_infusion": "Midas' Infusion",
   "effect.pyromancer.oil_infusion": "Oil Infusion",
   "effect.pyromancer.silver_infusion": "Silver Infusion",
-
   "ember.executioners_fire.description": "Executes mobs that are close to death and summons a guillotine for each one executed",
   "ember.executioners_fire.name": "Executioner's Flame",
   "ember.preserving_flame.description": "Creates a sizzling barrier",
   "ember.preserving_flame.name": "Preserving Flame",
   "ember.soulflame_ignition.description": "Unleashes a vile soulflame burst",
   "ember.soulflame_ignition.name": "Soulflame Ignition",
-
   "enchantment.pyromancer.assault": "Assault",
   "enchantment.pyromancer.assault.desc": "Increases step height and movement speed while sprinting with loaded musket in hand",
   "enchantment.pyromancer.blunt_impact": "Blunt Impact",
@@ -121,7 +116,6 @@
   "enchantment.pyromancer.weight": "Weight",
   "enchantment.pyromancer.weight.desc": "Increases knockback based on speeds of you and what you hit",
   "enchantment.pyromancer.wrathful_blades": "Wrathful Blades",
-
   "entity.minecraft.villager.pyromancer.demonologist": "Demonologist",
   "entity.pyromancer.bombsack": "Bombsack",
   "entity.pyromancer.flaming_guillotine": "Frostcopper Golem",
@@ -130,7 +124,6 @@
   "entity.pyromancer.sizzling_hand_fireball": "Sizzling Hand Fireball",
   "entity.pyromancer.unburned": "Unburned",
   "entity.pyromancer.unburned_spirit": "Unburned Spirit",
-
   "item.pyromancer.accursed_contract": "Accursed Contract",
   "item.pyromancer.amber": "Amber",
   "item.pyromancer.amber_axe": "Amber Axe",
@@ -157,6 +150,10 @@
   "item.pyromancer.ember": "Ember",
   "item.pyromancer.fiery_infusion": "Fiery Infusion",
   "item.pyromancer.golden_mace": "Golden Mace",
+  "item.pyromancer.hellblaze_monarch_boots": "Boots of Hellblaze Monarch",
+  "item.pyromancer.hellblaze_monarch_chestplate": "Chestplate of Hellblaze Monarch",
+  "item.pyromancer.hellblaze_monarch_helmet": "Helmet of Hellblaze Monarch",
+  "item.pyromancer.hellblaze_monarch_leggings": "Leggings of Hellblaze Monarch",
   "item.pyromancer.hoarfrost_greatsword": "Hoarfrost Greatsword",
   "item.pyromancer.hoarfrost_greatsword.desc.0": "Has a default slashing attack",
   "item.pyromancer.hoarfrost_greatsword.desc.1": "Gains a special poking attack while sneaking",
@@ -211,7 +208,7 @@
   "item.pyromancer.wooden_mace": "Wooden Mace",
   "item.pyromancer.zweihander": "Zweihander",
   "itemGroup.pyromancer": "Pyromancer",
-
+  "pyromancer.alpha_desc": "Warning! This feature is EXPERIMENTAL, and may not work or be accessible in survival",
   "pyromancer.armor_piercing": "Armor Piercing",
   "pyromancer.blaze_consumption": "Blaze Consumption",
   "pyromancer.cold_buildup": "Cold Buildup",
@@ -225,13 +222,16 @@
   "pyromancer.skrizhal.blazing_journal.blazing_journal.text_1": "",
   "pyromancer.subtitle.musket_load": "Musket loaded",
   "pyromancer.subtitle.musket_shot": "Musket fired",
-
-  "tooltip.pyromancer.creeper_infusion": "Explodes enemies",
-  "tooltip.pyromancer.fiery_infusion": "Ignites enemies",
-  "tooltip.pyromancer.ice_infusion": "Freezes enemies",
-  "tooltip.pyromancer.midas_infusion": "Generates XP from attacks",
-  "tooltip.pyromancer.musket": "Ammo: ",
-  "tooltip.pyromancer.oil_infusion": "Covers enemies in oil",
-  "tooltip.pyromancer.silver_infusion": "Empowers attacks against undead",
-  "pyromancer.alpha_desc": "Warning! This feature is EXPERIMENTAL, and may not work or be accessible in survival"
+  "item.pyromancer.creeper_infusion.desc.0": "Explodes enemies",
+  "item.pyromancer.creeper_infusion.desc.1": "Reduces active duration time with each effect activation",
+  "item.pyromancer.fiery_infusion.desc.0": "Ignites enemies",
+  "item.pyromancer.ice_infusion.desc.0": "Freezes enemies",
+  "item.pyromancer.midas_infusion.desc.0": "Generates XP from attacks",
+  "item.pyromancer.midas_infusion.desc.1": "Reduces active duration time with each effect activation",
+  "item.pyromancer.musket.desc.0": "Ammo: ",
+  "item.pyromancer.oil_infusion.desc.0": "Covers enemies in oil",
+  "item.pyromancer.oil_infusion.desc.1": "Enemies covered in oil take more damage from consecutive fire attacks",
+  "item.pyromancer.bombsack": "Bombsack",
+  "item.pyromancer.scattershot_bombsack": "Scattershot Bombsack",
+  "item.pyromancer.napalm_bombsack": "Napalm Bombsack"
 }
