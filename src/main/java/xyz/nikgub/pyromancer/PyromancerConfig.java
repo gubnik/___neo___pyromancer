@@ -42,9 +42,6 @@ public class PyromancerConfig
     public static final ForgeConfigSpec.ConfigValue<Incandescent.Key> QUILL_DESCRIPTION_KEY = BUILDER
             .comment("Defines a key to show quill attack description")
             .defineEnum("quill_description_key", Incandescent.Key.ALT);
-    public static final ForgeConfigSpec.ConfigValue<Incandescent.Key> PYROMANCY_DESCRIPTION_KEY = BUILDER
-            .comment("Defines a key to show pyromancy description")
-            .defineEnum("pyromancy_description_key", Incandescent.Key.ALT);
     private static final ForgeConfigSpec.ConfigValue<Integer> DEFAULT_CONTRACT_CREDITS = BUILDER
             .comment("Defines the amount of credits the director gets when activating Accursed Contract")
             .define("default_contract_credits", 60);
@@ -77,7 +74,6 @@ public class PyromancerConfig
     public static float musketDamageCap;
     public static Incandescent.Key embersDescriptionKey;
     public static Incandescent.Key quillDescriptionKey;
-    public static Incandescent.Key pyromancyDescriptionKey;
     public static Incandescent.Key descTooltipKey;
     public static Incandescent.Key loreTooltipKey;
 
@@ -95,7 +91,6 @@ public class PyromancerConfig
         musketDamageCap = MUSKET_DAMAGE_CAP.get();
         embersDescriptionKey = EMBERS_DESCRIPTION_KEY.get();
         quillDescriptionKey = QUILL_DESCRIPTION_KEY.get();
-        pyromancyDescriptionKey = PYROMANCY_DESCRIPTION_KEY.get();
         descTooltipKey = DESC_TOOLTIP_KEY.get();
         loreTooltipKey = LORE_TOOLTIP_KEY.get();
     }
