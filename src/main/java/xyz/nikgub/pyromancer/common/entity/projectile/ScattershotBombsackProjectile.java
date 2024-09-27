@@ -25,6 +25,6 @@ public class ScattershotBombsackProjectile extends BombsackProjectile
     @Override
     public void collisionEffect ()
     {
-        this.level().explode(this, DamageSourceRegistry.bombsack(this, this.getOwner() != null ? this.getOwner() : this), null, this.getX(), this.getY(), this.getZ(), 1.8f, false, Level.ExplosionInteraction.NONE);
+        this.level().explode(this, DamageSourceRegistry.bombsack(this, this.getOwner() != null ? this.getOwner() : this), null, this.getX(), this.getY(), this.getZ(), 2.1f, false, Level.ExplosionInteraction.NONE);
     }
 }
