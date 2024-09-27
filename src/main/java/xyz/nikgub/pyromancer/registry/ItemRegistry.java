@@ -57,13 +57,11 @@ public class ItemRegistry
 
 
     // MATERIALS
-    public static RegistryObject<Item> HOGLIN_HIDE = ITEMS.register("hoglin_hide", () -> new Item(new Item.Properties()));
-    public static RegistryObject<Item> NETHERITE_SHARD = ITEMS.register("netherite_shard", () -> new Item(new Item.Properties()));
     public static RegistryObject<Item> CINNABAR_CHUNK = ITEMS.register("cinnabar_chunk", () -> new Item(new Item.Properties()));
     public static RegistryObject<Item> DROPS_OF_MERCURY = ITEMS.register("drops_of_mercury", () -> new Item(new Item.Properties()));
     public static RegistryObject<Item> BRIMSTONE = ITEMS.register("brimstone", () -> new Item(new Item.Properties()));
     public static RegistryObject<Item> AMBER = ITEMS.register("amber", () -> new Item(new Item.Properties()));
-    public static RegistryObject<Item> EVENBURNING_HEART = ITEMS.register("everburning_heart", () -> new Item(new Item.Properties().stacksTo(1)));
+    public static RegistryObject<Item> EVENBURNING_HEART = ITEMS.register("everburning_heart", EverburningHeartItem::new);
     public static final RegistryObject<Item> RIMEBLOOD = ITEMS.register("rimeblood", () -> new Item(new Item.Properties().rarity(RarityRegistry.FROST_RARITY)));
     public static final RegistryObject<Item> RIMEBRASS_INGOT = ITEMS.register("rimebrass_ingot", () -> new Item(new Item.Properties().rarity(RarityRegistry.FROST_RARITY)));
     public static final RegistryObject<Item> ANCIENT_PLATING = ITEMS.register("ancient_plating", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
