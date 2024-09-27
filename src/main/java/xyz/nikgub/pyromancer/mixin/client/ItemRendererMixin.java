@@ -20,7 +20,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.common.item.*;
+import xyz.nikgub.pyromancer.common.item.BlazingJournalItem;
+import xyz.nikgub.pyromancer.common.item.CompendiumOfFlameItem;
+import xyz.nikgub.pyromancer.common.item.QuillItem;
+import xyz.nikgub.pyromancer.common.item.UsablePyromancyItem;
 import xyz.nikgub.pyromancer.common.mob_effect.InfusionMobEffect;
 import xyz.nikgub.pyromancer.registry.ItemRegistry;
 
