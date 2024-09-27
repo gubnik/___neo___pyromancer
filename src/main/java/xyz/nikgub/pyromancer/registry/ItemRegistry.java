@@ -14,7 +14,6 @@ import xyz.nikgub.pyromancer.common.item.*;
 import xyz.nikgub.pyromancer.common.item.armor.ArmorOfHellblazeMonarchItem;
 import xyz.nikgub.pyromancer.common.item.armor.MarauderArmorItem;
 import xyz.nikgub.pyromancer.common.item.armor.PyromancerArmorItem;
-import xyz.nikgub.pyromancer.data.ItemModelDatagen;
 
 @SuppressWarnings("unused")
 public class ItemRegistry
@@ -35,33 +34,13 @@ public class ItemRegistry
     }));
 
     public static final RegistryObject<Item> HOARFROST_GREATSWORD = ITEMS.register("hoarfrost_greatsword",
-            () ->
-            {
-                Item item = new HoarfrostGreatswordItem(new Item.Properties().rarity(RarityRegistry.FROST_RARITY));
-                ItemModelDatagen.CUSTOM.add(item);
-                return item;
-            });
+            () -> new HoarfrostGreatswordItem(new Item.Properties().rarity(RarityRegistry.FROST_RARITY)));
     public static final RegistryObject<Item> SPEAR_OF_MOROZ = ITEMS.register("spear_of_moroz",
-            () ->
-            {
-                Item item = new SpearOfMorozItem(new Item.Properties().rarity(RarityRegistry.FROST_RARITY));
-                ItemModelDatagen.CUSTOM.add(item);
-                return item;
-            });
+            () -> new SpearOfMorozItem(new Item.Properties().rarity(RarityRegistry.FROST_RARITY)));
     public static final RegistryObject<ZweihanderItem> ZWEIHANDER = ITEMS.register("zweihander",
-            () ->
-            {
-                ZweihanderItem item = new ZweihanderItem(new Item.Properties());
-                ItemModelDatagen.CUSTOM.add(item);
-                return item;
-            });
+            () -> new ZweihanderItem(new Item.Properties()));
     public static final RegistryObject<MusketItem> MUSKET = ITEMS.register("musket",
-            () ->
-            {
-                MusketItem item = new MusketItem(new Item.Properties());
-                ItemModelDatagen.CUSTOM.add(item);
-                return item;
-            });
+            () -> new MusketItem(new Item.Properties()));
 
 
     // infusion
@@ -93,12 +72,7 @@ public class ItemRegistry
 
     public static RegistryObject<BlazingJournalItem> BLAZING_JOURNAL = ITEMS.register("blazing_journal", () -> new BlazingJournalItem(new Item.Properties()));
     public static RegistryObject<CompendiumOfFlameItem> COMPENDIUM_OF_FLAME = ITEMS.register("compendium_of_flame",
-            () ->
-            {
-                CompendiumOfFlameItem item = new CompendiumOfFlameItem(new Item.Properties());
-                ItemModelDatagen.CUSTOM.add(item);
-                return item;
-            });
+            () -> new CompendiumOfFlameItem(new Item.Properties()));
 
 
     public static RegistryObject<Item> EMBER_ITEM = ITEMS.register("ember", () -> new EmberItem(new Item.Properties()));

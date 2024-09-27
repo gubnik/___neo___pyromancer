@@ -29,8 +29,12 @@ public class ItemModelDatagen extends ItemModelProvider
             ItemRegistry.COURT_OF_EMBERS
     );
 
-    public static final List<Item> CUSTOM = new ArrayList<>(List.of(
-            ItemRegistry.SIZZLING_HAND.get()
+    public static final List<RegistryObject<? extends Item>> CUSTOM = new ArrayList<>(List.of(
+            ItemRegistry.SIZZLING_HAND,
+            ItemRegistry.HOARFROST_GREATSWORD,
+            ItemRegistry.SPEAR_OF_MOROZ,
+            ItemRegistry.ZWEIHANDER,
+            ItemRegistry.MUSKET
     ));
 
     private static final ItemDisplayContext THIRDPERSON = ItemDisplayContext.create("thirdperson", ResourceLocation.tryParse("thirdperson"), ItemDisplayContext.THIRD_PERSON_RIGHT_HAND);
@@ -47,7 +51,7 @@ public class ItemModelDatagen extends ItemModelProvider
         List<BlockItem> BLOCK_ITEM = ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).filter(item -> item instanceof BlockItem blockItem && !(blockItem.getBlock() instanceof DoorBlock)).map(item -> (BlockItem) item).toList();
         List<Item> TOOLS = new ArrayList<>(ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).filter(item -> item instanceof TieredItem).toList());
         TOOLS.addAll(ItemModelDatagen.TOOLS.stream().map(RegistryObject::get).toList());
-        List<Item> CUSTOM = ItemModelDatagen.CUSTOM;
+        List<Item> CUSTOM = new ArrayList<>(ItemModelDatagen.CUSTOM.stream().map(RegistryObject::get).toList());
         List<Item> ALL_ELSE = ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).filter(item -> !SPAWN_EGGS.contains(item) && !CUSTOM.contains(item) && !BLOCK_ITEM.contains(item) && !TOOLS.contains(item)).toList();
         for (Item item : SPAWN_EGGS)
             this.spawnEggItem(item);
