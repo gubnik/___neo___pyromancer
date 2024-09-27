@@ -254,12 +254,13 @@ public class PyromancerMod
     @SubscribeEvent
     public void lootLoad (LootTableLoadEvent event)
     {
+        final String eventName = event.getName().toString();
         List<String> toModify = List.of(
                 "minecraft:chests/simple_dungeon",
                 "minecraft:chests/abandoned_mineshaft",
                 "minecraft:chests/igloo_chest"
         );
-        if (toModify.stream().anyMatch((s -> event.getName().toString().equals(s))))
+        if (toModify.stream().anyMatch((eventName::equals)))
         {
             event.getTable().addPool(LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1.0F))
