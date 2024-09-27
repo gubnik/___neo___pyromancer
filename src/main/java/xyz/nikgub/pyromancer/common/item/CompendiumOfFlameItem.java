@@ -149,7 +149,8 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     public void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
     {
         super.appendHoverText(itemStack, level, list, flag);
-        for (int i = 1; i < CompendiumOfFlameCapability.MAX_ITEMS + 1; i++)
+        // TODO : maybe roll it back?
+        for (int i = 0; i < CompendiumOfFlameCapability.MAX_ITEMS + 1; i++)
         {
             ItemStack stack = this.getItemFromItem(itemStack, i);
             if (stack.isEmpty()) continue;
