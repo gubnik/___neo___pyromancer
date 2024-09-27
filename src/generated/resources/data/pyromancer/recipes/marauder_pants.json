@@ -3,12 +3,15 @@
   "category": "equipment",
   "key": {
     "#": {
-      "item": "pyromancer:hoglin_hide"
+      "item": "minecraft:leather"
+    },
+    "G": {
+      "item": "pyromancer:ancient_plating"
     }
   },
   "pattern": [
     "###",
-    "# #",
+    "#G#",
     "# #"
   ],
   "result": {

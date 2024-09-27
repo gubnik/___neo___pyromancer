@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "base": {
+    "item": "pyromancer:pyromancer_boots"
+  },
+  "result": {
+    "item": "pyromancer:hellblaze_monarch_boots"
+  },
+  "template": {
+    "item": "pyromancer:everburning_heart"
+  }
+}

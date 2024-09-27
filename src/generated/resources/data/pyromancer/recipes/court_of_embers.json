@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "#": {
-      "item": "pyromancer:hoglin_hide"
+    "H": {
+      "item": "pyromancer:everburning_heart"
     },
     "a": {
       "item": "pyromancer:amber"
@@ -13,8 +13,8 @@
     }
   },
   "pattern": [
-    "#a#",
-    "#s#",
+    "aHa",
+    "asa",
     " s "
   ],
   "result": {

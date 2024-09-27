@@ -3,7 +3,10 @@
   "category": "equipment",
   "key": {
     "#": {
-      "item": "pyromancer:hoglin_hide"
+      "item": "minecraft:gold_ingot"
+    },
+    "H": {
+      "item": "pyromancer:everburning_heart"
     },
     "a": {
       "item": "pyromancer:amber"
@@ -11,7 +14,7 @@
   },
   "pattern": [
     "#a#",
-    "#a#",
+    "#H#",
     "#a#"
   ],
   "result": {
