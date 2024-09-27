@@ -30,6 +30,7 @@ public class ItemModelDatagen extends ItemModelProvider
     );
 
     public static final List<Item> CUSTOM = new ArrayList<>(List.of(
+            ItemRegistry.SIZZLING_HAND.get()
     ));
 
     private static final ItemDisplayContext THIRDPERSON = ItemDisplayContext.create("thirdperson", ResourceLocation.tryParse("thirdperson"), ItemDisplayContext.THIRD_PERSON_RIGHT_HAND);
