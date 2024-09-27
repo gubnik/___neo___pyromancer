@@ -118,49 +118,54 @@ public class RecipeDatagen extends RecipeProvider
 
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.MARAUDER_HELM.get())
                 .pattern("###")
-                .pattern("# #")
-                .define('#', ItemRegistry.HOGLIN_HIDE.get())
-                .unlockedBy("hoglin_hide", has(ItemRegistry.HOGLIN_HIDE.get()))
+                .pattern("#G#")
+                .define('#', Items.LEATHER)
+                .define('G', ItemRegistry.ANCIENT_PLATING.get())
+                .unlockedBy("hoglin_hide", has(Items.LEATHER))
                 .save(consumer);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.MARAUDER_CAPE.get())
-                .pattern("# #")
+                .pattern("#G#")
                 .pattern("###")
                 .pattern("###")
-                .define('#', ItemRegistry.HOGLIN_HIDE.get())
-                .unlockedBy("hoglin_hide", has(ItemRegistry.HOGLIN_HIDE.get()))
+                .define('#', Items.LEATHER)
+                .define('G', ItemRegistry.ANCIENT_PLATING.get())
+                .unlockedBy("hoglin_hide", has(Items.LEATHER))
                 .save(consumer);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.MARAUDER_PANTS.get())
                 .pattern("###")
+                .pattern("#G#")
                 .pattern("# #")
-                .pattern("# #")
-                .define('#', ItemRegistry.HOGLIN_HIDE.get())
-                .unlockedBy("hoglin_hide", has(ItemRegistry.HOGLIN_HIDE.get()))
+                .define('#', Items.LEATHER)
+                .define('G', ItemRegistry.ANCIENT_PLATING.get())
+                .unlockedBy("hoglin_hide", has(Items.LEATHER))
                 .save(consumer);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.MARAUDER_BOOTS.get())
                 .pattern("# #")
-                .pattern("# #")
-                .define('#', ItemRegistry.HOGLIN_HIDE.get())
-                .unlockedBy("hoglin_hide", has(ItemRegistry.HOGLIN_HIDE.get()))
+                .pattern("#G#")
+                .define('#', Items.LEATHER)
+                .define('G', ItemRegistry.ANCIENT_PLATING.get())
+                .unlockedBy("hoglin_hide", has(Items.LEATHER))
                 .save(consumer);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.SIZZLING_HAND.get())
                 .pattern("#a#")
-                .pattern("#a#")
+                .pattern("#H#")
                 .pattern("#a#")
                 .define('a', ItemRegistry.AMBER.get())
-                .define('#', ItemRegistry.HOGLIN_HIDE.get())
+                .define('H', ItemRegistry.EVENBURNING_HEART.get())
+                .define('#', Items.GOLD_INGOT)
                 .unlockedBy("everburning_heart", has(ItemRegistry.EVENBURNING_HEART.get()))
                 .save(consumer);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.COURT_OF_EMBERS.get())
-                .pattern("#a#")
-                .pattern("#s#")
+                .pattern("aHa")
+                .pattern("asa")
                 .pattern(" s ")
                 .define('a', ItemRegistry.AMBER.get())
-                .define('#', ItemRegistry.HOGLIN_HIDE.get())
+                .define('H', ItemRegistry.EVENBURNING_HEART.get())
                 .define('s', Items.STICK)
                 .unlockedBy("everburning_heart", has(ItemRegistry.EVENBURNING_HEART.get()))
                 .save(consumer);
@@ -173,6 +178,42 @@ public class RecipeDatagen extends RecipeProvider
                         ItemRegistry.SYMBOL_OF_SUN.get())
                 .unlocks("everburning_heart", has(ItemRegistry.EVENBURNING_HEART.get()))
                 .save(consumer, "pyromancer:symbol_of_sun");
+
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(ItemRegistry.EVENBURNING_HEART.get()),
+                        Ingredient.of(ItemRegistry.PYROMANCER_HELMET.get()),
+                        Ingredient.of(Items.NETHERITE_INGOT),
+                        RecipeCategory.COMBAT,
+                        ItemRegistry.HELLBLAZE_MONARCH_HELMET.get())
+                .unlocks("everburning_heart", has(ItemRegistry.EVENBURNING_HEART.get()))
+                .save(consumer, "pyromancer:hellblaze_monarch_helmet");
+
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(ItemRegistry.EVENBURNING_HEART.get()),
+                        Ingredient.of(ItemRegistry.PYROMANCER_CHESTPLATE.get()),
+                        Ingredient.of(Items.NETHERITE_INGOT),
+                        RecipeCategory.COMBAT,
+                        ItemRegistry.HELLBLAZE_MONARCH_CHESTPLATE.get())
+                .unlocks("everburning_heart", has(ItemRegistry.EVENBURNING_HEART.get()))
+                .save(consumer, "pyromancer:hellblaze_monarch_chestplate");
+
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(ItemRegistry.EVENBURNING_HEART.get()),
+                        Ingredient.of(ItemRegistry.PYROMANCER_LEGGINGS.get()),
+                        Ingredient.of(Items.NETHERITE_INGOT),
+                        RecipeCategory.COMBAT,
+                        ItemRegistry.HELLBLAZE_MONARCH_LEGGINGS.get())
+                .unlocks("everburning_heart", has(ItemRegistry.EVENBURNING_HEART.get()))
+                .save(consumer, "pyromancer:hellblaze_monarch_leggings");
+
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(ItemRegistry.EVENBURNING_HEART.get()),
+                        Ingredient.of(ItemRegistry.PYROMANCER_BOOTS.get()),
+                        Ingredient.of(Items.NETHERITE_INGOT),
+                        RecipeCategory.COMBAT,
+                        ItemRegistry.HELLBLAZE_MONARCH_BOOTS.get())
+                .unlocks("everburning_heart", has(ItemRegistry.EVENBURNING_HEART.get()))
+                .save(consumer, "pyromancer:hellblaze_monarch_boots");
 
         RecipeDatagen.nineBlockStorageRecipes(consumer, RecipeCategory.MISC, ItemRegistry.RIMEBLOOD.get(), RecipeCategory.BUILDING_BLOCKS, BlockRegistry.RIMEBLOOD_BLOCK.get());
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.RIMEBRASS_INGOT.get())
