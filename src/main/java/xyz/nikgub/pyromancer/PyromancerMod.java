@@ -93,7 +93,6 @@ import xyz.nikgub.pyromancer.registry.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
@@ -150,6 +149,8 @@ public class PyromancerMod
     private void setupClient (final FMLCommonSetupEvent event)
     {
         EntityRenderers.register(EntityTypeRegistry.BOMBSACK.get(), ThrownItemRenderer::new);
+        EntityRenderers.register(EntityTypeRegistry.SCATTERSHOT_BOMBSACK.get(), ThrownItemRenderer::new);
+        EntityRenderers.register(EntityTypeRegistry.NAPALM_BOMBSACK.get(), ThrownItemRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.SIZZLING_HAND_FIREBALL.get(), ThrownItemRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.FLAMING_GUILLOTINE.get(), FlamingGuillotineRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.UNBURNED_SPIRIT.get(), UnburnedSpiritRenderer::new);

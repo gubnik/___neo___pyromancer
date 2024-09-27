@@ -11,6 +11,8 @@ import xyz.nikgub.pyromancer.common.entity.*;
 import xyz.nikgub.pyromancer.common.entity.attack_effect.FlamingGuillotineEntity;
 import xyz.nikgub.pyromancer.common.entity.attack_effect.PyronadoEntity;
 import xyz.nikgub.pyromancer.common.entity.projectile.BombsackProjectile;
+import xyz.nikgub.pyromancer.common.entity.projectile.NapalmBombsackProjectile;
+import xyz.nikgub.pyromancer.common.entity.projectile.ScattershotBombsackProjectile;
 import xyz.nikgub.pyromancer.common.entity.projectile.SizzlingHandFireball;
 
 public class EntityTypeRegistry
@@ -23,6 +25,12 @@ public class EntityTypeRegistry
 
     public static final RegistryObject<EntityType<BombsackProjectile>> BOMBSACK = register("bombsack",
             EntityType.Builder.of(BombsackProjectile::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F).clientTrackingRange(16));
+    public static final RegistryObject<EntityType<ScattershotBombsackProjectile>> SCATTERSHOT_BOMBSACK = register("scattershot_bombsack",
+            EntityType.Builder.of(ScattershotBombsackProjectile::new, MobCategory.MISC)
+                    .sized(0.25F, 0.25F).clientTrackingRange(16));
+    public static final RegistryObject<EntityType<NapalmBombsackProjectile>> NAPALM_BOMBSACK = register("napalm_bombsack",
+            EntityType.Builder.of(NapalmBombsackProjectile::new, MobCategory.MISC)
                     .sized(0.25F, 0.25F).clientTrackingRange(16));
 
     public static final RegistryObject<EntityType<FlamingGuillotineEntity>> FLAMING_GUILLOTINE = register("flaming_guillotine",

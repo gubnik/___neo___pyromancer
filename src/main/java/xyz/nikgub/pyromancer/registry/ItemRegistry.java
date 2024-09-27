@@ -160,17 +160,18 @@ public class ItemRegistry
 
     public static RegistryObject<BombsackItem> BOMBSACK = ITEMS.register("bombsack",
             () -> new BombsackItem(new Item.Properties(), EntityTypeRegistry.BOMBSACK::get));
+    public static RegistryObject<BombsackItem> SCATTERSHOT_BOMBSACK = ITEMS.register("scattershot_bombsack",
+            () -> new BombsackItem(new Item.Properties(), EntityTypeRegistry.SCATTERSHOT_BOMBSACK::get));
+    public static RegistryObject<BombsackItem> NAPALM_BOMBSACK = ITEMS.register("napalm_bombsack",
+            () -> new BombsackItem(new Item.Properties(), EntityTypeRegistry.NAPALM_BOMBSACK::get));
+
     public static RegistryObject<SizzlingHandItem> SIZZLING_HAND = ITEMS.register("sizzling_hand",
-            () ->
-            {
-                SizzlingHandItem item = new SizzlingHandItem(new Item.Properties());
-                ItemModelDatagen.CUSTOM.add(item);
-                return item;
-            });
+            () -> new SizzlingHandItem(new Item.Properties()));
     public static RegistryObject<CourtOfEmbersItem> COURT_OF_EMBERS = ITEMS.register("court_of_embers",
             () -> new CourtOfEmbersItem(new Item.Properties()));
     public static RegistryObject<SymbolOfSunItem> SYMBOL_OF_SUN = ITEMS.register("symbol_of_sun",
             () -> new SymbolOfSunItem(new Item.Properties()));
+
     // TOOLS
     public static RegistryObject<Item> AMBER_PICKAXE = ITEMS.register("amber_pickaxe",
             () -> new PickaxeItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
