@@ -6,7 +6,6 @@ import net.minecraft.world.item.ArmorItem;
 
 public class ItemUtils
 {
-
     public static boolean hasFullSetEquipped (LivingEntity entity, ArmorItem checkedArmorItem)
     {
         boolean b = true;
