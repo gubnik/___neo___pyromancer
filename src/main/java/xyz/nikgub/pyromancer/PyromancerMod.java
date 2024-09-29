@@ -24,6 +24,7 @@ import net.minecraft.DetectedVersion;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -33,6 +34,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -40,6 +43,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -94,6 +98,7 @@ import xyz.nikgub.pyromancer.registry.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -111,8 +116,11 @@ public class PyromancerMod
             .build());
     public static int clientTick;
 
+    public static Map<Item, Boolean> DO_INFUSION_RENDER;
+
     public PyromancerMod ()
     {
+
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
 
@@ -137,6 +145,8 @@ public class PyromancerMod
         CREATIVE_MODE_TABS.register(modEventBus);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PyromancerConfig.SPEC);
+
+
     }
 
     private void commonSetup (final FMLCommonSetupEvent event)
@@ -144,6 +154,14 @@ public class PyromancerMod
         NetworkCore.register();
         BiomeDatagen.setupTerrablender();
         event.enqueueWork(InfusionItem::makeRecipes);
+
+        DO_INFUSION_RENDER = BuiltInRegistries.ITEM.stream().collect(Collectors.toMap(item -> item, item ->
+                Arrays.stream(item.getClass().getMethods()).anyMatch(m -> Arrays.equals(m.getParameterTypes(), new Class<?>[]{Level.class, Player.class, InteractionHand.class}) &&
+                        m.getReturnType() == InteractionResultHolder.class && m.getDeclaringClass() == Item.class) && item.getMaxStackSize(item.getDefaultInstance()) == 1));
+        for (var entry : DO_INFUSION_RENDER.entrySet())
+        {
+            LOGGER.info("{} : {}", entry.getKey(), entry.getValue());
+        }
     }
 
     private void setupClient (final FMLCommonSetupEvent event)

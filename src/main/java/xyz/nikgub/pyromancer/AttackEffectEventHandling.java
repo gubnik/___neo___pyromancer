@@ -47,7 +47,7 @@ public class AttackEffectEventHandling
         {
             if (!(directCause instanceof LivingEntity sourceEntity)) return;
             final ItemStack mainHand = sourceEntity.getMainHandItem();
-            if (mainHand.getMaxStackSize() == 1)
+            if (PyromancerMod.DO_INFUSION_RENDER.get(mainHand.getItem()))
             {
                 multiplier += InfusionMobEffect.tryEffect(target, directCause, damageSource, damageAmount);
             }

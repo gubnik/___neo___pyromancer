@@ -22,6 +22,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.ember.Ember;
 import xyz.nikgub.pyromancer.common.item.SpearOfMorozItem;
 import xyz.nikgub.pyromancer.common.item.ZweihanderItem;
@@ -78,7 +79,10 @@ public abstract class ItemInHandRendererMixin
         ItemStack toRender = itemStack.copy();
         for (MobEffectInstance instance : livingEntity.getActiveEffects())
         {
-            if (instance.getEffect() instanceof InfusionMobEffect infusionMobEffect && toRender.getMaxStackSize() == 1 && toRender.getAttributeModifiers(EquipmentSlot.MAINHAND).containsKey(Attributes.ATTACK_DAMAGE))
+            if (instance.getEffect() instanceof InfusionMobEffect infusionMobEffect
+                    && PyromancerMod.DO_INFUSION_RENDER.get(toRender.getItem())
+                    && toRender.getAttributeModifiers(EquipmentSlot.MAINHAND).containsKey(Attributes.ATTACK_DAMAGE)
+            )
             {
                 toRender.getOrCreateTag().putBoolean(InfusionMobEffect.INFUSION_TAG, true);
                 toRender.getOrCreateTag().putFloat(InfusionMobEffect.RED_TAG, infusionMobEffect.getItemColors().r());
