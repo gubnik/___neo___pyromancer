@@ -35,7 +35,7 @@ public class CourtOfEmbersClientExtension implements IClientItemExtensions
     @Override
     public boolean applyForgeHandTransform (PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess)
     {
-        if (player.getUseItemRemainingTicks() > 0)
+        if (player.getUseItemRemainingTicks() > 0 && player.getUseItem() == itemInHand)
         {
             this.applyItemArmTransform(poseStack, arm, equipProcess);
             return true;
