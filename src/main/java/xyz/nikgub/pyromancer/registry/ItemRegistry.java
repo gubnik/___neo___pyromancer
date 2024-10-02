@@ -18,7 +18,7 @@ import xyz.nikgub.pyromancer.common.item.armor.PyromancerArmorItem;
 @SuppressWarnings("unused")
 public class ItemRegistry
 {
-    public static DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PyromancerMod.MOD_ID);
+    public static final  DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PyromancerMod.MOD_ID);
 
     public static final RegistryObject<MusketAmmunitionItem> IRON_MUSKET_BALL = ITEMS.register("iron_musket_ball", () -> new MusketAmmunitionItem(new Item.Properties(), (itemStack, source, entity) -> 1f));
     public static final RegistryObject<MusketAmmunitionItem> INQUISITORIAL_MUSKET_BALL = ITEMS.register("inquisitorial_musket_ball", () -> new MusketAmmunitionItem(new Item.Properties(), (itemStack, source, entity) ->
@@ -30,7 +30,7 @@ public class ItemRegistry
         guillotine.moveTo(entity.position());
         guillotine.setYRot(source.getYRot());
         level.addFreshEntity(guillotine);
-        return 0.5f;
+       return 0.5f;
     }));
 
     public static final RegistryObject<Item> HOARFROST_GREATSWORD = ITEMS.register("hoarfrost_greatsword",
@@ -57,24 +57,25 @@ public class ItemRegistry
 
 
     // MATERIALS
-    public static RegistryObject<Item> CINNABAR_CHUNK = ITEMS.register("cinnabar_chunk", () -> new Item(new Item.Properties()));
-    public static RegistryObject<Item> DROPS_OF_MERCURY = ITEMS.register("drops_of_mercury", () -> new Item(new Item.Properties()));
-    public static RegistryObject<Item> BRIMSTONE = ITEMS.register("brimstone", () -> new Item(new Item.Properties()));
-    public static RegistryObject<Item> AMBER = ITEMS.register("amber", () -> new Item(new Item.Properties()));
-    public static RegistryObject<Item> EVENBURNING_HEART = ITEMS.register("everburning_heart", EverburningHeartItem::new);
+    public static final RegistryObject<Item> CINNABAR_CHUNK = ITEMS.register("cinnabar_chunk", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> DROPS_OF_MERCURY = ITEMS.register("drops_of_mercury", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> BRIMSTONE = ITEMS.register("brimstone", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> AMBER = ITEMS.register("amber", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> EVENBURNING_HEART = ITEMS.register("everburning_heart", EverburningHeartItem::new);
     public static final RegistryObject<Item> RIMEBLOOD = ITEMS.register("rimeblood", () -> new Item(new Item.Properties().rarity(RarityRegistry.FROST_RARITY)));
     public static final RegistryObject<Item> RIMEBRASS_INGOT = ITEMS.register("rimebrass_ingot", () -> new Item(new Item.Properties().rarity(RarityRegistry.FROST_RARITY)));
     public static final RegistryObject<Item> ANCIENT_PLATING = ITEMS.register("ancient_plating", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
-    public static final RegistryObject<AccursedContractItem> ACCURSED_CONTRACT = ITEMS.register("accursed_contract", () -> new AccursedContractItem(new Item.Properties().stacksTo(1)));
 
 
-    public static RegistryObject<BlazingJournalItem> BLAZING_JOURNAL = ITEMS.register("blazing_journal", () -> new BlazingJournalItem(new Item.Properties()));
-    public static RegistryObject<CompendiumOfFlameItem> COMPENDIUM_OF_FLAME = ITEMS.register("compendium_of_flame",
+
+    public static final RegistryObject<BlazingJournalItem> BLAZING_JOURNAL = ITEMS.register("blazing_journal", () -> new BlazingJournalItem(new Item.Properties()));
+    public static final RegistryObject<CompendiumOfFlameItem> COMPENDIUM_OF_FLAME = ITEMS.register("compendium_of_flame",
             () -> new CompendiumOfFlameItem(new Item.Properties()));
 
 
-    public static RegistryObject<Item> EMBER_ITEM = ITEMS.register("ember", () -> new EmberItem(new Item.Properties()));
-    public static RegistryObject<Item> BLAZING_QUILL = ITEMS.register("blazing_quill",
+    public static final RegistryObject<AccursedContractItem> ACCURSED_CONTRACT = ITEMS.register("accursed_contract", AccursedContractItem::new);
+    public static final RegistryObject<Item> EMBER_ITEM = ITEMS.register("ember", () -> new EmberItem(new Item.Properties()));
+    public static final RegistryObject<Item> BLAZING_QUILL = ITEMS.register("blazing_quill",
             () -> new QuillItem(new Item.Properties())
             {
                 @Override
@@ -101,7 +102,7 @@ public class ItemRegistry
                 }
             }
     );
-    public static RegistryObject<Item> SMOLDERING_TWIG = ITEMS.register("smoldering_twig",
+    public static final RegistryObject<Item> SMOLDERING_TWIG = ITEMS.register("smoldering_twig",
             () -> new QuillItem(new Item.Properties())
             {
                 @Override
@@ -130,79 +131,79 @@ public class ItemRegistry
     );
 
 
-    public static RegistryObject<BombsackItem> BOMBSACK = ITEMS.register("bombsack",
+    public static final RegistryObject<BombsackItem> BOMBSACK = ITEMS.register("bombsack",
             () -> new BombsackItem(new Item.Properties(), EntityTypeRegistry.BOMBSACK::get));
-    public static RegistryObject<BombsackItem> SCATTERSHOT_BOMBSACK = ITEMS.register("scattershot_bombsack",
+    public static final RegistryObject<BombsackItem> SCATTERSHOT_BOMBSACK = ITEMS.register("scattershot_bombsack",
             () -> new BombsackItem(new Item.Properties(), EntityTypeRegistry.SCATTERSHOT_BOMBSACK::get));
-    public static RegistryObject<BombsackItem> NAPALM_BOMBSACK = ITEMS.register("napalm_bombsack",
+    public static final RegistryObject<BombsackItem> NAPALM_BOMBSACK = ITEMS.register("napalm_bombsack",
             () -> new BombsackItem(new Item.Properties(), EntityTypeRegistry.NAPALM_BOMBSACK::get));
 
-    public static RegistryObject<SizzlingHandItem> SIZZLING_HAND = ITEMS.register("sizzling_hand",
+    public static final RegistryObject<SizzlingHandItem> SIZZLING_HAND = ITEMS.register("sizzling_hand",
             () -> new SizzlingHandItem(new Item.Properties()));
-    public static RegistryObject<CourtOfEmbersItem> COURT_OF_EMBERS = ITEMS.register("court_of_embers",
+    public static final RegistryObject<CourtOfEmbersItem> COURT_OF_EMBERS = ITEMS.register("court_of_embers",
             () -> new CourtOfEmbersItem(new Item.Properties()));
-    public static RegistryObject<SymbolOfSunItem> SYMBOL_OF_SUN = ITEMS.register("symbol_of_sun",
+    public static final RegistryObject<SymbolOfSunItem> SYMBOL_OF_SUN = ITEMS.register("symbol_of_sun",
             () -> new SymbolOfSunItem(new Item.Properties()));
 
     // TOOLS
-    public static RegistryObject<Item> AMBER_PICKAXE = ITEMS.register("amber_pickaxe",
+    public static final RegistryObject<Item> AMBER_PICKAXE = ITEMS.register("amber_pickaxe",
             () -> new PickaxeItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
-    public static RegistryObject<Item> AMBER_AXE = ITEMS.register("amber_axe",
+    public static final RegistryObject<Item> AMBER_AXE = ITEMS.register("amber_axe",
             () -> new AxeItem(TierRegistry.AMBER, 5, -3.0f, new Item.Properties()));
-    public static RegistryObject<Item> AMBER_SHOVEL = ITEMS.register("amber_shovel",
+    public static final RegistryObject<Item> AMBER_SHOVEL = ITEMS.register("amber_shovel",
             () -> new ShovelItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
-    public static RegistryObject<Item> AMBER_HOE = ITEMS.register("amber_hoe",
+    public static final RegistryObject<Item> AMBER_HOE = ITEMS.register("amber_hoe",
             () -> new HoeItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
-    public static RegistryObject<Item> AMBER_SWORD = ITEMS.register("amber_sword",
+    public static final RegistryObject<Item> AMBER_SWORD = ITEMS.register("amber_sword",
             () -> new SwordItem(TierRegistry.AMBER, 3, -2.8f, new Item.Properties()));
-    public static RegistryObject<Item> WOODEN_MACE = ITEMS.register("wooden_mace",
+    public static final RegistryObject<Item> WOODEN_MACE = ITEMS.register("wooden_mace",
             () -> new MaceItem(Tiers.WOOD, new Item.Properties().stacksTo(1)));
-    public static RegistryObject<Item> STONE_MACE = ITEMS.register("stone_mace",
+    public static final RegistryObject<Item> STONE_MACE = ITEMS.register("stone_mace",
             () -> new MaceItem(Tiers.STONE, new Item.Properties().stacksTo(1)));
-    public static RegistryObject<Item> IRON_MACE = ITEMS.register("iron_mace",
+    public static final RegistryObject<Item> IRON_MACE = ITEMS.register("iron_mace",
             () -> new MaceItem(Tiers.IRON, new Item.Properties().stacksTo(1)));
-    public static RegistryObject<Item> GOLDEN_MACE = ITEMS.register("golden_mace",
+    public static final RegistryObject<Item> GOLDEN_MACE = ITEMS.register("golden_mace",
             () -> new MaceItem(Tiers.GOLD, new Item.Properties().stacksTo(1)));
-    public static RegistryObject<Item> DIAMOND_MACE = ITEMS.register("diamond_mace",
+    public static final RegistryObject<Item> DIAMOND_MACE = ITEMS.register("diamond_mace",
             () -> new MaceItem(Tiers.DIAMOND, new Item.Properties().stacksTo(1)));
-    public static RegistryObject<Item> NETHERITE_MACE = ITEMS.register("netherite_mace",
+    public static final RegistryObject<Item> NETHERITE_MACE = ITEMS.register("netherite_mace",
             () -> new MaceItem(Tiers.NETHERITE, new Item.Properties().stacksTo(1)));
-    public static RegistryObject<Item> AMBER_MACE = ITEMS.register("amber_mace",
+    public static final RegistryObject<Item> AMBER_MACE = ITEMS.register("amber_mace",
             () -> new MaceItem(TierRegistry.AMBER, new Item.Properties()));
     // ARMOR
-    public static RegistryObject<Item> MARAUDER_HELM = ITEMS.register("marauder_helm",
+    public static final RegistryObject<Item> MARAUDER_HELM = ITEMS.register("marauder_helm",
             () -> new MarauderArmorItem(ArmorItem.Type.HELMET));
-    public static RegistryObject<Item> MARAUDER_CAPE = ITEMS.register("marauder_cape",
+    public static final RegistryObject<Item> MARAUDER_CAPE = ITEMS.register("marauder_cape",
             () -> new MarauderArmorItem(ArmorItem.Type.CHESTPLATE));
-    public static RegistryObject<Item> MARAUDER_PANTS = ITEMS.register("marauder_pants",
+    public static final RegistryObject<Item> MARAUDER_PANTS = ITEMS.register("marauder_pants",
             () -> new MarauderArmorItem(ArmorItem.Type.LEGGINGS));
-    public static RegistryObject<Item> MARAUDER_BOOTS = ITEMS.register("marauder_boots",
+    public static final RegistryObject<Item> MARAUDER_BOOTS = ITEMS.register("marauder_boots",
             () -> new MarauderArmorItem(ArmorItem.Type.BOOTS));
-    public static RegistryObject<Item> PYROMANCER_HELMET = ITEMS.register("pyromancer_helmet",
+    public static final RegistryObject<Item> PYROMANCER_HELMET = ITEMS.register("pyromancer_helmet",
             () -> new PyromancerArmorItem(ArmorItem.Type.HELMET));
-    public static RegistryObject<Item> PYROMANCER_CHESTPLATE = ITEMS.register("pyromancer_chestplate",
+    public static final RegistryObject<Item> PYROMANCER_CHESTPLATE = ITEMS.register("pyromancer_chestplate",
             () -> new PyromancerArmorItem(ArmorItem.Type.CHESTPLATE));
-    public static RegistryObject<Item> PYROMANCER_LEGGINGS = ITEMS.register("pyromancer_leggings",
+    public static final RegistryObject<Item> PYROMANCER_LEGGINGS = ITEMS.register("pyromancer_leggings",
             () -> new PyromancerArmorItem(ArmorItem.Type.LEGGINGS));
-    public static RegistryObject<Item> PYROMANCER_BOOTS = ITEMS.register("pyromancer_boots",
+    public static final RegistryObject<Item> PYROMANCER_BOOTS = ITEMS.register("pyromancer_boots",
             () -> new PyromancerArmorItem(ArmorItem.Type.BOOTS));
-    public static RegistryObject<ArmorOfHellblazeMonarchItem> HELLBLAZE_MONARCH_HELMET = ITEMS.register("hellblaze_monarch_helmet",
+    public static final RegistryObject<ArmorOfHellblazeMonarchItem> HELLBLAZE_MONARCH_HELMET = ITEMS.register("hellblaze_monarch_helmet",
             () -> new ArmorOfHellblazeMonarchItem(ArmorItem.Type.HELMET));
-    public static RegistryObject<ArmorOfHellblazeMonarchItem> HELLBLAZE_MONARCH_CHESTPLATE = ITEMS.register("hellblaze_monarch_chestplate",
+    public static final RegistryObject<ArmorOfHellblazeMonarchItem> HELLBLAZE_MONARCH_CHESTPLATE = ITEMS.register("hellblaze_monarch_chestplate",
             () -> new ArmorOfHellblazeMonarchItem(ArmorItem.Type.CHESTPLATE));
-    public static RegistryObject<ArmorOfHellblazeMonarchItem> HELLBLAZE_MONARCH_LEGGINGS = ITEMS.register("hellblaze_monarch_leggings",
+    public static final RegistryObject<ArmorOfHellblazeMonarchItem> HELLBLAZE_MONARCH_LEGGINGS = ITEMS.register("hellblaze_monarch_leggings",
             () -> new ArmorOfHellblazeMonarchItem(ArmorItem.Type.LEGGINGS));
-    public static RegistryObject<ArmorOfHellblazeMonarchItem> HELLBLAZE_MONARCH_BOOTS = ITEMS.register("hellblaze_monarch_boots",
+    public static final RegistryObject<ArmorOfHellblazeMonarchItem> HELLBLAZE_MONARCH_BOOTS = ITEMS.register("hellblaze_monarch_boots",
             () -> new ArmorOfHellblazeMonarchItem(ArmorItem.Type.BOOTS));
     // SPAWN EGGS
-    public static RegistryObject<Item> UNBURNED_SPAWN_EGG = ITEMS.register("unburned_spawn_egg",
+    public static final RegistryObject<Item> UNBURNED_SPAWN_EGG = ITEMS.register("unburned_spawn_egg",
             () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNBURNED, -10268354, -3297142, new Item.Properties()));
     public static final RegistryObject<SpawnEggItem> FROSTCOPPER_GOLEM_SPAWN_EGG = ITEMS.register("frostcopper_golem_spawn_egg",
             () -> new ForgeSpawnEggItem(EntityTypeRegistry.FROSTCOPPER_GOLEM, -2390958, -9251329, new Item.Properties()));
-    public static RegistryObject<Item> PYROENT_SPAWN_EGG = ITEMS.register("pyroent_spawn_egg",
+    public static final RegistryObject<Item> PYROENT_SPAWN_EGG = ITEMS.register("pyroent_spawn_egg",
             () -> new ForgeSpawnEggItem(EntityTypeRegistry.PYROENT, -10725806, -2403542, new Item.Properties()));
-    public static RegistryObject<Item> PYRACORN_SPAWN_EGG = ITEMS.register("pyracorn_spawn_egg",
+    public static final RegistryObject<Item> PYRACORN_SPAWN_EGG = ITEMS.register("pyracorn_spawn_egg",
             () -> new ForgeSpawnEggItem(EntityTypeRegistry.PYRACORN, -8887200, -39359, new Item.Properties()));
-    public static RegistryObject<Item> SCORCH_SPAWN_EGG = ITEMS.register("scorch_spawn_egg",
+    public static final RegistryObject<Item> SCORCH_SPAWN_EGG = ITEMS.register("scorch_spawn_egg",
             () -> new ForgeSpawnEggItem(EntityTypeRegistry.SCORCH, -8891844, -3775978, new Item.Properties()));
 }
