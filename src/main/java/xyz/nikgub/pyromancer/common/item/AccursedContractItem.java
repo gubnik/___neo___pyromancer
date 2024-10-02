@@ -13,14 +13,15 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.client.item_extension.AccursedContractClientExtension;
 import xyz.nikgub.pyromancer.common.contract.ContractDirector;
+import xyz.nikgub.pyromancer.registry.RarityRegistry;
 
 import java.util.function.Consumer;
 
 public class AccursedContractItem extends Item
 {
-    public AccursedContractItem (Properties properties)
+    public AccursedContractItem ()
     {
-        super(properties);
+        super(new Item.Properties().stacksTo(1).rarity(RarityRegistry.FROST_RARITY));
     }
 
     @Override
