@@ -8,8 +8,8 @@ import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.registry.ContractRegistry;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class ContractDirector
 {
@@ -34,13 +34,10 @@ public class ContractDirector
         this.available = available;
     }
 
-    private static <T> T pickRandom (Iterable<T> iterable)
+    private static <T> T pickRandom (List<T> list)
     {
-        final List<T> list = new ArrayList<>();
-        iterable.forEach((list::add));
-        return list.get(
-                ThreadLocalRandom.current().nextInt(0, list.size())
-        );
+        Collections.shuffle(list);
+        return list.get(0);
     }
 
     public void run (Player player)
