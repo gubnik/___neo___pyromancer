@@ -158,10 +158,6 @@ public class PyromancerMod
         DO_INFUSION_RENDER = BuiltInRegistries.ITEM.stream().collect(Collectors.toMap(item -> item, item ->
                 Arrays.stream(item.getClass().getMethods()).anyMatch(m -> Arrays.equals(m.getParameterTypes(), new Class<?>[]{Level.class, Player.class, InteractionHand.class}) &&
                         m.getReturnType() == InteractionResultHolder.class && m.getDeclaringClass() == Item.class) && item.getMaxStackSize(item.getDefaultInstance()) == 1));
-        for (var entry : DO_INFUSION_RENDER.entrySet())
-        {
-            LOGGER.info("{} : {}", entry.getKey(), entry.getValue());
-        }
     }
 
     private void setupClient (final FMLCommonSetupEvent event)
