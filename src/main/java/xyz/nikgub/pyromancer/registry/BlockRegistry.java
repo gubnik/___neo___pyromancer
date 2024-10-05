@@ -22,10 +22,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.common.block.FirebriarBlock;
-import xyz.nikgub.pyromancer.common.block.RimevineBlock;
-import xyz.nikgub.pyromancer.common.block.SizzlingVineBlock;
-import xyz.nikgub.pyromancer.common.block.WeirdSaplingBlock;
+import xyz.nikgub.pyromancer.common.block.*;
 import xyz.nikgub.pyromancer.common.util.BlockUtils;
 import xyz.nikgub.pyromancer.data.ConfiguredFeatureDatagen;
 
@@ -134,6 +131,9 @@ public class BlockRegistry
 
     public static final RegistryObject<RimevineBlock> RIMEVIME = registerBlock("rimevine",
             () -> new RimevineBlock(BlockBehaviour.Properties.copy(Blocks.TWISTING_VINES).noCollission().instabreak().sound(SoundType.CAVE_VINES)));
+
+    public static final RegistryObject<HogtrapBlock> HOGTRAP = registerBlock("hogtrap",
+            () -> new HogtrapBlock(BlockBehaviour.Properties.of().speedFactor(0).jumpFactor(0).noCollission()));
 
 
     public static <T extends Block> RegistryObject<T> registerBlock (String name, Supplier<T> block)
