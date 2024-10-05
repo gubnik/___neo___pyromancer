@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "pyromancer:block/hogtrap"
+    },
+    "facing=east": {
+      "model": "pyromancer:block/hogtrap",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "pyromancer:block/hogtrap",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "pyromancer:block/hogtrap",
+      "y": 270
+    }
+  }
+}

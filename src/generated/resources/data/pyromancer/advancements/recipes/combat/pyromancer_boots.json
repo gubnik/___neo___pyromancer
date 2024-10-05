@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "pyromancer:pyromancer_boots"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "hoglin_hide": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:leather"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "hoglin_hide",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "pyromancer:pyromancer_boots"
+    ]
+  },
+  "sends_telemetry_event": false
+}

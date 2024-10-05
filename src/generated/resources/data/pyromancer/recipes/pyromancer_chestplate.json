@@ -5,20 +5,17 @@
     "#": {
       "item": "pyromancer:ancient_plating"
     },
-    "H": {
-      "item": "pyromancer:everburning_heart"
-    },
-    "a": {
+    "G": {
       "item": "pyromancer:amber"
     }
   },
   "pattern": [
-    "#a#",
-    "#H#",
-    "#a#"
+    "#G#",
+    "###",
+    "###"
   ],
   "result": {
-    "item": "pyromancer:sizzling_hand"
+    "item": "pyromancer:pyromancer_chestplate"
   },
   "show_notification": true
 }

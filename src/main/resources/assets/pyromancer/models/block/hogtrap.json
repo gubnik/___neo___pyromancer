@@ -1,0 +1,9 @@
+{
+  "parent": "pyromancer:custom/hogtrap",
+  "textures": {
+    "all": "pyromancer:block/hogtrap",
+    "particle": "pyromancer:block/hogtrap",
+    "0": "pyromancer:block/hogtrap"
+  },
+  "render_type": "cutout"
+}
