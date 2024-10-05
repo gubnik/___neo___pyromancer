@@ -171,22 +171,24 @@ public class ItemRegistry
     public static final RegistryObject<Item> AMBER_MACE = ITEMS.register("amber_mace",
             () -> new MaceItem(TierRegistry.AMBER, new Item.Properties()));
     // ARMOR
-    public static final RegistryObject<Item> MARAUDER_HELM = ITEMS.register("marauder_helm",
+    public static final RegistryObject<MarauderArmorItem> MARAUDER_HELM = ITEMS.register("marauder_helm",
             () -> new MarauderArmorItem(ArmorItem.Type.HELMET));
-    public static final RegistryObject<Item> MARAUDER_CAPE = ITEMS.register("marauder_cape",
+    public static final RegistryObject<MarauderArmorItem> MARAUDER_CAPE = ITEMS.register("marauder_cape",
             () -> new MarauderArmorItem(ArmorItem.Type.CHESTPLATE));
-    public static final RegistryObject<Item> MARAUDER_PANTS = ITEMS.register("marauder_pants",
+    public static final RegistryObject<MarauderArmorItem> MARAUDER_PANTS = ITEMS.register("marauder_pants",
             () -> new MarauderArmorItem(ArmorItem.Type.LEGGINGS));
-    public static final RegistryObject<Item> MARAUDER_BOOTS = ITEMS.register("marauder_boots",
+    public static final RegistryObject<MarauderArmorItem> MARAUDER_BOOTS = ITEMS.register("marauder_boots",
             () -> new MarauderArmorItem(ArmorItem.Type.BOOTS));
-    public static final RegistryObject<Item> PYROMANCER_HELMET = ITEMS.register("pyromancer_helmet",
+
+    public static final RegistryObject<PyromancerArmorItem> PYROMANCER_HELMET = ITEMS.register("pyromancer_helmet",
             () -> new PyromancerArmorItem(ArmorItem.Type.HELMET));
-    public static final RegistryObject<Item> PYROMANCER_CHESTPLATE = ITEMS.register("pyromancer_chestplate",
+    public static final RegistryObject<PyromancerArmorItem> PYROMANCER_CHESTPLATE = ITEMS.register("pyromancer_chestplate",
             () -> new PyromancerArmorItem(ArmorItem.Type.CHESTPLATE));
-    public static final RegistryObject<Item> PYROMANCER_LEGGINGS = ITEMS.register("pyromancer_leggings",
+    public static final RegistryObject<PyromancerArmorItem> PYROMANCER_LEGGINGS = ITEMS.register("pyromancer_leggings",
             () -> new PyromancerArmorItem(ArmorItem.Type.LEGGINGS));
-    public static final RegistryObject<Item> PYROMANCER_BOOTS = ITEMS.register("pyromancer_boots",
+    public static final RegistryObject<PyromancerArmorItem> PYROMANCER_BOOTS = ITEMS.register("pyromancer_boots",
             () -> new PyromancerArmorItem(ArmorItem.Type.BOOTS));
+
     public static final RegistryObject<ArmorOfHellblazeMonarchItem> HELLBLAZE_MONARCH_HELMET = ITEMS.register("hellblaze_monarch_helmet",
             () -> new ArmorOfHellblazeMonarchItem(ArmorItem.Type.HELMET));
     public static final RegistryObject<ArmorOfHellblazeMonarchItem> HELLBLAZE_MONARCH_CHESTPLATE = ITEMS.register("hellblaze_monarch_chestplate",
