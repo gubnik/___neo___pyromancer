@@ -70,9 +70,28 @@ public class PyracornModel<T extends Entity> extends HierarchicalModel<T>
 
     public void setupAnim (@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
+        this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.idleAnimation(ageInTicks);
         this.leg_right.xRot = Mth.cos(limbSwing) * 1.0F * limbSwingAmount;
         this.arm_right.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * limbSwingAmount;
         this.leg_left.xRot = Mth.cos(limbSwing) * -1.0F * limbSwingAmount;
         this.arm_left.xRot = Mth.cos(limbSwing * 0.6662F) * limbSwingAmount;
+        this.head.yRot = (float) Math.toRadians(netHeadYaw);
+        this.head.xRot = (float) Math.toRadians(headPitch);
+    }
+
+    private void idleAnimation (float ticks)
+    {
+        float f = ticks * 0.1F;
+        float f1 = Mth.cos(f);
+        float f2 = Mth.sin(f);
+        this.head.zRot += 0.015F * f1;
+        this.head.xRot += 0.015F * f2;
+        this.body.zRot += 0.025F * f2;
+        this.body.xRot += 0.025F * f1;
+        this.arm_left.zRot += 0.025F * f2;
+        this.arm_left.xRot += 0.025F * f1;
+        this.arm_right.zRot += 0.025F * f2;
+        this.arm_right.xRot += 0.025F * f1;
     }
 }
