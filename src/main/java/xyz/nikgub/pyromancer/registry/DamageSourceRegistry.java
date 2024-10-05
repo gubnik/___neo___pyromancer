@@ -151,4 +151,11 @@ public class DamageSourceRegistry
         );
     }
 
+    public static DamageSource hogtrap (Level level)
+    {
+        assert level.registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
+        return new DamageSource(
+                level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HOGTRAP_KEY)
+        );
+    }
 }

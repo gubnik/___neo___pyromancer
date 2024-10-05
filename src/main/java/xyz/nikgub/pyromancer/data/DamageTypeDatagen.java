@@ -24,6 +24,7 @@ public class DamageTypeDatagen extends TagsProvider<DamageType>
     public static final ResourceKey<DamageType> SOULFLAME_KEY = register("soulflame");
 
     public static final ResourceKey<DamageType> BOMBSACK_KEY = register("bombsack");
+    public static final ResourceKey<DamageType> HOGTRAP_KEY = register("hogtrap");
 
     public static final ResourceKey<DamageType> SIZZLING_HAND_KEY = register("sizzling_hand");
     public static final ResourceKey<DamageType> COURT_OF_EMBERS_KEY = register("court_of_embers");
@@ -44,6 +45,7 @@ public class DamageTypeDatagen extends TagsProvider<DamageType>
     public static DamageType HELLBLAZE = new DamageType(HELLBLAZE_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
     public static DamageType SOULFLAME = new DamageType(SOULFLAME_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
     public static DamageType BOMBSACK = new DamageType(BOMBSACK_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
+    public static DamageType HOGTRAP = new DamageType(HOGTRAP_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
     public static DamageType SIZZLING_HAND = new DamageType(SIZZLING_HAND_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
     public static DamageType COURT_OF_EMBERS = new DamageType(COURT_OF_EMBERS_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
     public static DamageType SYMBOL_OF_SUN = new DamageType(SYMBOL_OF_SUN_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
@@ -92,6 +94,7 @@ public class DamageTypeDatagen extends TagsProvider<DamageType>
         bootstrap.register(HELLBLAZE_KEY, HELLBLAZE);
         bootstrap.register(SOULFLAME_KEY, SOULFLAME);
         bootstrap.register(BOMBSACK_KEY, BOMBSACK);
+        bootstrap.register(HOGTRAP_KEY, HOGTRAP);
         bootstrap.register(SIZZLING_HAND_KEY, SIZZLING_HAND);
         bootstrap.register(COURT_OF_EMBERS_KEY, COURT_OF_EMBERS);
         bootstrap.register(SYMBOL_OF_SUN_KEY, SYMBOL_OF_SUN);
@@ -117,7 +120,8 @@ public class DamageTypeDatagen extends TagsProvider<DamageType>
                 .add(COURT_OF_EMBERS_KEY)
                 .add(SYMBOL_OF_SUN_KEY);
         tag(IS_BRUTISH)
-                .add(BOMBSACK_KEY);
+                .add(BOMBSACK_KEY)
+                .add(HOGTRAP_KEY);
         tag(JOURNAL_PROJECTION)
                 .add(BLAZING_JOURNAL_PROJECTION_KEY);
         tag(DamageTypeTags.IS_PROJECTILE)
