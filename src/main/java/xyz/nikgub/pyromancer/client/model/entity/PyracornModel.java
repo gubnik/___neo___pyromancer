@@ -63,7 +63,7 @@ public class PyracornModel<T extends Entity> extends HierarchicalModel<T>
     }
 
     @Override
-    public ModelPart root ()
+    public @NotNull ModelPart root ()
     {
         return root;
     }
