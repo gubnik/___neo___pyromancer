@@ -42,6 +42,11 @@ public class AttackEffectEventHandling
         float multiplier = 1;
         float addition = 0;
 
+        if (ItemUtils.hasFullSetEquipped(target, ItemRegistry.MARAUDER_HELM.get()) && damageSource.is(DamageTypeDatagen.IS_BRUTISH))
+        {
+            multiplier -= 0.95f;
+        }
+
         OiledMobEffect.tryIgnition(target, damageSource);
         if (GeneralUtils.isDirectDamage(damageSource))
         {
@@ -100,7 +105,7 @@ public class AttackEffectEventHandling
             if (armor_pierce >= target.getAttributeValue(Attributes.ARMOR))
                 addition += (float) armor_pierce;
         }
-
+        if (multiplier < 0) multiplier = 0;
         event.setAmount(damageAmount * multiplier + addition);
     }
 }
