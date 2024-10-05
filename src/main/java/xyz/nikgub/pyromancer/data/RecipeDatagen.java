@@ -150,13 +150,47 @@ public class RecipeDatagen extends RecipeProvider
                 .unlockedBy("hoglin_hide", has(Items.LEATHER))
                 .save(consumer);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.PYROMANCER_HELMET.get())
+                .pattern("###")
+                .pattern("#G#")
+                .define('#', ItemRegistry.ANCIENT_PLATING.get())
+                .define('G', ItemRegistry.AMBER.get())
+                .unlockedBy("hoglin_hide", has(Items.LEATHER))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.PYROMANCER_CHESTPLATE.get())
+                .pattern("#G#")
+                .pattern("###")
+                .pattern("###")
+                .define('#', ItemRegistry.ANCIENT_PLATING.get())
+                .define('G', ItemRegistry.AMBER.get())
+                .unlockedBy("hoglin_hide", has(Items.LEATHER))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.PYROMANCER_LEGGINGS.get())
+                .pattern("###")
+                .pattern("#G#")
+                .pattern("# #")
+                .define('#', ItemRegistry.ANCIENT_PLATING.get())
+                .define('G', ItemRegistry.AMBER.get())
+                .unlockedBy("hoglin_hide", has(Items.LEATHER))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.PYROMANCER_BOOTS.get())
+                .pattern("# #")
+                .pattern("#G#")
+                .define('#', ItemRegistry.ANCIENT_PLATING.get())
+                .define('G', ItemRegistry.AMBER.get())
+                .unlockedBy("hoglin_hide", has(Items.LEATHER))
+                .save(consumer);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.SIZZLING_HAND.get())
                 .pattern("#a#")
                 .pattern("#H#")
                 .pattern("#a#")
                 .define('a', ItemRegistry.AMBER.get())
                 .define('H', ItemRegistry.EVENBURNING_HEART.get())
-                .define('#', Items.GOLD_INGOT)
+                .define('#', ItemRegistry.ANCIENT_PLATING.get())
                 .unlockedBy("everburning_heart", has(ItemRegistry.EVENBURNING_HEART.get()))
                 .save(consumer);
 
