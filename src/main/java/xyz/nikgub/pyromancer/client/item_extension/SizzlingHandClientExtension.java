@@ -36,7 +36,7 @@ public class SizzlingHandClientExtension implements IClientItemExtensions
     {
         if (player.getUseItemRemainingTicks() > 0 && player.getUseItem() == itemInHand)
         {
-            this.applyItemArmTransform(poseStack, arm, swingProcess);
+            this.applyItemArmTransform(poseStack, arm, 1f);
             return true;
         }
         return false;
