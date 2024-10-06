@@ -144,6 +144,8 @@ public class ItemRegistry
             () -> new CourtOfEmbersItem(new Item.Properties()));
     public static final RegistryObject<SymbolOfSunItem> SYMBOL_OF_SUN = ITEMS.register("symbol_of_sun",
             () -> new SymbolOfSunItem(new Item.Properties()));
+    public static final RegistryObject<FlammenklingeItem> FLAMMENKLINGE = ITEMS.register("flammenklinge",
+            FlammenklingeItem::new);
 
     // TOOLS
     public static final RegistryObject<Item> AMBER_PICKAXE = ITEMS.register("amber_pickaxe",
@@ -170,6 +172,7 @@ public class ItemRegistry
             () -> new MaceItem(Tiers.NETHERITE, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> AMBER_MACE = ITEMS.register("amber_mace",
             () -> new MaceItem(TierRegistry.AMBER, new Item.Properties()));
+
     // ARMOR
     public static final RegistryObject<MarauderArmorItem> MARAUDER_HELM = ITEMS.register("marauder_helm",
             () -> new MarauderArmorItem(ArmorItem.Type.HELMET));
