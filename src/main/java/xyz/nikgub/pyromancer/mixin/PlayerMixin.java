@@ -26,6 +26,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.nikgub.pyromancer.common.item.BlazingJournalItem;
 import xyz.nikgub.pyromancer.common.item.FlammenklingeItem;
+import xyz.nikgub.pyromancer.data.ItemTagDatagen;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 import xyz.nikgub.pyromancer.registry.ItemRegistry;
 
@@ -40,10 +41,10 @@ public abstract class PlayerMixin extends LivingEntity
     @Inject(method = "attack", at = @At("HEAD"), cancellable = true)
     public void attack (Entity target, CallbackInfo callbackInfo)
     {
-        if (
-                !(this.getMainHandItem().getItem() == ItemRegistry.SPEAR_OF_MOROZ.get())
-                && !(this.getMainHandItem().getItem() == ItemRegistry.FLAMMENKLINGE.get())
-        ) return;
+        if (!this.getMainHandItem().is(ItemTagDatagen.DYNAMIC_WEAPON))
+        {
+            return;
+        }
         Player self = (Player) (Object) this;
         if (!net.minecraftforge.common.ForgeHooks.onPlayerAttackTarget(self, target)) return;
         if (target.isAttackable())

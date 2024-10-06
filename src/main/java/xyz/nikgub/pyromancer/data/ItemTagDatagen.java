@@ -21,7 +21,8 @@ import java.util.concurrent.CompletableFuture;
 public class ItemTagDatagen extends ItemTagsProvider
 {
     public static final TagKey<Item> FROST_WEAPON = create("frost_weapon");
-    public static TagKey<Item> PYROMANCY = create("pyromancy");
+    public static final TagKey<Item> PYROMANCY = create("pyromancy");
+    public static final TagKey<Item> DYNAMIC_WEAPON = create("dynamic_weapon");
 
     public ItemTagDatagen (PackOutput output, CompletableFuture<HolderLookup.Provider> provider, CompletableFuture<TagLookup<Block>> blockProvider, @Nullable ExistingFileHelper existingFileHelper)
     {
@@ -44,6 +45,11 @@ public class ItemTagDatagen extends ItemTagsProvider
         tag(FROST_WEAPON)
                 .add(
                         ItemRegistry.HOARFROST_GREATSWORD.get(),
+                        ItemRegistry.SPEAR_OF_MOROZ.get()
+                );
+        tag(DYNAMIC_WEAPON)
+                .add(
+                        ItemRegistry.FLAMMENKLINGE.get(),
                         ItemRegistry.SPEAR_OF_MOROZ.get()
                 );
 
