@@ -158,4 +158,24 @@ public class DamageSourceRegistry
                 level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HOGTRAP_KEY)
         );
     }
+
+    public static DamageSource flammenklingeLaunch (Entity owner)
+    {
+        assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
+        return new DamageSource(
+                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.FLAMMENKLINGE_LAUNCH_KEY),
+                owner,
+                owner
+        );
+    }
+
+    public static DamageSource flammenklingeLand (Entity owner)
+    {
+        assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
+        return new DamageSource(
+                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.FLAMMENKLINGE_LAND_KEY),
+                owner,
+                owner
+        );
+    }
 }

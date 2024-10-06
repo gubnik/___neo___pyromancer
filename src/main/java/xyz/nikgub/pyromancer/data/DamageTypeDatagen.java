@@ -29,6 +29,8 @@ public class DamageTypeDatagen extends TagsProvider<DamageType>
     public static final ResourceKey<DamageType> SIZZLING_HAND_KEY = register("sizzling_hand");
     public static final ResourceKey<DamageType> COURT_OF_EMBERS_KEY = register("court_of_embers");
     public static final ResourceKey<DamageType> SYMBOL_OF_SUN_KEY = register("symbol_of_sun");
+    public static final ResourceKey<DamageType> FLAMMENKLINGE_LAUNCH_KEY = register("flammenklinge_launch");
+    public static final ResourceKey<DamageType> FLAMMENKLINGE_LAND_KEY = register("flammenklinge_land");
 
     public static final ResourceKey<DamageType> FIREBRIAR_KEY = register("firebriar");
     public static final ResourceKey<DamageType> BLAZING_JOURNAL_PROJECTION_KEY = register("blazing_journal_projection");
@@ -41,21 +43,23 @@ public class DamageTypeDatagen extends TagsProvider<DamageType>
 
     public static final ResourceKey<DamageType> MUSKET_SHOT_KEY = register("musket_shot");
     public static final DamageType MUSKET_SHOT = new DamageType(MUSKET_SHOT_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1f);
-    public static DamageType FLAME = new DamageType(FLAME_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
-    public static DamageType HELLBLAZE = new DamageType(HELLBLAZE_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
-    public static DamageType SOULFLAME = new DamageType(SOULFLAME_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
-    public static DamageType BOMBSACK = new DamageType(BOMBSACK_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
-    public static DamageType HOGTRAP = new DamageType(HOGTRAP_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
-    public static DamageType SIZZLING_HAND = new DamageType(SIZZLING_HAND_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
-    public static DamageType COURT_OF_EMBERS = new DamageType(COURT_OF_EMBERS_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
-    public static DamageType SYMBOL_OF_SUN = new DamageType(SYMBOL_OF_SUN_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
-    public static DamageType FIREBRIAR = new DamageType(FIREBRIAR_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1f);
-    public static DamageType BLAZING_JOURNAL_PROJECTION = new DamageType(BLAZING_JOURNAL_PROJECTION_KEY.location().getPath(), DamageScaling.NEVER, 0);
-    public static DamageType GUILLOTINE = new DamageType(GUILLOTINE_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0);
-    public static DamageType UNBURNED = new DamageType(UNBURNED_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0);
-    public static DamageType HOARFROST_GREATSWORD = new DamageType(HOARFROST_GREATSWORD_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1f);
-    public static DamageType SPEAR_OF_MOROZ = new DamageType(SPEAR_OF_MOROZ_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1f);
-    public static DamageType FROSTCOPPER_GOLEM_STOMP = new DamageType(FROSTCOPPER_GOLEM_STOMP_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.2f);
+    public static final DamageType FLAME = new DamageType(FLAME_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
+    public static final DamageType HELLBLAZE = new DamageType(HELLBLAZE_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
+    public static final DamageType SOULFLAME = new DamageType(SOULFLAME_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
+    public static final DamageType BOMBSACK = new DamageType(BOMBSACK_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
+    public static final DamageType HOGTRAP = new DamageType(HOGTRAP_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
+    public static final DamageType SIZZLING_HAND = new DamageType(SIZZLING_HAND_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
+    public static final DamageType COURT_OF_EMBERS = new DamageType(COURT_OF_EMBERS_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
+    public static final DamageType SYMBOL_OF_SUN = new DamageType(SYMBOL_OF_SUN_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
+    public static final DamageType FLAMMENKLINGE_LAUNCH = new DamageType(FLAMMENKLINGE_LAUNCH_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
+    public static final DamageType FLAMMENKLINGE_LAND = new DamageType(FLAMMENKLINGE_LAND_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
+    public static final DamageType FIREBRIAR = new DamageType(FIREBRIAR_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1f);
+    public static final DamageType BLAZING_JOURNAL_PROJECTION = new DamageType(BLAZING_JOURNAL_PROJECTION_KEY.location().getPath(), DamageScaling.NEVER, 0);
+    public static final DamageType GUILLOTINE = new DamageType(GUILLOTINE_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0);
+    public static final DamageType UNBURNED = new DamageType(UNBURNED_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0);
+    public static final DamageType HOARFROST_GREATSWORD = new DamageType(HOARFROST_GREATSWORD_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1f);
+    public static final DamageType SPEAR_OF_MOROZ = new DamageType(SPEAR_OF_MOROZ_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1f);
+    public static final DamageType FROSTCOPPER_GOLEM_STOMP = new DamageType(FROSTCOPPER_GOLEM_STOMP_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.2f);
     /**
      * Tag for damage types that are caused by Embers
      */
@@ -98,6 +102,8 @@ public class DamageTypeDatagen extends TagsProvider<DamageType>
         bootstrap.register(SIZZLING_HAND_KEY, SIZZLING_HAND);
         bootstrap.register(COURT_OF_EMBERS_KEY, COURT_OF_EMBERS);
         bootstrap.register(SYMBOL_OF_SUN_KEY, SYMBOL_OF_SUN);
+        bootstrap.register(FLAMMENKLINGE_LAUNCH_KEY, FLAMMENKLINGE_LAUNCH);
+        bootstrap.register(FLAMMENKLINGE_LAND_KEY, FLAMMENKLINGE_LAND);
         bootstrap.register(FIREBRIAR_KEY, FIREBRIAR);
         bootstrap.register(BLAZING_JOURNAL_PROJECTION_KEY, BLAZING_JOURNAL_PROJECTION);
         bootstrap.register(UNBURNED_KEY, UNBURNED);
