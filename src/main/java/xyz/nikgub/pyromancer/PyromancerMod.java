@@ -21,16 +21,21 @@ package xyz.nikgub.pyromancer;
 import com.mojang.logging.LogUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.DetectedVersion;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.metadata.PackMetadataGenerator;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
@@ -50,6 +55,7 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithLootingCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
@@ -65,6 +71,7 @@ import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -78,6 +85,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
+import xyz.nikgub.incandescent.Incandescent;
+import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.client.model.armor.ArmorOfHellblazeMonarchModel;
 import xyz.nikgub.pyromancer.client.model.armor.PyromancerArmorModel;
@@ -377,6 +386,37 @@ public class PyromancerMod
     @SuppressWarnings("unused")
     public static class ForgeEvents
     {
+        @SubscribeEvent
+        public static void livingFallEvent (LivingFallEvent event)
+        {
+            LivingEntity entity = event.getEntity();
+            if (!(entity instanceof Player player)) return;
+            ItemStack stack = player.getMainHandItem();
+            if (stack.getItem() != ItemRegistry.FLAMMENKLINGE.get()) return;
+            CompoundTag tag = stack.getOrCreateTag();
+            float dmgMultiplier = event.getDamageMultiplier();
+            final List<Vec3> positions = new ArrayList<>();
+            if (tag.getInt(FlammenklingeItem.ENEMIES_COUNTER_TAG) > 0)
+            {
+                tag.putInt(FlammenklingeItem.ENEMIES_COUNTER_TAG, 0);
+                for (LivingEntity target : EntityUtils.entityCollector(player.getPosition(0), 4 * dmgMultiplier, player.level()))
+                {
+                    if (target == player) continue;
+                    target.setRemainingFireTicks(target.getRemainingFireTicks() + 80);
+                    target.hurt(DamageSourceRegistry.flammenklingeLand(player), (float) player.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get()) * dmgMultiplier);
+                    if (target.level() instanceof ServerLevel level)
+                    {
+                        final Vec3 pos = BlockPos.containing(target.position()).below().getCenter();
+                        level.sendParticles(ParticleTypes.LAVA, pos.x, pos.y + 2, pos.z, 10, 0, 4, 0, 0.02);
+                    }
+                }
+                event.setCanceled(event.isCancelable());
+                assert Minecraft.getInstance().player != null;
+                final long endTick = Minecraft.getInstance().player.tickCount + 6;
+                Incandescent.runShakeFor(5D, localPlayer -> localPlayer.tickCount > endTick);
+            }
+        }
+        
         @SubscribeEvent
         public static void livingAttackEvent (LivingAttackEvent event)
         {
