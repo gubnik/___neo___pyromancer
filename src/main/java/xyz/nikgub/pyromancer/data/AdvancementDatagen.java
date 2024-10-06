@@ -85,6 +85,16 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                     .addCriterion("symbol_of_sun_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.SYMBOL_OF_SUN.get()))
                     .save(saver, "pyromancer:pyromancer/symbol_of_sun_obtained");
 
+            Advancement flammenklinge_obtained = Advancement.Builder.advancement().parent(pyromancy_obtained)
+                    .display(ItemRegistry.FLAMMENKLINGE.get(),
+                            Component.translatable("advancement.pyromancer.flammenklinge.title"),
+                            Component.translatable("advancement.pyromancer.flammenklinge.description"),
+                            null,
+                            FrameType.TASK,
+                            true, true, false)
+                    .addCriterion("flammenklinge_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.FLAMMENKLINGE.get()))
+                    .save(saver, "pyromancer:pyromancer/flammenklinge_obtained");
+
             Advancement sizzling_hand_obtained = Advancement.Builder.advancement().parent(pyromancy_obtained)
                     .display(ItemRegistry.SIZZLING_HAND.get(),
                             Component.translatable("advancement.pyromancer.sizzling_hand_obtained.title"),
