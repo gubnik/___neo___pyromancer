@@ -4,6 +4,7 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
+import xyz.nikgub.pyromancer.common.item.FlammenklingeItem;
 import xyz.nikgub.pyromancer.common.item.MaceItem;
 import xyz.nikgub.pyromancer.common.item.SymbolOfSunItem;
 
@@ -11,7 +12,8 @@ public enum TierRegistry implements Tier
 {
 
     AMBER(256, 13f, 2f, 4, 17, ItemRegistry.AMBER.get()),
-    SYMBOL_OF_SUN(2780, 13f, SymbolOfSunItem.DEFAULT_DAMAGE - MaceItem.DEFAULT_DAMAGE - 1, 4, 0, ItemRegistry.AMBER.get());
+    SYMBOL_OF_SUN(2780, 13f, SymbolOfSunItem.DEFAULT_DAMAGE - MaceItem.DEFAULT_DAMAGE - 1, 4, 0, ItemRegistry.AMBER.get()),
+    FLAMMENKLINGE(2780, 13f, FlammenklingeItem.DEFAULT_DAMAGE - 1, 4, 0, ItemRegistry.AMBER.get());
 
     private final int useCount;
     private final float speed;
