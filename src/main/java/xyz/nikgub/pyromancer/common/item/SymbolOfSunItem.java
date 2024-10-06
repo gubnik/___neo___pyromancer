@@ -167,6 +167,6 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     @Override
     public int getDefaultBlazeCost ()
     {
-        return 4;
+        return 8;
     }
 }
