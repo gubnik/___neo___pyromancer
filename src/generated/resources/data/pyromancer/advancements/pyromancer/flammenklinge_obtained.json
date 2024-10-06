@@ -1,0 +1,39 @@
+{
+  "parent": "pyromancer:pyromancer/pyromancy_obtained",
+  "criteria": {
+    "flammenklinge_obtained": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pyromancer:flammenklinge"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.pyromancer.flammenklinge.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pyromancer:flammenklinge",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.pyromancer.flammenklinge.title"
+    }
+  },
+  "requirements": [
+    [
+      "flammenklinge_obtained"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
