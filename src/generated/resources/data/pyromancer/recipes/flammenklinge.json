@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "pyromancer:amber"
+  },
+  "base": {
+    "item": "minecraft:netherite_sword"
+  },
+  "result": {
+    "item": "pyromancer:flammenklinge"
+  },
+  "template": {
+    "item": "pyromancer:everburning_heart"
+  }
+}

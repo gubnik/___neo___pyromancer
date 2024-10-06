@@ -215,6 +215,15 @@ public class RecipeDatagen extends RecipeProvider
 
         SmithingTransformRecipeBuilder.smithing(
                         Ingredient.of(ItemRegistry.EVENBURNING_HEART.get()),
+                        Ingredient.of(Items.NETHERITE_SWORD),
+                        Ingredient.of(ItemRegistry.AMBER.get()),
+                        RecipeCategory.COMBAT,
+                        ItemRegistry.FLAMMENKLINGE.get())
+                .unlocks("everburning_heart", has(ItemRegistry.EVENBURNING_HEART.get()))
+                .save(consumer, "pyromancer:flammenklinge");
+
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(ItemRegistry.EVENBURNING_HEART.get()),
                         Ingredient.of(ItemRegistry.PYROMANCER_HELMET.get()),
                         Ingredient.of(Items.NETHERITE_INGOT),
                         RecipeCategory.COMBAT,
