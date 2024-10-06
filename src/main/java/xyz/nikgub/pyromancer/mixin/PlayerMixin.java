@@ -24,6 +24,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import xyz.nikgub.pyromancer.common.item.BlazingJournalItem;
+import xyz.nikgub.pyromancer.common.item.FlammenklingeItem;
+import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 import xyz.nikgub.pyromancer.registry.ItemRegistry;
 
 @Mixin(Player.class)
@@ -35,20 +38,23 @@ public abstract class PlayerMixin extends LivingEntity
     }
 
     @Inject(method = "attack", at = @At("HEAD"), cancellable = true)
-    public void attack (Entity pTarget, CallbackInfo callbackInfo)
+    public void attack (Entity target, CallbackInfo callbackInfo)
     {
-        if (!(this.getMainHandItem().getItem() == ItemRegistry.SPEAR_OF_MOROZ.get())) return;
+        if (
+                !(this.getMainHandItem().getItem() == ItemRegistry.SPEAR_OF_MOROZ.get())
+                && !(this.getMainHandItem().getItem() == ItemRegistry.FLAMMENKLINGE.get())
+        ) return;
         Player self = (Player) (Object) this;
-        if (!net.minecraftforge.common.ForgeHooks.onPlayerAttackTarget(self, pTarget)) return;
-        if (pTarget.isAttackable())
+        if (!net.minecraftforge.common.ForgeHooks.onPlayerAttackTarget(self, target)) return;
+        if (target.isAttackable())
         {
-            if (!pTarget.skipAttackInteraction(self))
+            if (!target.skipAttackInteraction(self))
             {
                 float f = (float) self.getAttributeValue(Attributes.ATTACK_DAMAGE);
                 float f1;
-                if (pTarget instanceof LivingEntity)
+                if (target instanceof LivingEntity)
                 {
-                    f1 = EnchantmentHelper.getDamageBonus(self.getMainHandItem(), ((LivingEntity) pTarget).getMobType());
+                    f1 = EnchantmentHelper.getDamageBonus(self.getMainHandItem(), ((LivingEntity) target).getMobType());
                 } else
                 {
                     f1 = EnchantmentHelper.getDamageBonus(self.getMainHandItem(), MobType.UNDEFINED);
@@ -70,9 +76,9 @@ public abstract class PlayerMixin extends LivingEntity
                         flag1 = true;
                     }
 
-                    boolean flag2 = flag && self.fallDistance > 0.0F && !self.onGround() && !self.onClimbable() && !self.isInWater() && !self.hasEffect(MobEffects.BLINDNESS) && !self.isPassenger() && pTarget instanceof LivingEntity;
+                    boolean flag2 = flag && self.fallDistance > 0.0F && !self.onGround() && !self.onClimbable() && !self.isInWater() && !self.hasEffect(MobEffects.BLINDNESS) && !self.isPassenger() && target instanceof LivingEntity;
                     flag2 = flag2 && !self.isSprinting();
-                    net.minecraftforge.event.entity.player.CriticalHitEvent hitResult = net.minecraftforge.common.ForgeHooks.getCriticalHit(self, pTarget, flag2, flag2 ? 1.5F : 1.0F);
+                    net.minecraftforge.event.entity.player.CriticalHitEvent hitResult = net.minecraftforge.common.ForgeHooks.getCriticalHit(self, target, flag2, flag2 ? 1.5F : 1.0F);
                     flag2 = hitResult != null;
                     if (flag2)
                     {
@@ -91,31 +97,31 @@ public abstract class PlayerMixin extends LivingEntity
                     float f4 = 0.0F;
                     boolean flag4 = false;
                     int j = EnchantmentHelper.getFireAspect(self);
-                    if (pTarget instanceof LivingEntity)
+                    if (target instanceof LivingEntity)
                     {
-                        f4 = ((LivingEntity) pTarget).getHealth();
-                        if (j > 0 && !pTarget.isOnFire())
+                        f4 = ((LivingEntity) target).getHealth();
+                        if (j > 0 && !target.isOnFire())
                         {
                             flag4 = true;
-                            pTarget.setSecondsOnFire(1);
+                            target.setSecondsOnFire(1);
                         }
                     }
 
-                    Vec3 vec3 = pTarget.getDeltaMovement();
-                    boolean flag5 = pTarget.hurt(self.damageSources().playerAttack(self), f);
+                    Vec3 vec3 = target.getDeltaMovement();
+                    boolean flag5 = target.hurt(self.damageSources().playerAttack(self), f);
                     if (flag5)
                     {
                         if (i > 0)
                         {
-                            if (pTarget instanceof LivingEntity)
+                            if (target instanceof LivingEntity)
                             {
-                                ((LivingEntity) pTarget).knockback(i * 0.5F, Mth.sin(self.getYRot() * ((float) Math.PI / 180F)), -Mth.cos(self.getYRot() * ((float) Math.PI / 180F)));
+                                ((LivingEntity) target).knockback(i * 0.5F, Mth.sin(self.getYRot() * ((float) Math.PI / 180F)), -Mth.cos(self.getYRot() * ((float) Math.PI / 180F)));
                             } else
                             {
-                                pTarget.push(-Mth.sin(self.getYRot() * ((float) Math.PI / 180F)) * i * 0.5F, 0.1D, Mth.cos(self.getYRot() * ((float) Math.PI / 180F)) * i * 0.5F);
+                                target.push(-Mth.sin(self.getYRot() * ((float) Math.PI / 180F)) * i * 0.5F, 0.1D, Mth.cos(self.getYRot() * ((float) Math.PI / 180F)) * i * 0.5F);
                             }
 
-                            self.setDeltaMovement(self.getDeltaMovement().multiply(0.6D, 1.0D, 0.6D));
+                            //self.setDeltaMovement(self.getDeltaMovement().multiply(0.6D, 1.0D, 0.6D));
                             //self.setSprinting(false);
                         }
 
@@ -123,10 +129,10 @@ public abstract class PlayerMixin extends LivingEntity
                         {
                             float f3 = 1.0F + EnchantmentHelper.getSweepingDamageRatio(self) * f;
 
-                            for (LivingEntity livingentity : self.level().getEntitiesOfClass(LivingEntity.class, self.getItemInHand(InteractionHand.MAIN_HAND).getSweepHitBox(self, pTarget)))
+                            for (LivingEntity livingentity : self.level().getEntitiesOfClass(LivingEntity.class, self.getItemInHand(InteractionHand.MAIN_HAND).getSweepHitBox(self, target)))
                             {
                                 double entityReachSq = Mth.square(self.getEntityReach()); // Use entity reach instead of constant 9.0. Vanilla uses bottom center-to-center checks here, so don't update self to use canReach, since it uses closest-corner checks.
-                                if (livingentity != self && livingentity != pTarget && !self.isAlliedTo(livingentity) && (!(livingentity instanceof ArmorStand) || !((ArmorStand) livingentity).isMarker()) && self.distanceToSqr(livingentity) < entityReachSq)
+                                if (livingentity != self && livingentity != target && !self.isAlliedTo(livingentity) && (!(livingentity instanceof ArmorStand) || !((ArmorStand) livingentity).isMarker()) && self.distanceToSqr(livingentity) < entityReachSq)
                                 {
                                     livingentity.knockback(0.4F, Mth.sin(self.getYRot() * ((float) Math.PI / 180F)), -Mth.cos(self.getYRot() * ((float) Math.PI / 180F)));
                                     livingentity.hurt(self.damageSources().playerAttack(self), f3);
@@ -137,17 +143,17 @@ public abstract class PlayerMixin extends LivingEntity
                             self.sweepAttack();
                         }
 
-                        if (pTarget instanceof ServerPlayer && pTarget.hurtMarked)
+                        if (target instanceof ServerPlayer && target.hurtMarked)
                         {
-                            ((ServerPlayer) pTarget).connection.send(new ClientboundSetEntityMotionPacket(pTarget));
-                            pTarget.hurtMarked = false;
-                            pTarget.setDeltaMovement(vec3);
+                            ((ServerPlayer) target).connection.send(new ClientboundSetEntityMotionPacket(target));
+                            target.hurtMarked = false;
+                            target.setDeltaMovement(vec3);
                         }
 
                         if (flag2)
                         {
                             self.level().playSound(null, self.getX(), self.getY(), self.getZ(), SoundEvents.PLAYER_ATTACK_CRIT, self.getSoundSource(), 1.0F, 1.0F);
-                            self.crit(pTarget);
+                            self.crit(target);
                         }
 
                         if (!flag2 && !flag3)
@@ -163,21 +169,21 @@ public abstract class PlayerMixin extends LivingEntity
 
                         if (f1 > 0.0F)
                         {
-                            self.magicCrit(pTarget);
+                            self.magicCrit(target);
                         }
 
-                        self.setLastHurtMob(pTarget);
-                        if (pTarget instanceof LivingEntity)
+                        self.setLastHurtMob(target);
+                        if (target instanceof LivingEntity)
                         {
-                            EnchantmentHelper.doPostHurtEffects((LivingEntity) pTarget, self);
+                            EnchantmentHelper.doPostHurtEffects((LivingEntity) target, self);
                         }
 
-                        EnchantmentHelper.doPostDamageEffects(self, pTarget);
+                        EnchantmentHelper.doPostDamageEffects(self, target);
                         ItemStack itemstack1 = self.getMainHandItem();
-                        Entity entity = pTarget;
-                        if (pTarget instanceof net.minecraftforge.entity.PartEntity)
+                        Entity entity = target;
+                        if (target instanceof net.minecraftforge.entity.PartEntity)
                         {
-                            entity = ((net.minecraftforge.entity.PartEntity<?>) pTarget).getParent();
+                            entity = ((net.minecraftforge.entity.PartEntity<?>) target).getParent();
                         }
 
                         if (!self.level().isClientSide && !itemstack1.isEmpty() && entity instanceof LivingEntity)
@@ -191,19 +197,19 @@ public abstract class PlayerMixin extends LivingEntity
                             }
                         }
 
-                        if (pTarget instanceof LivingEntity)
+                        if (target instanceof LivingEntity)
                         {
-                            float f5 = f4 - ((LivingEntity) pTarget).getHealth();
+                            float f5 = f4 - ((LivingEntity) target).getHealth();
                             self.awardStat(Stats.DAMAGE_DEALT, Math.round(f5 * 10.0F));
                             if (j > 0)
                             {
-                                pTarget.setSecondsOnFire(j * 4);
+                                target.setSecondsOnFire(j * 4);
                             }
 
                             if (self.level() instanceof ServerLevel && f5 > 2.0F)
                             {
                                 int k = (int) ((double) f5 * 0.5D);
-                                ((ServerLevel) self.level()).sendParticles(ParticleTypes.DAMAGE_INDICATOR, pTarget.getX(), pTarget.getY(0.5D), pTarget.getZ(), k, 0.1D, 0.0D, 0.1D, 0.2D);
+                                ((ServerLevel) self.level()).sendParticles(ParticleTypes.DAMAGE_INDICATOR, target.getX(), target.getY(0.5D), target.getZ(), k, 0.1D, 0.0D, 0.1D, 0.2D);
                             }
                         }
 
@@ -213,13 +219,23 @@ public abstract class PlayerMixin extends LivingEntity
                         self.level().playSound(null, self.getX(), self.getY(), self.getZ(), SoundEvents.PLAYER_ATTACK_NODAMAGE, self.getSoundSource(), 1.0F, 1.0F);
                         if (flag4)
                         {
-                            pTarget.clearFire();
+                            target.clearFire();
                         }
                     }
                 }
                 self.resetAttackStrengthTicker(); // FORGE: Moved from beginning of attack() so that getAttackStrengthScale() returns an accurate value during all attack events
 
             }
+        }
+        if (this.getMainHandItem().getItem() == ItemRegistry.FLAMMENKLINGE.get())
+        {
+            final int cost = (int) self.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get());
+            if (BlazingJournalItem.getBlaze(self) > cost)
+            {
+                FlammenklingeItem.attackProper(self, target, callbackInfo);
+                BlazingJournalItem.changeBlaze(self, -cost);
+            }
+
         }
         callbackInfo.cancel();
     }
