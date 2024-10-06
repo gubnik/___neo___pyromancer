@@ -1,6 +1,7 @@
 package xyz.nikgub.pyromancer.common.item;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -27,9 +28,9 @@ public abstract class QuillItem extends Item implements IExtensibleTooltipItem
         super(properties.stacksTo(1));
     }
 
-    public abstract void getAttack (Player player, ItemStack weaponStack, ItemStack journalStack);
+    public abstract void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack);
 
-    public abstract boolean getCondition (Player player, ItemStack weaponStack, ItemStack journalStack);
+    public abstract boolean getCondition (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack);
 
     public abstract float getDefaultPyromancyDamageBonus ();
 

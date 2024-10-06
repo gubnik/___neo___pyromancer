@@ -49,7 +49,7 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -241,10 +241,18 @@ public class PyromancerMod
             //event.accept(new ItemStack(ItemRegistry.EMBER_ITEM.get()));
             for (ItemStack item : EMBERS) event.accept(item);
             for (Item item : ALL_ELSE) event.accept(item);
-        } else if (event.getTabKey().equals(CreativeModeTabs.BUILDING_BLOCKS))
+        } else if (event.getTabKey().equals(CreativeModeTabs.BUILDING_BLOCKS) || event.getTabKey().equals(CreativeModeTabs.NATURAL_BLOCKS))
         {
             List<Block> BLOCKS = BlockRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get).toList();
-            for (Block block : BLOCKS) event.accept(block);
+            for (Block block : BLOCKS)
+            {
+                boolean isDecorative = block instanceof GrowingPlantBlock || block instanceof BushBlock || block instanceof TallGrassBlock;
+                if ((isDecorative && event.getTabKey().equals(CreativeModeTabs.NATURAL_BLOCKS))
+                || (!isDecorative && event.getTabKey().equals(CreativeModeTabs.BUILDING_BLOCKS)))
+                {
+                    event.accept(block);
+                }
+            }
         }
         else if (event.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS))
         {
@@ -447,8 +455,8 @@ public class PyromancerMod
         {
             if ((blazingJournalItem.getItemFromItem(journal, 0)).getItem() instanceof QuillItem quillItem)
             {
-                if (quillItem.getCondition(player, weapon, journal) && !target.hurtMarked)
-                    quillItem.getAttack(player, weapon, journal);
+                if (quillItem.getCondition(player, target, weapon, journal) && !target.hurtMarked)
+                    quillItem.getAttack(player, target, weapon, journal);
             }
         }
 
@@ -456,15 +464,17 @@ public class PyromancerMod
         {
             for (BlazingJournalEnchantment blazingJournalEnchantment : journal.getAllEnchantments().keySet().stream().filter(enchantment -> enchantment instanceof BlazingJournalEnchantment).map(enchantment -> (BlazingJournalEnchantment) enchantment).toList())
             {
-                if (blazingJournalEnchantment.globalCondition(player))
+                if (!blazingJournalEnchantment.globalCondition(player))
                 {
-                    if (blazingJournalEnchantment.getWeaponClass().isInstance(weapon.getItem()) && blazingJournalEnchantment.getCondition(player, target))
-                    {
-                        BlazingJournalAttackEvent blazingJournalAttackEvent = BlazingJournalItem.getBlazingJournalAttackEvent(player, target, journal, weapon, blazingJournalEnchantment);
-                        blazingJournalEnchantment.getAttack(player, target);
-                        BlazingJournalItem.changeBlaze(player, -1);
-                    }
-                } else break;
+                    break;
+                }
+                if (!blazingJournalEnchantment.getWeaponClass().isInstance(weapon.getItem()) || !blazingJournalEnchantment.getCondition(player, target))
+                {
+                    continue;
+                }
+                BlazingJournalAttackEvent blazingJournalAttackEvent = BlazingJournalItem.getBlazingJournalAttackEvent(player, target, journal, weapon, blazingJournalEnchantment);
+                blazingJournalEnchantment.getAttack(player, target);
+                BlazingJournalItem.changeBlaze(player, -1);
             }
         }
     }

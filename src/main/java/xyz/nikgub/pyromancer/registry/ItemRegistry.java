@@ -1,6 +1,9 @@
 package xyz.nikgub.pyromancer.registry;
 
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -9,6 +12,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import xyz.nikgub.pyromancer.PyromancerMod;
+import xyz.nikgub.pyromancer.common.enchantment.BlazingJournalEnchantment;
 import xyz.nikgub.pyromancer.common.entity.attack_effect.FlamingGuillotineEntity;
 import xyz.nikgub.pyromancer.common.item.*;
 import xyz.nikgub.pyromancer.common.item.armor.ArmorOfHellblazeMonarchItem;
@@ -91,12 +95,12 @@ public class ItemRegistry
                 }
 
                 @Override
-                public void getAttack (Player player, ItemStack weaponStack, ItemStack journalStack)
+                public void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
                 {
                 }
 
                 @Override
-                public boolean getCondition (Player player, ItemStack weaponStack, ItemStack journalStack)
+                public boolean getCondition (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
                 {
                     return false;
                 }
@@ -114,17 +118,33 @@ public class ItemRegistry
                 @Override
                 public int getDefaultBlazeCostBonus ()
                 {
-                    return 1;
+                    return 2;
                 }
 
                 @Override
-                public void getAttack (Player player, ItemStack weaponStack, ItemStack journalStack)
+                public void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
                 {
+                    if (target instanceof LivingEntity entity)
+                    {
+                        entity.addEffect(new MobEffectInstance(MobEffectRegistry.OILED.get(), 20, 5));
+                    }
                 }
 
                 @Override
-                public boolean getCondition (Player player, ItemStack weaponStack, ItemStack journalStack)
+                public boolean getCondition (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
                 {
+                    if (!(target instanceof LivingEntity entity && !entity.hasEffect(MobEffectRegistry.OILED.get())))
+                    {
+                        return false;
+                    }
+                    var enchantments = journalStack.getAllEnchantments().keySet().stream().filter(enchantment -> enchantment instanceof BlazingJournalEnchantment).map(enchantment -> (BlazingJournalEnchantment) enchantment).toList();
+                    for (BlazingJournalEnchantment enchantment : enchantments)
+                    {
+                        if (enchantment.getWeaponClass().isInstance(weaponStack.getItem()) && enchantment.getCondition(player, target))
+                        {
+                            return true;
+                        }
+                    }
                     return false;
                 }
             }
