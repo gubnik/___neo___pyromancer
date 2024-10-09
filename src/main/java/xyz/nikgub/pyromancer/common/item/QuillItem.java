@@ -1,6 +1,7 @@
 package xyz.nikgub.pyromancer.common.item;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -12,6 +13,7 @@ import xyz.nikgub.incandescent.common.item.IExtensibleTooltipItem;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.common.item_capability.BlazingJournalCapability;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -30,15 +32,15 @@ public abstract class QuillItem extends Item implements IExtensibleTooltipItem
 
     public abstract void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack);
 
-    public abstract boolean getCondition (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack);
+    public abstract boolean isActivated (DamageSource damageSource, Player player, Entity target, ItemStack weaponStack, ItemStack journalStack);
 
     public abstract float getDefaultPyromancyDamageBonus ();
 
     public abstract int getDefaultBlazeCostBonus ();
 
     @Override
-    public final void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
+    public final void appendHoverText (@NotNull ItemStack itemStack, @Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
     {
-        gatherTooltipLines(list, "pyromancer.pyromancy_hidden_line", "desc", PyromancerConfig.quillDescriptionKey);
+        gatherTooltipLines(list, "pyromancer.hidden_desc", "desc", PyromancerConfig.quillDescriptionKey);
     }
 }

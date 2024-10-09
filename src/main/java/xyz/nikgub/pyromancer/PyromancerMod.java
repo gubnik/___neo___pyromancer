@@ -436,7 +436,7 @@ public class PyromancerMod
             ItemStack journal = BlazingJournalItem.guessJournal(player);
             if (journal == ItemStack.EMPTY || !(journal.getItem() instanceof BlazingJournalItem blazingJournalItem))
                 return;
-            blazingJournalQuillProcessor(blazingJournalItem, journal, weapon, player, target);
+            blazingJournalQuillProcessor(blazingJournalItem, damageSource, journal, weapon, player, target);
             blazingJournalAttackProcessor(journal, weapon, player, target);
         }
 
@@ -451,11 +451,11 @@ public class PyromancerMod
             }
         }
 
-        public static void blazingJournalQuillProcessor (BlazingJournalItem blazingJournalItem, ItemStack journal, ItemStack weapon, Player player, Entity target)
+        public static void blazingJournalQuillProcessor (BlazingJournalItem blazingJournalItem, DamageSource damageSource, ItemStack journal, ItemStack weapon, Player player, Entity target)
         {
             if ((blazingJournalItem.getItemFromItem(journal, 0)).getItem() instanceof QuillItem quillItem)
             {
-                if (quillItem.getCondition(player, target, weapon, journal) && !target.hurtMarked)
+                if (quillItem.isActivated(damageSource, player, target, weapon, journal) && !target.hurtMarked)
                     quillItem.getAttack(player, target, weapon, journal);
             }
         }
