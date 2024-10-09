@@ -8,7 +8,7 @@
   "advancement.pyromancer.flaming_grove_visited.description": "Visit Flaming Grove",
   "advancement.pyromancer.flaming_grove_visited.title": "Then, there was fire",
   "advancement.pyromancer.flammenklinge.description": "Obtain the Flammenklinge",
-  "advancement.pyromancer.flammenklinge.title": "Est. 2021",
+  "advancement.pyromancer.flammenklinge.title": "Flight of Icarus",
   "advancement.pyromancer.hellblaze_monarch_armor_obtained.description": "Wear a full set of Armor of Hellblaze Monarch",
   "advancement.pyromancer.hellblaze_monarch_armor_obtained.title": "Lord of Sunlight",
   "advancement.pyromancer.journal_projection.description": "Summon a flame projection via Blazing Journal",
@@ -267,7 +267,6 @@
   "pyromancer.hidden_desc": "To show this item's description, press ",
   "pyromancer.hidden_lore": "To show this item's lore, press ",
   "pyromancer.pyromancy_damage": "Pyromancy Damage",
-  "pyromancer.pyromancy_hidden_line": "To show pyromancy description info press ",
   "pyromancer.quill_hidden_line": "To show quill attack info press ",
   "pyromancer.subtitle.musket_load": "Musket loaded",
   "pyromancer.subtitle.musket_shot": "Musket fired"
