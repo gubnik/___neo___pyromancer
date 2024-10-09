@@ -16,16 +16,17 @@ import xyz.nikgub.pyromancer.registry.KeyBindsRegistry;
  */
 public class NetworkCore
 {
-    private static SimpleChannel INSTANCE;
+    public static final SimpleChannel INSTANCE = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(PyromancerMod.MOD_ID, "messages"))
+            .networkProtocolVersion(() -> "1.0")
+            .clientAcceptedVersions(s -> true)
+            .serverAcceptedVersions(s -> true)
+            .simpleChannel();
 
-    private static int id;
+    private static int id = 0;
 
     public static void register ()
     {
-        SimpleChannel network = NetworkRegistry.ChannelBuilder
-                .named(new ResourceLocation(PyromancerMod.MOD_ID, "messages")).networkProtocolVersion(() -> "1.0").clientAcceptedVersions(s -> true).serverAcceptedVersions(s -> true).simpleChannel();
-        INSTANCE = network;
-        network.messageBuilder(SwapPyromancyKeyMessage.class, id++, NetworkDirection.PLAY_TO_SERVER)
+        INSTANCE.messageBuilder(SwapPyromancyKeyMessage.class, id++, NetworkDirection.PLAY_TO_SERVER)
                 .decoder(SwapPyromancyKeyMessage::new)
                 .encoder(SwapPyromancyKeyMessage::toBytes)
                 .consumerMainThread(SwapPyromancyKeyMessage::handle)
