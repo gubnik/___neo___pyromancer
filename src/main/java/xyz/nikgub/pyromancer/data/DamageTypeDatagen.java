@@ -124,7 +124,9 @@ public class DamageTypeDatagen extends TagsProvider<DamageType>
         tag(IS_PYROMANCY)
                 .add(SIZZLING_HAND_KEY)
                 .add(COURT_OF_EMBERS_KEY)
-                .add(SYMBOL_OF_SUN_KEY);
+                .add(SYMBOL_OF_SUN_KEY)
+                .add(FLAMMENKLINGE_LAUNCH_KEY)
+                .add(FLAMMENKLINGE_LAND_KEY);
         tag(IS_BRUTISH)
                 .add(BOMBSACK_KEY)
                 .add(HOGTRAP_KEY);

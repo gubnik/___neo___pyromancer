@@ -2,6 +2,8 @@
   "values": [
     "pyromancer:sizzling_hand",
     "pyromancer:court_of_embers",
-    "pyromancer:symbol_of_sun"
+    "pyromancer:symbol_of_sun",
+    "pyromancer:flammenklinge_launch",
+    "pyromancer:flammenklinge_land"
   ]
 }
