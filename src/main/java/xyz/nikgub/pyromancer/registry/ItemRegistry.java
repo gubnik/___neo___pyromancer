@@ -1,6 +1,11 @@
 package xyz.nikgub.pyromancer.registry;
 
+import net.minecraft.network.chat.ChatType;
+import net.minecraft.network.chat.OutgoingChatMessage;
+import net.minecraft.network.chat.PlayerChatMessage;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,6 +23,7 @@ import xyz.nikgub.pyromancer.common.item.*;
 import xyz.nikgub.pyromancer.common.item.armor.ArmorOfHellblazeMonarchItem;
 import xyz.nikgub.pyromancer.common.item.armor.MarauderArmorItem;
 import xyz.nikgub.pyromancer.common.item.armor.PyromancerArmorItem;
+import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
 
 @SuppressWarnings("unused")
 public class ItemRegistry
@@ -100,13 +106,58 @@ public class ItemRegistry
                 }
 
                 @Override
-                public boolean getCondition (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
+                public boolean isActivated (DamageSource damageSource, Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
                 {
                     return false;
                 }
             }
     );
+
     public static final RegistryObject<Item> SMOLDERING_TWIG = ITEMS.register("smoldering_twig",
+            () -> new QuillItem(new Item.Properties())
+            {
+                @Override
+                public float getDefaultPyromancyDamageBonus ()
+                {
+                    return 0;
+                }
+
+                @Override
+                public int getDefaultBlazeCostBonus ()
+                {
+                    return 1;
+                }
+
+                @Override
+                public void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
+                {
+                    if (target instanceof LivingEntity entity)
+                    {
+                        entity.addEffect(new MobEffectInstance(MobEffectRegistry.OILED.get(), 20, 5));
+                    }
+                }
+
+                @Override
+                public boolean isActivated (DamageSource damageSource, Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
+                {
+                    if (!(target instanceof LivingEntity entity && !entity.hasEffect(MobEffectRegistry.OILED.get())))
+                    {
+                        return false;
+                    }
+                    var enchantments = journalStack.getAllEnchantments().keySet().stream().filter(enchantment -> enchantment instanceof BlazingJournalEnchantment).map(enchantment -> (BlazingJournalEnchantment) enchantment).toList();
+                    for (BlazingJournalEnchantment enchantment : enchantments)
+                    {
+                        if (enchantment.getWeaponClass().isInstance(weaponStack.getItem()) && enchantment.getCondition(player, target))
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            }
+    );
+
+    public static final RegistryObject<Item> HELLBLAZE_QUILL = ITEMS.register("hellblaze_quill",
             () -> new QuillItem(new Item.Properties())
             {
                 @Override
@@ -124,28 +175,20 @@ public class ItemRegistry
                 @Override
                 public void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
                 {
-                    if (target instanceof LivingEntity entity)
-                    {
-                        entity.addEffect(new MobEffectInstance(MobEffectRegistry.OILED.get(), 20, 5));
-                    }
+                    player.addEffect(new MobEffectInstance(MobEffectRegistry.FIERY_AEGIS.get(), 20, 0, true, false));
+                    if (player instanceof ServerPlayer sPlayer)
+                        sPlayer.sendChatMessage(
+                                OutgoingChatMessage.create(PlayerChatMessage.system("Hellblaze Quill")),
+                                false,
+                                ChatType.bind(ChatType.MSG_COMMAND_OUTGOING, sPlayer).withTargetName(sPlayer.getDisplayName()
+                                )
+                        );
                 }
 
                 @Override
-                public boolean getCondition (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
+                public boolean isActivated (DamageSource damageSource, Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
                 {
-                    if (!(target instanceof LivingEntity entity && !entity.hasEffect(MobEffectRegistry.OILED.get())))
-                    {
-                        return false;
-                    }
-                    var enchantments = journalStack.getAllEnchantments().keySet().stream().filter(enchantment -> enchantment instanceof BlazingJournalEnchantment).map(enchantment -> (BlazingJournalEnchantment) enchantment).toList();
-                    for (BlazingJournalEnchantment enchantment : enchantments)
-                    {
-                        if (enchantment.getWeaponClass().isInstance(weaponStack.getItem()) && enchantment.getCondition(player, target))
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
+                    return (damageSource.is(DamageTypeDatagen.IS_EMBER) || damageSource.is(DamageTypeDatagen.IS_PYROMANCY));
                 }
             }
     );
