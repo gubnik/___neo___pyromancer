@@ -165,9 +165,13 @@ public class BlazingJournalItem extends Item implements IContainerItem
 
     public static void setBlaze (LivingEntity player, int val)
     {
+        if (!(player instanceof ServerPlayer))
+        {
+            return;
+        }
         ItemStack supposedJournal = guessJournal(player);
         if (supposedJournal == ItemStack.EMPTY) return;
-        supposedJournal.getOrCreateTag().putInt(BlazingJournalItem.BLAZE_TAG_NAME, Mth.clamp(val, 0, 512));
+        supposedJournal.getOrCreateTag().putInt(BlazingJournalItem.BLAZE_TAG_NAME, Mth.clamp(val, 0, PyromancerConfig.blazingJournalMaxCapacity));
     }
 
     public static void changeBlaze (LivingEntity player, int val)
