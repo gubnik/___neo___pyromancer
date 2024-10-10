@@ -37,7 +37,7 @@ import java.util.function.BiFunction;
 
 public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStupidTooltipItem, IGradientNameItem, IExtensibleTooltipItem
 {
-    public static final float DEFAULT_DAMAGE = 10F;
+    public static final float DEFAULT_DAMAGE = 8F;
 
     public SymbolOfSunItem (Properties properties)
     {
@@ -161,7 +161,7 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     @Override
     public float getDefaultPyromancyDamage ()
     {
-        return DEFAULT_DAMAGE * 0.5f;
+        return DEFAULT_DAMAGE;
     }
 
     @Override
