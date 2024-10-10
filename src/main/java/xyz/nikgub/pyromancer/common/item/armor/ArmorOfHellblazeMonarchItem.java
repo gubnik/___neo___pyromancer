@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.Util;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,17 +14,22 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
+import xyz.nikgub.incandescent.common.item.IExtensibleTooltipItem;
+import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.client.model.armor.ArmorOfHellblazeMonarchModel;
 import xyz.nikgub.pyromancer.registry.ArmorMaterialsRegistry;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-public class ArmorOfHellblazeMonarchItem extends ArmorItem
+public class ArmorOfHellblazeMonarchItem extends ArmorItem implements IExtensibleTooltipItem
 {
 
     private static final EnumMap<Type, UUID> ARMOR_MODIFIER_UUID_PER_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) ->
@@ -83,5 +89,12 @@ public class ArmorOfHellblazeMonarchItem extends ArmorItem
                 return ArmorOfHellblazeMonarchModel.getHumanoidModel(slot);
             }
         });
+    }
+
+    @Override
+    public final void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
+    {
+        if (((ArmorOfHellblazeMonarchItem)itemStack.getItem()).type != Type.HELMET) return;
+        this.gatherTooltipLines(list, "pyromancer.hidden_lore", "lore", PyromancerConfig.loreTooltipKey);
     }
 }
