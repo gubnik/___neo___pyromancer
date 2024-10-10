@@ -17,29 +17,29 @@ import javax.annotation.Nullable;
 public class DamageSourceRegistry
 {
 
-    public static DamageSource flame (Entity entity)
+    public static DamageSource flame (Entity entity, Level level)
     {
-        assert entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
+        assert level.registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HELLBLAZE_KEY),
+                level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HELLBLAZE_KEY),
                 entity
         );
     }
 
-    public static DamageSource hellblaze (Entity entity)
+    public static DamageSource hellblaze (Entity entity, Level level)
     {
-        assert entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
+        assert level.registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HELLBLAZE_KEY),
+                level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HELLBLAZE_KEY),
                 entity
         );
     }
 
-    public static DamageSource soulflame (Entity entity)
+    public static DamageSource soulflame (@Nullable Entity entity, Level level)
     {
-        assert entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
+        assert level.registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.SOULFLAME_KEY),
+                level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.SOULFLAME_KEY),
                 entity
         );
     }

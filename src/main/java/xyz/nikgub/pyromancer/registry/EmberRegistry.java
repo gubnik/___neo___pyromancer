@@ -62,7 +62,7 @@ public class EmberRegistry
                     for (LivingEntity target : EntityUtils.entityCollector(cPos, 0.3, serverLevel))
                     {
                         if (target == entity) continue;
-                        target.hurt(DamageSourceRegistry.soulflame(entity), (float) entity.getAttributeValue(Attributes.ATTACK_DAMAGE));
+                        target.hurt(DamageSourceRegistry.soulflame(entity, level), (float) entity.getAttributeValue(Attributes.ATTACK_DAMAGE));
                     }
                 }
             }
@@ -104,7 +104,7 @@ public class EmberRegistry
                 if (target == entity) continue;
                 float multiplier = 1 / Mth.clamp(target.getHealth() / target.getMaxHealth(), 0.2f, 1f);
                 float damage = (float) entity.getAttributeValue(Attributes.ATTACK_DAMAGE) * multiplier;
-                if (!(target.hurt(DamageSourceRegistry.hellblaze(entity), damage))) continue;
+                if (!(target.hurt(DamageSourceRegistry.hellblaze(entity, level), damage))) continue;
                 if (target.getHealth() > target.getMaxHealth() * 0.2) continue;
                 FlamingGuillotineEntity guillotine = new FlamingGuillotineEntity(EntityTypeRegistry.FLAMING_GUILLOTINE.get(), level);
                 guillotine.setPlayerUuid(entity.getUUID());
