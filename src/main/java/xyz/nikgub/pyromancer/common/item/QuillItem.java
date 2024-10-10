@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.incandescent.common.item.IExtensibleTooltipItem;
 import xyz.nikgub.pyromancer.PyromancerConfig;
@@ -30,8 +31,27 @@ public abstract class QuillItem extends Item implements IExtensibleTooltipItem
         super(properties.stacksTo(1));
     }
 
+    /**
+     * @apiNote Do not invoke {@link Entity#hurt(DamageSource, float)} inside this method with damage type that could
+     * activate the attack once again, as it will drown the stack and cause the game to crash
+     *
+     * @param player        Player responsible for attack
+     * @param target        Target of the attack
+     * @param weaponStack   Weapon that the damage was dealt with
+     * @param journalStack  Journal in which the quill is located
+     */
     public abstract void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack);
 
+    /**
+     * Called in {@link xyz.nikgub.pyromancer.PyromancerMod.ForgeEvents#livingAttackEvent(LivingAttackEvent)}
+     *
+     * @param damageSource  Damage source of the attack
+     * @param player        Player responsible for attack
+     * @param target        Target of the attack
+     * @param weaponStack   Weapon that the damage was dealt with
+     * @param journalStack  Journal in which the quill is located
+     * @return              Will the {@link #getAttack(Player, Entity, ItemStack, ItemStack)} be activated
+     */
     public abstract boolean isActivated (DamageSource damageSource, Player player, Entity target, ItemStack weaponStack, ItemStack journalStack);
 
     public abstract float getDefaultPyromancyDamageBonus ();
