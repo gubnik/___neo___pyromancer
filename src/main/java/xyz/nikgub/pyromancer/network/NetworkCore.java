@@ -7,6 +7,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import xyz.nikgub.pyromancer.PyromancerMod;
+import xyz.nikgub.pyromancer.network.c2s.SetDeltaMovementPacket;
 import xyz.nikgub.pyromancer.network.key.SwapPyromancyKeyMessage;
 import xyz.nikgub.pyromancer.registry.KeyBindsRegistry;
 
@@ -30,6 +31,12 @@ public class NetworkCore
                 .decoder(SwapPyromancyKeyMessage::new)
                 .encoder(SwapPyromancyKeyMessage::toBytes)
                 .consumerMainThread(SwapPyromancyKeyMessage::handle)
+                .add();
+
+        INSTANCE.messageBuilder(SetDeltaMovementPacket.class, id++, NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SetDeltaMovementPacket::new)
+                .encoder(SetDeltaMovementPacket::toBytes)
+                .consumerMainThread(SetDeltaMovementPacket::handle)
                 .add();
     }
 

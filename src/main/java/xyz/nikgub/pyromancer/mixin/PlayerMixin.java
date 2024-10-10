@@ -226,13 +226,13 @@ public abstract class PlayerMixin extends LivingEntity
                 }
                 self.resetAttackStrengthTicker(); // FORGE: Moved from beginning of attack() so that getAttackStrengthScale() returns an accurate value during all attack events
             }
-            if (this.getMainHandItem().getItem() == ItemRegistry.FLAMMENKLINGE.get())
+            if (this.getMainHandItem().getItem() == ItemRegistry.FLAMMENKLINGE.get()&& (self instanceof ServerPlayer player))
             {
-                final int cost = (int) self.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get());
-                if (BlazingJournalItem.getBlaze(self) >= cost)
+                final int cost = (int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get());
+                if (BlazingJournalItem.getBlaze(player) >= cost)
                 {
-                    FlammenklingeItem.attackProper(self, target, callbackInfo);
-                    BlazingJournalItem.changeBlaze(self, -cost);
+                    FlammenklingeItem.attackProper(player, target, callbackInfo);
+                    BlazingJournalItem.changeBlaze(player, -cost);
                 }
             }
         }

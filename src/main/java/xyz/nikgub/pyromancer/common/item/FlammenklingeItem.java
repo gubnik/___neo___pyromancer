@@ -9,6 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -31,6 +32,8 @@ import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerConfig;
+import xyz.nikgub.pyromancer.network.NetworkCore;
+import xyz.nikgub.pyromancer.network.c2s.SetDeltaMovementPacket;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 import xyz.nikgub.pyromancer.registry.DamageSourceRegistry;
 import xyz.nikgub.pyromancer.registry.ItemRegistry;
@@ -214,20 +217,23 @@ public class FlammenklingeItem extends SwordItem implements IPyromancyItem, INot
         return 8;
     }
 
-    public static void attackProper (@NotNull Player self, @NotNull Entity target, CallbackInfo callbackInfo)
+    public static void attackProper (@NotNull ServerPlayer self, @NotNull Entity target, CallbackInfo callbackInfo)
     {
+
         final Vec3 srcVec = self.getDeltaMovement();
         final Vec3 nVec = new Vec3(srcVec.x * 1.5, 1.2, srcVec.z * 1.5);
         CompoundTag tag = self.getMainHandItem().getOrCreateTag();
         for (LivingEntity entity : EntityUtils.entityCollector(self.position(), 4, self.level()))
         {
-            if (entity == self) continue;
+
             entity.setDeltaMovement(nVec);
+            if (entity == self) continue;
             entity.setRemainingFireTicks(entity.getRemainingFireTicks() + 40);
             entity.hurt(DamageSourceRegistry.flammenklingeLaunch(self), (float) self.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get()));
             tag.putInt(FlammenklingeItem.ENEMIES_COUNTER_TAG, tag.getInt(FlammenklingeItem.ENEMIES_COUNTER_TAG) + 1);
         }
-        self.setDeltaMovement(nVec);
+        NetworkCore.sendToAll(new SetDeltaMovementPacket(self.getId(), nVec.toVector3f()));
+        //self.setDeltaMovement(nVec);
         if (!(self.level() instanceof ServerLevel level))
         {
             callbackInfo.cancel();
