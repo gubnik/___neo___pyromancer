@@ -1,8 +1,6 @@
 package xyz.nikgub.pyromancer.registry;
 
-import net.minecraft.network.chat.ChatType;
-import net.minecraft.network.chat.OutgoingChatMessage;
-import net.minecraft.network.chat.PlayerChatMessage;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -16,6 +14,7 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.enchantment.BlazingJournalEnchantment;
 import xyz.nikgub.pyromancer.common.entity.attack_effect.FlamingGuillotineEntity;
@@ -204,17 +203,18 @@ public class ItemRegistry
                 @Override
                 public void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
                 {
-                    if (player instanceof ServerPlayer serverPlayer && serverPlayer.isCreative()) return;
                     final int cost = (int)player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get());
+                    if (!(player instanceof ServerPlayer serverPlayer) || serverPlayer.isCreative()) return;
+                    final float dHealth = (float) cost / 2;
+                    final float cHealth = player.getHealth();
+                    final float deltaHealth = cHealth - dHealth;
+                    if (deltaHealth <= dHealth)
+                    {
+                        return;
+                    }
+                    GeneralUtils.coverInParticles(player, ParticleTypes.SOUL_FIRE_FLAME, 0.04);
                     BlazingJournalItem.changeBlaze(player, cost);
-                    player.setHealth(player.getHealth() - (float) cost / 2);
-                    if (player instanceof ServerPlayer sPlayer)
-                        sPlayer.sendChatMessage(
-                                OutgoingChatMessage.create(PlayerChatMessage.system("Soulflame Quill")),
-                                false,
-                                ChatType.bind(ChatType.MSG_COMMAND_OUTGOING, sPlayer).withTargetName(sPlayer.getDisplayName()
-                                )
-                        );
+                    player.setHealth(deltaHealth);
                 }
 
                 @Override
@@ -224,7 +224,6 @@ public class ItemRegistry
                 }
             }
     );
-
 
     public static final RegistryObject<BombsackItem> BOMBSACK = ITEMS.register("bombsack",
             () -> new BombsackItem(new Item.Properties(), EntityTypeRegistry.BOMBSACK::get));
