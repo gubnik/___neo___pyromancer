@@ -175,10 +175,42 @@ public class ItemRegistry
                 @Override
                 public void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
                 {
-                    player.addEffect(new MobEffectInstance(MobEffectRegistry.FIERY_AEGIS.get(), 20, 0, true, false));
+                    player.addEffect(new MobEffectInstance(MobEffectRegistry.FIERY_AEGIS.get(), 40, 0, true, false));
+                }
+
+                @Override
+                public boolean isActivated (DamageSource damageSource, Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
+                {
+                    return (damageSource.is(DamageTypeDatagen.IS_EMBER) || damageSource.is(DamageTypeDatagen.IS_PYROMANCY));
+                }
+            }
+    );
+
+    public static final RegistryObject<Item> SOULFLAME_QUILL = ITEMS.register("soulflame_quill",
+            () -> new QuillItem(new Item.Properties())
+            {
+                @Override
+                public float getDefaultPyromancyDamageBonus ()
+                {
+                    return 0;
+                }
+
+                @Override
+                public int getDefaultBlazeCostBonus ()
+                {
+                    return 0;
+                }
+
+                @Override
+                public void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
+                {
+                    if (player instanceof ServerPlayer serverPlayer && serverPlayer.isCreative()) return;
+                    final int cost = (int)player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get());
+                    BlazingJournalItem.changeBlaze(player, cost);
+                    player.setHealth(player.getHealth() - (float) cost / 2);
                     if (player instanceof ServerPlayer sPlayer)
                         sPlayer.sendChatMessage(
-                                OutgoingChatMessage.create(PlayerChatMessage.system("Hellblaze Quill")),
+                                OutgoingChatMessage.create(PlayerChatMessage.system("Soulflame Quill")),
                                 false,
                                 ChatType.bind(ChatType.MSG_COMMAND_OUTGOING, sPlayer).withTargetName(sPlayer.getDisplayName()
                                 )
