@@ -41,6 +41,7 @@ public abstract class QuillItem extends Item implements IExtensibleTooltipItem
     @Override
     public final void appendHoverText (@NotNull ItemStack itemStack, @Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
     {
-        gatherTooltipLines(list, "pyromancer.hidden_desc", "desc", PyromancerConfig.quillDescriptionKey);
+        this.gatherTooltipLines(list, "pyromancer.hidden_desc", "desc", PyromancerConfig.descTooltipKey);
+        this.gatherTooltipLines(list, "pyromancer.hidden_lore", "lore", PyromancerConfig.loreTooltipKey);
     }
 }
