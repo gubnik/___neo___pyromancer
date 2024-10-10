@@ -61,7 +61,7 @@ public class FlammenklingeItem extends SwordItem implements IPyromancyItem, INot
     {
         if (!(entity instanceof LivingEntity livingEntity)) return;
         CompoundTag tag = livingEntity.getMainHandItem().getOrCreateTag();
-        if (livingEntity.getMainHandItem().getItem() != ItemRegistry.FLAMMENKLINGE.get() || (entity instanceof ServerPlayer serverPlayer && serverPlayer.onGround()))
+        if (livingEntity.getMainHandItem().getItem() != ItemRegistry.FLAMMENKLINGE.get())
         {
             tag.putInt(ENEMIES_COUNTER_TAG, 0);
             return;
