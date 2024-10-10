@@ -23,15 +23,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.nikgub.incandescent.common.item.IContainerItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerConfig;
-import xyz.nikgub.pyromancer.common.enchantment.BlazingJournalEnchantment;
-import xyz.nikgub.pyromancer.common.event.BlazingJournalAttackEvent;
 import xyz.nikgub.pyromancer.common.item_capability.BlazingJournalCapability;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 
@@ -49,14 +46,6 @@ public class BlazingJournalItem extends Item implements IContainerItem
     public BlazingJournalItem (Properties properties)
     {
         super(properties.stacksTo(1));
-    }
-
-    @NotNull
-    public static BlazingJournalAttackEvent getBlazingJournalAttackEvent (Player player, Entity target, ItemStack journal, ItemStack weapon, BlazingJournalEnchantment enchantment)
-    {
-        BlazingJournalAttackEvent event = new BlazingJournalAttackEvent(player, target, journal, weapon, enchantment);
-        MinecraftForge.EVENT_BUS.post(event);
-        return event;
     }
 
     @Override

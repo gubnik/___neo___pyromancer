@@ -49,7 +49,10 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.GrowingPlantBlock;
+import net.minecraft.world.level.block.TallGrassBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -95,7 +98,6 @@ import xyz.nikgub.pyromancer.client.renderer.entity.*;
 import xyz.nikgub.pyromancer.common.ember.Ember;
 import xyz.nikgub.pyromancer.common.enchantment.BlazingJournalEnchantment;
 import xyz.nikgub.pyromancer.common.entity.*;
-import xyz.nikgub.pyromancer.common.event.BlazingJournalAttackEvent;
 import xyz.nikgub.pyromancer.common.item.*;
 import xyz.nikgub.pyromancer.common.worldgen.NetherPyrowoodTrunkPlacer;
 import xyz.nikgub.pyromancer.data.BiomeDatagen;
@@ -472,7 +474,6 @@ public class PyromancerMod
                 {
                     continue;
                 }
-                BlazingJournalAttackEvent blazingJournalAttackEvent = BlazingJournalItem.getBlazingJournalAttackEvent(player, target, journal, weapon, blazingJournalEnchantment);
                 blazingJournalEnchantment.getAttack(player, target);
                 BlazingJournalItem.changeBlaze(player, -1);
             }
