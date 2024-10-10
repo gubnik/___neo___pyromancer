@@ -61,7 +61,7 @@ public class FlammenklingeItem extends SwordItem implements IPyromancyItem, INot
     {
         if (!(entity instanceof LivingEntity livingEntity)) return;
         CompoundTag tag = livingEntity.getMainHandItem().getOrCreateTag();
-        if (livingEntity.getMainHandItem().getItem() != ItemRegistry.FLAMMENKLINGE.get() || entity.onGround())
+        if (livingEntity.getMainHandItem().getItem() != ItemRegistry.FLAMMENKLINGE.get() || (entity instanceof ServerPlayer serverPlayer && serverPlayer.onGround()))
         {
             tag.putInt(ENEMIES_COUNTER_TAG, 0);
             return;
@@ -232,6 +232,7 @@ public class FlammenklingeItem extends SwordItem implements IPyromancyItem, INot
             entity.hurt(DamageSourceRegistry.flammenklingeLaunch(self), (float) self.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get()));
             tag.putInt(FlammenklingeItem.ENEMIES_COUNTER_TAG, tag.getInt(FlammenklingeItem.ENEMIES_COUNTER_TAG) + 1);
         }
+        tag.putInt(ENEMIES_COUNTER_TAG, tag.getInt(ENEMIES_COUNTER_TAG) + 10);
         NetworkCore.sendToAll(new SetDeltaMovementPacket(self.getId(), nVec.toVector3f()));
         //self.setDeltaMovement(nVec);
         if (!(self.level() instanceof ServerLevel level))

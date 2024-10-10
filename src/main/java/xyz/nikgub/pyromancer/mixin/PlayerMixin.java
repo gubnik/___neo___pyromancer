@@ -226,7 +226,7 @@ public abstract class PlayerMixin extends LivingEntity
                 }
                 self.resetAttackStrengthTicker(); // FORGE: Moved from beginning of attack() so that getAttackStrengthScale() returns an accurate value during all attack events
             }
-            if (this.getMainHandItem().getItem() == ItemRegistry.FLAMMENKLINGE.get()&& (self instanceof ServerPlayer player))
+            if (this.getMainHandItem().getItem() == ItemRegistry.FLAMMENKLINGE.get() && (self instanceof ServerPlayer player))
             {
                 final int cost = (int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get());
                 if (BlazingJournalItem.getBlaze(player) >= cost)
@@ -236,7 +236,6 @@ public abstract class PlayerMixin extends LivingEntity
                 }
             }
         }
-
         callbackInfo.cancel();
     }
 }
