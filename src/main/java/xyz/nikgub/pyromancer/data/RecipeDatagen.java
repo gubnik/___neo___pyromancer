@@ -189,9 +189,9 @@ public class RecipeDatagen extends RecipeProvider
                 .pattern("#H#")
                 .pattern("#a#")
                 .define('a', ItemRegistry.AMBER.get())
-                .define('H', ItemRegistry.EVENBURNING_HEART.get())
+                .define('H', ItemRegistry.MEMORY_OF_FIRE.get())
                 .define('#', ItemRegistry.ANCIENT_PLATING.get())
-                .unlockedBy("everburning_heart", has(ItemRegistry.EVENBURNING_HEART.get()))
+                .unlockedBy("memory_of_fire", has(ItemRegistry.MEMORY_OF_FIRE.get()))
                 .save(consumer);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.COURT_OF_EMBERS.get())
@@ -199,63 +199,63 @@ public class RecipeDatagen extends RecipeProvider
                 .pattern("asa")
                 .pattern(" s ")
                 .define('a', ItemRegistry.AMBER.get())
-                .define('H', ItemRegistry.EVENBURNING_HEART.get())
+                .define('H', ItemRegistry.MEMORY_OF_FIRE.get())
                 .define('s', Items.STICK)
-                .unlockedBy("everburning_heart", has(ItemRegistry.EVENBURNING_HEART.get()))
+                .unlockedBy("memory_of_fire", has(ItemRegistry.MEMORY_OF_FIRE.get()))
                 .save(consumer);
 
         SmithingTransformRecipeBuilder.smithing(
-                        Ingredient.of(ItemRegistry.EVENBURNING_HEART.get()),
+                        Ingredient.of(ItemRegistry.MEMORY_OF_FIRE.get()),
                         Ingredient.of(ItemRegistry.NETHERITE_MACE.get()),
                         Ingredient.of(ItemRegistry.AMBER.get()),
                         RecipeCategory.COMBAT,
                         ItemRegistry.SYMBOL_OF_SUN.get())
-                .unlocks("everburning_heart", has(ItemRegistry.EVENBURNING_HEART.get()))
+                .unlocks("memory_of_fire", has(ItemRegistry.MEMORY_OF_FIRE.get()))
                 .save(consumer, "pyromancer:symbol_of_sun");
 
         SmithingTransformRecipeBuilder.smithing(
-                        Ingredient.of(ItemRegistry.EVENBURNING_HEART.get()),
+                        Ingredient.of(ItemRegistry.MEMORY_OF_FIRE.get()),
                         Ingredient.of(Items.NETHERITE_SWORD),
                         Ingredient.of(ItemRegistry.AMBER.get()),
                         RecipeCategory.COMBAT,
                         ItemRegistry.FLAMMENKLINGE.get())
-                .unlocks("everburning_heart", has(ItemRegistry.EVENBURNING_HEART.get()))
+                .unlocks("memory_of_fire", has(ItemRegistry.MEMORY_OF_FIRE.get()))
                 .save(consumer, "pyromancer:flammenklinge");
 
         SmithingTransformRecipeBuilder.smithing(
-                        Ingredient.of(ItemRegistry.EVENBURNING_HEART.get()),
+                        Ingredient.of(ItemRegistry.MEMORY_OF_FIRE.get()),
                         Ingredient.of(ItemRegistry.PYROMANCER_HELMET.get()),
                         Ingredient.of(Items.NETHERITE_INGOT),
                         RecipeCategory.COMBAT,
                         ItemRegistry.HELLBLAZE_MONARCH_HELMET.get())
-                .unlocks("everburning_heart", has(ItemRegistry.EVENBURNING_HEART.get()))
+                .unlocks("memory_of_fire", has(ItemRegistry.MEMORY_OF_FIRE.get()))
                 .save(consumer, "pyromancer:hellblaze_monarch_helmet");
 
         SmithingTransformRecipeBuilder.smithing(
-                        Ingredient.of(ItemRegistry.EVENBURNING_HEART.get()),
+                        Ingredient.of(ItemRegistry.MEMORY_OF_FIRE.get()),
                         Ingredient.of(ItemRegistry.PYROMANCER_CHESTPLATE.get()),
                         Ingredient.of(Items.NETHERITE_INGOT),
                         RecipeCategory.COMBAT,
                         ItemRegistry.HELLBLAZE_MONARCH_CHESTPLATE.get())
-                .unlocks("everburning_heart", has(ItemRegistry.EVENBURNING_HEART.get()))
+                .unlocks("memory_of_fire", has(ItemRegistry.MEMORY_OF_FIRE.get()))
                 .save(consumer, "pyromancer:hellblaze_monarch_chestplate");
 
         SmithingTransformRecipeBuilder.smithing(
-                        Ingredient.of(ItemRegistry.EVENBURNING_HEART.get()),
+                        Ingredient.of(ItemRegistry.MEMORY_OF_FIRE.get()),
                         Ingredient.of(ItemRegistry.PYROMANCER_LEGGINGS.get()),
                         Ingredient.of(Items.NETHERITE_INGOT),
                         RecipeCategory.COMBAT,
                         ItemRegistry.HELLBLAZE_MONARCH_LEGGINGS.get())
-                .unlocks("everburning_heart", has(ItemRegistry.EVENBURNING_HEART.get()))
+                .unlocks("memory_of_fire", has(ItemRegistry.MEMORY_OF_FIRE.get()))
                 .save(consumer, "pyromancer:hellblaze_monarch_leggings");
 
         SmithingTransformRecipeBuilder.smithing(
-                        Ingredient.of(ItemRegistry.EVENBURNING_HEART.get()),
+                        Ingredient.of(ItemRegistry.MEMORY_OF_FIRE.get()),
                         Ingredient.of(ItemRegistry.PYROMANCER_BOOTS.get()),
                         Ingredient.of(Items.NETHERITE_INGOT),
                         RecipeCategory.COMBAT,
                         ItemRegistry.HELLBLAZE_MONARCH_BOOTS.get())
-                .unlocks("everburning_heart", has(ItemRegistry.EVENBURNING_HEART.get()))
+                .unlocks("memory_of_fire", has(ItemRegistry.MEMORY_OF_FIRE.get()))
                 .save(consumer, "pyromancer:hellblaze_monarch_boots");
 
         RecipeDatagen.nineBlockStorageRecipes(consumer, RecipeCategory.MISC, ItemRegistry.RIMEBLOOD.get(), RecipeCategory.BUILDING_BLOCKS, BlockRegistry.RIMEBLOOD_BLOCK.get());

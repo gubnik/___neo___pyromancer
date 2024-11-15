@@ -6,9 +6,9 @@ import net.minecraft.world.item.ItemStack;
 import xyz.nikgub.incandescent.common.item.IGradientNameItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 
-public class EverburningHeartItem extends Item implements IGradientNameItem
+public class MemoryOfFireItem extends Item implements IGradientNameItem
 {
-    public EverburningHeartItem ()
+    public MemoryOfFireItem ()
     {
         super(new Properties().stacksTo(1).fireResistant());
     }

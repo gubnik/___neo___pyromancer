@@ -42,7 +42,7 @@ public class EntityLootTableDatagen extends EntityLootSubProvider
         this.add(EntityTypeRegistry.UNBURNED.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
-                        .add(LootItem.lootTableItem(ItemRegistry.EVENBURNING_HEART.get())
+                        .add(LootItem.lootTableItem(ItemRegistry.MEMORY_OF_FIRE.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F)))))
         );
         this.add(EntityTypeRegistry.SCORCH.get(), LootTable.lootTable()

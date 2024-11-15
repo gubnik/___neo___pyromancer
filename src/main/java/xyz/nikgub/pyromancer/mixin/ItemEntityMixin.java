@@ -28,7 +28,7 @@ public abstract class ItemEntityMixin extends Entity
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
     private void tickMixin (CallbackInfo callbackInfo)
     {
-        if (this.getItem().getItem() == ItemRegistry.EVENBURNING_HEART.get())
+        if (this.getItem().getItem() == ItemRegistry.MEMORY_OF_FIRE.get())
         {
             //this.level().addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.0D, 0.0D);
             this.level().addParticle(ParticleTypes.FLAME, this.getX(), this.getY() + 0.55D, this.getZ(), 0.0D, 0.012D, 0.0D);
