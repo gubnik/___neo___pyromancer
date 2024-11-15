@@ -59,9 +59,9 @@ public class FlammenklingeItem extends SwordItem implements IPyromancyItem, INot
     @Override
     public void inventoryTick (@NotNull ItemStack itemStack, @NotNull Level level, @NotNull Entity entity, int tick, boolean b)
     {
-        if (!(entity instanceof LivingEntity livingEntity)) return;
-        CompoundTag tag = livingEntity.getMainHandItem().getOrCreateTag();
-        if (livingEntity.getMainHandItem().getItem() != ItemRegistry.FLAMMENKLINGE.get())
+        if (!(entity instanceof ServerPlayer serverPlayer)) return;
+        CompoundTag tag = serverPlayer.getMainHandItem().getOrCreateTag();
+        if (serverPlayer.getMainHandItem().getItem() != ItemRegistry.FLAMMENKLINGE.get())
         {
             tag.putInt(ENEMIES_COUNTER_TAG, 0);
             return;
@@ -80,6 +80,7 @@ public class FlammenklingeItem extends SwordItem implements IPyromancyItem, INot
             target.setRemainingFireTicks(target.getRemainingFireTicks() + 40);
             tag.putInt(ENEMIES_COUNTER_TAG, tag.getInt(ENEMIES_COUNTER_TAG) + 1);
         }
+        NetworkCore.sendToAll(new FlammenklingeMovementPacket(player.getId(), new Vector3f(1.5f, 0, 1.5f)));
         BlazingJournalItem.changeBlaze(player, -(int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()));
         entity.stopUsingItem();
         if (!(level instanceof ServerLevel serverLevel))
@@ -114,7 +115,7 @@ public class FlammenklingeItem extends SwordItem implements IPyromancyItem, INot
     public void onStopUsing(ItemStack itemStack, LivingEntity entity, int count)
     {
         if (!(entity instanceof Player player)) return;
-        player.getCooldowns().addCooldown(itemStack.getItem(), 30);
+        if (count > 0) player.getCooldowns().addCooldown(itemStack.getItem(), 30);
     }
 
     @Override
