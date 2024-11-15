@@ -1,28 +1,28 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "everburning_heart": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "pyromancer:everburning_heart"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_the_recipe": {
       "conditions": {
         "recipe": "pyromancer:court_of_embers"
       },
       "trigger": "minecraft:recipe_unlocked"
+    },
+    "memory_of_fire": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pyromancer:memory_of_fire"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "requirements": [
     [
-      "everburning_heart",
+      "memory_of_fire",
       "has_the_recipe"
     ]
   ],

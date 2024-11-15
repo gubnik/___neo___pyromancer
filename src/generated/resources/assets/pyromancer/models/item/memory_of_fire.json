@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "pyromancer:item/everburning_heart"
+    "layer0": "pyromancer:item/memory_of_fire"
   }
 }
