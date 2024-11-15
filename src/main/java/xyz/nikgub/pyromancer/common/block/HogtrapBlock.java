@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.pyromancer.common.util.ItemUtils;
 import xyz.nikgub.pyromancer.registry.DamageSourceRegistry;
 import xyz.nikgub.pyromancer.registry.ItemRegistry;
 
@@ -60,7 +59,7 @@ public class HogtrapBlock extends Block
     {
         if (!pLevel.isClientSide && pLevel.getDifficulty() != Difficulty.PEACEFUL && pEntity instanceof LivingEntity entity)
         {
-            if (ItemUtils.hasFullSetEquipped(entity, ItemRegistry.MARAUDER_HELM.get()))
+            if (ItemRegistry.Utils.hasFullSetEquipped(entity, ItemRegistry.MARAUDER_HELM.get()))
                 return;
             entity.hurt(DamageSourceRegistry.hogtrap(pLevel), 2 + entity.getMaxHealth() * 0.1f);
             entity.addEffect(new MobEffectInstance(MobEffects.WITHER, 200, 2), entity);

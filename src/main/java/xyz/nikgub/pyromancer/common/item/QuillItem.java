@@ -32,7 +32,7 @@ public abstract class QuillItem extends Item implements IExtensibleTooltipItem
     }
 
     /**
-     * @apiNote Do not invoke {@link Entity#hurt(DamageSource, float)} inside this method with damage type that could
+     * Do not invoke {@link Entity#hurt(DamageSource, float)} inside this method with damage type that could
      * activate the attack once again, as it will drown the stack and cause the game to crash
      *
      * @param player        Player responsible for attack

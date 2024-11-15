@@ -17,7 +17,6 @@ import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.common.entity.UnburnedSpiritEntity;
 import xyz.nikgub.pyromancer.common.mob_effect.InfusionMobEffect;
 import xyz.nikgub.pyromancer.common.mob_effect.OiledMobEffect;
-import xyz.nikgub.pyromancer.common.util.ItemUtils;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
 import xyz.nikgub.pyromancer.registry.*;
 
@@ -42,7 +41,7 @@ public class AttackEffectEventHandling
         float multiplier = 1;
         float addition = 0;
 
-        if (ItemUtils.hasFullSetEquipped(target, ItemRegistry.MARAUDER_HELM.get()) && damageSource.is(DamageTypeDatagen.IS_BRUTISH))
+        if (ItemRegistry.Utils.hasFullSetEquipped(target, ItemRegistry.MARAUDER_HELM.get()) && damageSource.is(DamageTypeDatagen.IS_BRUTISH))
         {
             multiplier -= 0.95f;
         }
@@ -93,7 +92,7 @@ public class AttackEffectEventHandling
         {
             multiplier += MobEffectRegistry.FIERY_AEGIS.get().performAttack(damageAmount, target, attacker);
         }
-        if (damageSource.getDirectEntity() instanceof Player attacker && ItemUtils.hasFullSetEquipped(attacker, ItemRegistry.HELLBLAZE_MONARCH_HELMET.get())
+        if (damageSource.getDirectEntity() instanceof Player attacker && ItemRegistry.Utils.hasFullSetEquipped(attacker, ItemRegistry.HELLBLAZE_MONARCH_HELMET.get())
                 && target.level() instanceof ServerLevel level && damageAmount >= 7 && (damageSource.is(DamageTypeDatagen.IS_PYROMANCY) || damageSource.is(DamageTypeDatagen.IS_EMBER)))
         {
             UnburnedSpiritEntity spirit = new UnburnedSpiritEntity(EntityTypeRegistry.UNBURNED_SPIRIT.get(), level);

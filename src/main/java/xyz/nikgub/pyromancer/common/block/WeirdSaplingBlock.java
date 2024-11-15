@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.pyromancer.common.util.BlockUtils;
+import xyz.nikgub.pyromancer.registry.BlockRegistry;
 
 public class WeirdSaplingBlock extends BushBlock implements BonemealableBlock
 {
@@ -35,7 +35,7 @@ public class WeirdSaplingBlock extends BushBlock implements BonemealableBlock
 
     public boolean mayPlaceOn (@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos)
     {
-        return BlockUtils.flamingGrovePlantable(blockState);
+        return BlockRegistry.Utils.flamingGrovePlantable(blockState);
     }
 
     @Override

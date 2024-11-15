@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -305,4 +306,21 @@ public class ItemRegistry
             () -> new ForgeSpawnEggItem(EntityTypeRegistry.PYRACORN, -8887200, -39359, new Item.Properties()));
     public static final RegistryObject<Item> SCORCH_SPAWN_EGG = ITEMS.register("scorch_spawn_egg",
             () -> new ForgeSpawnEggItem(EntityTypeRegistry.SCORCH, -8891844, -3775978, new Item.Properties()));
+
+    public static class Utils
+    {
+        public static boolean hasFullSetEquipped (LivingEntity entity, ArmorItem checkedArmorItem)
+        {
+            boolean b = true;
+            for (EquipmentSlot equipmentSlot : new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET})
+            {
+                if (!(entity.getItemBySlot(equipmentSlot).getItem() instanceof ArmorItem armorItem) || !armorItem.getMaterial().equals(checkedArmorItem.getMaterial()))
+                {
+                    b = false;
+                    break;
+                }
+            }
+            return b;
+        }
+    }
 }

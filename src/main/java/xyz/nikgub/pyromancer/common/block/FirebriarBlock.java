@@ -12,8 +12,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.pyromancer.common.util.BlockUtils;
 import xyz.nikgub.pyromancer.data.EntityTagDatagen;
+import xyz.nikgub.pyromancer.registry.BlockRegistry;
 import xyz.nikgub.pyromancer.registry.DamageSourceRegistry;
 
 @SuppressWarnings("deprecation")
@@ -35,7 +35,7 @@ public class FirebriarBlock extends FlowerBlock
 
     protected boolean mayPlaceOn (@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos)
     {
-        return BlockUtils.flamingGrovePlantable(blockState);
+        return BlockRegistry.Utils.flamingGrovePlantable(blockState);
     }
 
     @Override

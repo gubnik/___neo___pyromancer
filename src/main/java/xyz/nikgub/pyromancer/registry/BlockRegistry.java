@@ -23,7 +23,7 @@ import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.block.*;
-import xyz.nikgub.pyromancer.common.util.BlockUtils;
+import xyz.nikgub.pyromancer.data.BlockTagDatagen;
 import xyz.nikgub.pyromancer.data.ConfiguredFeatureDatagen;
 
 import java.util.function.Supplier;
@@ -88,7 +88,7 @@ public class BlockRegistry
             {
                 protected boolean mayPlaceOn (@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos)
                 {
-                    return BlockUtils.flamingGrovePlantable(blockState);
+                    return Utils.flamingGrovePlantable(blockState);
                 }
             });
     //
@@ -104,7 +104,7 @@ public class BlockRegistry
                 @Override
                 protected boolean mayPlaceOn (@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos)
                 {
-                    return BlockUtils.flamingGrovePlantable(blockState);
+                    return Utils.flamingGrovePlantable(blockState);
                 }
             });
 
@@ -114,7 +114,7 @@ public class BlockRegistry
                 @Override
                 protected boolean mayPlaceOn (@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos)
                 {
-                    return BlockUtils.flamingGrovePlantable(blockState);
+                    return Utils.flamingGrovePlantable(blockState);
                 }
             });
 
@@ -156,5 +156,13 @@ public class BlockRegistry
     private static boolean always (BlockState p_50775_, BlockGetter p_50776_, BlockPos p_50777_)
     {
         return true;
+    }
+
+    public static class Utils
+    {
+        public static boolean flamingGrovePlantable (BlockState blockState)
+        {
+            return blockState.is(BlockTagDatagen.FLAMING_GROVE_PLANT_ON);
+        }
     }
 }
