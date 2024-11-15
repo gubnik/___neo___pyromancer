@@ -231,7 +231,7 @@ public abstract class PlayerMixin extends LivingEntity
                 final int cost = (int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get());
                 if (BlazingJournalItem.getBlaze(player) >= cost)
                 {
-                    FlammenklingeItem.attackProper(player, target, callbackInfo);
+                    FlammenklingeItem.attackProper(player);
                     BlazingJournalItem.changeBlaze(player, -cost);
                 }
             }

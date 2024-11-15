@@ -25,7 +25,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.joml.Vector3f;
 import xyz.nikgub.incandescent.common.item.IExtensibleTooltipItem;
 import xyz.nikgub.incandescent.common.item.IGradientNameItem;
 import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
@@ -33,7 +33,7 @@ import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.network.NetworkCore;
-import xyz.nikgub.pyromancer.network.c2s.SetDeltaMovementPacket;
+import xyz.nikgub.pyromancer.network.c2s.FlammenklingeMovementPacket;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 import xyz.nikgub.pyromancer.registry.DamageSourceRegistry;
 import xyz.nikgub.pyromancer.registry.ItemRegistry;
@@ -71,37 +71,43 @@ public class FlammenklingeItem extends SwordItem implements IPyromancyItem, INot
     @Override
     public void onUseTick (@NotNull Level level, @NotNull LivingEntity entity, @NotNull ItemStack itemStack, int tick)
     {
-        if (!(entity instanceof Player player)) return;
-        final Vec3 srcVec = player.getDeltaMovement();
-        final Vec3 nVec = srcVec.multiply(2.4, 0, 2.4).add(0, 0.8, 0);
+        if (!(entity instanceof ServerPlayer player)) return;
         CompoundTag tag = player.getMainHandItem().getOrCreateTag();
-        for (LivingEntity target : EntityUtils.entityCollector(player.getEyePosition(), 2, player.level()))
+        for (LivingEntity target : EntityUtils.entityCollector(player.position(), 4, level))
         {
-            target.setDeltaMovement(nVec);
             if (target == player) continue;
-            target.setRemainingFireTicks(target.getRemainingFireTicks() + 40);
             target.hurt(DamageSourceRegistry.flammenklingeLaunch(player), (float) player.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get()));
+            target.setRemainingFireTicks(target.getRemainingFireTicks() + 40);
             tag.putInt(ENEMIES_COUNTER_TAG, tag.getInt(ENEMIES_COUNTER_TAG) + 1);
         }
-        BlazingJournalItem.changeBlaze(player, -(int) getDefaultBlazeCost());
+        BlazingJournalItem.changeBlaze(player, -(int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()));
         entity.stopUsingItem();
-        if (!(player.level() instanceof ServerLevel serverLevel))
+        if (!(level instanceof ServerLevel serverLevel))
         {
             return;
         }
-        final double X = player.getX();
-        final double Y = player.getY();
-        final double Z = player.getZ();
-        for (int i = 0; i < 20; i++)
+        vortexParticles(serverLevel, player.getX(), player.getY(), player.getZ());
+    }
+
+    public static void attackProper (@NotNull ServerPlayer self)
+    {
+        CompoundTag tag = self.getMainHandItem().getOrCreateTag();
+        for (LivingEntity entity : EntityUtils.entityCollector(self.position(), 4, self.level()))
         {
-            int tickCount = 20 - i;
-            final double c = (double) tickCount / 20;
-            final double R = 2 * c;
-            final double sinK = R * Math.sin(Math.toRadians(tickCount * 18));
-            final double cosK = R * Math.cos(Math.toRadians(tickCount * 18));
-            serverLevel.sendParticles(ParticleTypes.FLAME, X + sinK, Y + tickCount * 0.1, Z + cosK, (int) (1 + 5 * c), 0.1, 0.1, 0.1, 0);
-            serverLevel.sendParticles(ParticleTypes.FLAME, X - sinK, Y + tickCount * 0.1, Z - cosK, (int) (1 + 5 * c), 0.1, 0.1, 0.1, 0);
+
+            if (entity == self) continue;
+            entity.setDeltaMovement(new Vec3(0, 1.2, 0));
+            entity.setRemainingFireTicks(entity.getRemainingFireTicks() + 40);
+            entity.hurt(DamageSourceRegistry.flammenklingeLaunch(self), (float) self.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get()));
+            tag.putInt(FlammenklingeItem.ENEMIES_COUNTER_TAG, tag.getInt(FlammenklingeItem.ENEMIES_COUNTER_TAG) + 1);
         }
+        tag.putInt(ENEMIES_COUNTER_TAG, tag.getInt(ENEMIES_COUNTER_TAG) + 10);
+        NetworkCore.sendToAll(new FlammenklingeMovementPacket(self.getId(), new Vector3f(1.5f, 0, 1.5f)));
+        if (!(self.level() instanceof ServerLevel serverLevel))
+        {
+            return;
+        }
+        vortexParticles(serverLevel, self.getX(), self.getY(), self.getZ());
     }
 
     @Override
@@ -126,7 +132,7 @@ public class FlammenklingeItem extends SwordItem implements IPyromancyItem, INot
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use (@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand)
     {
-        if (BlazingJournalItem.getBlaze(player) > player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()))
+        if (BlazingJournalItem.getBlaze(player) >= player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()))
         {
             player.startUsingItem(hand);
             return InteractionResultHolder.success(player.getItemInHand(hand));
@@ -217,32 +223,8 @@ public class FlammenklingeItem extends SwordItem implements IPyromancyItem, INot
         return 8;
     }
 
-    public static void attackProper (@NotNull ServerPlayer self, @NotNull Entity target, CallbackInfo callbackInfo)
+    private static void vortexParticles(ServerLevel level, double X, double Y, double Z)
     {
-
-        final Vec3 srcVec = self.getDeltaMovement();
-        final Vec3 nVec = new Vec3(srcVec.x * 1.5, 1.2, srcVec.z * 1.5);
-        CompoundTag tag = self.getMainHandItem().getOrCreateTag();
-        for (LivingEntity entity : EntityUtils.entityCollector(self.position(), 4, self.level()))
-        {
-
-            entity.setDeltaMovement(nVec);
-            if (entity == self) continue;
-            entity.setRemainingFireTicks(entity.getRemainingFireTicks() + 40);
-            entity.hurt(DamageSourceRegistry.flammenklingeLaunch(self), (float) self.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get()));
-            tag.putInt(FlammenklingeItem.ENEMIES_COUNTER_TAG, tag.getInt(FlammenklingeItem.ENEMIES_COUNTER_TAG) + 1);
-        }
-        tag.putInt(ENEMIES_COUNTER_TAG, tag.getInt(ENEMIES_COUNTER_TAG) + 10);
-        NetworkCore.sendToAll(new SetDeltaMovementPacket(self.getId(), nVec.toVector3f()));
-        //self.setDeltaMovement(nVec);
-        if (!(self.level() instanceof ServerLevel level))
-        {
-            callbackInfo.cancel();
-            return;
-        }
-        final double X = self.getX();
-        final double Y = self.getY();
-        final double Z = self.getZ();
         for (int i = 0; i < 20; i++)
         {
             int tickCount = 20 - i;
@@ -254,5 +236,4 @@ public class FlammenklingeItem extends SwordItem implements IPyromancyItem, INot
             level.sendParticles(ParticleTypes.FLAME, X - sinK, Y + tickCount * 0.1, Z - cosK, (int) (1 + 5 * c), 0.1, 0.1, 0.1, 0);
         }
     }
-
 }

@@ -6,6 +6,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -18,13 +19,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.incandescent.common.item.IExtensibleTooltipItem;
 import xyz.nikgub.incandescent.common.item.IGradientNameItem;
 import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerConfig;
+import xyz.nikgub.pyromancer.network.NetworkCore;
+import xyz.nikgub.pyromancer.network.c2s.SymbolOfSunMovementPacket;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 import xyz.nikgub.pyromancer.registry.MobEffectRegistry;
 import xyz.nikgub.pyromancer.registry.TierRegistry;
@@ -47,22 +49,10 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     @Override
     public void onUseTick (@NotNull Level level, @NotNull LivingEntity entity, @NotNull ItemStack itemStack, int tick)
     {
-        if (!(entity instanceof Player player)) return;
-        Vec3 movementVector = player.getDeltaMovement();
-        Vec3 directionVector;
-        double multCoeff = 1.5D;
-        if (movementVector.multiply(1, 0, 1).length() <= 0.125D)
-        {
-            multCoeff = 2.5D;
-            directionVector = player.getLookAngle().multiply(1, 0, 1).normalize();
-        } else if (player.isSwimming())
-        {
-            multCoeff = 0.75D;
-            directionVector = player.getLookAngle();
-        } else directionVector = movementVector.multiply(1, 0, 1).normalize();
-        player.setDeltaMovement(movementVector.x + multCoeff * directionVector.x, movementVector.y + multCoeff * directionVector.y, movementVector.z + multCoeff * directionVector.z);
+        if (!(entity instanceof ServerPlayer player)) return;
+        NetworkCore.sendToAll(new SymbolOfSunMovementPacket(player.getId()));
         player.addEffect(new MobEffectInstance(MobEffectRegistry.SOLAR_COLLISION.get(), 10, 0, false, true));
-        BlazingJournalItem.changeBlaze(player, -(int) getDefaultBlazeCost());
+        BlazingJournalItem.changeBlaze(player, -(int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()));
         entity.stopUsingItem();
     }
 
@@ -88,7 +78,7 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use (@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand)
     {
-        if (BlazingJournalItem.getBlaze(player) > player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()))
+        if (BlazingJournalItem.getBlaze(player) >= player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()))
         {
             player.startUsingItem(hand);
             return InteractionResultHolder.success(player.getItemInHand(hand));

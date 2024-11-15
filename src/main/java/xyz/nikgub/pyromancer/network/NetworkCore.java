@@ -7,7 +7,9 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import xyz.nikgub.pyromancer.PyromancerMod;
+import xyz.nikgub.pyromancer.network.c2s.FlammenklingeMovementPacket;
 import xyz.nikgub.pyromancer.network.c2s.SetDeltaMovementPacket;
+import xyz.nikgub.pyromancer.network.c2s.SymbolOfSunMovementPacket;
 import xyz.nikgub.pyromancer.network.key.SwapPyromancyKeyMessage;
 import xyz.nikgub.pyromancer.registry.KeyBindsRegistry;
 
@@ -38,6 +40,24 @@ public class NetworkCore
                 .encoder(SetDeltaMovementPacket::toBytes)
                 .consumerMainThread(SetDeltaMovementPacket::handle)
                 .add();
+
+        INSTANCE.messageBuilder(SymbolOfSunMovementPacket.class, id++, NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SymbolOfSunMovementPacket::new)
+                .encoder(SymbolOfSunMovementPacket::toBytes)
+                .consumerMainThread(SymbolOfSunMovementPacket::handle)
+                .add();
+
+        INSTANCE.messageBuilder(FlammenklingeMovementPacket.class, id++, NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(FlammenklingeMovementPacket::new)
+                .encoder(FlammenklingeMovementPacket::toBytes)
+                .consumerMainThread(FlammenklingeMovementPacket::handle)
+                .add();
+
+        //INSTANCE.messageBuilder(FlammenklingeLeapPacket.class, id++, NetworkDirection.PLAY_TO_CLIENT)
+        //        .decoder(FlammenklingeLeapPacket::new)
+        //        .encoder(FlammenklingeLeapPacket::toBytes)
+        //        .consumerMainThread(FlammenklingeLeapPacket::handle)
+        //        .add();
     }
 
     public static <MSG> void sendToServer (MSG message)
