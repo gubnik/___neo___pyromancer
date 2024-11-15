@@ -8,10 +8,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -33,7 +30,6 @@ public class PyroentEntity extends Monster implements IAnimationPurposeEntity
     public static final EntityDataSerializer<DeterminedAnimation.AnimationPurpose> ANIMATION_STATE = EntityDataSerializer.simpleEnum(DeterminedAnimation.AnimationPurpose.class);
     private static final EntityDataAccessor<DeterminedAnimation.AnimationPurpose> DATA_STATE = SynchedEntityData.defineId(PyroentEntity.class, ANIMATION_STATE);
     private static final EntityDataAccessor<Integer> ATTACK_TICK = SynchedEntityData.defineId(PyroentEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> POLLEN = SynchedEntityData.defineId(PyroentEntity.class, EntityDataSerializers.BOOLEAN);
 
     static
     {
@@ -48,7 +44,6 @@ public class PyroentEntity extends Monster implements IAnimationPurposeEntity
         super(pEntityType, pLevel);
         this.entityData.define(DATA_STATE, DeterminedAnimation.AnimationPurpose.IDLE);
         this.entityData.define(ATTACK_TICK, 0);
-        this.entityData.define(POLLEN, false);
     }
 
     public static AttributeSupplier setAttributes ()
@@ -70,6 +65,13 @@ public class PyroentEntity extends Monster implements IAnimationPurposeEntity
     }
 
     @Override
+    public void onSyncedDataUpdated (@NotNull EntityDataAccessor<?> pKey)
+    {
+        this.animationSyncedDataHandler(pKey);
+        super.onSyncedDataUpdated(pKey);
+    }
+
+    @Override
     public EntityDataAccessor<DeterminedAnimation.AnimationPurpose> getAnimationStateDataAccessor ()
     {
         return DATA_STATE;
@@ -85,14 +87,40 @@ public class PyroentEntity extends Monster implements IAnimationPurposeEntity
         entityData.set(ATTACK_TICK, value);
     }
 
-    public boolean hasPollen ()
+    @Override
+    public boolean doHurtTarget (@NotNull Entity target)
     {
-        return this.entityData.get(POLLEN);
+        if (this.getAllAnimations().stream()
+                .filter(determinedAnimation -> determinedAnimation.animationPurpose() != DeterminedAnimation.AnimationPurpose.IDLE)
+                .anyMatch(determinedAnimation -> determinedAnimation.animationState().isStarted()))
+            return false;
+        this.runAnimationOf(DeterminedAnimation.AnimationPurpose.MAIN_ATTACK);
+        this.setAttackTick(this.tickCount);
+        return super.doHurtTarget(target);
     }
 
-    public void setPollenState (boolean state)
+    @Override
+    public void tick ()
     {
-        this.entityData.set(POLLEN, state);
+        super.tick();
+
+        if (this.isDeadOrDying()) return;
+
+        LivingEntity target = this.getTarget();
+        final int attackTick = getAttackTick();
+
+        if (attackTick != 0)
+        {
+            if (target != null)
+            {
+                this.lookAt(target, 90, 90);
+            }
+            if (this.tickCount >= attackTick + 10)
+            {
+                this.setAttackTick(0);
+                this.runAnimationOf(DeterminedAnimation.AnimationPurpose.IDLE);
+            }
+        }
     }
 
     @Override
