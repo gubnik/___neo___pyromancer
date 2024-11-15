@@ -51,7 +51,7 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     {
         if (!(entity instanceof ServerPlayer player)) return;
         NetworkCore.sendToAll(new SymbolOfSunMovementPacket(player.getId()));
-        player.addEffect(new MobEffectInstance(MobEffectRegistry.SOLAR_COLLISION.get(), 10, 0, false, true));
+        player.addEffect(new MobEffectInstance(MobEffectRegistry.SOLAR_COLLISION.get(), 15, 0, false, true));
         BlazingJournalItem.changeBlaze(player, -(int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()));
         entity.stopUsingItem();
     }
@@ -60,7 +60,7 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     public void onStopUsing(ItemStack itemStack, LivingEntity entity, int count)
     {
         if (!(entity instanceof Player player)) return;
-        player.getCooldowns().addCooldown(itemStack.getItem(), 30);
+        if (count > 0) player.getCooldowns().addCooldown(itemStack.getItem(), 30);
     }
 
     @Override
