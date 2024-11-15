@@ -7,7 +7,7 @@ import net.minecraft.client.animation.KeyframeAnimations;
 
 public class UnburnedAnimations
 {
-    public static final AnimationDefinition UNBURNED_ATTACK_MAIN = AnimationDefinition.Builder.withLength(0.5834334f)
+    public static final AnimationDefinition ATTACK_MAIN = AnimationDefinition.Builder.withLength(0.5834334f)
             .addAnimation("Body",
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f),
@@ -89,7 +89,7 @@ public class UnburnedAnimations
                             new Keyframe(0.5834334f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR))).build();
 
-    public static final AnimationDefinition UNBURNED_ATTACK_EXPLOSION = AnimationDefinition.Builder.withLength(1f)
+    public static final AnimationDefinition ATTACK_EXPLOSION = AnimationDefinition.Builder.withLength(1f)
             .addAnimation("LegRight",
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f),
@@ -243,7 +243,7 @@ public class UnburnedAnimations
                             new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR))).build();
 
-    public static final AnimationDefinition UNBURNED_ATTACK_KICK = AnimationDefinition.Builder.withLength(0.5f)
+    public static final AnimationDefinition ATTACK_KICK = AnimationDefinition.Builder.withLength(0.5f)
             .addAnimation("LegRight",
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, 0f, 0f),
@@ -364,7 +364,8 @@ public class UnburnedAnimations
                                     AnimationChannel.Interpolations.LINEAR),
                             new Keyframe(0.5f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
                                     AnimationChannel.Interpolations.LINEAR))).build();
-    public static final AnimationDefinition UNBURNED_EMERGE = AnimationDefinition.Builder.withLength(1f)
+
+    public static final AnimationDefinition EMERGE = AnimationDefinition.Builder.withLength(1f)
             .addAnimation("LegRight",
                     new AnimationChannel(AnimationChannel.Targets.POSITION,
                             new Keyframe(0f, KeyframeAnimations.posVec(0f, -83f, 0f),

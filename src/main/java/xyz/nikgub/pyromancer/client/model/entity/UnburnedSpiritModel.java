@@ -107,8 +107,8 @@ public class UnburnedSpiritModel<T extends UnburnedSpiritEntity> extends Hierarc
         this.walkingAnimation(limbSwing, limbSwingAmount);
         this.idleAnimation(ageInTicks);
         // animations vvv
-        this.animate(entity.ATTACK, UnburnedAnimations.UNBURNED_ATTACK_MAIN, ageInTicks);
-        this.animate(entity.KICK, UnburnedAnimations.UNBURNED_ATTACK_KICK, ageInTicks);
+        this.animate(entity.ATTACK, UnburnedAnimations.ATTACK_MAIN, ageInTicks);
+        this.animate(entity.KICK, UnburnedAnimations.ATTACK_KICK, ageInTicks);
         // animations ^^^
         this.Head.yRot = (float) Math.toRadians(netHeadYaw);
         this.Head.xRot = (float) Math.toRadians(headPitch);

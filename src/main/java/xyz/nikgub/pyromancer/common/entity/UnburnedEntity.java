@@ -29,6 +29,7 @@ import java.util.List;
 public class UnburnedEntity extends Monster implements IAnimationPurposeEntity
 {
     public static final EntityDataSerializer<DeterminedAnimation.AnimationPurpose> ANIMATION_STATE = EntityDataSerializer.simpleEnum(DeterminedAnimation.AnimationPurpose.class);
+
     private static final EntityDataAccessor<DeterminedAnimation.AnimationPurpose> DATA_STATE = SynchedEntityData.defineId(UnburnedEntity.class, ANIMATION_STATE);
     private static final EntityDataAccessor<Integer> BATTLE_TICK = SynchedEntityData.defineId(UnburnedEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ATTACK_TICK = SynchedEntityData.defineId(UnburnedEntity.class, EntityDataSerializers.INT);
@@ -157,12 +158,15 @@ public class UnburnedEntity extends Monster implements IAnimationPurposeEntity
         if (attackTick != 0)
         {
             if (target != null)
+            {
                 this.lookAt(target, 90, 90);
+            }
             if (this.tickCount >= attackTick + 12)
             {
                 this.setAttackTick(0);
                 this.runAnimationOf(DeterminedAnimation.AnimationPurpose.IDLE);
-            } else if (this.tickCount >= attackTick + 7)
+            }
+            else if (this.tickCount >= attackTick + 7)
             {
             }
         }

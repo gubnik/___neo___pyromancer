@@ -107,10 +107,10 @@ public class UnburnedModel<T extends UnburnedEntity> extends HierarchicalModel<T
         this.walkingAnimation(limbSwing, limbSwingAmount);
         this.idleAnimation(ageInTicks);
         // animations vvv
-        this.animate(entity.ATTACK, UnburnedAnimations.UNBURNED_ATTACK_MAIN, ageInTicks);
-        this.animate(entity.KICK, UnburnedAnimations.UNBURNED_ATTACK_KICK, ageInTicks);
-        this.animate(entity.EXPLOSION, UnburnedAnimations.UNBURNED_ATTACK_EXPLOSION, ageInTicks);
-        this.animate(entity.EMERGE, UnburnedAnimations.UNBURNED_EMERGE, ageInTicks);
+        this.animate(entity.ATTACK, UnburnedAnimations.ATTACK_MAIN, ageInTicks);
+        this.animate(entity.KICK, UnburnedAnimations.ATTACK_KICK, ageInTicks);
+        this.animate(entity.EXPLOSION, UnburnedAnimations.ATTACK_EXPLOSION, ageInTicks);
+        this.animate(entity.EMERGE, UnburnedAnimations.EMERGE, ageInTicks);
         // animations ^^^
         this.Head.yRot = (float) Math.toRadians(netHeadYaw);
         this.Head.xRot = (float) Math.toRadians(headPitch);
