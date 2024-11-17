@@ -37,10 +37,10 @@ public class SymbolOfSunMovementPacket
             assert player != null;
             Vec3 movementVector = player.getDeltaMovement();
             Vec3 directionVector;
-            double multCoeff = 3.5D;
+            double multCoeff = 2.5D;
             if (movementVector.multiply(1, 0, 1).length() <= 0.125D)
             {
-                multCoeff = 4.5D;
+                multCoeff *= 1.5D;
                 directionVector = player.getLookAngle().multiply(1, 0, 1).normalize();
             } else if (player.isSwimming())
             {
