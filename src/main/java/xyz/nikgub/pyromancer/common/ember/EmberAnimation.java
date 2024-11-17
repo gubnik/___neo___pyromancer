@@ -10,6 +10,8 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * @author nikgub_
+ *
+ * Animation that is used for an ember.
  */
 @NotNull
 public abstract class EmberAnimation
@@ -37,11 +39,13 @@ public abstract class EmberAnimation
         return cooldown;
     }
 
+    @FunctionalInterface
     public interface ThirdPersonAnimation
     {
         void run (HumanoidModel<?> model, LivingEntity entity, HumanoidArm arm);
     }
 
+    @FunctionalInterface
     public interface FirstPersonAnimation
     {
         void run (PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess);

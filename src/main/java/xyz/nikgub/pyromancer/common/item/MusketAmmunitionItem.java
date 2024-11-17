@@ -40,6 +40,7 @@ public class MusketAmmunitionItem extends Item
         return effect;
     }
 
+    @FunctionalInterface
     public interface Effect
     {
         float getModifier (ItemStack musket, LivingEntity source, LivingEntity entity);

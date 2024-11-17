@@ -48,6 +48,7 @@ public class InfusionMobEffect extends MobEffect
         return itemColors;
     }
 
+    @FunctionalInterface
     public interface InfusionEffect
     {
         float effect (LivingEntity target, LivingEntity directCause, DamageSource damageSource, float damageAmount);

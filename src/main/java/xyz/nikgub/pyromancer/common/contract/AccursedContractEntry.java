@@ -39,6 +39,7 @@ public class AccursedContractEntry<T extends Entity>
         return valueInCredits;
     }
 
+    @FunctionalInterface
     public interface Factory<T extends Entity>
     {
         T create (Level level);
