@@ -39,6 +39,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
@@ -401,23 +402,23 @@ public class PyromancerMod
         {
             LivingEntity entity = event.getEntity();
             if (!(entity instanceof Player player)) return;
-            ItemStack stack = player.getMainHandItem();
-            if (stack.getItem() != ItemRegistry.FLAMMENKLINGE.get()) return;
+            ItemStack stack = FlammenklingeItem.fetchStack(player);
+            if (stack.isEmpty()) return;
             CompoundTag tag = stack.getOrCreateTag();
-            float dmgMultiplier = event.getDamageMultiplier();
+            float dmgBonus = event.getDistance();
             final List<Vec3> positions = new ArrayList<>();
             if (tag.getInt(FlammenklingeItem.ENEMIES_COUNTER_TAG) > 0)
             {
                 tag.putInt(FlammenklingeItem.ENEMIES_COUNTER_TAG, 0);
-                for (LivingEntity target : EntityUtils.entityCollector(player.getPosition(0), 4 * dmgMultiplier, player.level()))
+                for (LivingEntity target : EntityUtils.entityCollector(player.getPosition(0), 4 + Mth.clamp(dmgBonus / 4, 0, 2), player.level()))
                 {
                     if (target == player) continue;
                     target.setRemainingFireTicks(target.getRemainingFireTicks() + 80);
-                    target.hurt(DamageSourceRegistry.flammenklingeLand(player), (float) player.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get()) * dmgMultiplier);
+                    target.hurt(DamageSourceRegistry.flammenklingeLand(player), (float) player.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get()) + dmgBonus);
                     if (target.level() instanceof ServerLevel level)
                     {
                         final Vec3 pos = BlockPos.containing(target.position()).below().getCenter();
-                        level.sendParticles(ParticleTypes.LAVA, pos.x, pos.y + 2, pos.z, 10, 0, 4, 0, 0.02);
+                        level.sendParticles(ParticleTypes.LAVA, pos.x, pos.y + 2, pos.z, 20, 0, 4, 0, 0.02);
                     }
                 }
                 event.setCanceled(event.isCancelable());

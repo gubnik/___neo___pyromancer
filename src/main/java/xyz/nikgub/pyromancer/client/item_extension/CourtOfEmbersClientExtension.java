@@ -47,7 +47,7 @@ public class CourtOfEmbersClientExtension implements IClientItemExtensions
     {
         int i = arm == HumanoidArm.RIGHT ? 1 : -1;
         float f = Mth.clamp(v, 0F, 1F);
-        poseStack.rotateAround(Axis.XN.rotationDegrees(0), (float) i * 0.5F + f * -0.5F, - f / 3, -0.72F);
-        //poseStack.translate((float) i * 0.5F + f * -0.5F, - f / 3, -0.72F);
+        poseStack.rotateAround(Axis.XN.rotation(f), 0, 0 , 0);
+        poseStack.translate((float) i * 0.5F + f * -0.5F, - f / 3, -0.72F);
     }
 }

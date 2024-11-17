@@ -24,6 +24,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 import xyz.nikgub.incandescent.common.item.IExtensibleTooltipItem;
@@ -32,6 +34,7 @@ import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerConfig;
+import xyz.nikgub.pyromancer.data.ItemTagDatagen;
 import xyz.nikgub.pyromancer.network.NetworkCore;
 import xyz.nikgub.pyromancer.network.c2s.FlammenklingeMovementPacket;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
@@ -43,6 +46,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 
 public class FlammenklingeItem extends SwordItem implements IPyromancyItem, INotStupidTooltipItem, IGradientNameItem, IExtensibleTooltipItem
@@ -56,12 +60,31 @@ public class FlammenklingeItem extends SwordItem implements IPyromancyItem, INot
         super(TierRegistry.FLAMMENKLINGE, 0, -2.4f, new Properties().stacksTo(1));
     }
 
+    public static ItemStack fetchStack (Entity entity)
+    {
+        AtomicReference<IItemHandler> aref = new AtomicReference<>();
+        entity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(aref::set);
+        if (aref.get() != null)
+        {
+            for (int i = 0; i < aref.get().getSlots(); i++)
+            {
+                ItemStack itemStack = aref.get().getStackInSlot(i);
+                if (itemStack.getItem() == ItemRegistry.FLAMMENKLINGE.get())
+                {
+                    //itemStack.getOrCreateTag().putInt(ENEMIES_COUNTER_TAG, 0);
+                    return itemStack;
+                }
+            }
+        }
+        return ItemStack.EMPTY;
+    }
+
     @Override
     public void inventoryTick (@NotNull ItemStack itemStack, @NotNull Level level, @NotNull Entity entity, int tick, boolean b)
     {
         if (!(entity instanceof LivingEntity living)) return;
         CompoundTag tag = living.getMainHandItem().getOrCreateTag();
-        if (living.getMainHandItem().getItem() != ItemRegistry.FLAMMENKLINGE.get())
+        if (!living.getMainHandItem().is(ItemTagDatagen.FLAMMENKLINGE_PLUNGE_COMPATIBLE))
         {
             tag.putInt(ENEMIES_COUNTER_TAG, 0);
             return;

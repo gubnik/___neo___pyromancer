@@ -23,6 +23,7 @@ public class ItemTagDatagen extends ItemTagsProvider
     public static final TagKey<Item> FROST_WEAPON = create("frost_weapon");
     public static final TagKey<Item> PYROMANCY = create("pyromancy");
     public static final TagKey<Item> DYNAMIC_WEAPON = create("dynamic_weapon");
+    public static final TagKey<Item> FLAMMENKLINGE_PLUNGE_COMPATIBLE = create("flammenklinge_plunge_compatible");
 
     public ItemTagDatagen (PackOutput output, CompletableFuture<HolderLookup.Provider> provider, CompletableFuture<TagLookup<Block>> blockProvider, @Nullable ExistingFileHelper existingFileHelper)
     {
@@ -52,6 +53,10 @@ public class ItemTagDatagen extends ItemTagsProvider
                         ItemRegistry.FLAMMENKLINGE.get(),
                         ItemRegistry.SPEAR_OF_MOROZ.get()
                 );
-
+        tag(FLAMMENKLINGE_PLUNGE_COMPATIBLE)
+                .add(
+                        ItemRegistry.FLAMMENKLINGE.get(),
+                        ItemRegistry.SYMBOL_OF_SUN.get()
+                );
     }
 }
