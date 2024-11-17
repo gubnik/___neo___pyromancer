@@ -75,14 +75,14 @@ public class MusketClientExtension implements IClientItemExtensions
     private void applyLoadingHandTransforms (PoseStack poseStack, HumanoidArm arm, float v)
     {
         int i = arm == HumanoidArm.RIGHT ? 1 : -1;
-        poseStack.rotateAround(Axis.ZP.rotationDegrees(120), (float) i * 0.56F, -0.52F + v * -0.6F, -0.72F);
-        poseStack.rotateAround(Axis.YP.rotationDegrees(90), (float) i * 0.56F, -0.52F + v * -0.6F, -0.72F);
+        poseStack.rotateAround(Axis.ZP.rotationDegrees(120 + (i == 1 ? 0 : 180)), (float) i * 0.56F, -0.52F + v * -0.6F, -0.72F);
+        poseStack.rotateAround(Axis.YP.rotationDegrees(90 * i), (float) i * 0.56F, -0.52F + v * -0.6F, -0.72F);
         poseStack.translate((float) i * 0.56F, -0.52F + v * -0.6F, -0.72F);
     }
 
     private void applyLoadedHandTransforms (PoseStack poseStack, HumanoidArm arm, float v)
     {
         int i = arm == HumanoidArm.RIGHT ? 1 : -1;
-        poseStack.translate((float) i * 0.5F + Mth.clamp(v, 0F, 1F) * -0.5F, -0.52F, -0.72F);
+        poseStack.translate((float) i * (0.5F + Mth.clamp(v, 0F, 1F) * -0.5F), -0.52F, -0.72F);
     }
 }
