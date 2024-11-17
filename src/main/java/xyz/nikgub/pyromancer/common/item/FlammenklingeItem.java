@@ -80,7 +80,7 @@ public class FlammenklingeItem extends SwordItem implements IPyromancyItem, INot
             target.setRemainingFireTicks(target.getRemainingFireTicks() + 40);
             tag.putInt(ENEMIES_COUNTER_TAG, tag.getInt(ENEMIES_COUNTER_TAG) + 1);
         }
-        NetworkCore.sendToAll(new FlammenklingeMovementPacket(player.getId(), new Vector3f(1.5f, 0, 1.5f)));
+        NetworkCore.sendToAll(new FlammenklingeMovementPacket(player.getId(), new Vector3f(2.5f, 0, 2.5f)));
         BlazingJournalItem.changeBlaze(player, -(int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()));
         entity.stopUsingItem();
         if (!(level instanceof ServerLevel serverLevel))
@@ -103,7 +103,7 @@ public class FlammenklingeItem extends SwordItem implements IPyromancyItem, INot
             tag.putInt(FlammenklingeItem.ENEMIES_COUNTER_TAG, tag.getInt(FlammenklingeItem.ENEMIES_COUNTER_TAG) + 1);
         }
         tag.putInt(ENEMIES_COUNTER_TAG, tag.getInt(ENEMIES_COUNTER_TAG) + 10);
-        NetworkCore.sendToAll(new FlammenklingeMovementPacket(self.getId(), new Vector3f(1.5f, 0, 1.5f)));
+        NetworkCore.sendToAll(new FlammenklingeMovementPacket(self.getId(), new Vector3f(2.5f, 0, 2.5f)));
         if (!(self.level() instanceof ServerLevel serverLevel))
         {
             return;
