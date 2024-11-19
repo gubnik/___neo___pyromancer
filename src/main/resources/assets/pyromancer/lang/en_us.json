@@ -282,5 +282,9 @@
   "pyromancer.pyromancy_damage": "Pyromancy Damage",
   "pyromancer.quill_hidden_line": "To show quill attack info press ",
   "pyromancer.subtitle.musket_load": "Musket loaded",
-  "pyromancer.subtitle.musket_shot": "Musket fired"
+  "pyromancer.subtitle.musket_shot": "Musket fired",
+  "advancement.pyromancer.flammenklinge_plunge.title": "Mr. Fahrenheit",
+  "advancement.pyromancer.flammenklinge_plunge.description": "Accumulate 3 or more Flammenklinge charges and then plunge",
+  "advancement.pyromancer.flammenklinge_death.title": "High Speed Dirt",
+  "advancement.pyromancer.flammenklinge_death.description": "\"I'm a dirt torpedo!\""
 }

@@ -69,7 +69,7 @@ public class FlammenklingeItem extends SwordItem implements IPyromancyItem, INot
             for (int i = 0; i < aref.get().getSlots(); i++)
             {
                 ItemStack itemStack = aref.get().getStackInSlot(i);
-                if (itemStack.getItem() == ItemRegistry.FLAMMENKLINGE.get())
+                if (itemStack.getItem() == ItemRegistry.FLAMMENKLINGE.get() && itemStack.getOrCreateTag().getInt(ENEMIES_COUNTER_TAG) > 0)
                 {
                     //itemStack.getOrCreateTag().putInt(ENEMIES_COUNTER_TAG, 0);
                     return itemStack;

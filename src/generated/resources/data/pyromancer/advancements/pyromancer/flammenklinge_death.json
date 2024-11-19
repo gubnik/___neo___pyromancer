@@ -1,0 +1,30 @@
+{
+  "parent": "pyromancer:pyromancer/flammenklinge_obtained",
+  "criteria": {
+    "flammenklinge_death": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.pyromancer.flammenklinge_death.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "pyromancer:flammenklinge",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.pyromancer.flammenklinge_death.title"
+    }
+  },
+  "requirements": [
+    [
+      "flammenklinge_death"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

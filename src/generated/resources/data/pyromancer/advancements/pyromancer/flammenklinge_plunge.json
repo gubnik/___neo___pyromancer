@@ -1,0 +1,30 @@
+{
+  "parent": "pyromancer:pyromancer/flammenklinge_obtained",
+  "criteria": {
+    "flammenklinge_plunge": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.pyromancer.flammenklinge_plunge.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "pyromancer:flammenklinge",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.pyromancer.flammenklinge_plunge.title"
+    }
+  },
+  "requirements": [
+    [
+      "flammenklinge_plunge"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

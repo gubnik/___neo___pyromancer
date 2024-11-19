@@ -43,6 +43,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -103,6 +104,7 @@ import xyz.nikgub.pyromancer.common.item.*;
 import xyz.nikgub.pyromancer.common.worldgen.NetherPyrowoodTrunkPlacer;
 import xyz.nikgub.pyromancer.data.BiomeDatagen;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
+import xyz.nikgub.pyromancer.data.ItemTagDatagen;
 import xyz.nikgub.pyromancer.data.RegistriesDataGeneration;
 import xyz.nikgub.pyromancer.network.NetworkCore;
 import xyz.nikgub.pyromancer.registry.*;
@@ -316,14 +318,19 @@ public class PyromancerMod
     }
 
     @SubscribeEvent
-    public void onKillEffects (LivingDeathEvent event)
+    public void livingDeathEvent (LivingDeathEvent event)
     {
         DamageSource damageSource = event.getSource();
         ItemStack hand;
+        if (damageSource.is(DamageTypes.FALL) && event.getEntity() instanceof ServerPlayer entity && entity.getMainHandItem().is(ItemTagDatagen.FLAMMENKLINGE_PLUNGE_COMPATIBLE))
+        {
+            GeneralUtils.addAdvancement(entity, new ResourceLocation(MOD_ID, "pyromancer/flammenklinge_death"));
+        }
         if (damageSource.getEntity() instanceof LivingEntity entity && (hand = entity.getMainHandItem()).getItem() instanceof MusketItem && !MusketItem.isLoaded(hand)
                 && hand.getEnchantmentLevel(EnchantmentRegistry.TROOPER.get()) != 0 && GeneralUtils.isDirectDamage(damageSource))
         {
             MusketItem.reload(entity, hand);
+            return;
         }
     }
 
@@ -406,15 +413,25 @@ public class PyromancerMod
             if (stack.isEmpty()) return;
             CompoundTag tag = stack.getOrCreateTag();
             float dmgBonus = event.getDistance();
+            if (dmgBonus < 2)
+            {
+                tag.putInt(FlammenklingeItem.ENEMIES_COUNTER_TAG, 0);
+                return;
+            }
             final List<Vec3> positions = new ArrayList<>();
             if (tag.getInt(FlammenklingeItem.ENEMIES_COUNTER_TAG) > 0)
             {
+                if (player instanceof ServerPlayer sp && tag.getInt(FlammenklingeItem.ENEMIES_COUNTER_TAG) >= 3)
+                {
+                    GeneralUtils.addAdvancement(sp, new ResourceLocation(MOD_ID, "pyromancer/flammenklinge_plunge"));
+                }
                 tag.putInt(FlammenklingeItem.ENEMIES_COUNTER_TAG, 0);
                 for (LivingEntity target : EntityUtils.entityCollector(player.getPosition(0), 4 + Mth.clamp(dmgBonus / 4, 0, 2), player.level()))
                 {
                     if (target == player) continue;
                     target.setRemainingFireTicks(target.getRemainingFireTicks() + 80);
                     target.hurt(DamageSourceRegistry.flammenklingeLand(player), (float) player.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get()) + dmgBonus);
+                    target.setDeltaMovement(target.position().subtract(entity.position()).scale(0.75));
                     if (target.level() instanceof ServerLevel level)
                     {
                         final Vec3 pos = BlockPos.containing(target.position()).below().getCenter();

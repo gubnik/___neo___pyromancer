@@ -95,6 +95,26 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                     .addCriterion("flammenklinge_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.FLAMMENKLINGE.get()))
                     .save(saver, "pyromancer:pyromancer/flammenklinge_obtained");
 
+            Advancement flammenklinge_plunge = Advancement.Builder.advancement().parent(flammenklinge_obtained)
+                    .display(ItemRegistry.FLAMMENKLINGE.get(),
+                            Component.translatable("advancement.pyromancer.flammenklinge_plunge.title"),
+                            Component.translatable("advancement.pyromancer.flammenklinge_plunge.description"),
+                            null,
+                            FrameType.CHALLENGE,
+                            true, true, false)
+                    .addCriterion("flammenklinge_plunge", new ImpossibleTrigger.TriggerInstance())
+                    .save(saver, "pyromancer:pyromancer/flammenklinge_plunge");
+
+            Advancement flammenklinge_death = Advancement.Builder.advancement().parent(flammenklinge_obtained)
+                    .display(ItemRegistry.FLAMMENKLINGE.get(),
+                            Component.translatable("advancement.pyromancer.flammenklinge_death.title"),
+                            Component.translatable("advancement.pyromancer.flammenklinge_death.description"),
+                            null,
+                            FrameType.CHALLENGE,
+                            true, true, false)
+                    .addCriterion("flammenklinge_death", new ImpossibleTrigger.TriggerInstance())
+                    .save(saver, "pyromancer:pyromancer/flammenklinge_death");
+
             Advancement sizzling_hand_obtained = Advancement.Builder.advancement().parent(pyromancy_obtained)
                     .display(ItemRegistry.SIZZLING_HAND.get(),
                             Component.translatable("advancement.pyromancer.sizzling_hand_obtained.title"),
