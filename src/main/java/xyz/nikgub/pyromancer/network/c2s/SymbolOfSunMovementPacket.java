@@ -47,7 +47,6 @@ public class SymbolOfSunMovementPacket
                 multCoeff = 1.25D;
                 directionVector = player.getLookAngle();
             } else directionVector = movementVector.multiply(1, 0, 1).normalize();
-            player.fallDistance = 0;
             Vec3 nVec = new Vec3(movementVector.x + multCoeff * directionVector.x, movementVector.y + multCoeff * directionVector.y, movementVector.z + multCoeff * directionVector.z);
             player.setDeltaMovement(nVec);
         });
