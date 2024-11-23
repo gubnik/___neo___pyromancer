@@ -42,6 +42,9 @@ public class DamageTypeDatagen extends TagsProvider<DamageType>
     public static final ResourceKey<DamageType> FROSTCOPPER_GOLEM_STOMP_KEY = register("frostcopper_golem_stomp");
 
     public static final ResourceKey<DamageType> MUSKET_SHOT_KEY = register("musket_shot");
+
+    public static final ResourceKey<DamageType> VAPORIZER_GENERIC_KEY = register("vaporizer_generic");
+
     public static final DamageType MUSKET_SHOT = new DamageType(MUSKET_SHOT_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1f);
     public static final DamageType FLAME = new DamageType(FLAME_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
     public static final DamageType HELLBLAZE = new DamageType(HELLBLAZE_KEY.location().getPath(), DamageScaling.NEVER, 0.1f);
@@ -60,22 +63,32 @@ public class DamageTypeDatagen extends TagsProvider<DamageType>
     public static final DamageType HOARFROST_GREATSWORD = new DamageType(HOARFROST_GREATSWORD_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1f);
     public static final DamageType SPEAR_OF_MOROZ = new DamageType(SPEAR_OF_MOROZ_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1f);
     public static final DamageType FROSTCOPPER_GOLEM_STOMP = new DamageType(FROSTCOPPER_GOLEM_STOMP_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.2f);
+    public static final DamageType VAPORIZER_GENERIC = new DamageType(VAPORIZER_GENERIC_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1f);
+
     /**
      * Tag for damage types that are caused by Embers
      */
     public static TagKey<DamageType> IS_EMBER = create("is_ember");
+
     /**
      * Tag for damage types that are brutish (bombsacks, mercury traps, rot etc.)
      */
     public static TagKey<DamageType> IS_BRUTISH = create("is_brutish");
+
     /**
      * Tag for pyromancies damage
      */
     public static TagKey<DamageType> IS_PYROMANCY = create("is_pyromancy");
+
     /**
      * Tag for damage types that are caused by Blazing Journal's enchantments' attacks
      */
     public static TagKey<DamageType> JOURNAL_PROJECTION = create("journal_projection");
+
+    /**
+     * Tag for pyromancies damage
+     */
+    public static TagKey<DamageType> IS_VAPORIZER = create("is_vaporizer");
 
     public DamageTypeDatagen (PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper)
     {
@@ -112,6 +125,7 @@ public class DamageTypeDatagen extends TagsProvider<DamageType>
         bootstrap.register(FROSTCOPPER_GOLEM_STOMP_KEY, FROSTCOPPER_GOLEM_STOMP);
         bootstrap.register(MUSKET_SHOT_KEY, MUSKET_SHOT);
         bootstrap.register(GUILLOTINE_KEY, GUILLOTINE);
+        bootstrap.register(VAPORIZER_GENERIC_KEY, VAPORIZER_GENERIC);
     }
 
     @Override
@@ -132,11 +146,17 @@ public class DamageTypeDatagen extends TagsProvider<DamageType>
                 .add(HOGTRAP_KEY);
         tag(JOURNAL_PROJECTION)
                 .add(BLAZING_JOURNAL_PROJECTION_KEY);
+        tag(IS_VAPORIZER)
+                .add(
+                        VAPORIZER_GENERIC_KEY
+                );
         tag(DamageTypeTags.IS_PROJECTILE)
-                .add(SIZZLING_HAND_KEY)
-                .add(BOMBSACK_KEY)
-                .add(COURT_OF_EMBERS_KEY)
-                .add(MUSKET_SHOT_KEY);
+                .add(
+                        SIZZLING_HAND_KEY,
+                        BOMBSACK_KEY,
+                        COURT_OF_EMBERS_KEY,
+                        MUSKET_SHOT_KEY
+                );
         tag(DamageTypeTags.IS_FIRE)
                 .addTag(IS_EMBER)
                 .addTag(JOURNAL_PROJECTION)

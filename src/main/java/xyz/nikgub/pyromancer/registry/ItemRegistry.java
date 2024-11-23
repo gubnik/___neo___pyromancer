@@ -28,7 +28,7 @@ import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
 @SuppressWarnings("unused")
 public class ItemRegistry
 {
-    public static final  DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PyromancerMod.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, PyromancerMod.MOD_ID);
 
     public static final RegistryObject<MusketAmmunitionItem> IRON_MUSKET_BALL = ITEMS.register("iron_musket_ball", () -> new MusketAmmunitionItem(new Item.Properties(), (itemStack, source, entity) -> 1f));
     public static final RegistryObject<MusketAmmunitionItem> INQUISITORIAL_MUSKET_BALL = ITEMS.register("inquisitorial_musket_ball", () -> new MusketAmmunitionItem(new Item.Properties(), (itemStack, source, entity) ->
@@ -40,7 +40,7 @@ public class ItemRegistry
         guillotine.moveTo(entity.position());
         guillotine.setYRot(source.getYRot());
         level.addFreshEntity(guillotine);
-       return 0.5f;
+        return 0.5f;
     }));
 
     public static final RegistryObject<Item> HOARFROST_GREATSWORD = ITEMS.register("hoarfrost_greatsword",
@@ -51,6 +51,8 @@ public class ItemRegistry
             () -> new ZweihanderItem(new Item.Properties()));
     public static final RegistryObject<MusketItem> MUSKET = ITEMS.register("musket",
             () -> new MusketItem(new Item.Properties()));
+    public static final RegistryObject<VaporizerItem> VAPORIZER = ITEMS.register("vaporizer",
+            () -> new VaporizerItem(new Item.Properties()));
 
 
     // infusion
@@ -75,7 +77,6 @@ public class ItemRegistry
     public static final RegistryObject<Item> RIMEBLOOD = ITEMS.register("rimeblood", () -> new Item(new Item.Properties().rarity(RarityRegistry.FROST_RARITY)));
     public static final RegistryObject<Item> RIMEBRASS_INGOT = ITEMS.register("rimebrass_ingot", () -> new Item(new Item.Properties().rarity(RarityRegistry.FROST_RARITY)));
     public static final RegistryObject<Item> ANCIENT_PLATING = ITEMS.register("ancient_plating", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON)));
-
 
 
     public static final RegistryObject<BlazingJournalItem> BLAZING_JOURNAL = ITEMS.register("blazing_journal", () -> new BlazingJournalItem(new Item.Properties()));
@@ -204,7 +205,7 @@ public class ItemRegistry
                 @Override
                 public void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
                 {
-                    final int cost = (int)player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get());
+                    final int cost = (int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get());
                     if (!(player instanceof ServerPlayer serverPlayer) || serverPlayer.isCreative()) return;
                     final float dHealth = (float) cost / 2;
                     final float cHealth = player.getHealth();

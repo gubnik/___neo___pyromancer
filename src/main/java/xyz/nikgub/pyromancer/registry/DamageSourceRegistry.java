@@ -178,4 +178,14 @@ public class DamageSourceRegistry
                 owner
         );
     }
+
+    public static DamageSource vaporizer (Entity owner)
+    {
+        assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
+        return new DamageSource(
+                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.VAPORIZER_GENERIC_KEY),
+                owner,
+                owner
+        );
+    }
 }
