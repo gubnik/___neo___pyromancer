@@ -61,7 +61,7 @@ public class MusketClientExtension implements IClientItemExtensions
     {
 
         int ticks = player.getUseItemRemainingTicks();
-        if (ticks <= 0  || player.getUseItem() != itemInHand) return false;
+        if (ticks <= 0 || player.getUseItem() != itemInHand) return false;
         if (MusketItem.isLoaded(itemInHand))
         {
             this.applyLoadedHandTransforms(poseStack, arm, ((72000 - ticks) / 20f + partialTick / 20f));

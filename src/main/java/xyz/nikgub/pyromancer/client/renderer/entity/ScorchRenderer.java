@@ -6,7 +6,6 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.client.model.entity.ScorchModel;
-import xyz.nikgub.pyromancer.common.entity.PyroentEntity;
 import xyz.nikgub.pyromancer.common.entity.ScorchEntity;
 
 public class ScorchRenderer extends MobRenderer<ScorchEntity, ScorchModel<ScorchEntity>>

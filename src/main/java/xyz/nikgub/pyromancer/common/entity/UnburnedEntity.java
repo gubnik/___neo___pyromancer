@@ -165,8 +165,7 @@ public class UnburnedEntity extends Monster implements IAnimationPurposeEntity
             {
                 this.setAttackTick(0);
                 this.runAnimationOf(DeterminedAnimation.AnimationPurpose.IDLE);
-            }
-            else if (this.tickCount >= attackTick + 7)
+            } else if (this.tickCount >= attackTick + 7)
             {
             }
         }

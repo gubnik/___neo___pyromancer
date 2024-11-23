@@ -75,6 +75,11 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
                 .build();
     }
 
+    public static boolean spawnPredicate (EntityType<?> entityType, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom)
+    {
+        return pLevel.getDifficulty() != Difficulty.PEACEFUL && !pLevel.getBlockState(pPos.below()).is(BlockRegistry.RIMEBLOOD_CELL.get());
+    }
+
     public int getAttackTick ()
     {
         return entityData.get(ATTACK_TICK);
@@ -137,10 +142,6 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
     public void onSyncedDataUpdated (@NotNull EntityDataAccessor<?> pKey)
     {
         this.animationSyncedDataHandler(pKey);
-    }
-
-    public static boolean spawnPredicate (EntityType<?> entityType, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
-        return pLevel.getDifficulty() != Difficulty.PEACEFUL && !pLevel.getBlockState(pPos.below()).is(BlockRegistry.RIMEBLOOD_CELL.get());
     }
 
     @Override

@@ -30,8 +30,8 @@ import java.util.function.Predicate;
  * Expected behaviour:
  * - wander around (no water)
  * - gets hit ->
- *  ? pyroent is nearby -> run and alert
- *  ! just run
+ * ? pyroent is nearby -> run and alert
+ * ! just run
  */
 public class PyracornEntity extends Monster
 {

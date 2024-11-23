@@ -64,6 +64,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -96,6 +97,9 @@ import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.client.model.armor.ArmorOfHellblazeMonarchModel;
 import xyz.nikgub.pyromancer.client.model.armor.PyromancerArmorModel;
 import xyz.nikgub.pyromancer.client.model.entity.*;
+import xyz.nikgub.pyromancer.client.particle.BrimflameParticle;
+import xyz.nikgub.pyromancer.client.particle.MercuryVaporParticle;
+import xyz.nikgub.pyromancer.client.particle.VaporizerMercuryParticle;
 import xyz.nikgub.pyromancer.client.renderer.entity.*;
 import xyz.nikgub.pyromancer.common.ember.Ember;
 import xyz.nikgub.pyromancer.common.enchantment.BlazingJournalEnchantment;
@@ -137,18 +141,22 @@ public class PyromancerMod
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PyromancerConfig.SPEC);
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setupClient);
+
         modEventBus.addListener(this::registerLayerDefinitions);
         modEventBus.addListener(this::addCreative);
         modEventBus.addListener(this::gatherData);
         modEventBus.addListener(this::entityAttributeSupplier);
         modEventBus.addListener(this::registerSpawnPlacements);
 
+        ParticleRegistry.PARTICLES.register(modEventBus);
         EmberRegistry.EMBERS.register(modEventBus);
         ContractRegistry.CONTRACTS.register(modEventBus);
         ItemRegistry.ITEMS.register(modEventBus);
+        VaporizerAmmoRegistry.AMMO.register(modEventBus);
         BlockRegistry.BLOCKS.register(modEventBus);
         AttributeRegistry.ATTRIBUTES.register(modEventBus);
         EntityTypeRegistry.ENTITY_TYPES.register(modEventBus);
@@ -157,10 +165,7 @@ public class PyromancerMod
         NetherPyrowoodTrunkPlacer.TRUNK_TYPE_REGISTRY.register(modEventBus);
         SoundEventRegistry.SOUNDS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
-
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PyromancerConfig.SPEC);
-
-
+        modEventBus.addListener(this::registerParticles);
     }
 
     private void commonSetup (final FMLCommonSetupEvent event)
@@ -188,6 +193,13 @@ public class PyromancerMod
         EntityRenderers.register(EntityTypeRegistry.SCORCH.get(), ScorchRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.PYRACORN.get(), PyracornRender::new);
         EntityRenderers.register(EntityTypeRegistry.PYROENT.get(), PyroentRenderer::new);
+    }
+
+    public void registerParticles (RegisterParticleProvidersEvent event)
+    {
+        event.registerSpriteSet(ParticleRegistry.BRIMSTONE_FLAME_PARTICLE.get(), BrimflameParticle::provider);
+        event.registerSpriteSet(ParticleRegistry.MERCURY_VAPOR.get(), MercuryVaporParticle::provider);
+        event.registerSpriteSet(ParticleRegistry.VAPORIZER_MERCURY.get(), VaporizerMercuryParticle::provider);
     }
 
     private void registerLayerDefinitions (EntityRenderersEvent.RegisterLayerDefinitions event)
@@ -227,6 +239,7 @@ public class PyromancerMod
             TOOLS.addAll(List.of(
                     ItemRegistry.ZWEIHANDER.get(),
                     ItemRegistry.MUSKET.get(),
+                    ItemRegistry.VAPORIZER.get(),
                     ItemRegistry.HOARFROST_GREATSWORD.get(),
                     ItemRegistry.SPEAR_OF_MOROZ.get()
             ));
@@ -253,13 +266,12 @@ public class PyromancerMod
             {
                 boolean isDecorative = block instanceof GrowingPlantBlock || block instanceof BushBlock || block instanceof TallGrassBlock;
                 if ((isDecorative && event.getTabKey().equals(CreativeModeTabs.NATURAL_BLOCKS))
-                || (!isDecorative && event.getTabKey().equals(CreativeModeTabs.BUILDING_BLOCKS)))
+                        || (!isDecorative && event.getTabKey().equals(CreativeModeTabs.BUILDING_BLOCKS)))
                 {
                     event.accept(block);
                 }
             }
-        }
-        else if (event.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS))
+        } else if (event.getTabKey().equals(CreativeModeTabs.SPAWN_EGGS))
         {
             ItemRegistry.ITEMS.getEntries().stream().filter(itemRegistryObject -> itemRegistryObject.get() instanceof SpawnEggItem).forEach(itemRegistryObject -> event.accept(itemRegistryObject.get()));
         }
@@ -330,7 +342,6 @@ public class PyromancerMod
                 && hand.getEnchantmentLevel(EnchantmentRegistry.TROOPER.get()) != 0 && GeneralUtils.isDirectDamage(damageSource))
         {
             MusketItem.reload(entity, hand);
-            return;
         }
     }
 
@@ -444,7 +455,7 @@ public class PyromancerMod
                 Incandescent.runShakeFor(5D, localPlayer -> localPlayer.tickCount > endTick);
             }
         }
-        
+
         @SubscribeEvent
         public static void livingAttackEvent (LivingAttackEvent event)
         {

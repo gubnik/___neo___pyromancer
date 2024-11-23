@@ -35,7 +35,7 @@ public class BlockStateDatagen extends BlockStateProvider
             }),
             BlockRegistry.PYROWOOD_LEAVES.get(), (blockModelDatagen ->
             {
-                blockModelDatagen.simpleBlock(BlockRegistry.PYROWOOD_LEAVES.get(), blockModelDatagen.models().cubeAll("pyrowood_leaves", new ResourceLocation(PyromancerMod.MOD_ID, "block/pyrowood_leaves" )).renderType("cutout_mipped"));
+                blockModelDatagen.simpleBlock(BlockRegistry.PYROWOOD_LEAVES.get(), blockModelDatagen.models().cubeAll("pyrowood_leaves", new ResourceLocation(PyromancerMod.MOD_ID, "block/pyrowood_leaves")).renderType("cutout_mipped"));
             })
     );
     public final BlockModelDatagen modelDatagen;

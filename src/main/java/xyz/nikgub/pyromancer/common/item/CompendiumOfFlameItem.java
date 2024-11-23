@@ -134,11 +134,12 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     public void fixIndexing (ItemStack itemStack)
     {
         int flag = 0;
-        for (int i = 1; i < CompendiumOfFlameCapability.MAX_ITEMS + 1; i++) if (!this.getItemFromItem(itemStack, i).isEmpty())
-        {
-            flag = i;
-            break;
-        }
+        for (int i = 1; i < CompendiumOfFlameCapability.MAX_ITEMS + 1; i++)
+            if (!this.getItemFromItem(itemStack, i).isEmpty())
+            {
+                flag = i;
+                break;
+            }
         if (flag != 0)
         {
             itemStack.getOrCreateTag().putInt(ACTIVE_SLOT_TAG, flag);

@@ -32,25 +32,28 @@ public abstract class QuillItem extends Item implements IExtensibleTooltipItem
     }
 
     /**
+     * Function that launches the attack
      * Do not invoke {@link Entity#hurt(DamageSource, float)} inside this method with damage type that could
      * activate the attack once again, as it will drown the stack and cause the game to crash
+     * * Called in {@link xyz.nikgub.pyromancer.PyromancerMod.ForgeEvents#livingAttackEvent(LivingAttackEvent)}
      *
-     * @param player        Player responsible for attack
-     * @param target        Target of the attack
-     * @param weaponStack   Weapon that the damage was dealt with
-     * @param journalStack  Journal in which the quill is located
+     * @param player       Player responsible for attack
+     * @param target       Target of the attack
+     * @param weaponStack  Weapon that the damage was dealt with
+     * @param journalStack Journal in which the quill is located
      */
     public abstract void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack);
 
     /**
+     * Defines whether the quill effect is to be launched
      * Called in {@link xyz.nikgub.pyromancer.PyromancerMod.ForgeEvents#livingAttackEvent(LivingAttackEvent)}
      *
-     * @param damageSource  Damage source of the attack
-     * @param player        Player responsible for attack
-     * @param target        Target of the attack
-     * @param weaponStack   Weapon that the damage was dealt with
-     * @param journalStack  Journal in which the quill is located
-     * @return              Will the {@link #getAttack(Player, Entity, ItemStack, ItemStack)} be activated
+     * @param damageSource Damage source of the attack
+     * @param player       Player responsible for attack
+     * @param target       Target of the attack
+     * @param weaponStack  Weapon that the damage was dealt with
+     * @param journalStack Journal in which the quill is located
+     * @return Will the {@link #getAttack(Player, Entity, ItemStack, ItemStack)} be activated
      */
     public abstract boolean isActivated (DamageSource damageSource, Player player, Entity target, ItemStack weaponStack, ItemStack journalStack);
 

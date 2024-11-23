@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * @author nikgub_
- *
+ * <p>
  * Animation that is used for an ember.
  */
 @NotNull

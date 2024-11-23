@@ -64,6 +64,11 @@ public class ScorchEntity extends Monster implements IAnimationPurposeEntity
                 .build();
     }
 
+    public static boolean spawnPredicate (EntityType<?> entityType, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom)
+    {
+        return pLevel.getDifficulty() != Difficulty.PEACEFUL && !pLevel.getBlockState(pPos.below()).is(BlockTags.LEAVES) && !pLevel.getBlockState(pPos.below()).is(BlockRegistry.PYROWOOD_LOG.get());
+    }
+
     @Override
     public EntityDataAccessor<DeterminedAnimation.AnimationPurpose> getAnimationStateDataAccessor ()
     {
@@ -90,10 +95,6 @@ public class ScorchEntity extends Monster implements IAnimationPurposeEntity
         this.entityData.set(POLLEN, state);
     }
 
-    public static boolean spawnPredicate (EntityType<?> entityType, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
-        return pLevel.getDifficulty() != Difficulty.PEACEFUL && !pLevel.getBlockState(pPos.below()).is(BlockTags.LEAVES) && !pLevel.getBlockState(pPos.below()).is(BlockRegistry.PYROWOOD_LOG.get());
-    }
-
     @Override
     protected void registerGoals ()
     {
@@ -115,28 +116,31 @@ public class ScorchEntity extends Monster implements IAnimationPurposeEntity
 
     public class ScorchPollinateGoal extends MoveToBlockGoal
     {
-    
+
         public ScorchPollinateGoal (double pSpeedModifier)
         {
             super(ScorchEntity.this, pSpeedModifier, 16);
         }
-    
-        public boolean canUse() {
+
+        public boolean canUse ()
+        {
             return !ScorchEntity.this.hasPollen() && this.findNearestBlock() && ScorchEntity.this.getTarget() == null;
         }
-    
-        public boolean canContinueToUse() {
+
+        public boolean canContinueToUse ()
+        {
             return !ScorchEntity.this.hasPollen() && super.canContinueToUse() && ScorchEntity.this.getTarget() == null;
         }
-    
+
         @Override
         protected boolean isValidTarget (@NotNull LevelReader pLevel, @NotNull BlockPos pPos)
         {
             return pLevel.getBlockState(pPos).is(BlockTagDatagen.FLAMING_GROVE_NATIVE);
         }
-    
+
         @Override
-        public void tick() {
+        public void tick ()
+        {
             super.tick();
             BlockPos blockpos = ScorchEntity.this.blockPosition();
             if (this.isReachedTarget())

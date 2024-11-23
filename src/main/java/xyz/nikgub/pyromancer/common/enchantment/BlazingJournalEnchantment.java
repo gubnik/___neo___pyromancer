@@ -20,7 +20,7 @@ public abstract class BlazingJournalEnchantment extends Enchantment
     }
 
     @Override
-    public @NotNull Component getFullname(int pLevel)
+    public @NotNull Component getFullname (int pLevel)
     {
         Component component = super.getFullname(pLevel);
         Style style = component.getStyle();

@@ -322,6 +322,19 @@ public class EnchantmentRegistry
                 }
             });
 
+    public static class Utils
+    {
+        public static float tryCurseOfChaos (LivingEntity target)
+        {
+            if (target instanceof Player)
+            {
+                target.setSecondsOnFire(5);
+                return 0.25F;
+            }
+            return -0.5F;
+        }
+    }
+
     public static final RegistryObject<Enchantment> SCATTERSHOT = ENCHANTMENTS.register("scattershot",
             () -> new Enchantment(Enchantment.Rarity.COMMON, MUSKET_CATEGORY, new EquipmentSlot[]{})
             {
@@ -353,21 +366,6 @@ public class EnchantmentRegistry
                     return this != enchantment && enchantment != SCATTERSHOT.get();
                 }
             });
-
-    public static class Utils
-    {
-        public static float tryCurseOfChaos (LivingEntity target)
-        {
-            if (target instanceof Player)
-            {
-                target.setSecondsOnFire(5);
-                return 0.25F;
-            }
-            return -0.5F;
-        }
-    }
-
-
 
 
 }

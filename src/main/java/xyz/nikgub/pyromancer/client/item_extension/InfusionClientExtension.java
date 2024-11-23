@@ -58,6 +58,6 @@ public class InfusionClientExtension implements IClientItemExtensions
     {
         int i = arm == HumanoidArm.RIGHT ? 1 : -1;
         float f = Mth.clamp(v, 0F, 1F);
-        poseStack.translate((float) -i * 0.56, - f / 3, -0.72F);
+        poseStack.translate((float) -i * 0.56, -f / 3, -0.72F);
     }
 }

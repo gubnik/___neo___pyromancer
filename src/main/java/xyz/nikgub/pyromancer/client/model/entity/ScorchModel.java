@@ -116,8 +116,8 @@ public class ScorchModel<T extends ScorchEntity> extends HierarchicalModel<T>
 
     public void attackAnim (float pAgeInTicks)
     {
-        float f = Mth.sin(this.attackTime * (float)Math.PI);
-        float f1 = Mth.sin((1.0F - (1.0F - this.attackTime) * (1.0F - this.attackTime)) * (float)Math.PI);
+        float f = Mth.sin(this.attackTime * (float) Math.PI);
+        float f1 = Mth.sin((1.0F - (1.0F - this.attackTime) * (1.0F - this.attackTime)) * (float) Math.PI);
         this.right_wing.zRot = 0.0F;
         this.left_wing.zRot = 0.0F;
         this.right_wing.yRot = -(0.1F - f * 0.6F);

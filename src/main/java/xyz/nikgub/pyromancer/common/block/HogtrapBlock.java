@@ -62,9 +62,9 @@ public class HogtrapBlock extends Block
             if (ItemRegistry.Utils.hasFullSetEquipped(entity, ItemRegistry.MARAUDER_HELM.get()))
                 return;
             entity.hurt(DamageSourceRegistry.hogtrap(pLevel), 2 + entity.getMaxHealth() * 0.1f);
-            entity.addEffect(new MobEffectInstance(MobEffects.WITHER, 200, 2), entity);
-            entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2), entity);
-            entity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 100, 4), entity);
+            entity.addEffect(new MobEffectInstance(MobEffects.WITHER, 200, 2));
+            entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2));
+            entity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 100, 4));
             pLevel.destroyBlock(pPos, false);
         }
     }

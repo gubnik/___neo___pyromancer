@@ -16,12 +16,12 @@ import java.util.concurrent.CompletableFuture;
 
 public class EntityTagDatagen extends ForgeEntityTypeTagsProvider
 {
+    public static final TagKey<EntityType<?>> FLAMING_GROVE_NATIVE = create("flaming_grove_native");
+
     public EntityTagDatagen (PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper)
     {
         super(output, lookupProvider, existingFileHelper);
     }
-
-    public static final TagKey<EntityType<?>> FLAMING_GROVE_NATIVE = create("flaming_grove_native");
 
     public static TagKey<EntityType<?>> create (String tagName)
     {
@@ -29,7 +29,7 @@ public class EntityTagDatagen extends ForgeEntityTypeTagsProvider
     }
 
     @Override
-    public void addTags(HolderLookup.@NotNull Provider lookupProvider)
+    public void addTags (HolderLookup.@NotNull Provider lookupProvider)
     {
         tag(FLAMING_GROVE_NATIVE)
                 .add(EntityTypeRegistry.SCORCH.get(), EntityTypeRegistry.PYRACORN.get(), EntityTypeRegistry.UNBURNED.get());

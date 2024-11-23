@@ -79,6 +79,36 @@ public class Ember
         return EmberRegistry.getEmberByName(itemStack.getOrCreateTag().getString(EmberRegistry.EMBER_TAG));
     }
 
+    @NotNull
+    public static EmberEvent getEmberEvent (Player player, Ember ember, ItemStack itemStack, int tick)
+    {
+        EmberEvent event = new EmberEvent(player, ember, itemStack, tick);
+        MinecraftForge.EVENT_BUS.post(event);
+        return event;
+    }
+
+    public static boolean isUniquelyDenied (ItemStack itemStack)
+    {
+        return (itemStack.getItem().getClass().isAnnotationPresent(UniqueEmberBehaviour.class)) && itemStack.getItem().getClass().getAnnotation(UniqueEmberBehaviour.class).allow() == UniqueEmberBehaviour.AllowanceModifier.DENY;
+    }
+
+    public static boolean isUniquelyDenied (Item item)
+    {
+        return (item.getClass().isAnnotationPresent(UniqueEmberBehaviour.class)) && item.getClass().getAnnotation(UniqueEmberBehaviour.class).allow() == UniqueEmberBehaviour.AllowanceModifier.DENY;
+    }
+
+    public static boolean isUniquelyAllowed (ItemStack itemStack)
+    {
+        return (itemStack.getItem().getClass().isAnnotationPresent(UniqueEmberBehaviour.class)) && itemStack.getItem().getClass().getAnnotation(UniqueEmberBehaviour.class).allow() == UniqueEmberBehaviour.AllowanceModifier.ALLOW
+                && !isUniquelyDenied(itemStack);
+    }
+
+    public static boolean isUniquelyAllowed (Item item)
+    {
+        return (item.getClass().isAnnotationPresent(UniqueEmberBehaviour.class)) && item.getClass().getAnnotation(UniqueEmberBehaviour.class).allow() == UniqueEmberBehaviour.AllowanceModifier.ALLOW
+                && !isUniquelyDenied(item);
+    }
+
     @Override
     public String toString ()
     {
@@ -181,35 +211,5 @@ public class Ember
             return true;
         }
         return false;
-    }
-
-    @NotNull
-    public static EmberEvent getEmberEvent (Player player, Ember ember, ItemStack itemStack, int tick)
-    {
-        EmberEvent event = new EmberEvent(player, ember, itemStack, tick);
-        MinecraftForge.EVENT_BUS.post(event);
-        return event;
-    }
-
-    public static boolean isUniquelyDenied (ItemStack itemStack)
-    {
-        return (itemStack.getItem().getClass().isAnnotationPresent(UniqueEmberBehaviour.class)) && itemStack.getItem().getClass().getAnnotation(UniqueEmberBehaviour.class).allow() == UniqueEmberBehaviour.AllowanceModifier.DENY;
-    }
-
-    public static boolean isUniquelyDenied (Item item)
-    {
-        return (item.getClass().isAnnotationPresent(UniqueEmberBehaviour.class)) && item.getClass().getAnnotation(UniqueEmberBehaviour.class).allow() == UniqueEmberBehaviour.AllowanceModifier.DENY;
-    }
-
-    public static boolean isUniquelyAllowed (ItemStack itemStack)
-    {
-        return (itemStack.getItem().getClass().isAnnotationPresent(UniqueEmberBehaviour.class)) && itemStack.getItem().getClass().getAnnotation(UniqueEmberBehaviour.class).allow() == UniqueEmberBehaviour.AllowanceModifier.ALLOW
-                && !isUniquelyDenied(itemStack);
-    }
-
-    public static boolean isUniquelyAllowed (Item item)
-    {
-        return (item.getClass().isAnnotationPresent(UniqueEmberBehaviour.class)) && item.getClass().getAnnotation(UniqueEmberBehaviour.class).allow() == UniqueEmberBehaviour.AllowanceModifier.ALLOW
-                && !isUniquelyDenied(item);
     }
 }

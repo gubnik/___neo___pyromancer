@@ -48,6 +48,36 @@ public class BlazingJournalItem extends Item implements IContainerItem
         super(properties.stacksTo(1));
     }
 
+    public static ItemStack guessJournal (LivingEntity player)
+    {
+        if (player.getOffhandItem().getItem() instanceof BlazingJournalItem) return player.getOffhandItem();
+        else if (player.getMainHandItem().getItem() instanceof BlazingJournalItem) return player.getMainHandItem();
+        else return ItemStack.EMPTY;
+    }
+
+    public static int getBlaze (LivingEntity player)
+    {
+        ItemStack supposedJournal = guessJournal(player);
+        if (supposedJournal == ItemStack.EMPTY) return 0;
+        return supposedJournal.getOrCreateTag().getInt(BlazingJournalItem.BLAZE_TAG_NAME);
+    }
+
+    public static void setBlaze (LivingEntity player, int val)
+    {
+        if (!(player instanceof ServerPlayer))
+        {
+            return;
+        }
+        ItemStack supposedJournal = guessJournal(player);
+        if (supposedJournal == ItemStack.EMPTY) return;
+        supposedJournal.getOrCreateTag().putInt(BlazingJournalItem.BLAZE_TAG_NAME, Mth.clamp(val, 0, PyromancerConfig.blazingJournalMaxCapacity));
+    }
+
+    public static void changeBlaze (LivingEntity player, int val)
+    {
+        setBlaze(player, getBlaze(player) + val);
+    }
+
     @Override
     public @NotNull Component getName (@NotNull ItemStack itemStack)
     {
@@ -136,35 +166,5 @@ public class BlazingJournalItem extends Item implements IContainerItem
             tag.putInt(BLAZE_TAG_NAME, maxCapacity);
         }
         return true;
-    }
-
-    public static ItemStack guessJournal (LivingEntity player)
-    {
-        if (player.getOffhandItem().getItem() instanceof BlazingJournalItem) return player.getOffhandItem();
-        else if (player.getMainHandItem().getItem() instanceof BlazingJournalItem) return player.getMainHandItem();
-        else return ItemStack.EMPTY;
-    }
-
-    public static int getBlaze (LivingEntity player)
-    {
-        ItemStack supposedJournal = guessJournal(player);
-        if (supposedJournal == ItemStack.EMPTY) return 0;
-        return supposedJournal.getOrCreateTag().getInt(BlazingJournalItem.BLAZE_TAG_NAME);
-    }
-
-    public static void setBlaze (LivingEntity player, int val)
-    {
-        if (!(player instanceof ServerPlayer))
-        {
-            return;
-        }
-        ItemStack supposedJournal = guessJournal(player);
-        if (supposedJournal == ItemStack.EMPTY) return;
-        supposedJournal.getOrCreateTag().putInt(BlazingJournalItem.BLAZE_TAG_NAME, Mth.clamp(val, 0, PyromancerConfig.blazingJournalMaxCapacity));
-    }
-
-    public static void changeBlaze (LivingEntity player, int val)
-    {
-        setBlaze(player, getBlaze(player) + val);
     }
 }

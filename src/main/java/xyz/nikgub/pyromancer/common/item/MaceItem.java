@@ -40,8 +40,10 @@ public class MaceItem extends TieredItem implements ICustomSwingItem
     }
 
     @Override
-    public boolean hurtEnemy(ItemStack pStack, @NotNull LivingEntity pTarget, @NotNull LivingEntity pAttacker) {
-        pStack.hurtAndBreak(1, pAttacker, (p_43296_) -> {
+    public boolean hurtEnemy (ItemStack pStack, @NotNull LivingEntity pTarget, @NotNull LivingEntity pAttacker)
+    {
+        pStack.hurtAndBreak(1, pAttacker, (p_43296_) ->
+        {
             p_43296_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
         });
         return true;

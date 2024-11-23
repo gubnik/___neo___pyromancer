@@ -40,7 +40,8 @@ public class NapalmBombsackProjectile extends BombsackProjectile
                     if (random.nextInt(0, 12) != 0) continue;
                     BlockPos blockPos = BlockPos.containing(this.getX() + dx, this.getY() + dy, this.getZ() + dz);
                     BlockState blockState = level().getBlockState(blockPos);
-                    if (!(blockState.isAir() || blockState.canBeReplaced() && blockState.isFlammable(level(), blockPos, Direction.UP))) continue;
+                    if (!(blockState.isAir() || blockState.canBeReplaced() && blockState.isFlammable(level(), blockPos, Direction.UP)))
+                        continue;
                     this.level().setBlock(blockPos, Blocks.FIRE.defaultBlockState(), 1 | 2);
                 }
             }

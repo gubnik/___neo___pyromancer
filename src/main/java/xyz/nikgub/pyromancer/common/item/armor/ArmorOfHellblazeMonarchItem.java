@@ -94,7 +94,7 @@ public class ArmorOfHellblazeMonarchItem extends ArmorItem implements IExtensibl
     @Override
     public final void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
     {
-        if (((ArmorOfHellblazeMonarchItem)itemStack.getItem()).type != Type.HELMET) return;
+        if (((ArmorOfHellblazeMonarchItem) itemStack.getItem()).type != Type.HELMET) return;
         this.gatherTooltipLines(list, "pyromancer.hidden_lore", "lore", PyromancerConfig.loreTooltipKey);
     }
 }

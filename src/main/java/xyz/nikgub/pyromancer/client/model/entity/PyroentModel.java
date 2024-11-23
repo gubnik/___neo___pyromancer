@@ -36,7 +36,8 @@ public class PyroentModel<T extends PyroentEntity> extends HierarchicalModel<T>
         this.ArmLeft = root.getChild("ArmLeft");
     }
 
-    public static LayerDefinition createBodyLayer() {
+    public static LayerDefinition createBodyLayer ()
+    {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
