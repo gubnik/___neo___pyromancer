@@ -99,7 +99,6 @@ import xyz.nikgub.pyromancer.client.model.armor.PyromancerArmorModel;
 import xyz.nikgub.pyromancer.client.model.entity.*;
 import xyz.nikgub.pyromancer.client.particle.BrimflameParticle;
 import xyz.nikgub.pyromancer.client.particle.MercuryVaporParticle;
-import xyz.nikgub.pyromancer.client.particle.VaporizerMercuryParticle;
 import xyz.nikgub.pyromancer.client.renderer.entity.*;
 import xyz.nikgub.pyromancer.common.ember.Ember;
 import xyz.nikgub.pyromancer.common.enchantment.BlazingJournalEnchantment;
@@ -199,7 +198,7 @@ public class PyromancerMod
     {
         event.registerSpriteSet(ParticleRegistry.BRIMSTONE_FLAME_PARTICLE.get(), BrimflameParticle::provider);
         event.registerSpriteSet(ParticleRegistry.MERCURY_VAPOR.get(), MercuryVaporParticle::provider);
-        event.registerSpriteSet(ParticleRegistry.VAPORIZER_MERCURY.get(), VaporizerMercuryParticle::provider);
+        event.registerSpriteSet(ParticleRegistry.VAPORIZER_MERCURY.get(), MercuryVaporParticle::vaporizerProvider);
     }
 
     private void registerLayerDefinitions (EntityRenderersEvent.RegisterLayerDefinitions event)
