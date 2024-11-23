@@ -250,9 +250,16 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     @Override
     public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus (ItemStack itemStack)
     {
-
-        return ((player, attribute) ->
-                0d);
+        if (this.getCurrentlyActiveItem(itemStack).getItem() instanceof IPyromancyItem pyromancyItem)
+        {
+            return ((player, attribute) ->
+            {
+                double d0 = 0;
+                d0 += pyromancyItem.getAttributeBonus(player, attribute);
+                return d0;
+            });
+        }
+        return ((player, attribute) -> 0D);
     }
 
     @Override

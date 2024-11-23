@@ -100,7 +100,7 @@ public abstract class UsablePyromancyItem extends Item implements IPyromancyItem
         return ((player, attribute) ->
         {
             double d0 = 0;
-            d0 += IPyromancyItem.getAttributeBonus(player, attribute);
+            d0 += this.getAttributeBonus(player, attribute);
             return d0;
         });
     }

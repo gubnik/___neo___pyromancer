@@ -24,16 +24,25 @@ public interface IPyromancyItem
     UUID JOURNAL_BLAZE_CONSUMPTION_UUID = UUID.fromString("574d4092-16c3-11ee-be56-0242ac120002");
     UUID JOURNAL_PYROMANCY_DAMAGE_UUID = UUID.fromString("704049d2-16c3-11ee-be56-0242ac120002");
 
-    static float getAttributeBonus (Player player, Attribute attribute)
+    default float getAttributeBonus (Player player, Attribute attribute)
     {
         float d0 = 0;
+        float M0 = 0;
+        float M1 = 0;
         EquipmentSlot[] slots = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
         for (ItemStack itemStack : player.getArmorSlots())
         {
             for (EquipmentSlot slot : slots)
             {
                 for (AttributeModifier attributeModifier : itemStack.getAttributeModifiers(slot).get(attribute))
-                    d0 += (float) attributeModifier.getAmount();
+                {
+                    switch(attributeModifier.getOperation())
+                    {
+                        case ADDITION -> d0 += (float) attributeModifier.getAmount();
+                        case MULTIPLY_BASE -> M0 += (float) attributeModifier.getAmount();
+                        case MULTIPLY_TOTAL -> M1 += (float) attributeModifier.getAmount();
+                    }
+                }
             }
         }
         if (player.getMainHandItem().getItem() instanceof CompendiumOfFlameItem compendiumOfFlameItem)
@@ -44,10 +53,10 @@ public interface IPyromancyItem
             else if (attribute == AttributeRegistry.BLAZE_CONSUMPTION.get()) d0 += quillItem.getDefaultBlazeCostBonus();
             return d0;
         }
-        if (!(player.getOffhandItem().getItem() instanceof BlazingJournalItem)) return d0;
+        //if (!(player.getOffhandItem().getItem() instanceof BlazingJournalItem)) return d0;
         Collection<AttributeModifier> collection = player.getOffhandItem().getAttributeModifiers(EquipmentSlot.OFFHAND).get(attribute);
         for (AttributeModifier attributeModifier : collection) d0 += (float) attributeModifier.getAmount();
-        return d0;
+        return d0 + this.getDefaultPyromancyDamage() * M0 + this.getDefaultPyromancyDamage() * M1;
     }
 
     float getDefaultPyromancyDamage ();

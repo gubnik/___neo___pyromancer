@@ -57,7 +57,7 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     }
 
     @Override
-    public void onStopUsing(ItemStack itemStack, LivingEntity entity, int count)
+    public void onStopUsing (ItemStack itemStack, LivingEntity entity, int count)
     {
         if (!(entity instanceof Player player)) return;
         if (count > 0) player.getCooldowns().addCooldown(itemStack.getItem(), 30);
@@ -122,7 +122,7 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
         return ((player, attribute) ->
         {
             double d0 = 0;
-            d0 += IPyromancyItem.getAttributeBonus(player, attribute);
+            d0 += this.getAttributeBonus(player, attribute);
             return d0;
         });
     }
