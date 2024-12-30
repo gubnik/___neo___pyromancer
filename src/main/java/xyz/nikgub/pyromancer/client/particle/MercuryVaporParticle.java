@@ -35,7 +35,7 @@ public class MercuryVaporParticle extends TextureSheetParticle
         this.spriteSet = spriteSet;
         this.setSize(0.2f, 0.2f);
         this.quadSize *= 3f;
-        this.lifetime = 40;
+        this.lifetime = 7;
         this.gravity = -0.1f;
         this.hasPhysics = false;
         this.xd = vx * 0;
@@ -66,7 +66,7 @@ public class MercuryVaporParticle extends TextureSheetParticle
         super.tick();
         if (!this.removed)
         {
-            this.setSprite(this.spriteSet.get((this.age / 2) % 12 + 1, 12));
+            this.setSprite(this.spriteSet.get((this.age / 2) % 8 + 1, 8));
         }
     }
 

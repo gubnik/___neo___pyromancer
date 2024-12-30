@@ -91,7 +91,7 @@ public class ArmorOfHellblazeMonarchItem extends ArmorItem implements IExtensibl
     public float getAttributeValue (EquipmentSlot equipmentSlot, Attribute attribute)
     {
         int[] VALUES = new int[]{10, 15, 20, 10};
-        return VALUES[equipmentSlot.getIndex()] * 0.0075F * (attribute.equals(AttributeRegistry.PYROMANCY_DAMAGE.get()) ? 2 : 1);
+        return VALUES[equipmentSlot.getIndex()] * 0.0050F * (attribute.equals(AttributeRegistry.PYROMANCY_DAMAGE.get()) ? 2 : 1);
     }
 
     @Override

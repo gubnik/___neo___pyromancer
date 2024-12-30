@@ -168,7 +168,7 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     @Override
     public float getDefaultPyromancyDamage ()
     {
-        return DEFAULT_DAMAGE;
+        return DEFAULT_DAMAGE / 2 + 1;
     }
 
     @Override

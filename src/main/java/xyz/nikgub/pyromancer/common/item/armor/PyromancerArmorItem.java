@@ -85,7 +85,7 @@ public class PyromancerArmorItem extends ArmorItem
     public float getAttributeValue (EquipmentSlot equipmentSlot, Attribute attribute)
     {
         int[] VALUES = new int[]{10, 15, 20, 10};
-        return VALUES[equipmentSlot.getIndex()] * 0.005F * (attribute.equals(AttributeRegistry.PYROMANCY_DAMAGE.get()) ? 2 : 1);
+        return VALUES[equipmentSlot.getIndex()] * 0.0025F * (attribute.equals(AttributeRegistry.PYROMANCY_DAMAGE.get()) ? 2 : 1);
     }
 
     @Override
