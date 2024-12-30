@@ -38,7 +38,6 @@ import xyz.nikgub.pyromancer.common.enchantment.BlazingJournalEnchantment;
 import xyz.nikgub.pyromancer.common.entity.attack_effect.FlamingGuillotineEntity;
 import xyz.nikgub.pyromancer.common.item.*;
 import xyz.nikgub.pyromancer.common.item.armor.ArmorOfHellblazeMonarchItem;
-import xyz.nikgub.pyromancer.common.item.armor.MarauderArmorItem;
 import xyz.nikgub.pyromancer.common.item.armor.PyromancerArmorItem;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
 
@@ -287,14 +286,6 @@ public class ItemRegistry
             () -> new MaceItem(TierRegistry.AMBER, new Item.Properties()));
 
     // ARMOR
-    public static final RegistryObject<MarauderArmorItem> MARAUDER_HELM = ITEMS.register("marauder_helm",
-            () -> new MarauderArmorItem(ArmorItem.Type.HELMET));
-    public static final RegistryObject<MarauderArmorItem> MARAUDER_CAPE = ITEMS.register("marauder_cape",
-            () -> new MarauderArmorItem(ArmorItem.Type.CHESTPLATE));
-    public static final RegistryObject<MarauderArmorItem> MARAUDER_PANTS = ITEMS.register("marauder_pants",
-            () -> new MarauderArmorItem(ArmorItem.Type.LEGGINGS));
-    public static final RegistryObject<MarauderArmorItem> MARAUDER_BOOTS = ITEMS.register("marauder_boots",
-            () -> new MarauderArmorItem(ArmorItem.Type.BOOTS));
 
     public static final RegistryObject<PyromancerArmorItem> PYROMANCER_HELMET = ITEMS.register("pyromancer_helmet",
             () -> new PyromancerArmorItem(ArmorItem.Type.HELMET));

@@ -133,40 +133,6 @@ public class RecipeDatagen extends RecipeProvider
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ItemRegistry.AMBER_SHOVEL.get()).define('#', Items.STICK).define('X', ItemRegistry.AMBER.get()).pattern("X").pattern("#").pattern("#").unlockedBy("amber", has(ItemRegistry.AMBER.get())).save(consumer);
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.AMBER_SWORD.get()).define('#', Items.STICK).define('X', ItemRegistry.AMBER.get()).pattern("X").pattern("X").pattern("#").unlockedBy("amber", has(ItemRegistry.AMBER.get())).save(consumer);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.MARAUDER_HELM.get())
-                .pattern("###")
-                .pattern("#G#")
-                .define('#', Items.LEATHER)
-                .define('G', ItemRegistry.ANCIENT_PLATING.get())
-                .unlockedBy("hoglin_hide", has(Items.LEATHER))
-                .save(consumer);
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.MARAUDER_CAPE.get())
-                .pattern("#G#")
-                .pattern("###")
-                .pattern("###")
-                .define('#', Items.LEATHER)
-                .define('G', ItemRegistry.ANCIENT_PLATING.get())
-                .unlockedBy("hoglin_hide", has(Items.LEATHER))
-                .save(consumer);
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.MARAUDER_PANTS.get())
-                .pattern("###")
-                .pattern("#G#")
-                .pattern("# #")
-                .define('#', Items.LEATHER)
-                .define('G', ItemRegistry.ANCIENT_PLATING.get())
-                .unlockedBy("hoglin_hide", has(Items.LEATHER))
-                .save(consumer);
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.MARAUDER_BOOTS.get())
-                .pattern("# #")
-                .pattern("#G#")
-                .define('#', Items.LEATHER)
-                .define('G', ItemRegistry.ANCIENT_PLATING.get())
-                .unlockedBy("hoglin_hide", has(Items.LEATHER))
-                .save(consumer);
-
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.PYROMANCER_HELMET.get())
                 .pattern("###")
                 .pattern("#G#")

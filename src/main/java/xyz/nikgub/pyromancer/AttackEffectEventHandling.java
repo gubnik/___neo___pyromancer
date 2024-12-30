@@ -58,11 +58,6 @@ public class AttackEffectEventHandling
         float multiplier = 1;
         float addition = 0;
 
-        if (ItemRegistry.Utils.hasFullSetEquipped(target, ItemRegistry.MARAUDER_HELM.get()) && damageSource.is(DamageTypeDatagen.IS_BRUTISH))
-        {
-            multiplier -= 0.95f;
-        }
-
         OiledMobEffect.tryIgnition(target, damageSource);
         if (GeneralUtils.isDirectDamage(damageSource))
         {
