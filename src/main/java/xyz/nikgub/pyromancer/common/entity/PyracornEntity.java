@@ -137,7 +137,7 @@ public class PyracornEntity extends Monster
 
         public boolean canContinueToUse ()
         {
-            return this.mobToFollow != null && !this.navigation.isDone() && this.pyracorn.distanceToSqr(this.mobToFollow) > (double) (this.stopDistance * this.stopDistance);
+            return !this.navigation.isDone() && (this.mobToFollow == null || this.pyracorn.distanceToSqr(this.mobToFollow) > (double) (this.stopDistance * this.stopDistance));
         }
 
         public void start ()
