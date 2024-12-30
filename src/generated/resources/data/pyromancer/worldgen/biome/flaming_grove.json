@@ -52,21 +52,21 @@
     "monster": [
       {
         "type": "pyromancer:pyracorn",
-        "maxCount": 6,
+        "maxCount": 4,
         "minCount": 1,
         "weight": 95
       },
       {
         "type": "pyromancer:scorch",
         "maxCount": 4,
-        "minCount": 4,
-        "weight": 65
+        "minCount": 1,
+        "weight": 75
       },
       {
         "type": "pyromancer:pyroent",
-        "maxCount": 8,
-        "minCount": 4,
-        "weight": 75
+        "maxCount": 6,
+        "minCount": 2,
+        "weight": 85
       }
     ],
     "underground_water_creature": [],

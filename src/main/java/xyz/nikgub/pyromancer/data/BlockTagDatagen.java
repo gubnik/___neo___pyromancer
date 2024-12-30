@@ -60,6 +60,7 @@ public class BlockTagDatagen extends IntrinsicHolderTagsProvider<Block>
                 .add(Blocks.NETHERRACK);
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(BlockRegistry.PYROMOSSED_NETHERRACK.get())
                 .add(BlockRegistry.AMBER_BLOCK.get())
                 .add(BlockRegistry.NATURAL_AMBER.get())
                 .add(BlockRegistry.RIMEBLOOD_CELL.get())
