@@ -1,5 +1,14 @@
-# neoPyromancer
-## About
-This is port of Pyromancer mod on 1.20.1+ versions of Minecraft.\
-Aside from porting onto newer versions, neoPyromancer comes with reworks of near every feature from Pyromancer
-while adding new features.
+# ___neo___pyromancer
+Remake of original Pyromancer Minecraft mod for versions 1.20.1+
+
+## Dependencies
+- [IncandescentLib](https://github.com/gubnik/IncandescentLib)
+- [Terrablender](https://github.com/Glitchfiend/TerraBlender)
+
+## Modpack usage
+You are free to use this mod in your modpack of any kind, as long as you accept and follow this project's license,
+that being GNU GPL v3. Resources of the mod are distributed under **CC BY-SA** license.
+
+## Documentation
+Pending, for the time being resort to in-code comments and common sense
+
