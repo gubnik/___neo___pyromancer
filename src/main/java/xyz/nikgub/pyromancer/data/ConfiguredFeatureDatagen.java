@@ -67,7 +67,7 @@ public class ConfiguredFeatureDatagen
     {
         HolderGetter<PlacedFeature> placedFeatureGetter = context.lookup(Registries.PLACED_FEATURE);
 
-        context.register(PYROWOOD_NETHER, new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(BlockRegistry.PYROWOOD_LOG.get()), new NetherPyrowoodTrunkPlacer(7, 3, 1),
+        context.register(PYROWOOD_NETHER, new ConfiguredFeature<>(Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(BlockRegistry.PYROWOOD_LOG.get()), new NetherPyrowoodTrunkPlacer(9, 3, 1),
                 BlockStateProvider.simple(BlockRegistry.PYROWOOD_LEAVES.get()),
                 new RandomSpreadFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), ConstantInt.of(3), 24),
                 new TwoLayersFeatureSize(1, 0, 0)).dirt(BlockStateProvider.simple(Blocks.NETHERRACK)).build()));
