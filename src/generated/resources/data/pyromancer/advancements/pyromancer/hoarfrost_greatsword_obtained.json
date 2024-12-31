@@ -1,0 +1,42 @@
+{
+  "parent": "pyromancer:pyromancer/permafrost_caverns_visited",
+  "criteria": {
+    "hoarfrost_greatsword_obtained": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pyromancer:hoarfrost_greatsword"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.pyromancer.hoarfrost_greatsword_obtained.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "pyromancer:hoarfrost_greatsword",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.pyromancer.hoarfrost_greatsword_obtained.title"
+    }
+  },
+  "requirements": [
+    [
+      "hoarfrost_greatsword_obtained"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

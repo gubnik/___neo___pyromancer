@@ -286,5 +286,15 @@
   "advancement.pyromancer.flammenklinge_plunge.title": "Mr. Fahrenheit",
   "advancement.pyromancer.flammenklinge_plunge.description": "Accumulate 3 or more Flammenklinge charges and then plunge",
   "advancement.pyromancer.flammenklinge_death.title": "High Speed Dirt",
-  "advancement.pyromancer.flammenklinge_death.description": "\"I'm a dirt torpedo!\""
+  "advancement.pyromancer.flammenklinge_death.description": "\"I'm a dirt torpedo!\"",
+  "advancement.pyromancer.zweihander_obtained.title": "WAT RING U GOT BIHTC",
+  "advancement.pyromancer.zweihander_obtained.description": "Obtain a Zweihander",
+  "advancement.pyromancer.musket_obtained.title": "Home defense",
+  "advancement.pyromancer.musket_obtained.description": "Obtain a Musket",
+  "advancement.pyromancer.spear_of_moroz_obtained.title": "King Nothing",
+  "advancement.pyromancer.spear_of_moroz_obtained.description": "Obtain the Spear of Moroz",
+  "advancement.pyromancer.permafrost_caverns_visited.title": "No Lucifer",
+  "advancement.pyromancer.permafrost_caverns_visited.description": "Visit the Permafrost Caverns",
+  "advancement.pyromancer.hoarfrost_greatsword_obtained.title": "And the hoary frost of heaven, who hath gendered it?",
+  "advancement.pyromancer.hoarfrost_greatsword_obtained.description": "Obtain the Hoarfrost Greatsword"
 }

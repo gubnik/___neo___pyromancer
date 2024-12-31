@@ -1,0 +1,42 @@
+{
+  "parent": "pyromancer:pyromancer/root",
+  "criteria": {
+    "permafrost_caverns_visited": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "pyromancer:permafrost_caverns"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.pyromancer.permafrost_caverns_visited.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "pyromancer:rimeblood_cell"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.pyromancer.permafrost_caverns_visited.title"
+    }
+  },
+  "requirements": [
+    [
+      "permafrost_caverns_visited"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

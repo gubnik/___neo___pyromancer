@@ -1,0 +1,41 @@
+{
+  "parent": "pyromancer:pyromancer/root",
+  "criteria": {
+    "musket_obtained": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pyromancer:musket"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.pyromancer.musket_obtained.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "pyromancer:musket"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.pyromancer.musket_obtained.title"
+    }
+  },
+  "requirements": [
+    [
+      "musket_obtained"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

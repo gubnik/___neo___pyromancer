@@ -204,6 +204,60 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                     .rewards(AdvancementRewards.Builder.experience(200))
                     .addCriterion("hellblaze_monarch_armor_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.HELLBLAZE_MONARCH_HELMET.get(), ItemRegistry.HELLBLAZE_MONARCH_CHESTPLATE.get(), ItemRegistry.HELLBLAZE_MONARCH_LEGGINGS.get(), ItemRegistry.HELLBLAZE_MONARCH_BOOTS.get()))
                     .save(saver, "pyromancer:pyromancer/hellblaze_monarch_armor_obtained");
+
+            Advancement zweihander_obtained = Advancement.Builder.advancement().parent(blazing_journal_acquired)
+                    .display(ItemRegistry.ZWEIHANDER.get(),
+                            Component.translatable("advancement.pyromancer.zweihander_obtained.title"),
+                            Component.translatable("advancement.pyromancer.zweihander_obtained.description"),
+                            null,
+                            FrameType.TASK,
+                            true, true, false)
+                    .rewards(AdvancementRewards.Builder.experience(100))
+                    .addCriterion("zweihander_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.ZWEIHANDER.get()))
+                    .save(saver, "pyromancer:pyromancer/zweihander_obtained");
+
+            Advancement musket_obtained = Advancement.Builder.advancement().parent(blazing_journal_acquired)
+                    .display(ItemRegistry.MUSKET.get(),
+                            Component.translatable("advancement.pyromancer.musket_obtained.title"),
+                            Component.translatable("advancement.pyromancer.musket_obtained.description"),
+                            null,
+                            FrameType.TASK,
+                            true, true, false)
+                    .rewards(AdvancementRewards.Builder.experience(100))
+                    .addCriterion("musket_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.MUSKET.get()))
+                    .save(saver, "pyromancer:pyromancer/musket_obtained");
+
+            Advancement permafrost_caverns_visited = Advancement.Builder.advancement().parent(blazing_journal_acquired)
+                    .display(BlockRegistry.RIMEBLOOD_CELL.get(),
+                            Component.translatable("advancement.pyromancer.permafrost_caverns_visited.title"),
+                            Component.translatable("advancement.pyromancer.permafrost_caverns_visited.description"),
+                            null,
+                            FrameType.GOAL,
+                            true, true, false)
+                    .addCriterion("permafrost_caverns_visited", PlayerTrigger.TriggerInstance.located(LocationPredicate.inBiome(BiomeRegistry.PERMAFROST_CAVERNS)))
+                    .save(saver, "pyromancer:pyromancer/permafrost_caverns_visited");
+
+            Advancement spear_of_moroz_obtained = Advancement.Builder.advancement().parent(permafrost_caverns_visited)
+                    .display(ItemRegistry.SPEAR_OF_MOROZ.get(),
+                            Component.translatable("advancement.pyromancer.spear_of_moroz_obtained.title"),
+                            Component.translatable("advancement.pyromancer.spear_of_moroz_obtained.description"),
+                            null,
+                            FrameType.CHALLENGE,
+                            true, true, false)
+                    .rewards(AdvancementRewards.Builder.experience(100))
+                    .addCriterion("spear_of_moroz_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.SPEAR_OF_MOROZ.get()))
+                    .save(saver, "pyromancer:pyromancer/spear_of_moroz_obtained");
+
+            Advancement hoarfrost_greatsword_obtained = Advancement.Builder.advancement().parent(permafrost_caverns_visited)
+                    .display(ItemRegistry.HOARFROST_GREATSWORD.get(),
+                            Component.translatable("advancement.pyromancer.hoarfrost_greatsword_obtained.title"),
+                            Component.translatable("advancement.pyromancer.hoarfrost_greatsword_obtained.description"),
+                            null,
+                            FrameType.CHALLENGE,
+                            true, true, false)
+                    .rewards(AdvancementRewards.Builder.experience(100))
+                    .addCriterion("hoarfrost_greatsword_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.HOARFROST_GREATSWORD.get()))
+                    .save(saver, "pyromancer:pyromancer/hoarfrost_greatsword_obtained");
         }
     }
 }
