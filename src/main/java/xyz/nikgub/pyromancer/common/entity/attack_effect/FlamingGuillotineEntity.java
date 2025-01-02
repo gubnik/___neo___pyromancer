@@ -73,8 +73,8 @@ public class FlamingGuillotineEntity extends AttackEffectEntity
             DamageSource guillotineDamageType = (isDirect) ? DamageSourceRegistry.guillotine(owner) : DamageSourceRegistry.blazingJournal(this, owner);
             entity.hurt(guillotineDamageType, (damage + (float) owner.getAttributeValue(AttributeRegistry.PYROMANCY_DAMAGE.get())) * Mth.sqrt(this.getSize()));
         }
-        final int tick = owner.tickCount;
-        Incandescent.runShakeFor(1, (localPlayer -> tick + 10 < localPlayer.tickCount));
+        final int tick = Incandescent.clientTick;
+        Incandescent.runShakeFor(1, (localPlayer -> tick + 20 < Incandescent.clientTick));
     }
 
     @Override
