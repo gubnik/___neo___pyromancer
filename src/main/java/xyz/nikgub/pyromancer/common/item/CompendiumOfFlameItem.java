@@ -114,7 +114,7 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
         if (tag.getDouble("CustomModelData") != 0) return;
         for (int i = 0; i < CompendiumOfFlameCapability.MAX_ITEMS + 1; i++)
         {
-            if (this.getItemFromItem(itemStack, i).getItem() instanceof UsablePyromancyItem)
+            if (!this.getItemFromItem(itemStack, i).isEmpty())
                 tag.putDouble("CustomModelData", 1);
         }
     }
