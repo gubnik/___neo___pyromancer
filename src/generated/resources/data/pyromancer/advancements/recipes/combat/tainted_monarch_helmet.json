@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "pyromancer:hellblaze_monarch_boots"
+        "recipe": "pyromancer:tainted_monarch_helmet"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "pyromancer:hellblaze_monarch_boots"
+      "pyromancer:tainted_monarch_helmet"
     ]
   },
   "sends_telemetry_event": false

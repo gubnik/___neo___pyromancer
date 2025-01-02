@@ -1,11 +1,13 @@
 {
-  "parent": "pyromancer:pyromancer/amber_obtained",
+  "parent": "pyromancer:pyromancer/flaming_grove_visited",
   "criteria": {
-    "pyromancy_obtained": {
+    "amber_obtained": {
       "conditions": {
         "items": [
           {
-            "tag": "pyromancer:pyromancy"
+            "items": [
+              "pyromancer:amber"
+            ]
           }
         ]
       },
@@ -15,21 +17,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.pyromancer.pyromancy_obtained.description"
+      "translate": "advancement.pyromancer.amber_obtained.description"
     },
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "pyromancer:court_of_embers"
+      "item": "pyromancer:amber"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.pyromancer.pyromancy_obtained.title"
+      "translate": "advancement.pyromancer.amber_obtained.title"
     }
   },
   "requirements": [
     [
-      "pyromancy_obtained"
+      "amber_obtained"
     ]
   ],
   "sends_telemetry_event": true

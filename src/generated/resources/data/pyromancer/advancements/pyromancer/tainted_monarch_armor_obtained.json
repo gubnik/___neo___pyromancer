@@ -1,27 +1,27 @@
 {
   "parent": "pyromancer:pyromancer/pyromancer_armor_obtained",
   "criteria": {
-    "hellblaze_monarch_armor_obtained": {
+    "tainted_monarch_armor_obtained": {
       "conditions": {
         "items": [
           {
             "items": [
-              "pyromancer:hellblaze_monarch_helmet"
+              "pyromancer:tainted_monarch_helmet"
             ]
           },
           {
             "items": [
-              "pyromancer:hellblaze_monarch_chestplate"
+              "pyromancer:tainted_monarch_chestplate"
             ]
           },
           {
             "items": [
-              "pyromancer:hellblaze_monarch_leggings"
+              "pyromancer:tainted_monarch_leggings"
             ]
           },
           {
             "items": [
-              "pyromancer:hellblaze_monarch_boots"
+              "pyromancer:tainted_monarch_boots"
             ]
           }
         ]
@@ -32,22 +32,22 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.pyromancer.hellblaze_monarch_armor_obtained.description"
+      "translate": "advancement.pyromancer.tainted_monarch_armor_obtained.description"
     },
     "frame": "challenge",
     "hidden": false,
     "icon": {
-      "item": "pyromancer:hellblaze_monarch_chestplate",
+      "item": "pyromancer:tainted_monarch_chestplate",
       "nbt": "{Damage:0}"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.pyromancer.hellblaze_monarch_armor_obtained.title"
+      "translate": "advancement.pyromancer.tainted_monarch_armor_obtained.title"
     }
   },
   "requirements": [
     [
-      "hellblaze_monarch_armor_obtained"
+      "tainted_monarch_armor_obtained"
     ]
   ],
   "rewards": {

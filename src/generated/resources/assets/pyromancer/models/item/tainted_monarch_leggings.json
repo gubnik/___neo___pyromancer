@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "pyromancer:item/hellblaze_monarch_leggings"
+    "layer0": "pyromancer:item/tainted_monarch_leggings"
   }
 }

@@ -4,10 +4,10 @@
     "item": "minecraft:netherite_ingot"
   },
   "base": {
-    "item": "pyromancer:pyromancer_leggings"
+    "item": "pyromancer:pyromancer_boots"
   },
   "result": {
-    "item": "pyromancer:hellblaze_monarch_leggings"
+    "item": "pyromancer:tainted_monarch_boots"
   },
   "template": {
     "item": "pyromancer:memory_of_fire"

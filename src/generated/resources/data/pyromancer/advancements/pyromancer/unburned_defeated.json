@@ -24,8 +24,7 @@
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "pyromancer:pyromancer_helmet",
-      "nbt": "{Damage:0}"
+      "item": "pyromancer:memory_of_fire"
     },
     "show_toast": true,
     "title": {

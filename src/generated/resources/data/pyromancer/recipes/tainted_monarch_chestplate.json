@@ -4,10 +4,10 @@
     "item": "minecraft:netherite_ingot"
   },
   "base": {
-    "item": "pyromancer:pyromancer_helmet"
+    "item": "pyromancer:pyromancer_chestplate"
   },
   "result": {
-    "item": "pyromancer:hellblaze_monarch_helmet"
+    "item": "pyromancer:tainted_monarch_chestplate"
   },
   "template": {
     "item": "pyromancer:memory_of_fire"
