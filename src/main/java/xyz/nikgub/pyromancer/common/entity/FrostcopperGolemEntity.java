@@ -187,13 +187,6 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
     @Override
     public boolean hurt (@NotNull DamageSource pSource, float pAmount)
     {
-        //if (pSource.getEntity() instanceof LivingEntity livingEntity && livingEntity.position().distanceTo(this.position()) > 7)
-        //{
-        //    if (this.stompTick == 0) this.runAnimationOf(DeterminedAnimation.AnimationPurpose.STOMP);
-        //    stompAttack(pAmount);
-        //    this.stompTick = tickCount;
-        //    return false;
-        //}
         boolean retVal = super.hurt(pSource, pAmount);
         if (retVal) this.incrementStompBuildupCounter((int) pAmount * 4);
         return retVal && getStompTick() == 0;
@@ -210,7 +203,6 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
             if (!target.canFreeze()) continue;
             if (!target.onGround()) continue;
             target.hurt(DamageSourceRegistry.frostcopperGolemStomp(this), pAmount);
-            //target.addDeltaMovement(this.position().subtract(target.position()));
         }
         serverLevel.sendParticles(ParticleTypes.SNOWFLAKE, initPos.x, initPos.y + 1, initPos.z, areaSize * areaSize * areaSize * 20, areaSize, 2, areaSize, 0.5D);
     }
@@ -246,7 +238,7 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
                 this.runAnimationOf(DeterminedAnimation.AnimationPurpose.IDLE);
             } else if (this.tickCount >= stompTick + 13)
             {
-                stompAttack(5);
+                stompAttack(8);
             }
         }
     }
