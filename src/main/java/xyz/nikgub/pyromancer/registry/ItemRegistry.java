@@ -37,7 +37,7 @@ import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.enchantment.BlazingJournalEnchantment;
 import xyz.nikgub.pyromancer.common.entity.attack_effect.FlamingGuillotineEntity;
 import xyz.nikgub.pyromancer.common.item.*;
-import xyz.nikgub.pyromancer.common.item.armor.ArmorOfHellblazeMonarchItem;
+import xyz.nikgub.pyromancer.common.item.armor.TaintedMonarchArmorItem;
 import xyz.nikgub.pyromancer.common.item.armor.PyromancerArmorItem;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
 
@@ -296,14 +296,14 @@ public class ItemRegistry
     public static final RegistryObject<PyromancerArmorItem> PYROMANCER_BOOTS = ITEMS.register("pyromancer_boots",
             () -> new PyromancerArmorItem(ArmorItem.Type.BOOTS));
 
-    public static final RegistryObject<ArmorOfHellblazeMonarchItem> HELLBLAZE_MONARCH_HELMET = ITEMS.register("hellblaze_monarch_helmet",
-            () -> new ArmorOfHellblazeMonarchItem(ArmorItem.Type.HELMET));
-    public static final RegistryObject<ArmorOfHellblazeMonarchItem> HELLBLAZE_MONARCH_CHESTPLATE = ITEMS.register("hellblaze_monarch_chestplate",
-            () -> new ArmorOfHellblazeMonarchItem(ArmorItem.Type.CHESTPLATE));
-    public static final RegistryObject<ArmorOfHellblazeMonarchItem> HELLBLAZE_MONARCH_LEGGINGS = ITEMS.register("hellblaze_monarch_leggings",
-            () -> new ArmorOfHellblazeMonarchItem(ArmorItem.Type.LEGGINGS));
-    public static final RegistryObject<ArmorOfHellblazeMonarchItem> HELLBLAZE_MONARCH_BOOTS = ITEMS.register("hellblaze_monarch_boots",
-            () -> new ArmorOfHellblazeMonarchItem(ArmorItem.Type.BOOTS));
+    public static final RegistryObject<TaintedMonarchArmorItem> TAINTED_MONARCH_HELMET = ITEMS.register("tainted_monarch_helmet",
+            () -> new TaintedMonarchArmorItem(ArmorItem.Type.HELMET));
+    public static final RegistryObject<TaintedMonarchArmorItem> TAINTED_MONARCH_CHESTPLATE = ITEMS.register("tainted_monarch_chestplate",
+            () -> new TaintedMonarchArmorItem(ArmorItem.Type.CHESTPLATE));
+    public static final RegistryObject<TaintedMonarchArmorItem> TAINTED_MONARCH_LEGGINGS = ITEMS.register("tainted_monarch_leggings",
+            () -> new TaintedMonarchArmorItem(ArmorItem.Type.LEGGINGS));
+    public static final RegistryObject<TaintedMonarchArmorItem> TAINTED_MONARCH_BOOTS = ITEMS.register("tainted_monarch_boots",
+            () -> new TaintedMonarchArmorItem(ArmorItem.Type.BOOTS));
     // SPAWN EGGS
     public static final RegistryObject<Item> UNBURNED_SPAWN_EGG = ITEMS.register("unburned_spawn_egg",
             () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNBURNED, -10268354, -3297142, new Item.Properties()));

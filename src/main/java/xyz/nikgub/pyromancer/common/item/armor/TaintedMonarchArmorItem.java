@@ -46,7 +46,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-public class ArmorOfHellblazeMonarchItem extends ArmorItem implements IExtensibleTooltipItem
+public class TaintedMonarchArmorItem extends ArmorItem implements IExtensibleTooltipItem
 {
 
     private static final EnumMap<Type, UUID> ARMOR_MODIFIER_UUID_PER_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), (map) ->
@@ -59,7 +59,7 @@ public class ArmorOfHellblazeMonarchItem extends ArmorItem implements IExtensibl
 
     private final Multimap<Attribute, AttributeModifier> attributes;
 
-    public ArmorOfHellblazeMonarchItem (Type type)
+    public TaintedMonarchArmorItem (Type type)
     {
         super(ArmorMaterialsRegistry.HELLBLAZE_MONARCH, type, new Properties().stacksTo(1).fireResistant().rarity(Rarity.UNCOMMON));
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
@@ -85,7 +85,7 @@ public class ArmorOfHellblazeMonarchItem extends ArmorItem implements IExtensibl
     @Override
     public String getArmorTexture (ItemStack stack, Entity entity, EquipmentSlot slot, String type)
     {
-        return "pyromancer:textures/model/armor/armor_of_hellblaze_monarch.png";
+        return "pyromancer:textures/model/armor/tainted_monarch_armor.png";
     }
 
     public float getAttributeValue (EquipmentSlot equipmentSlot, Attribute attribute)
@@ -111,7 +111,6 @@ public class ArmorOfHellblazeMonarchItem extends ArmorItem implements IExtensibl
     @Override
     public final void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
     {
-        if (((ArmorOfHellblazeMonarchItem) itemStack.getItem()).type != Type.HELMET) return;
         this.gatherTooltipLines(list, "pyromancer.hidden_lore", "lore", PyromancerConfig.loreTooltipKey);
     }
 }

@@ -82,7 +82,27 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                     .addCriterion("journal_projection", new ImpossibleTrigger.TriggerInstance())
                     .save(saver, "pyromancer:pyromancer/journal_projection");
 
-            Advancement pyromancy_obtained = Advancement.Builder.advancement().parent(blazing_journal_acquired)
+            Advancement flaming_grove_visited = Advancement.Builder.advancement().parent(blazing_journal_acquired)
+                    .display(BlockRegistry.PYROWOOD_SAPLING.get(),
+                            Component.translatable("advancement.pyromancer.flaming_grove_visited.title"),
+                            Component.translatable("advancement.pyromancer.flaming_grove_visited.description"),
+                            null,
+                            FrameType.GOAL,
+                            true, true, false)
+                    .addCriterion("flaming_grove_visited", PlayerTrigger.TriggerInstance.located(LocationPredicate.inBiome(BiomeRegistry.FLAMING_GROVE)))
+                    .save(saver, "pyromancer:pyromancer/flaming_grove_visited");
+
+            Advancement amber_obtained = Advancement.Builder.advancement().parent(flaming_grove_visited)
+                    .display(ItemRegistry.AMBER.get(),
+                            Component.translatable("advancement.pyromancer.amber_obtained.title"),
+                            Component.translatable("advancement.pyromancer.amber_obtained.description"),
+                            null,
+                            FrameType.GOAL,
+                            true, true, false)
+                    .addCriterion("amber_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.AMBER.get()))
+                    .save(saver, "pyromancer:pyromancer/amber_obtained");
+
+            Advancement pyromancy_obtained = Advancement.Builder.advancement().parent(amber_obtained)
                     .display(ItemRegistry.COURT_OF_EMBERS.get(),
                             Component.translatable("advancement.pyromancer.pyromancy_obtained.title"),
                             Component.translatable("advancement.pyromancer.pyromancy_obtained.description"),
@@ -162,18 +182,8 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                     .addCriterion("ember_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.EMBER_ITEM.get()))
                     .save(saver, "pyromancer:pyromancer/ember_obtained");
 
-            Advancement flaming_grove_visited = Advancement.Builder.advancement().parent(blazing_journal_acquired)
-                    .display(BlockRegistry.PYROWOOD_SAPLING.get(),
-                            Component.translatable("advancement.pyromancer.flaming_grove_visited.title"),
-                            Component.translatable("advancement.pyromancer.flaming_grove_visited.description"),
-                            null,
-                            FrameType.GOAL,
-                            true, true, false)
-                    .addCriterion("flaming_grove_visited", PlayerTrigger.TriggerInstance.located(LocationPredicate.inBiome(BiomeRegistry.FLAMING_GROVE)))
-                    .save(saver, "pyromancer:pyromancer/flaming_grove_visited");
-
             Advancement unburned_defeated = Advancement.Builder.advancement().parent(flaming_grove_visited)
-                    .display(ItemRegistry.PYROMANCER_HELMET.get(),
+                    .display(ItemRegistry.MEMORY_OF_FIRE.get(),
                             Component.translatable("advancement.pyromancer.unburned_defeated.title"),
                             Component.translatable("advancement.pyromancer.unburned_defeated.description"),
                             null,
@@ -194,16 +204,16 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                     .addCriterion("pyromancer_armor_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.PYROMANCER_HELMET.get(), ItemRegistry.PYROMANCER_CHESTPLATE.get(), ItemRegistry.PYROMANCER_LEGGINGS.get(), ItemRegistry.PYROMANCER_BOOTS.get()))
                     .save(saver, "pyromancer:pyromancer/pyromancer_armor_obtained");
 
-            Advancement hellblaze_monarch_armor_obtained = Advancement.Builder.advancement().parent(pyromancer_armor_obtained)
-                    .display(ItemRegistry.HELLBLAZE_MONARCH_CHESTPLATE.get(),
-                            Component.translatable("advancement.pyromancer.hellblaze_monarch_armor_obtained.title"),
-                            Component.translatable("advancement.pyromancer.hellblaze_monarch_armor_obtained.description"),
+            Advancement tainted_monarch_armor_obtained = Advancement.Builder.advancement().parent(pyromancer_armor_obtained)
+                    .display(ItemRegistry.TAINTED_MONARCH_CHESTPLATE.get(),
+                            Component.translatable("advancement.pyromancer.tainted_monarch_armor_obtained.title"),
+                            Component.translatable("advancement.pyromancer.tainted_monarch_armor_obtained.description"),
                             null,
                             FrameType.CHALLENGE,
                             true, true, false)
                     .rewards(AdvancementRewards.Builder.experience(200))
-                    .addCriterion("hellblaze_monarch_armor_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.HELLBLAZE_MONARCH_HELMET.get(), ItemRegistry.HELLBLAZE_MONARCH_CHESTPLATE.get(), ItemRegistry.HELLBLAZE_MONARCH_LEGGINGS.get(), ItemRegistry.HELLBLAZE_MONARCH_BOOTS.get()))
-                    .save(saver, "pyromancer:pyromancer/hellblaze_monarch_armor_obtained");
+                    .addCriterion("tainted_monarch_armor_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.TAINTED_MONARCH_HELMET.get(), ItemRegistry.TAINTED_MONARCH_CHESTPLATE.get(), ItemRegistry.TAINTED_MONARCH_LEGGINGS.get(), ItemRegistry.TAINTED_MONARCH_BOOTS.get()))
+                    .save(saver, "pyromancer:pyromancer/tainted_monarch_armor_obtained");
 
             Advancement zweihander_obtained = Advancement.Builder.advancement().parent(blazing_journal_acquired)
                     .display(ItemRegistry.ZWEIHANDER.get(),
@@ -212,7 +222,6 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                             null,
                             FrameType.TASK,
                             true, true, false)
-                    .rewards(AdvancementRewards.Builder.experience(100))
                     .addCriterion("zweihander_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.ZWEIHANDER.get()))
                     .save(saver, "pyromancer:pyromancer/zweihander_obtained");
 
@@ -223,7 +232,6 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                             null,
                             FrameType.TASK,
                             true, true, false)
-                    .rewards(AdvancementRewards.Builder.experience(100))
                     .addCriterion("musket_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.MUSKET.get()))
                     .save(saver, "pyromancer:pyromancer/musket_obtained");
 

@@ -210,36 +210,36 @@ public class RecipeDatagen extends RecipeProvider
                         Ingredient.of(ItemRegistry.PYROMANCER_HELMET.get()),
                         Ingredient.of(Items.NETHERITE_INGOT),
                         RecipeCategory.COMBAT,
-                        ItemRegistry.HELLBLAZE_MONARCH_HELMET.get())
+                        ItemRegistry.TAINTED_MONARCH_HELMET.get())
                 .unlocks("memory_of_fire", has(ItemRegistry.MEMORY_OF_FIRE.get()))
-                .save(consumer, "pyromancer:hellblaze_monarch_helmet");
+                .save(consumer, "pyromancer:tainted_monarch_helmet");
 
         SmithingTransformRecipeBuilder.smithing(
                         Ingredient.of(ItemRegistry.MEMORY_OF_FIRE.get()),
                         Ingredient.of(ItemRegistry.PYROMANCER_CHESTPLATE.get()),
                         Ingredient.of(Items.NETHERITE_INGOT),
                         RecipeCategory.COMBAT,
-                        ItemRegistry.HELLBLAZE_MONARCH_CHESTPLATE.get())
+                        ItemRegistry.TAINTED_MONARCH_CHESTPLATE.get())
                 .unlocks("memory_of_fire", has(ItemRegistry.MEMORY_OF_FIRE.get()))
-                .save(consumer, "pyromancer:hellblaze_monarch_chestplate");
+                .save(consumer, "pyromancer:tainted_monarch_chestplate");
 
         SmithingTransformRecipeBuilder.smithing(
                         Ingredient.of(ItemRegistry.MEMORY_OF_FIRE.get()),
                         Ingredient.of(ItemRegistry.PYROMANCER_LEGGINGS.get()),
                         Ingredient.of(Items.NETHERITE_INGOT),
                         RecipeCategory.COMBAT,
-                        ItemRegistry.HELLBLAZE_MONARCH_LEGGINGS.get())
+                        ItemRegistry.TAINTED_MONARCH_LEGGINGS.get())
                 .unlocks("memory_of_fire", has(ItemRegistry.MEMORY_OF_FIRE.get()))
-                .save(consumer, "pyromancer:hellblaze_monarch_leggings");
+                .save(consumer, "pyromancer:tainted_monarch_leggings");
 
         SmithingTransformRecipeBuilder.smithing(
                         Ingredient.of(ItemRegistry.MEMORY_OF_FIRE.get()),
                         Ingredient.of(ItemRegistry.PYROMANCER_BOOTS.get()),
                         Ingredient.of(Items.NETHERITE_INGOT),
                         RecipeCategory.COMBAT,
-                        ItemRegistry.HELLBLAZE_MONARCH_BOOTS.get())
+                        ItemRegistry.TAINTED_MONARCH_BOOTS.get())
                 .unlocks("memory_of_fire", has(ItemRegistry.MEMORY_OF_FIRE.get()))
-                .save(consumer, "pyromancer:hellblaze_monarch_boots");
+                .save(consumer, "pyromancer:tainted_monarch_boots");
 
         RecipeDatagen.nineBlockStorageRecipes(consumer, RecipeCategory.MISC, ItemRegistry.RIMEBLOOD.get(), RecipeCategory.BUILDING_BLOCKS, BlockRegistry.RIMEBLOOD_BLOCK.get());
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.RIMEBRASS_INGOT.get())

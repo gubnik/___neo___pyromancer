@@ -104,7 +104,7 @@ public class AttackEffectEventHandling
         {
             multiplier += MobEffectRegistry.FIERY_AEGIS.get().performAttack(damageAmount, target, attacker);
         }
-        if (damageSource.getDirectEntity() instanceof Player attacker && ItemRegistry.Utils.hasFullSetEquipped(attacker, ItemRegistry.HELLBLAZE_MONARCH_HELMET.get())
+        if (damageSource.getDirectEntity() instanceof Player attacker && ItemRegistry.Utils.hasFullSetEquipped(attacker, ItemRegistry.TAINTED_MONARCH_HELMET.get())
                 && target.level() instanceof ServerLevel level && damageAmount >= 7 && (damageSource.is(DamageTypeDatagen.IS_PYROMANCY) || damageSource.is(DamageTypeDatagen.IS_EMBER)))
         {
             UnburnedSpiritEntity spirit = new UnburnedSpiritEntity(EntityTypeRegistry.UNBURNED_SPIRIT.get(), level);
