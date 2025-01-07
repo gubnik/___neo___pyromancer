@@ -17,6 +17,7 @@
  */
 package xyz.nikgub.pyromancer.common.item;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -24,17 +25,21 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
+import xyz.nikgub.incandescent.common.item.IExtensibleTooltipItem;
+import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.client.item_extension.AccursedContractClientExtension;
 import xyz.nikgub.pyromancer.common.contract.ContractDirector;
 import xyz.nikgub.pyromancer.registry.RarityRegistry;
 
+import java.util.List;
 import java.util.function.Consumer;
 
-public class AccursedContractItem extends Item
+public class AccursedContractItem extends Item implements IExtensibleTooltipItem
 {
     public AccursedContractItem ()
     {
@@ -84,5 +89,12 @@ public class AccursedContractItem extends Item
     public void initializeClient (@NotNull Consumer<IClientItemExtensions> consumer)
     {
         consumer.accept(new AccursedContractClientExtension());
+    }
+
+    @Override
+    public void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
+    {
+        this.gatherTooltipLines(list, "pyromancer.hidden_desc", "desc", PyromancerConfig.descTooltipKey);
+        this.gatherTooltipLines(list, "pyromancer.hidden_lore", "lore", PyromancerConfig.loreTooltipKey);
     }
 }
