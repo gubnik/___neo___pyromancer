@@ -49,6 +49,6 @@ public class EntityTagDatagen extends ForgeEntityTypeTagsProvider
     public void addTags (HolderLookup.@NotNull Provider lookupProvider)
     {
         tag(FLAMING_GROVE_NATIVE)
-                .add(EntityTypeRegistry.SCORCH.get(), EntityTypeRegistry.PYRACORN.get(), EntityTypeRegistry.UNBURNED.get());
+            .add(EntityTypeRegistry.SCORCH.get(), EntityTypeRegistry.PYRACORN.get(), EntityTypeRegistry.UNBURNED.get());
     }
 }

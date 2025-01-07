@@ -283,19 +283,19 @@ public class MusketItem extends Item
             double i = 1.2;
             float calculatedDamage = initialDamage;
             final double inaccuracy = (scattershotLevel != 0) ? Mth.clamp(1 - ((72000 - ticks) / 20f), 0.25f, 1.2f)
-                    : (riflingLevel != 0) ? Mth.clamp(1 - ((72000 - ticks) / 20f), 0.005f, 0.8f)
-                    : Mth.clamp(1 - ((72000 - ticks) / 20f), 0.05f, 1f);
+                : (riflingLevel != 0) ? Mth.clamp(1 - ((72000 - ticks) / 20f), 0.005f, 0.8f)
+                : Mth.clamp(1 - ((72000 - ticks) / 20f), 0.05f, 1f);
             final Vec3 spreadModifiers = new Vec3(
-                    ThreadLocalRandom.current().nextDouble(-inaccuracy, inaccuracy) / 2,
-                    ThreadLocalRandom.current().nextDouble(-inaccuracy, inaccuracy) / 4,
-                    ThreadLocalRandom.current().nextDouble(-inaccuracy, inaccuracy) / 2
+                ThreadLocalRandom.current().nextDouble(-inaccuracy, inaccuracy) / 2,
+                ThreadLocalRandom.current().nextDouble(-inaccuracy, inaccuracy) / 4,
+                ThreadLocalRandom.current().nextDouble(-inaccuracy, inaccuracy) / 2
             );
             final Vec3 angles = look.add(spreadModifiers);
             ClipContext clip;
             Vec3 lookPos;
             while (EntityUtils.entityCollector(lookPos = new Vec3(x + angles.x * i, y + angles.y * i, z + angles.z * i), 0.25, entity.level()).isEmpty() &&
-                    !level.getBlockState(new BlockPos(level.clip((clip = new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(i)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity))).getBlockPos().getX(), level.clip(clip).getBlockPos().getY(), level.clip(clip).getBlockPos().getZ())
-                    ).canOcclude() && i < iterations)
+                !level.getBlockState(new BlockPos(level.clip((clip = new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(i)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity))).getBlockPos().getX(), level.clip(clip).getBlockPos().getY(), level.clip(clip).getBlockPos().getZ())
+                ).canOcclude() && i < iterations)
             {
                 level.sendParticles((itemStack.isEnchanted()) ? ParticleTypes.ENCHANTED_HIT : ParticleTypes.CRIT, lookPos.x, lookPos.y, lookPos.z, 2, 0.01, 0, 0.01, 0);
                 i += 0.2;

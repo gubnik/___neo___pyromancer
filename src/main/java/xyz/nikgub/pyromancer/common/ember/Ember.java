@@ -117,13 +117,13 @@ public class Ember
     public static boolean isUniquelyAllowed (ItemStack itemStack)
     {
         return (itemStack.getItem().getClass().isAnnotationPresent(UniqueEmberBehaviour.class)) && itemStack.getItem().getClass().getAnnotation(UniqueEmberBehaviour.class).allow() == UniqueEmberBehaviour.AllowanceModifier.ALLOW
-                && !isUniquelyDenied(itemStack);
+            && !isUniquelyDenied(itemStack);
     }
 
     public static boolean isUniquelyAllowed (Item item)
     {
         return (item.getClass().isAnnotationPresent(UniqueEmberBehaviour.class)) && item.getClass().getAnnotation(UniqueEmberBehaviour.class).allow() == UniqueEmberBehaviour.AllowanceModifier.ALLOW
-                && !isUniquelyDenied(item);
+            && !isUniquelyDenied(item);
     }
 
     @Override

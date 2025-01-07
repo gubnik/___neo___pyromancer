@@ -55,9 +55,9 @@ public class ContractDirector
             return;
         }
         this.credits = PyromancerConfig.defaultContractCredits
-                + level.getDifficulty().getId() * 5
-                + level.getMoonPhase() * 5
-                + ((!level.isDay()) ? 20 : 0);
+            + level.getDifficulty().getId() * 5
+            + level.getMoonPhase() * 5
+            + ((!level.isDay()) ? 20 : 0);
         List<AccursedContractEntry<?>> available = new ArrayList<>();
         for (AccursedContractEntry<?> entry : ContractRegistry.REGISTRY.get().getValues())
             if (entry.getValueInCredits() <= credits) available.add(entry);
@@ -65,27 +65,33 @@ public class ContractDirector
     }
 
     @Nullable
-    private static AccursedContractEntry<? extends Entity> pickRandom(List<AccursedContractEntry<? extends Entity>> list) {
-        if (list == null || list.isEmpty()) {
+    private static AccursedContractEntry<? extends Entity> pickRandom (List<AccursedContractEntry<? extends Entity>> list)
+    {
+        if (list == null || list.isEmpty())
+        {
             return null;
         }
         double[] exponentials = new double[list.size()];
         double totalExponential = 0.0;
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++)
+        {
             int weight = list.get(i).getValueInCredits();
             double inverseWeight = 1.0 / weight;
             exponentials[i] = Math.exp(inverseWeight);
             totalExponential += exponentials[i];
         }
         double[] probabilities = new double[list.size()];
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++)
+        {
             probabilities[i] = exponentials[i] / totalExponential;
         }
         double randomValue = Math.random();
         double cumulativeProbability = 0.0;
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++)
+        {
             cumulativeProbability += probabilities[i];
-            if (randomValue <= cumulativeProbability) {
+            if (randomValue <= cumulativeProbability)
+            {
                 return list.get(i);
             }
         }
@@ -98,7 +104,7 @@ public class ContractDirector
         {
             if (damageSource.is(DamageTypeTags.IS_FIRE))
             {
-                return  0.2f;
+                return 0.2f;
             }
         }
         return 0.0f;

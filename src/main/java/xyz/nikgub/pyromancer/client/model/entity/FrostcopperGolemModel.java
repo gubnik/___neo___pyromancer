@@ -64,22 +64,22 @@ public class FrostcopperGolemModel<T extends FrostcopperGolemEntity> extends Hie
         PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(28, 24).addBox(-4.0F, -8.0F, -5.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, 0.0F));
 
         PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 19).addBox(-5.0F, -6.0F, -4.0F, 10.0F, 5.0F, 8.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 0).addBox(-7.0F, -1.0F, -5.0F, 14.0F, 9.0F, 10.0F, new CubeDeformation(0.0F))
-                .texOffs(52, 25).addBox(-4.5F, 0.5F, -6.0F, 9.0F, 6.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 4.0F, 0.0F));
+            .texOffs(0, 0).addBox(-7.0F, -1.0F, -5.0F, 14.0F, 9.0F, 10.0F, new CubeDeformation(0.0F))
+            .texOffs(52, 25).addBox(-4.5F, 0.5F, -6.0F, 9.0F, 6.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 4.0F, 0.0F));
 
         PartDefinition right_arm = partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(0, 32).addBox(-7.0F, -3.0F, -4.0F, 7.0F, 6.0F, 8.0F, new CubeDeformation(0.0F))
-                .texOffs(48, 58).addBox(-6.0F, 3.0F, -3.0F, 4.0F, 11.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 0.0F, 0.0F));
+            .texOffs(48, 58).addBox(-6.0F, 3.0F, -3.0F, 4.0F, 11.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 0.0F, 0.0F));
 
         PartDefinition left_arm = partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(22, 40).addBox(0.0F, -3.0F, -4.0F, 7.0F, 6.0F, 8.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 65).addBox(2.0F, 3.0F, -3.0F, 4.0F, 11.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(5.0F, 0.0F, 0.0F));
+            .texOffs(0, 65).addBox(2.0F, 3.0F, -3.0F, 4.0F, 11.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(5.0F, 0.0F, 0.0F));
 
         PartDefinition right_leg = partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(48, 0).addBox(-2.5F, -1.0F, -3.0F, 5.0F, 13.0F, 6.0F, new CubeDeformation(0.0F))
-                .texOffs(22, 54).addBox(-3.0F, 1.0F, -3.5F, 6.0F, 4.0F, 7.0F, new CubeDeformation(0.0F))
-                .texOffs(22, 54).addBox(-3.0F, 6.0F, -3.5F, 6.0F, 4.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(-3.5F, 12.0F, 0.0F));
+            .texOffs(22, 54).addBox(-3.0F, 1.0F, -3.5F, 6.0F, 4.0F, 7.0F, new CubeDeformation(0.0F))
+            .texOffs(22, 54).addBox(-3.0F, 6.0F, -3.5F, 6.0F, 4.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(-3.5F, 12.0F, 0.0F));
 
         PartDefinition left_leg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 46).addBox(-2.5F, -1.0F, -3.0F, 5.0F, 13.0F, 6.0F, new CubeDeformation(0.0F))
-                .texOffs(22, 54).addBox(-3.0F, 1.0F, -3.5F, 6.0F, 4.0F, 7.0F, new CubeDeformation(0.0F))
-                .texOffs(22, 54).addBox(-3.0F, 6.0F, -3.5F, 6.0F, 4.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(3.5F, 12.0F, 0.0F));
+            .texOffs(22, 54).addBox(-3.0F, 1.0F, -3.5F, 6.0F, 4.0F, 7.0F, new CubeDeformation(0.0F))
+            .texOffs(22, 54).addBox(-3.0F, 6.0F, -3.5F, 6.0F, 4.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(3.5F, 12.0F, 0.0F));
 
         return LayerDefinition.create(meshdefinition, 128, 128);
     }

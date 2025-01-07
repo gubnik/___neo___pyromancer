@@ -73,9 +73,9 @@ public class MaceItem extends TieredItem implements ICustomSwingItem
         if (slot == EquipmentSlot.MAINHAND)
         {
             builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(Item.BASE_ATTACK_DAMAGE_UUID, "Weapon modifier",
-                    this.getTier().getAttackDamageBonus() + DEFAULT_DAMAGE
-                            + itemStack.getEnchantmentLevel(EnchantmentRegistry.CLOSE_QUARTERS.get()) * 0.6f,
-                    AttributeModifier.Operation.ADDITION));
+                this.getTier().getAttackDamageBonus() + DEFAULT_DAMAGE
+                    + itemStack.getEnchantmentLevel(EnchantmentRegistry.CLOSE_QUARTERS.get()) * 0.6f,
+                AttributeModifier.Operation.ADDITION));
             builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_UUID, "Weapon modifier", -2.8d, AttributeModifier.Operation.ADDITION));
             Map<Enchantment, Integer> itemEnchants = itemStack.getAllEnchantments();
             for (Enchantment enchantment : itemEnchants.keySet().stream().toList())

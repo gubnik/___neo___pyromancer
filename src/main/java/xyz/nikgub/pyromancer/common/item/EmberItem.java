@@ -56,7 +56,7 @@ public class EmberItem extends Item
         } else
         {
             list.add(Component.translatable(
-                    Component.translatable("pyromancer.ember_hidden_line").getString() + PyromancerConfig.embersDescriptionKey.toString()
+                Component.translatable("pyromancer.ember_hidden_line").getString() + PyromancerConfig.embersDescriptionKey.toString()
             ).withStyle(ChatFormatting.DARK_GRAY).withStyle(ChatFormatting.BOLD));
         }
     }
@@ -70,13 +70,13 @@ public class EmberItem extends Item
         try
         {
             Arrays.stream(inSlot.getItem().getClass().getMethods()).filter(m -> Arrays.equals(m.getParameterTypes(), new Class<?>[]{Level.class, Player.class, InteractionHand.class}) &&
-                    m.getReturnType() == InteractionResultHolder.class && m.getDeclaringClass() == Item.class).findFirst().orElseThrow(() -> new NoSuchMethodException("Use method not found"));
+                m.getReturnType() == InteractionResultHolder.class && m.getDeclaringClass() == Item.class).findFirst().orElseThrow(() -> new NoSuchMethodException("Use method not found"));
         } catch (NoSuchMethodException exception)
         {
             return false;
         }
         if (held.getItem() instanceof EmberItem
-                && ember.isValidFor(inSlot.getItem())
+            && ember.isValidFor(inSlot.getItem())
         )
         {
             ember.applyToItemStack(inSlot);

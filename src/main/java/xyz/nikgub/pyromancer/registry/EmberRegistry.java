@@ -143,10 +143,10 @@ public class EmberRegistry
     public static Ember getEmberByName (String name)
     {
         return REGISTRY.get()
-                .getValues()
-                .stream()
-                .filter((ember -> Objects.equals(ember.getName(), name)))
-                .findFirst().orElse(null);
+            .getValues()
+            .stream()
+            .filter((ember -> Objects.equals(ember.getName(), name)))
+            .findFirst().orElse(null);
     }
 
 }

@@ -84,13 +84,13 @@ public class RimegazerEntity extends Monster implements IAnimationPurposeEntity
     public static AttributeSupplier setAttributes ()
     {
         return Monster.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 75)
-                .add(Attributes.MOVEMENT_SPEED, 0.25f)
-                .add(Attributes.ATTACK_DAMAGE, 1)
-                .add(Attributes.ATTACK_SPEED, 1)
-                .add(Attributes.FOLLOW_RANGE, 8)
-                .add(AttributeRegistry.COLD_BUILDUP.get(), 8)
-                .build();
+            .add(Attributes.MAX_HEALTH, 75)
+            .add(Attributes.MOVEMENT_SPEED, 0.25f)
+            .add(Attributes.ATTACK_DAMAGE, 1)
+            .add(Attributes.ATTACK_SPEED, 1)
+            .add(Attributes.FOLLOW_RANGE, 8)
+            .add(AttributeRegistry.COLD_BUILDUP.get(), 8)
+            .build();
     }
 
     @Override
@@ -106,12 +106,12 @@ public class RimegazerEntity extends Monster implements IAnimationPurposeEntity
         return ANIMATION_STATE;
     }
 
-    public AttackState getAttackState()
+    public AttackState getAttackState ()
     {
         return this.entityData.get(ATTACK_STATE);
     }
 
-    public void setAttackState(AttackState attackState)
+    public void setAttackState (AttackState attackState)
     {
         this.entityData.set(ATTACK_STATE, attackState);
     }
@@ -140,15 +140,14 @@ public class RimegazerEntity extends Monster implements IAnimationPurposeEntity
     public boolean doHurtTarget (@NotNull Entity target)
     {
         if (this.getAllAnimations().stream()
-                .filter(determinedAnimation -> determinedAnimation.animationPurpose() != DeterminedAnimation.AnimationPurpose.IDLE)
-                .anyMatch(determinedAnimation -> determinedAnimation.animationState().isStarted()))
+            .filter(determinedAnimation -> determinedAnimation.animationPurpose() != DeterminedAnimation.AnimationPurpose.IDLE)
+            .anyMatch(determinedAnimation -> determinedAnimation.animationState().isStarted()))
             return false;
         if (this.getAttackState() == AttackState.ATTACK)
         {
             this.runAnimationOf(DeterminedAnimation.AnimationPurpose.MAIN_ATTACK);
             this.setAttackTick(this.tickCount);
-        }
-        else
+        } else
         {
             this.runAnimationOf(DeterminedAnimation.AnimationPurpose.SPECIAL_ATTACK);
             this.setSpinTick(this.tickCount);
@@ -195,8 +194,7 @@ public class RimegazerEntity extends Monster implements IAnimationPurposeEntity
                     this.rayAttack(5);
                 }
             }
-        }
-        else
+        } else
         {
             final int spinTick = getSpinTick();
 
@@ -240,7 +238,7 @@ public class RimegazerEntity extends Monster implements IAnimationPurposeEntity
         }
     }
 
-    private void spinAttack(float damage)
+    private void spinAttack (float damage)
     {
         for (var entity : EntityUtils.entityCollector(this.getPosition(Minecraft.getInstance().getPartialTick()).add(0, 1, 0), 2f, this.level()))
         {
@@ -253,9 +251,9 @@ public class RimegazerEntity extends Monster implements IAnimationPurposeEntity
     public @NotNull List<DeterminedAnimation> getAllAnimations ()
     {
         return List.of(
-                new DeterminedAnimation(IDLE, DeterminedAnimation.AnimationPurpose.IDLE),
-                new DeterminedAnimation(ATTACK, DeterminedAnimation.AnimationPurpose.MAIN_ATTACK),
-                new DeterminedAnimation(SPIN, DeterminedAnimation.AnimationPurpose.SPECIAL_ATTACK)
+            new DeterminedAnimation(IDLE, DeterminedAnimation.AnimationPurpose.IDLE),
+            new DeterminedAnimation(ATTACK, DeterminedAnimation.AnimationPurpose.MAIN_ATTACK),
+            new DeterminedAnimation(SPIN, DeterminedAnimation.AnimationPurpose.SPECIAL_ATTACK)
         );
     }
 }

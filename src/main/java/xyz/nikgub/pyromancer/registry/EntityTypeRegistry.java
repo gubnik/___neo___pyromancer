@@ -37,56 +37,56 @@ public class EntityTypeRegistry
     public static DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, PyromancerMod.MOD_ID);
 
     public static final RegistryObject<EntityType<SizzlingHandFireball>> SIZZLING_HAND_FIREBALL = register("sizzling_hand_fireball",
-            EntityType.Builder.<SizzlingHandFireball>of(SizzlingHandFireball::new, MobCategory.MISC)
-                    .sized(0.25F, 0.25F).clientTrackingRange(16));
+        EntityType.Builder.<SizzlingHandFireball>of(SizzlingHandFireball::new, MobCategory.MISC)
+            .sized(0.25F, 0.25F).clientTrackingRange(16));
 
     public static final RegistryObject<EntityType<BombsackProjectile>> BOMBSACK = register("bombsack",
-            EntityType.Builder.of(BombsackProjectile::new, MobCategory.MISC)
-                    .sized(0.25F, 0.25F).clientTrackingRange(16));
+        EntityType.Builder.of(BombsackProjectile::new, MobCategory.MISC)
+            .sized(0.25F, 0.25F).clientTrackingRange(16));
 
     public static final RegistryObject<EntityType<ScattershotBombsackProjectile>> SCATTERSHOT_BOMBSACK = register("scattershot_bombsack",
-            EntityType.Builder.of(ScattershotBombsackProjectile::new, MobCategory.MISC)
-                    .sized(0.25F, 0.25F).clientTrackingRange(16));
+        EntityType.Builder.of(ScattershotBombsackProjectile::new, MobCategory.MISC)
+            .sized(0.25F, 0.25F).clientTrackingRange(16));
 
     public static final RegistryObject<EntityType<NapalmBombsackProjectile>> NAPALM_BOMBSACK = register("napalm_bombsack",
-            EntityType.Builder.of(NapalmBombsackProjectile::new, MobCategory.MISC)
-                    .sized(0.25F, 0.25F).clientTrackingRange(16));
+        EntityType.Builder.of(NapalmBombsackProjectile::new, MobCategory.MISC)
+            .sized(0.25F, 0.25F).clientTrackingRange(16));
 
     public static final RegistryObject<EntityType<FlamingGuillotineEntity>> FLAMING_GUILLOTINE = register("flaming_guillotine",
-            EntityType.Builder.of(FlamingGuillotineEntity::new, MobCategory.MISC)
-                    .clientTrackingRange(128).setShouldReceiveVelocityUpdates(false));
+        EntityType.Builder.of(FlamingGuillotineEntity::new, MobCategory.MISC)
+            .clientTrackingRange(128).setShouldReceiveVelocityUpdates(false));
 
     public static final RegistryObject<EntityType<UnburnedSpiritEntity>> UNBURNED_SPIRIT = register("unburned_spirit",
-            EntityType.Builder.of(UnburnedSpiritEntity::new, MobCategory.MISC)
-                    .clientTrackingRange(128).setShouldReceiveVelocityUpdates(false).fireImmune());
+        EntityType.Builder.of(UnburnedSpiritEntity::new, MobCategory.MISC)
+            .clientTrackingRange(128).setShouldReceiveVelocityUpdates(false).fireImmune());
 
     public static final RegistryObject<EntityType<PyronadoEntity>> PYRONADO = register("pyronado",
-            EntityType.Builder.of(PyronadoEntity::new, MobCategory.MISC)
-                    .clientTrackingRange(128).setShouldReceiveVelocityUpdates(false));
+        EntityType.Builder.of(PyronadoEntity::new, MobCategory.MISC)
+            .clientTrackingRange(128).setShouldReceiveVelocityUpdates(false));
 
     public static final RegistryObject<EntityType<UnburnedEntity>> UNBURNED = register("unburned",
-            EntityType.Builder.of(UnburnedEntity::new, MobCategory.MONSTER)
-                    .sized(1.3f, 5.2f).fireImmune());
+        EntityType.Builder.of(UnburnedEntity::new, MobCategory.MONSTER)
+            .sized(1.3f, 5.2f).fireImmune());
 
     public static final RegistryObject<EntityType<ScorchEntity>> SCORCH = register("scorch",
-            EntityType.Builder.of(ScorchEntity::new, MobCategory.MONSTER)
-                    .sized(1.3f, 1.2f).fireImmune());
+        EntityType.Builder.of(ScorchEntity::new, MobCategory.MONSTER)
+            .sized(1.3f, 1.2f).fireImmune());
 
     public static final RegistryObject<EntityType<PyracornEntity>> PYRACORN = register("pyracorn",
-            EntityType.Builder.of(PyracornEntity::new, MobCategory.MONSTER)
-                    .sized(0.7f, 1.5f).fireImmune());
+        EntityType.Builder.of(PyracornEntity::new, MobCategory.MONSTER)
+            .sized(0.7f, 1.5f).fireImmune());
 
     public static final RegistryObject<EntityType<PyroentEntity>> PYROENT = register("pyroent",
-            EntityType.Builder.of(PyroentEntity::new, MobCategory.MONSTER)
-                    .sized(1.5f, 4.0f).fireImmune());
+        EntityType.Builder.of(PyroentEntity::new, MobCategory.MONSTER)
+            .sized(1.5f, 4.0f).fireImmune());
 
     public static final RegistryObject<EntityType<FrostcopperGolemEntity>> FROSTCOPPER_GOLEM = register("frostcopper_golem",
-            EntityType.Builder.of(FrostcopperGolemEntity::new, MobCategory.MONSTER)
-                    .sized(1.1f, 2.1f));
+        EntityType.Builder.of(FrostcopperGolemEntity::new, MobCategory.MONSTER)
+            .sized(1.1f, 2.1f));
 
     public static final RegistryObject<EntityType<RimegazerEntity>> RIMEGAZER = register("rimegazer",
-            EntityType.Builder.of(RimegazerEntity::new, MobCategory.MONSTER)
-                    .sized(0.5f, 1.8f));
+        EntityType.Builder.of(RimegazerEntity::new, MobCategory.MONSTER)
+            .sized(0.5f, 1.8f));
 
     private static <T extends Entity> RegistryObject<EntityType<T>> register (String registry_name, EntityType.Builder<T> entityTypeBuilder)
     {

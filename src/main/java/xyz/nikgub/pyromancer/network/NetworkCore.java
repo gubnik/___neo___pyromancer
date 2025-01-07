@@ -37,38 +37,38 @@ import xyz.nikgub.pyromancer.registry.KeyBindsRegistry;
 public class NetworkCore
 {
     public static final SimpleChannel INSTANCE = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(PyromancerMod.MOD_ID, "messages"))
-            .networkProtocolVersion(() -> "1.0")
-            .clientAcceptedVersions(s -> true)
-            .serverAcceptedVersions(s -> true)
-            .simpleChannel();
+        .networkProtocolVersion(() -> "1.0")
+        .clientAcceptedVersions(s -> true)
+        .serverAcceptedVersions(s -> true)
+        .simpleChannel();
 
     private static int id = 0;
 
     public static void register ()
     {
         INSTANCE.messageBuilder(SwapPyromancyKeyMessage.class, id++, NetworkDirection.PLAY_TO_SERVER)
-                .decoder(SwapPyromancyKeyMessage::new)
-                .encoder(SwapPyromancyKeyMessage::toBytes)
-                .consumerMainThread(SwapPyromancyKeyMessage::handle)
-                .add();
+            .decoder(SwapPyromancyKeyMessage::new)
+            .encoder(SwapPyromancyKeyMessage::toBytes)
+            .consumerMainThread(SwapPyromancyKeyMessage::handle)
+            .add();
 
         INSTANCE.messageBuilder(SetDeltaMovementPacket.class, id++, NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(SetDeltaMovementPacket::new)
-                .encoder(SetDeltaMovementPacket::toBytes)
-                .consumerMainThread(SetDeltaMovementPacket::handle)
-                .add();
+            .decoder(SetDeltaMovementPacket::new)
+            .encoder(SetDeltaMovementPacket::toBytes)
+            .consumerMainThread(SetDeltaMovementPacket::handle)
+            .add();
 
         INSTANCE.messageBuilder(SymbolOfSunMovementPacket.class, id++, NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(SymbolOfSunMovementPacket::new)
-                .encoder(SymbolOfSunMovementPacket::toBytes)
-                .consumerMainThread(SymbolOfSunMovementPacket::handle)
-                .add();
+            .decoder(SymbolOfSunMovementPacket::new)
+            .encoder(SymbolOfSunMovementPacket::toBytes)
+            .consumerMainThread(SymbolOfSunMovementPacket::handle)
+            .add();
 
         INSTANCE.messageBuilder(FlammenklingeMovementPacket.class, id++, NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(FlammenklingeMovementPacket::new)
-                .encoder(FlammenklingeMovementPacket::toBytes)
-                .consumerMainThread(FlammenklingeMovementPacket::handle)
-                .add();
+            .decoder(FlammenklingeMovementPacket::new)
+            .encoder(FlammenklingeMovementPacket::toBytes)
+            .consumerMainThread(FlammenklingeMovementPacket::handle)
+            .add();
 
         //INSTANCE.messageBuilder(FlammenklingeLeapPacket.class, id++, NetworkDirection.PLAY_TO_CLIENT)
         //        .decoder(FlammenklingeLeapPacket::new)

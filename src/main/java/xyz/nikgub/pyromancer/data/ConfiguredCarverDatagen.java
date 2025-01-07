@@ -49,22 +49,22 @@ public class ConfiguredCarverDatagen
     {
         HolderGetter<Block> holdergetter = pContext.lookup(Registries.BLOCK);
         pContext.register(FLAMING_GROVE_CARVER, WorldCarver.NETHER_CAVE.configured(
-                new CaveCarverConfiguration(0.2F,
-                        UniformHeight.of(VerticalAnchor.absolute(0),
-                                VerticalAnchor.belowTop(1)), ConstantFloat.of(0.6F),
-                        VerticalAnchor.aboveBottom(10), holdergetter.getOrThrow(BlockTags.NETHER_CARVER_REPLACEABLES),
-                        ConstantFloat.of(1.5F), ConstantFloat.of(1.2F), ConstantFloat.of(-0.7F))));
+            new CaveCarverConfiguration(0.2F,
+                UniformHeight.of(VerticalAnchor.absolute(0),
+                    VerticalAnchor.belowTop(1)), ConstantFloat.of(0.6F),
+                VerticalAnchor.aboveBottom(10), holdergetter.getOrThrow(BlockTags.NETHER_CARVER_REPLACEABLES),
+                ConstantFloat.of(1.5F), ConstantFloat.of(1.2F), ConstantFloat.of(-0.7F))));
         pContext.register(WIDER_CAVE, WorldCarver.CAVE.configured(
-                new CaveCarverConfiguration(0.15F,
-                        UniformHeight.of(VerticalAnchor.aboveBottom(8),
-                                VerticalAnchor.absolute(180)),
-                        UniformFloat.of(0.2F, 1.1F),
-                        VerticalAnchor.aboveBottom(8),
-                        CarverDebugSettings.of(false, Blocks.CRIMSON_BUTTON.defaultBlockState()),
-                        holdergetter.getOrThrow(BlockTags.OVERWORLD_CARVER_REPLACEABLES),
-                        UniformFloat.of(1.1F, 1.6F),
-                        UniformFloat.of(0.9F, 1.7F),
-                        UniformFloat.of(-1.0F, -0.4F))
+            new CaveCarverConfiguration(0.15F,
+                UniformHeight.of(VerticalAnchor.aboveBottom(8),
+                    VerticalAnchor.absolute(180)),
+                UniformFloat.of(0.2F, 1.1F),
+                VerticalAnchor.aboveBottom(8),
+                CarverDebugSettings.of(false, Blocks.CRIMSON_BUTTON.defaultBlockState()),
+                holdergetter.getOrThrow(BlockTags.OVERWORLD_CARVER_REPLACEABLES),
+                UniformFloat.of(1.1F, 1.6F),
+                UniformFloat.of(0.9F, 1.7F),
+                UniformFloat.of(-1.0F, -0.4F))
         ));
     }
 }

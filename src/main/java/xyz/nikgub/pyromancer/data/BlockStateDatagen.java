@@ -34,26 +34,26 @@ import java.util.function.Consumer;
 public class BlockStateDatagen extends BlockStateProvider
 {
     public static final List<Block> EXCEPTIONS = List.of(
-            BlockRegistry.SIZZLING_VINE.get(),
-            BlockRegistry.FIREBRIAR.get()
+        BlockRegistry.SIZZLING_VINE.get(),
+        BlockRegistry.FIREBRIAR.get()
     );
     public static final Map<Block, Consumer<BlockStateDatagen>> CUSTOM = Map.of(
-            BlockRegistry.PYROWOOD_LOG.get(), (blockStateDatagen -> blockStateDatagen.axisBlock(BlockRegistry.PYROWOOD_LOG.get(), new ResourceLocation(PyromancerMod.MOD_ID, "block/pyrowood_log_side"), new ResourceLocation(PyromancerMod.MOD_ID, "block/pyrowood_log_top"))),
-            BlockRegistry.STRIPPED_PYROWOOD_LOG.get(), (blockStateDatagen -> blockStateDatagen.axisBlock(BlockRegistry.STRIPPED_PYROWOOD_LOG.get(), new ResourceLocation(PyromancerMod.MOD_ID, "block/stripped_pyrowood_log_side"), new ResourceLocation(PyromancerMod.MOD_ID, "block/stripped_pyrowood_log_top"))),
-            BlockRegistry.PYROMOSSED_NETHERRACK.get(), (blockModelDatagen ->
-            {
-                var builder = blockModelDatagen.modelDatagen.generatedModels.get(new ResourceLocation(PyromancerMod.MOD_ID, "block/pyromossed_netherrack"));
-                blockModelDatagen.simpleBlock(BlockRegistry.PYROMOSSED_NETHERRACK.get(), builder);
-            }),
-            BlockRegistry.RIMEBLOOD_CELL.get(), (blockModelDatagen ->
-            {
-                var builder = blockModelDatagen.modelDatagen.generatedModels.get(new ResourceLocation(PyromancerMod.MOD_ID, "block/rimeblood_cell"));
-                blockModelDatagen.simpleBlock(BlockRegistry.RIMEBLOOD_CELL.get(), builder);
-            }),
-            BlockRegistry.PYROWOOD_LEAVES.get(), (blockModelDatagen ->
-            {
-                blockModelDatagen.simpleBlock(BlockRegistry.PYROWOOD_LEAVES.get(), blockModelDatagen.models().cubeAll("pyrowood_leaves", new ResourceLocation(PyromancerMod.MOD_ID, "block/pyrowood_leaves")).renderType("cutout_mipped"));
-            })
+        BlockRegistry.PYROWOOD_LOG.get(), (blockStateDatagen -> blockStateDatagen.axisBlock(BlockRegistry.PYROWOOD_LOG.get(), new ResourceLocation(PyromancerMod.MOD_ID, "block/pyrowood_log_side"), new ResourceLocation(PyromancerMod.MOD_ID, "block/pyrowood_log_top"))),
+        BlockRegistry.STRIPPED_PYROWOOD_LOG.get(), (blockStateDatagen -> blockStateDatagen.axisBlock(BlockRegistry.STRIPPED_PYROWOOD_LOG.get(), new ResourceLocation(PyromancerMod.MOD_ID, "block/stripped_pyrowood_log_side"), new ResourceLocation(PyromancerMod.MOD_ID, "block/stripped_pyrowood_log_top"))),
+        BlockRegistry.PYROMOSSED_NETHERRACK.get(), (blockModelDatagen ->
+        {
+            var builder = blockModelDatagen.modelDatagen.generatedModels.get(new ResourceLocation(PyromancerMod.MOD_ID, "block/pyromossed_netherrack"));
+            blockModelDatagen.simpleBlock(BlockRegistry.PYROMOSSED_NETHERRACK.get(), builder);
+        }),
+        BlockRegistry.RIMEBLOOD_CELL.get(), (blockModelDatagen ->
+        {
+            var builder = blockModelDatagen.modelDatagen.generatedModels.get(new ResourceLocation(PyromancerMod.MOD_ID, "block/rimeblood_cell"));
+            blockModelDatagen.simpleBlock(BlockRegistry.RIMEBLOOD_CELL.get(), builder);
+        }),
+        BlockRegistry.PYROWOOD_LEAVES.get(), (blockModelDatagen ->
+        {
+            blockModelDatagen.simpleBlock(BlockRegistry.PYROWOOD_LEAVES.get(), blockModelDatagen.models().cubeAll("pyrowood_leaves", new ResourceLocation(PyromancerMod.MOD_ID, "block/pyrowood_leaves")).renderType("cutout_mipped"));
+        })
     );
     public final BlockModelDatagen modelDatagen;
 

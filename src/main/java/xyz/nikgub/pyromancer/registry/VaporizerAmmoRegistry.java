@@ -55,87 +55,108 @@ public class VaporizerAmmoRegistry
     public static final ResourceKey<Registry<VaporizerItem.Ammo>> REGISTRY_KEY = ResourceKey.createRegistryKey(new ResourceLocation(PyromancerMod.MOD_ID, "vaporizer_ammo"));
     public static final DeferredRegister<VaporizerItem.Ammo> AMMO = DeferredRegister.create(REGISTRY_KEY, PyromancerMod.MOD_ID);
     public static final Supplier<IForgeRegistry<VaporizerItem.Ammo>> REGISTRY = AMMO.makeRegistry(() -> new RegistryBuilder<VaporizerItem.Ammo>().disableOverrides());
-    
+
     public static final RegistryObject<VaporizerItem.Ammo> BLAZE_POWDER = AMMO.register("blaze_powder",
-            () -> new VaporizerItem.Ammo(Items.BLAZE_POWDER)
+        () -> new VaporizerItem.Ammo(Items.BLAZE_POWDER)
+        {
+            @Override
+            public void runConsumeEffect (ItemStack itemStack, LivingEntity living)
             {
-                @Override
-                public void runConsumeEffect (ItemStack itemStack, LivingEntity living)
-                {
-                    generalRayAmmo(itemStack, living, ParticleTypes.FLAME, 3, 50, 1, 0.5f, 0.325f,
-                            DamageSourceRegistry.vaporizer(living),
-                            (livingEntity) ->
-                            {
-                                livingEntity.setSecondsOnFire(2);
-                                return false;
-                            });
-                }
-            });
+                generalRayAmmo(itemStack, living, ParticleTypes.FLAME, 3, 50, 1, 0.5f, 0.325f,
+                    DamageSourceRegistry.vaporizer(living),
+                    (livingEntity) ->
+                    {
+                        livingEntity.setSecondsOnFire(2);
+                        return false;
+                    });
+            }
+        });
 
     public static final RegistryObject<VaporizerItem.Ammo> AMBER = AMMO.register("amber",
-            () -> new VaporizerItem.Ammo(ItemRegistry.AMBER.get())
+        () -> new VaporizerItem.Ammo(ItemRegistry.AMBER.get())
+        {
+            @Override
+            public void runConsumeEffect (ItemStack itemStack, LivingEntity living)
             {
-                @Override
-                public void runConsumeEffect (ItemStack itemStack, LivingEntity living)
-                {
-                    generalRayAmmo(itemStack, living, ParticleTypes.CRIT, 1, 100, 2, 0.1f, 0.01f,
-                            DamageSourceRegistry.vaporizer(living),
-                            (livingEntity) ->
-                            {
-                                livingEntity.setSecondsOnFire(2);
-                                return false;
-                            });
-                }
-            });
+                generalRayAmmo(itemStack, living, ParticleTypes.CRIT, 1, 100, 2, 0.1f, 0.01f,
+                    DamageSourceRegistry.vaporizer(living),
+                    (livingEntity) ->
+                    {
+                        livingEntity.setSecondsOnFire(2);
+                        return false;
+                    });
+            }
+        });
 
     public static final RegistryObject<VaporizerItem.Ammo> MERCURY = AMMO.register("mercury",
-            () -> new VaporizerItem.Ammo(ItemRegistry.DROPS_OF_MERCURY.get())
+        () -> new VaporizerItem.Ammo(ItemRegistry.DROPS_OF_MERCURY.get())
+        {
+            @Override
+            public void runConsumeEffect (ItemStack itemStack, LivingEntity living)
             {
-                @Override
-                public void runConsumeEffect (ItemStack itemStack, LivingEntity living)
-                {
-                    generalRayAmmo(itemStack, living, ParticleRegistry.VAPORIZER_MERCURY.get(), 4, 50, 0.2f, 0.4f, 0.5f,
-                            DamageSourceRegistry.vaporizer(living),
-                            (livingEntity) ->
-                            {
-                                livingEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, 10, 0));
-                                livingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 10, 2));
-                                return false;
-                            });
-                }
-            });
+                generalRayAmmo(itemStack, living, ParticleRegistry.VAPORIZER_MERCURY.get(), 4, 50, 0.2f, 0.4f, 0.5f,
+                    DamageSourceRegistry.vaporizer(living),
+                    (livingEntity) ->
+                    {
+                        livingEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, 10, 0));
+                        livingEntity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 10, 2));
+                        return false;
+                    });
+            }
+        });
 
     public static final RegistryObject<VaporizerItem.Ammo> RIMEBLOOD = AMMO.register("rimeblood",
-            () -> new VaporizerItem.Ammo(ItemRegistry.RIMEBLOOD.get())
+        () -> new VaporizerItem.Ammo(ItemRegistry.RIMEBLOOD.get())
+        {
+            @Override
+            public void runConsumeEffect (ItemStack itemStack, LivingEntity living)
             {
-                @Override
-                public void runConsumeEffect (ItemStack itemStack, LivingEntity living)
-                {
-                    generalRayAmmo(itemStack, living, ParticleTypes.SNOWFLAKE, 1, 100, 1, 0.3f, 0.025f,
-                            DamageSourceRegistry.vaporizer(living),
-                            (livingEntity) ->
-                            {
-                                livingEntity.setTicksFrozen(livingEntity.getTicksFrozen() + 10);
-                                return false;
-                            });
-                }
-            });
+                generalRayAmmo(itemStack, living, ParticleTypes.SNOWFLAKE, 1, 100, 1, 0.3f, 0.025f,
+                    DamageSourceRegistry.vaporizer(living),
+                    (livingEntity) ->
+                    {
+                        livingEntity.setTicksFrozen(livingEntity.getTicksFrozen() + 10);
+                        return false;
+                    });
+            }
+        });
+
+    public static final RegistryObject<VaporizerItem.Ammo> OIL = AMMO.register("oil",
+        () -> new VaporizerItem.Ammo(Items.COAL_BLOCK)
+        {
+            @Override
+            public void runConsumeEffect (ItemStack itemStack, LivingEntity living)
+            {
+                generalRayAmmo(itemStack, living, ParticleTypes.SMOKE, 2, 80, 1, 0.3f, 0.025f,
+                    DamageSourceRegistry.vaporizer(living),
+                    (livingEntity) ->
+                    {
+                        final MobEffectInstance oiledInstance = livingEntity.getEffect(MobEffectRegistry.OILED.get());
+                        if (oiledInstance == null)
+                        {
+                            return false;
+                        }
+                        livingEntity.addEffect(new MobEffectInstance(MobEffectRegistry.OILED.get(), oiledInstance.getDuration() + 10, oiledInstance.getAmplifier() + 1));
+                        return false;
+                    });
+            }
+        });
 
     public static boolean isAmmo (Item item)
     {
         return REGISTRY.get().getValues().stream()
-                .map(VaporizerItem.Ammo::getConsumedItem)
-                .collect(Collectors.toSet())
-                .contains(item);
+            .map(VaporizerItem.Ammo::getConsumedItem)
+            .collect(Collectors.toSet())
+            .contains(item);
     }
 
     public static VaporizerItem.Ammo getAmmo (Item item)
     {
         return REGISTRY.get()
-                .getValues()
-                .stream()
-                .filter(ammo -> ammo.getConsumedItem() == item)
-                .findFirst().orElseThrow(() -> new NoSuchElementException("No such element: " + item));
+            .getValues()
+            .stream()
+            .filter(ammo -> ammo.getConsumedItem() == item)
+            .findFirst().orElseThrow(() -> new NoSuchElementException("No such element: " + item));
     }
 
     private static void generalRayAmmo (ItemStack itemStack, LivingEntity entity, SimpleParticleType particleType, int rays, int iterations, float initialDamage, float radius, float inaccuracy,
@@ -170,9 +191,9 @@ public class VaporizerAmmoRegistry
             double distance = 1.2;
             float calculatedDamage = initialDamage;
             final Vec3 spreadModifiers = new Vec3(
-                    ThreadLocalRandom.current().nextDouble(-inaccuracy, inaccuracy) / 2,
-                    ThreadLocalRandom.current().nextDouble(-inaccuracy, inaccuracy) / 4,
-                    ThreadLocalRandom.current().nextDouble(-inaccuracy, inaccuracy) / 2
+                ThreadLocalRandom.current().nextDouble(-inaccuracy, inaccuracy) / 2,
+                ThreadLocalRandom.current().nextDouble(-inaccuracy, inaccuracy) / 4,
+                ThreadLocalRandom.current().nextDouble(-inaccuracy, inaccuracy) / 2
             );
             final Vec3 angles = look.add(spreadModifiers);
             Vec3 lookPos;

@@ -106,8 +106,8 @@ public abstract class UsablePyromancyItem extends Item implements IPyromancyItem
     public Map<Attribute, Pair<UUID, Style>> specialColoredUUID (ItemStack itemStack)
     {
         return Map.of(
-                AttributeRegistry.PYROMANCY_DAMAGE.get(), Pair.of(BASE_PYROMANCY_DAMAGE_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
-                AttributeRegistry.BLAZE_CONSUMPTION.get(), Pair.of(BASE_BLAZE_CONSUMPTION_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD))
+            AttributeRegistry.PYROMANCY_DAMAGE.get(), Pair.of(BASE_PYROMANCY_DAMAGE_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
+            AttributeRegistry.BLAZE_CONSUMPTION.get(), Pair.of(BASE_BLAZE_CONSUMPTION_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD))
         );
     }
 
@@ -132,8 +132,8 @@ public abstract class UsablePyromancyItem extends Item implements IPyromancyItem
     public Pair<Integer, Integer> getGradientColors (ItemStack itemStack)
     {
         return Pair.of(
-                GeneralUtils.rgbToColorInteger(200, 57, 0),
-                GeneralUtils.rgbToColorInteger(240, 129, 0)
+            GeneralUtils.rgbToColorInteger(200, 57, 0),
+            GeneralUtils.rgbToColorInteger(240, 129, 0)
         );
     }
 

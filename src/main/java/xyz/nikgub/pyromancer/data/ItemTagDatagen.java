@@ -69,20 +69,20 @@ public class ItemTagDatagen extends ItemTagsProvider
                 tag(VAPORIZER_AMMO).add(item);
         }
         tag(FROST_WEAPON)
-                .add(
-                        ItemRegistry.HOARFROST_GREATSWORD.get(),
-                        ItemRegistry.SPEAR_OF_MOROZ.get()
-                );
+            .add(
+                ItemRegistry.HOARFROST_GREATSWORD.get(),
+                ItemRegistry.SPEAR_OF_MOROZ.get()
+            );
         tag(DYNAMIC_WEAPON)
-                .addTags(MACE)
-                .add(
-                        ItemRegistry.FLAMMENKLINGE.get(),
-                        ItemRegistry.SPEAR_OF_MOROZ.get()
-                );
+            .addTags(MACE)
+            .add(
+                ItemRegistry.FLAMMENKLINGE.get(),
+                ItemRegistry.SPEAR_OF_MOROZ.get()
+            );
         tag(FLAMMENKLINGE_PLUNGE_COMPATIBLE)
-                .add(
-                        ItemRegistry.FLAMMENKLINGE.get(),
-                        ItemRegistry.SYMBOL_OF_SUN.get()
-                );
+            .add(
+                ItemRegistry.FLAMMENKLINGE.get(),
+                ItemRegistry.SYMBOL_OF_SUN.get()
+            );
     }
 }

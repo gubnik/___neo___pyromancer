@@ -70,15 +70,15 @@ public class UnburnedEntity extends Monster implements IAnimationPurposeEntity
     public static AttributeSupplier setAttributes ()
     {
         return Monster.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 350)
-                .add(Attributes.MOVEMENT_SPEED, 0.45f)
-                .add(Attributes.ARMOR, 10)
-                .add(Attributes.ATTACK_DAMAGE, 1)
-                .add(Attributes.ATTACK_SPEED, 1)
-                .add(Attributes.ATTACK_KNOCKBACK, 1.2)
-                .add(Attributes.FOLLOW_RANGE, 64)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 1f)
-                .build();
+            .add(Attributes.MAX_HEALTH, 350)
+            .add(Attributes.MOVEMENT_SPEED, 0.45f)
+            .add(Attributes.ARMOR, 10)
+            .add(Attributes.ATTACK_DAMAGE, 1)
+            .add(Attributes.ATTACK_SPEED, 1)
+            .add(Attributes.ATTACK_KNOCKBACK, 1.2)
+            .add(Attributes.FOLLOW_RANGE, 64)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 1f)
+            .build();
     }
 
     @Override
@@ -138,8 +138,8 @@ public class UnburnedEntity extends Monster implements IAnimationPurposeEntity
     public boolean doHurtTarget (@NotNull Entity target)
     {
         if (this.getAllAnimations().stream()
-                .filter(determinedAnimation -> determinedAnimation.animationPurpose() != DeterminedAnimation.AnimationPurpose.IDLE)
-                .anyMatch(determinedAnimation -> determinedAnimation.animationState().isStarted()))
+            .filter(determinedAnimation -> determinedAnimation.animationPurpose() != DeterminedAnimation.AnimationPurpose.IDLE)
+            .anyMatch(determinedAnimation -> determinedAnimation.animationState().isStarted()))
             return false;
         this.runAnimationOf(DeterminedAnimation.AnimationPurpose.MAIN_ATTACK);
         this.setAttackTick(this.tickCount);
@@ -196,11 +196,11 @@ public class UnburnedEntity extends Monster implements IAnimationPurposeEntity
     public @NotNull List<DeterminedAnimation> getAllAnimations ()
     {
         return List.of(
-                new DeterminedAnimation(this.ATTACK, DeterminedAnimation.AnimationPurpose.MAIN_ATTACK),
-                new DeterminedAnimation(this.EXPLOSION, DeterminedAnimation.AnimationPurpose.STOMP),
-                new DeterminedAnimation(this.KICK, DeterminedAnimation.AnimationPurpose.SPECIAL_HURT),
-                new DeterminedAnimation(this.EMERGE, DeterminedAnimation.AnimationPurpose.SPAWN),
-                new DeterminedAnimation(this.IDLE, DeterminedAnimation.AnimationPurpose.IDLE)
+            new DeterminedAnimation(this.ATTACK, DeterminedAnimation.AnimationPurpose.MAIN_ATTACK),
+            new DeterminedAnimation(this.EXPLOSION, DeterminedAnimation.AnimationPurpose.STOMP),
+            new DeterminedAnimation(this.KICK, DeterminedAnimation.AnimationPurpose.SPECIAL_HURT),
+            new DeterminedAnimation(this.EMERGE, DeterminedAnimation.AnimationPurpose.SPAWN),
+            new DeterminedAnimation(this.IDLE, DeterminedAnimation.AnimationPurpose.IDLE)
         );
     }
 }

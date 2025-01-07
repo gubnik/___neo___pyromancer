@@ -120,8 +120,8 @@ public abstract class ItemRendererMixin
     public void pyromancyRenderManager (ItemStack itemStack, PoseStack poseStack, ItemDisplayContext displayContext, MultiBufferSource multiBufferSource, boolean b, int i, int j)
     {
         if (!(itemStack.getItem() instanceof CompendiumOfFlameItem compendiumOfFlameItem
-                && compendiumOfFlameItem.getItemFromItem(itemStack, itemStack.getOrCreateTag().getInt(CompendiumOfFlameItem.ACTIVE_SLOT_TAG)).getItem() instanceof UsablePyromancyItem usablePyromancyItem)
-                || displayContext == ItemDisplayContext.GUI)
+            && compendiumOfFlameItem.getItemFromItem(itemStack, itemStack.getOrCreateTag().getInt(CompendiumOfFlameItem.ACTIVE_SLOT_TAG)).getItem() instanceof UsablePyromancyItem usablePyromancyItem)
+            || displayContext == ItemDisplayContext.GUI)
             return;
         VertexConsumer vertex;
         ItemStack pyromancy = compendiumOfFlameItem.getItemFromItem(itemStack, itemStack.getOrCreateTag().getInt(CompendiumOfFlameItem.ACTIVE_SLOT_TAG));
@@ -159,11 +159,11 @@ public abstract class ItemRendererMixin
             for (BakedQuad bakedquad : bakedQuads)
             {
                 vertexConsumer.putBulkData(posestack$pose, bakedquad,
-                        tag.getFloat(InfusionMobEffect.RED_TAG),
-                        tag.getFloat(InfusionMobEffect.GREEN_TAG),
-                        tag.getFloat(InfusionMobEffect.BLUE_TAG),
-                        tag.getFloat(InfusionMobEffect.ALPHA_TAG) / 2f
-                        , 255, p_115168_, true);
+                    tag.getFloat(InfusionMobEffect.RED_TAG),
+                    tag.getFloat(InfusionMobEffect.GREEN_TAG),
+                    tag.getFloat(InfusionMobEffect.BLUE_TAG),
+                    tag.getFloat(InfusionMobEffect.ALPHA_TAG) / 2f
+                    , 255, p_115168_, true);
             }
             callbackInfo.cancel();
         }

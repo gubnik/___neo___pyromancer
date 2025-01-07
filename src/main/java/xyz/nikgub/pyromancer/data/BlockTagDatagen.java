@@ -57,43 +57,43 @@ public class BlockTagDatagen extends IntrinsicHolderTagsProvider<Block>
     {
 
         this.tag(AMBER_REPLACEABLE)
-                .add(Blocks.NETHERRACK);
+            .add(Blocks.NETHERRACK);
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(BlockRegistry.PYROMOSSED_NETHERRACK.get())
-                .add(BlockRegistry.AMBER_BLOCK.get())
-                .add(BlockRegistry.NATURAL_AMBER.get())
-                .add(BlockRegistry.RIMEBLOOD_CELL.get())
-                .add(BlockRegistry.RIMEBLOOD_BLOCK.get());
+            .add(BlockRegistry.PYROMOSSED_NETHERRACK.get())
+            .add(BlockRegistry.AMBER_BLOCK.get())
+            .add(BlockRegistry.NATURAL_AMBER.get())
+            .add(BlockRegistry.RIMEBLOOD_CELL.get())
+            .add(BlockRegistry.RIMEBLOOD_BLOCK.get());
 
         this.tag(BlockTags.NYLIUM)
-                .add(BlockRegistry.PYROMOSSED_NETHERRACK.get());
+            .add(BlockRegistry.PYROMOSSED_NETHERRACK.get());
 
         this.tag(FLAMING_GROVE_PLANT_ON)
-                .add(BlockRegistry.PYROMOSSED_NETHERRACK.get());
+            .add(BlockRegistry.PYROMOSSED_NETHERRACK.get());
 
         for (Block block : BlockRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get).filter(block -> block.getDescriptionId().contains("pyrowood")).toList())
         {
             this.tag(BlockTags.MINEABLE_WITH_AXE)
-                    .add(block);
+                .add(block);
             this.tag(FLAMING_GROVE_NATIVE)
-                    .add(block);
+                .add(block);
         }
 
         this.tag(BlockTags.LEAVES)
-                .add(BlockRegistry.PYROWOOD_LEAVES.get());
+            .add(BlockRegistry.PYROWOOD_LEAVES.get());
 
         this.tag(FLAMING_GROVE_NATIVE)
-                .add(BlockRegistry.SIZZLING_VINE.get())
-                .add(BlockRegistry.PYROMOSS_SPROUTS.get())
-                .add(BlockRegistry.FIREBRIAR.get())
-                .add(BlockRegistry.NETHER_LILY.get())
-                .add(BlockRegistry.BLAZING_POPPY.get());
+            .add(BlockRegistry.SIZZLING_VINE.get())
+            .add(BlockRegistry.PYROMOSS_SPROUTS.get())
+            .add(BlockRegistry.FIREBRIAR.get())
+            .add(BlockRegistry.NETHER_LILY.get())
+            .add(BlockRegistry.BLAZING_POPPY.get());
 
         this.tag(BLUE_ICE_CHUNK_REPLACEABLE)
-                .addTag(BlockTags.OVERWORLD_CARVER_REPLACEABLES)
-                .add(Blocks.AIR)
-                .add(Blocks.SNOW_BLOCK);
+            .addTag(BlockTags.OVERWORLD_CARVER_REPLACEABLES)
+            .add(Blocks.AIR)
+            .add(Blocks.SNOW_BLOCK);
 
         /* VANILLA */
         for (Block block : BlockRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get).filter(block -> block instanceof FenceBlock).toList())

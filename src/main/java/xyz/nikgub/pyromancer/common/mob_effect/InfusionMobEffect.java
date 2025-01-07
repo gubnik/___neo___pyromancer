@@ -49,9 +49,9 @@ public class InfusionMobEffect extends MobEffect
     {
         if (!(directCause instanceof LivingEntity source)) return 0;
         Optional<InfusionMobEffect> effectOptional = source.getActiveEffects().stream()
-                .map(MobEffectInstance::getEffect)
-                .filter(instanceEffect -> instanceEffect instanceof InfusionMobEffect)
-                .map(mobEffect -> (InfusionMobEffect) mobEffect).findFirst();
+            .map(MobEffectInstance::getEffect)
+            .filter(instanceEffect -> instanceEffect instanceof InfusionMobEffect)
+            .map(mobEffect -> (InfusionMobEffect) mobEffect).findFirst();
         return effectOptional.map(mobEffect -> mobEffect.getInfusionEffect().effect(target, source, damageSource, damageAmount)).orElse(0F);
     }
 

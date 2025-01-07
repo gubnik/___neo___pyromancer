@@ -53,7 +53,7 @@ public interface IPyromancyItem
             {
                 for (AttributeModifier attributeModifier : itemStack.getAttributeModifiers(slot).get(attribute))
                 {
-                    switch(attributeModifier.getOperation())
+                    switch (attributeModifier.getOperation())
                     {
                         case ADDITION -> d0 += (float) attributeModifier.getAmount();
                         case MULTIPLY_BASE -> M0 += (float) attributeModifier.getAmount();

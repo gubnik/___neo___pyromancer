@@ -66,8 +66,8 @@ public abstract class ItemInHandRendererMixin
     protected abstract void applyItemArmTransform (PoseStack poseStack, HumanoidArm arm, float f);
 
     @Inject(
-            method = {"renderItem"},
-            at = {@At("HEAD")}
+        method = {"renderItem"},
+        at = {@At("HEAD")}
     )
     public void renderItemHead (LivingEntity livingEntity, ItemStack itemStack, ItemDisplayContext displayContext, boolean b, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo callbackInfo)
     {
@@ -79,15 +79,15 @@ public abstract class ItemInHandRendererMixin
             poseStack.scale(mod, mod, mod);
         }
         if (itemStack.getItem() == ItemRegistry.SPEAR_OF_MOROZ.get() && (displayContext == ItemDisplayContext.THIRD_PERSON_LEFT_HAND || displayContext == ItemDisplayContext.THIRD_PERSON_RIGHT_HAND)
-                && itemStack.getOrCreateTag().getInt(SpearOfMorozItem.ACTION_TAG) == 1)
+            && itemStack.getOrCreateTag().getInt(SpearOfMorozItem.ACTION_TAG) == 1)
         {
             poseStack.rotateAround(Axis.XN.rotationDegrees(180), 0, 0, 0.05F);
         }
     }
 
     @Inject(
-            method = {"renderItem"},
-            at = {@At("TAIL")}
+        method = {"renderItem"},
+        at = {@At("TAIL")}
     )
     public void renderItemTail (LivingEntity livingEntity, ItemStack itemStack, ItemDisplayContext displayContext, boolean b, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo callbackInfo)
     {
@@ -97,8 +97,8 @@ public abstract class ItemInHandRendererMixin
         for (MobEffectInstance instance : livingEntity.getActiveEffects())
         {
             if (instance.getEffect() instanceof InfusionMobEffect infusionMobEffect
-                    && PyromancerMod.DO_INFUSION_RENDER.get(toRender.getItem())
-                    && toRender.getAttributeModifiers(EquipmentSlot.MAINHAND).containsKey(Attributes.ATTACK_DAMAGE)
+                && PyromancerMod.DO_INFUSION_RENDER.get(toRender.getItem())
+                && toRender.getAttributeModifiers(EquipmentSlot.MAINHAND).containsKey(Attributes.ATTACK_DAMAGE)
             )
             {
                 toRender.getOrCreateTag().putBoolean(InfusionMobEffect.INFUSION_TAG, true);
@@ -107,7 +107,7 @@ public abstract class ItemInHandRendererMixin
                 toRender.getOrCreateTag().putFloat(InfusionMobEffect.BLUE_TAG, infusionMobEffect.getItemColors().b());
                 toRender.getOrCreateTag().putFloat(InfusionMobEffect.ALPHA_TAG, infusionMobEffect.getItemColors().a());
                 this.itemRenderer.renderStatic(livingEntity, toRender, displayContext, b, poseStack, multiBufferSource, livingEntity.level(), i,
-                        OverlayTexture.NO_OVERLAY, livingEntity.getId() + displayContext.ordinal());
+                    OverlayTexture.NO_OVERLAY, livingEntity.getId() + displayContext.ordinal());
             }
         }
     }

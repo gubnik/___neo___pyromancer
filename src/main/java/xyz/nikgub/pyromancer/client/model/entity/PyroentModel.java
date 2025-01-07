@@ -59,20 +59,20 @@ public class PyroentModel<T extends PyroentEntity> extends HierarchicalModel<T>
         PartDefinition partdefinition = meshdefinition.getRoot();
 
         PartDefinition LegRight = partdefinition.addOrReplaceChild("LegRight", CubeListBuilder.create().texOffs(40, 89).mirror().addBox(-5.0F, 19.0F, -4.0F, 8.0F, 10.0F, 8.0F, new CubeDeformation(0.0F)).mirror(false)
-                .texOffs(0, 100).mirror().addBox(-4.0F, 5.0F, -3.0F, 6.0F, 14.0F, 6.0F, new CubeDeformation(0.0F)).mirror(false)
-                .texOffs(72, 89).addBox(-5.0F, -5.0F, -4.0F, 8.0F, 10.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, -5.0F, 0.0F));
+            .texOffs(0, 100).mirror().addBox(-4.0F, 5.0F, -3.0F, 6.0F, 14.0F, 6.0F, new CubeDeformation(0.0F)).mirror(false)
+            .texOffs(72, 89).addBox(-5.0F, -5.0F, -4.0F, 8.0F, 10.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, -5.0F, 0.0F));
 
         PartDefinition bone2 = LegRight.addOrReplaceChild("bone2", CubeListBuilder.create(), PartPose.offsetAndRotation(6.0F, 29.0F, 0.0F, 0.0F, 0.0F, 0.2618F));
 
         PartDefinition LegLeft = partdefinition.addOrReplaceChild("LegLeft", CubeListBuilder.create().texOffs(40, 89).addBox(-3.0F, 19.0F, -4.0F, 8.0F, 10.0F, 8.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 100).addBox(-2.0F, 5.0F, -3.0F, 6.0F, 14.0F, 6.0F, new CubeDeformation(0.0F))
-                .texOffs(72, 89).mirror().addBox(-3.0F, -5.0F, -4.0F, 8.0F, 10.0F, 8.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(5.0F, -5.0F, 0.0F));
+            .texOffs(0, 100).addBox(-2.0F, 5.0F, -3.0F, 6.0F, 14.0F, 6.0F, new CubeDeformation(0.0F))
+            .texOffs(72, 89).mirror().addBox(-3.0F, -5.0F, -4.0F, 8.0F, 10.0F, 8.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(5.0F, -5.0F, 0.0F));
 
         PartDefinition bone = LegLeft.addOrReplaceChild("bone", CubeListBuilder.create(), PartPose.offsetAndRotation(8.0F, 29.0F, 0.0F, 0.0F, 0.0F, -0.2618F));
 
         PartDefinition Body = partdefinition.addOrReplaceChild("Body", CubeListBuilder.create().texOffs(64, 26).addBox(-8.0F, 22.0F, -5.0F, 16.0F, 8.0F, 10.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 0).addBox(-10.0F, 0.0F, -6.0F, 20.0F, 16.0F, 12.0F, new CubeDeformation(0.0F))
-                .texOffs(64, 44).addBox(-7.0F, 16.0F, -3.0F, 14.0F, 6.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -34.0F, 0.0F));
+            .texOffs(0, 0).addBox(-10.0F, 0.0F, -6.0F, 20.0F, 16.0F, 12.0F, new CubeDeformation(0.0F))
+            .texOffs(64, 44).addBox(-7.0F, 16.0F, -3.0F, 14.0F, 6.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -34.0F, 0.0F));
 
         PartDefinition bone13 = Body.addOrReplaceChild("bone13", CubeListBuilder.create().texOffs(64, 0).addBox(-6.0F, -62.0F, -8.0F, 10.0F, 11.0F, 15.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 58.0F, 0.0F, 0.0F, 0.0F, 0.2618F));
 
@@ -89,7 +89,7 @@ public class PyroentModel<T extends PyroentEntity> extends HierarchicalModel<T>
         PartDefinition horn_right = Head.addOrReplaceChild("horn_right", CubeListBuilder.create().texOffs(54, 28).addBox(0.0F, -62.0F, -4.0F, 3.0F, 4.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 53.0F, 4.0F, 0.0873F, 0.0F, -0.0873F));
 
         PartDefinition leaf_r1 = horn_right.addOrReplaceChild("leaf_r1", CubeListBuilder.create().texOffs(67, 0).addBox(-2.5F, -5.25F, 0.0F, 3.0F, 3.0F, 0.0F, new CubeDeformation(0.0F))
-                .texOffs(52, 0).addBox(0.5F, -6.0F, -1.5F, 3.0F, 4.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.0F, -60.25F, -2.5F, 0.0F, 0.0F, 0.2618F));
+            .texOffs(52, 0).addBox(0.5F, -6.0F, -1.5F, 3.0F, 4.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.0F, -60.25F, -2.5F, 0.0F, 0.0F, 0.2618F));
 
         PartDefinition horn_left = Head.addOrReplaceChild("horn_left", CubeListBuilder.create().texOffs(22, 28).addBox(-3.0F, -63.0F, -4.0F, 3.0F, 5.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 53.0F, 4.0F, 0.0873F, 0.0F, 0.0873F));
 

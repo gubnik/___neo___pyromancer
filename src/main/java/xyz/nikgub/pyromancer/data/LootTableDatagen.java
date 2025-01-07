@@ -29,8 +29,8 @@ public class LootTableDatagen extends LootTableProvider
     LootTableDatagen (PackOutput packOutput)
     {
         super(packOutput, Set.of(), List.of(
-                new SubProviderEntry(BlockLootTableDatagen::new, LootContextParamSets.BLOCK),
-                new SubProviderEntry(EntityLootTableDatagen::new, LootContextParamSets.ENTITY)
+            new SubProviderEntry(BlockLootTableDatagen::new, LootContextParamSets.BLOCK),
+            new SubProviderEntry(EntityLootTableDatagen::new, LootContextParamSets.ENTITY)
         ));
 
     }

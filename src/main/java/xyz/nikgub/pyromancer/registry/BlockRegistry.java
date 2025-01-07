@@ -51,89 +51,89 @@ public class BlockRegistry
 
     //pyrowood
     public static final RegistryObject<RotatedPillarBlock> PYROWOOD_LOG = registerBlock("pyrowood_log",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.CRIMSON_STEM).sound(SoundType.WOOD)));
+        () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.CRIMSON_STEM).sound(SoundType.WOOD)));
 
     public static final RegistryObject<RotatedPillarBlock> STRIPPED_PYROWOOD_LOG = registerBlock("stripped_pyrowood_log",
-            () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(PYROWOOD_LOG.get())));
+        () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(PYROWOOD_LOG.get())));
 
     public static final RegistryObject<Block> PYROWOOD_PLANKS = registerBlock("pyrowood_planks",
-            () -> new Block((BlockBehaviour.Properties.copy(PYROWOOD_LOG.get()))));
+        () -> new Block((BlockBehaviour.Properties.copy(PYROWOOD_LOG.get()))));
 
     public static final RegistryObject<StairBlock> PYROWOOD_STAIRS = registerBlock("pyrowood_stairs",
-            () -> new StairBlock(() -> PYROWOOD_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(PYROWOOD_PLANKS.get())));
+        () -> new StairBlock(() -> PYROWOOD_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(PYROWOOD_PLANKS.get())));
 
     public static final RegistryObject<SlabBlock> PYROWOOD_SLAB = registerBlock("pyrowood_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(PYROWOOD_PLANKS.get())));
+        () -> new SlabBlock(BlockBehaviour.Properties.copy(PYROWOOD_PLANKS.get())));
 
     public static final RegistryObject<FenceBlock> PYROWOOD_FENCE = registerBlock("pyrowood_fence",
-            () -> new FenceBlock(BlockBehaviour.Properties.copy(PYROWOOD_PLANKS.get())));
+        () -> new FenceBlock(BlockBehaviour.Properties.copy(PYROWOOD_PLANKS.get())));
 
     public static final RegistryObject<FenceGateBlock> PYROWOOD_FENCE_GATE = registerBlock("pyrowood_fence_gate",
-            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(PYROWOOD_PLANKS.get()), WoodTypesRegistry.PYROWOOD));
+        () -> new FenceGateBlock(BlockBehaviour.Properties.copy(PYROWOOD_PLANKS.get()), WoodTypesRegistry.PYROWOOD));
 
     public static final RegistryObject<DoorBlock> PYROWOOD_DOOR = registerBlock("pyrowood_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(PYROWOOD_PLANKS.get()), BlockSetTypeRegistry.PYROWOOD));
+        () -> new DoorBlock(BlockBehaviour.Properties.copy(PYROWOOD_PLANKS.get()), BlockSetTypeRegistry.PYROWOOD));
 
     public static final RegistryObject<TrapDoorBlock> PYROWOOD_TRAPDOOR = registerBlock("pyrowood_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(PYROWOOD_PLANKS.get()), BlockSetTypeRegistry.PYROWOOD));
+        () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(PYROWOOD_PLANKS.get()), BlockSetTypeRegistry.PYROWOOD));
 
     public static final RegistryObject<Block> PYROWOOD_LEAVES = registerBlock("pyrowood_leaves",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.JUNGLE_LEAVES).lightLevel(s -> 12).emissiveRendering(BlockRegistry::always)));
+        () -> new Block(BlockBehaviour.Properties.copy(Blocks.JUNGLE_LEAVES).lightLevel(s -> 12).emissiveRendering(BlockRegistry::always)));
 
     public static final RegistryObject<WeirdSaplingBlock> PYROWOOD_SAPLING = registerBlock("pyrowood_sapling",
-            () -> new WeirdSaplingBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING), new AbstractTreeGrower()
+        () -> new WeirdSaplingBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING), new AbstractTreeGrower()
+        {
+            @Override
+            protected @NotNull ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature (@NotNull RandomSource pRandom, boolean pHasFlowers)
             {
-                @Override
-                protected @NotNull ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature (@NotNull RandomSource pRandom, boolean pHasFlowers)
-                {
-                    return ConfiguredFeatureDatagen.PYROWOOD_NETHER;
-                }
-            }));
+                return ConfiguredFeatureDatagen.PYROWOOD_NETHER;
+            }
+        }));
 
     public static final RegistryObject<Block> AMBER_BLOCK = registerBlock("amber_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.EMERALD_BLOCK).mapColor(DyeColor.ORANGE).requiresCorrectToolForDrops()));
+        () -> new Block(BlockBehaviour.Properties.copy(Blocks.EMERALD_BLOCK).mapColor(DyeColor.ORANGE).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> NATURAL_AMBER = registerBlock("natural_amber",
-            () -> new Block(BlockBehaviour.Properties.copy(AMBER_BLOCK.get()).lightLevel(s -> 7).emissiveRendering(BlockRegistry::always)));
+        () -> new Block(BlockBehaviour.Properties.copy(AMBER_BLOCK.get()).lightLevel(s -> 7).emissiveRendering(BlockRegistry::always)));
 
     // flaming grove
     public static final RegistryObject<Block> PYROMOSSED_NETHERRACK = registerBlock("pyromossed_netherrack",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.MOSS_BLOCK).strength(2.0F, 3.0F).sound(SoundType.NYLIUM)));
+        () -> new Block(BlockBehaviour.Properties.copy(Blocks.MOSS_BLOCK).strength(2.0F, 3.0F).sound(SoundType.NYLIUM)));
 
     public static final RegistryObject<TallGrassBlock> PYROMOSS_SPROUTS = registerBlock("pyromoss_sprouts",
-            () -> new TallGrassBlock(BlockBehaviour.Properties.copy(Blocks.MOSS_CARPET).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XYZ))
+        () -> new TallGrassBlock(BlockBehaviour.Properties.copy(Blocks.MOSS_CARPET).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XYZ))
+        {
+            protected boolean mayPlaceOn (@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos)
             {
-                protected boolean mayPlaceOn (@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos)
-                {
-                    return Utils.flamingGrovePlantable(blockState);
-                }
-            });
+                return Utils.flamingGrovePlantable(blockState);
+            }
+        });
     //
     public static final RegistryObject<SizzlingVineBlock> SIZZLING_VINE = registerBlock("sizzling_vine",
-            () -> new SizzlingVineBlock(BlockBehaviour.Properties.copy(Blocks.TWISTING_VINES).noCollission().instabreak().sound(SoundType.CAVE_VINES).emissiveRendering(BlockRegistry::always)));
+        () -> new SizzlingVineBlock(BlockBehaviour.Properties.copy(Blocks.TWISTING_VINES).noCollission().instabreak().sound(SoundType.CAVE_VINES).emissiveRendering(BlockRegistry::always)));
 
     public static final RegistryObject<FirebriarBlock> FIREBRIAR = registerBlock("firebriar",
-            () -> new FirebriarBlock(BlockBehaviour.Properties.copy(Blocks.POPPY).strength(0, 0).sound(SoundType.HARD_CROP).noCollission().instabreak()));
+        () -> new FirebriarBlock(BlockBehaviour.Properties.copy(Blocks.POPPY).strength(0, 0).sound(SoundType.HARD_CROP).noCollission().instabreak()));
 
     public static final RegistryObject<FlowerBlock> BLAZING_POPPY = registerBlock("blazing_poppy",
-            () -> new FlowerBlock(() -> MobEffectRegistry.FIERY_AEGIS.get(), 1, BlockBehaviour.Properties.copy(Blocks.POPPY).strength(0, 0).sound(SoundType.HARD_CROP).noCollission())
+        () -> new FlowerBlock(() -> MobEffectRegistry.FIERY_AEGIS.get(), 1, BlockBehaviour.Properties.copy(Blocks.POPPY).strength(0, 0).sound(SoundType.HARD_CROP).noCollission())
+        {
+            @Override
+            protected boolean mayPlaceOn (@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos)
             {
-                @Override
-                protected boolean mayPlaceOn (@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos)
-                {
-                    return Utils.flamingGrovePlantable(blockState);
-                }
-            });
+                return Utils.flamingGrovePlantable(blockState);
+            }
+        });
 
     public static final RegistryObject<FlowerBlock> NETHER_LILY = registerBlock("nether_lily",
-            () -> new FlowerBlock(() -> MobEffectRegistry.MELTDOWN.get(), 1, BlockBehaviour.Properties.copy(Blocks.ORANGE_TULIP).strength(0, 0).sound(SoundType.HARD_CROP).noCollission().lightLevel(i -> 7).emissiveRendering(BlockRegistry::always))
+        () -> new FlowerBlock(() -> MobEffectRegistry.MELTDOWN.get(), 1, BlockBehaviour.Properties.copy(Blocks.ORANGE_TULIP).strength(0, 0).sound(SoundType.HARD_CROP).noCollission().lightLevel(i -> 7).emissiveRendering(BlockRegistry::always))
+        {
+            @Override
+            protected boolean mayPlaceOn (@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos)
             {
-                @Override
-                protected boolean mayPlaceOn (@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos)
-                {
-                    return Utils.flamingGrovePlantable(blockState);
-                }
-            });
+                return Utils.flamingGrovePlantable(blockState);
+            }
+        });
 
     public static final RegistryObject<Block> RIMEBLOOD_CELL = registerBlock("rimeblood_cell", () -> new Block(BlockBehaviour.Properties.copy(Blocks.EMERALD_BLOCK).mapColor(DyeColor.CYAN).lightLevel((s) -> 8))
     {
@@ -147,10 +147,10 @@ public class BlockRegistry
     public static final RegistryObject<Block> RIMEBLOOD_BLOCK = registerBlock("rimeblood_block", () -> new Block(BlockBehaviour.Properties.copy(RIMEBLOOD_CELL.get())));
 
     public static final RegistryObject<RimevineBlock> RIMEVIME = registerBlock("rimevine",
-            () -> new RimevineBlock(BlockBehaviour.Properties.copy(Blocks.TWISTING_VINES).noCollission().instabreak().sound(SoundType.CAVE_VINES)));
+        () -> new RimevineBlock(BlockBehaviour.Properties.copy(Blocks.TWISTING_VINES).noCollission().instabreak().sound(SoundType.CAVE_VINES)));
 
     public static final RegistryObject<HogtrapBlock> HOGTRAP = registerBlock("hogtrap",
-            () -> new HogtrapBlock(BlockBehaviour.Properties.of().speedFactor(0).jumpFactor(0).noCollission()));
+        () -> new HogtrapBlock(BlockBehaviour.Properties.of().speedFactor(0).jumpFactor(0).noCollission()));
 
 
     public static <T extends Block> RegistryObject<T> registerBlock (String name, Supplier<T> block)

@@ -65,14 +65,14 @@ public class TaintedMonarchArmorItem extends ArmorItem implements IExtensibleToo
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
         UUID uuid = ARMOR_MODIFIER_UUID_PER_TYPE.get(type);
         builder.put(Attributes.ARMOR,
-                new AttributeModifier(uuid, "Armor modifier", this.getDefense(), AttributeModifier.Operation.ADDITION));
+            new AttributeModifier(uuid, "Armor modifier", this.getDefense(), AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ARMOR_TOUGHNESS,
-                new AttributeModifier(uuid, "Armor toughness", this.getToughness(), AttributeModifier.Operation.ADDITION));
+            new AttributeModifier(uuid, "Armor toughness", this.getToughness(), AttributeModifier.Operation.ADDITION));
         if (this.knockbackResistance > 0)
             builder.put(Attributes.KNOCKBACK_RESISTANCE,
-                    new AttributeModifier(uuid, "Armor knockback resistance", ArmorMaterialsRegistry.HELLBLAZE_MONARCH.getKnockbackResistance(), AttributeModifier.Operation.ADDITION));
+                new AttributeModifier(uuid, "Armor knockback resistance", ArmorMaterialsRegistry.HELLBLAZE_MONARCH.getKnockbackResistance(), AttributeModifier.Operation.ADDITION));
         builder.put(AttributeRegistry.PYROMANCY_DAMAGE.get(),
-                new AttributeModifier(uuid, "Pyromancy damage modifier", this.getAttributeValue(type.getSlot(), AttributeRegistry.PYROMANCY_DAMAGE.get()), AttributeModifier.Operation.MULTIPLY_BASE));
+            new AttributeModifier(uuid, "Pyromancy damage modifier", this.getAttributeValue(type.getSlot(), AttributeRegistry.PYROMANCY_DAMAGE.get()), AttributeModifier.Operation.MULTIPLY_BASE));
         this.attributes = builder.build();
     }
 

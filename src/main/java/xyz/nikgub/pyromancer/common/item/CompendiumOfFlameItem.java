@@ -259,8 +259,8 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     public Map<Attribute, Pair<UUID, Style>> specialColoredUUID (ItemStack itemStack)
     {
         return Map.of(
-                AttributeRegistry.PYROMANCY_DAMAGE.get(), Pair.of(IPyromancyItem.BASE_PYROMANCY_DAMAGE_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
-                AttributeRegistry.BLAZE_CONSUMPTION.get(), Pair.of(IPyromancyItem.BASE_BLAZE_CONSUMPTION_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD))
+            AttributeRegistry.PYROMANCY_DAMAGE.get(), Pair.of(IPyromancyItem.BASE_PYROMANCY_DAMAGE_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
+            AttributeRegistry.BLAZE_CONSUMPTION.get(), Pair.of(IPyromancyItem.BASE_BLAZE_CONSUMPTION_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD))
         );
     }
 

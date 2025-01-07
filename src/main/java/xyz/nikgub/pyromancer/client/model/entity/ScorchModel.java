@@ -68,25 +68,25 @@ public class ScorchModel<T extends ScorchEntity> extends HierarchicalModel<T>
         PartDefinition partdefinition = meshdefinition.getRoot();
 
         PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(40, 0).addBox(-5.0F, -4.0F, -6.0F, 10.0F, 8.0F, 6.0F, new CubeDeformation(0.0F))
-                .texOffs(96, 0).addBox(-5.0F, -4.0F, -6.0F, 10.0F, 8.0F, 6.0F, new CubeDeformation(0.3F))
-                .texOffs(0, 36).addBox(-1.0F, 4.0F, -6.0F, 2.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 14.0F, -8.0F));
+            .texOffs(96, 0).addBox(-5.0F, -4.0F, -6.0F, 10.0F, 8.0F, 6.0F, new CubeDeformation(0.3F))
+            .texOffs(0, 36).addBox(-1.0F, 4.0F, -6.0F, 2.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 14.0F, -8.0F));
 
         PartDefinition cube_r1 = head.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(59, 6).addBox(-1.0F, 4.0F, -9.0F, 0.0F, 1.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -0.7854F, -0.2618F, 0.0F));
 
         PartDefinition cube_r2 = head.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(59, 6).addBox(1.0F, 4.0F, -9.0F, 0.0F, 1.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -0.7854F, 0.2618F, 0.0F));
 
         PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 58).addBox(-4.0F, -4.25F, -10.5F, 8.0F, 8.0F, 10.0F, new CubeDeformation(0.3F))
-                .texOffs(81, 28).addBox(-4.0F, -3.25F, -0.5F, 8.0F, 7.0F, 12.0F, new CubeDeformation(0.3F))
-                .texOffs(28, 28).addBox(-4.0F, -3.25F, -0.5F, 8.0F, 7.0F, 12.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 40).addBox(-4.0F, -4.25F, -10.5F, 8.0F, 8.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 15.25F, 2.5F));
+            .texOffs(81, 28).addBox(-4.0F, -3.25F, -0.5F, 8.0F, 7.0F, 12.0F, new CubeDeformation(0.3F))
+            .texOffs(28, 28).addBox(-4.0F, -3.25F, -0.5F, 8.0F, 7.0F, 12.0F, new CubeDeformation(0.0F))
+            .texOffs(0, 40).addBox(-4.0F, -4.25F, -10.5F, 8.0F, 8.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 15.25F, 2.5F));
 
         PartDefinition right_wing = partdefinition.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(0, 20).addBox(-8.0F, 0.0F, 0.0F, 10.0F, 0.0F, 20.0F, new CubeDeformation(0.0F))
-                .texOffs(70, 76).addBox(-8.0F, -0.25F, 0.0F, 10.0F, 0.0F, 20.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.0F, 11.0F, -5.0F, 0.0873F, 0.0F, -0.0873F));
+            .texOffs(70, 76).addBox(-8.0F, -0.25F, 0.0F, 10.0F, 0.0F, 20.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.0F, 11.0F, -5.0F, 0.0873F, 0.0F, -0.0873F));
 
         PartDefinition left_wing = partdefinition.addOrReplaceChild("left_wing", CubeListBuilder.create(), PartPose.offsetAndRotation(2.0F, 11.0F, -5.0F, 0.0873F, 0.0F, 0.0873F));
 
         PartDefinition wing_r1 = left_wing.addOrReplaceChild("wing_r1", CubeListBuilder.create().texOffs(69, 97).addBox(-2.0F, -0.25F, 0.0F, 10.0F, 0.0F, 20.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 0).addBox(-2.0F, 0.0F, 0.0F, 10.0F, 0.0F, 20.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0436F, 0.0F));
+            .texOffs(0, 0).addBox(-2.0F, 0.0F, 0.0F, 10.0F, 0.0F, 20.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0436F, 0.0F));
 
         PartDefinition right_front_leg = partdefinition.addOrReplaceChild("right_front_leg", CubeListBuilder.create(), PartPose.offset(-4.0F, 14.0F, -7.0F));
 

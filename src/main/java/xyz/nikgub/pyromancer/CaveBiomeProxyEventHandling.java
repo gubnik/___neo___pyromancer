@@ -69,14 +69,14 @@ public class CaveBiomeProxyEventHandling
 
             List<Pair<Climate.ParameterPoint, Holder<Biome>>> parameters = new ArrayList<>(noiseSource.parameters().values());
             addParameterPoint(parameters, new Pair<>
-                    (
-                            Climate.parameters(Climate.Parameter.span(-1f, -0.6f), Climate.Parameter.span(-0.2f, 0.6f), Climate.Parameter.span(0.1F, 0.6F), FULL_RANGE, Climate.Parameter.span(0.2f, 0.9f), FULL_RANGE, 0f),
-                            biomeRegistry.getHolderOrThrow(BiomeRegistry.PERMAFROST_CAVERNS)
-                    )
+                (
+                    Climate.parameters(Climate.Parameter.span(-1f, -0.6f), Climate.Parameter.span(-0.2f, 0.6f), Climate.Parameter.span(0.1F, 0.6F), FULL_RANGE, Climate.Parameter.span(0.2f, 0.9f), FULL_RANGE, 0f),
+                    biomeRegistry.getHolderOrThrow(BiomeRegistry.PERMAFROST_CAVERNS)
+                )
             );
             chunkGenerator.biomeSource = MultiNoiseBiomeSource.createFromList(new Climate.ParameterList<>(parameters));
             chunkGenerator.featuresPerStep = Suppliers
-                    .memoize(() -> FeatureSorter.buildFeaturesPerStep(List.copyOf(chunkGenerator.biomeSource.possibleBiomes()), biome -> chunkGenerator.generationSettingsGetter.apply(biome).features(), true));
+                .memoize(() -> FeatureSorter.buildFeaturesPerStep(List.copyOf(chunkGenerator.biomeSource.possibleBiomes()), biome -> chunkGenerator.generationSettingsGetter.apply(biome).features(), true));
 
             // Inject surface rules
             if (!(chunkGenerator instanceof NoiseBasedChunkGenerator noiseGenerator)) return;
@@ -87,15 +87,15 @@ public class CaveBiomeProxyEventHandling
             {
                 List<SurfaceRules.RuleSource> surfaceRules = new ArrayList<>(sequenceRuleSource.sequence());
                 addSurfaceRule
-                        (surfaceRules, 1,
-                                anySurfaceRule(BiomeRegistry.PERMAFROST_CAVERNS,
-                                        Blocks.SNOW_BLOCK.defaultBlockState(),
-                                        Blocks.SNOW_BLOCK.defaultBlockState(),
-                                        Blocks.PACKED_ICE.defaultBlockState())
-                        );
+                    (surfaceRules, 1,
+                        anySurfaceRule(BiomeRegistry.PERMAFROST_CAVERNS,
+                            Blocks.SNOW_BLOCK.defaultBlockState(),
+                            Blocks.SNOW_BLOCK.defaultBlockState(),
+                            Blocks.PACKED_ICE.defaultBlockState())
+                    );
                 NoiseGeneratorSettings moddedNoiseGeneratorSettings = new NoiseGeneratorSettings(noiseGeneratorSettings.noiseSettings(), noiseGeneratorSettings.defaultBlock(), noiseGeneratorSettings.defaultFluid(),
-                        noiseGeneratorSettings.noiseRouter(), SurfaceRules.sequence(surfaceRules.toArray(SurfaceRules.RuleSource[]::new)), noiseGeneratorSettings.spawnTarget(), noiseGeneratorSettings.seaLevel(),
-                        noiseGeneratorSettings.disableMobGeneration(), noiseGeneratorSettings.aquifersEnabled(), noiseGeneratorSettings.oreVeinsEnabled(), noiseGeneratorSettings.useLegacyRandomSource());
+                    noiseGeneratorSettings.noiseRouter(), SurfaceRules.sequence(surfaceRules.toArray(SurfaceRules.RuleSource[]::new)), noiseGeneratorSettings.spawnTarget(), noiseGeneratorSettings.seaLevel(),
+                    noiseGeneratorSettings.disableMobGeneration(), noiseGeneratorSettings.aquifersEnabled(), noiseGeneratorSettings.oreVeinsEnabled(), noiseGeneratorSettings.useLegacyRandomSource());
                 noiseGenerator.settings = new Holder.Direct<>(moddedNoiseGeneratorSettings);
             }
 
@@ -105,10 +105,10 @@ public class CaveBiomeProxyEventHandling
     private static SurfaceRules.RuleSource anySurfaceRule (ResourceKey<Biome> biomeKey, BlockState groundBlock, BlockState undergroundBlock, BlockState underwaterBlock)
     {
         return SurfaceRules.ifTrue(SurfaceRules.isBiome(biomeKey),
-                SurfaceRules.sequence(
-                        SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(0, false, 0, CaveSurface.FLOOR),
-                                SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(-1, 0), SurfaceRules.state(groundBlock)), SurfaceRules.state(underwaterBlock))),
-                        SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(0, true, 0, CaveSurface.FLOOR), SurfaceRules.state(undergroundBlock))));
+            SurfaceRules.sequence(
+                SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(0, false, 0, CaveSurface.FLOOR),
+                    SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(-1, 0), SurfaceRules.state(groundBlock)), SurfaceRules.state(underwaterBlock))),
+                SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(0, true, 0, CaveSurface.FLOOR), SurfaceRules.state(undergroundBlock))));
     }
 
     private static void addParameterPoint (List<Pair<Climate.ParameterPoint, Holder<Biome>>> parameters, Pair<Climate.ParameterPoint, Holder<Biome>> point)

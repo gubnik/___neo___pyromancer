@@ -118,13 +118,13 @@ public class ZweihanderItem extends Item
             builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", 11D, AttributeModifier.Operation.ADDITION));
             builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", -3.2D, AttributeModifier.Operation.ADDITION));
             builder.put(ForgeMod.ENTITY_REACH.get(),
-                    new AttributeModifier(REACH_UUID, "Weapon modifier", 1 + itemStack.getEnchantmentLevel(EnchantmentRegistry.GIANT.get()), AttributeModifier.Operation.ADDITION));
+                new AttributeModifier(REACH_UUID, "Weapon modifier", 1 + itemStack.getEnchantmentLevel(EnchantmentRegistry.GIANT.get()), AttributeModifier.Operation.ADDITION));
             if (itemStack.getOrCreateTag().getBoolean("ProperSwing"))
             {
                 builder.put(Attributes.KNOCKBACK_RESISTANCE,
-                        new AttributeModifier(KNOCKBACK_RESISTANCE_UUID, "Weapon modifier", 0.6 + itemStack.getEnchantmentLevel(EnchantmentRegistry.POISE.get()) * 0.1, AttributeModifier.Operation.ADDITION));
+                    new AttributeModifier(KNOCKBACK_RESISTANCE_UUID, "Weapon modifier", 0.6 + itemStack.getEnchantmentLevel(EnchantmentRegistry.POISE.get()) * 0.1, AttributeModifier.Operation.ADDITION));
                 builder.put(Attributes.ARMOR_TOUGHNESS,
-                        new AttributeModifier(TOUGHNESS_UUID, "Weapon modifier", (1 + itemStack.getEnchantmentLevel(EnchantmentRegistry.POISE.get())) * 5, AttributeModifier.Operation.ADDITION));
+                    new AttributeModifier(TOUGHNESS_UUID, "Weapon modifier", (1 + itemStack.getEnchantmentLevel(EnchantmentRegistry.POISE.get())) * 5, AttributeModifier.Operation.ADDITION));
             }
         }
         return builder.build();

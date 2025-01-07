@@ -83,20 +83,20 @@ public class BiomeDatagen
         biomeBuilder.addCarver(GenerationStep.Carving.AIR, ConfiguredCarverDatagen.FLAMING_GROVE_CARVER);
         BiomeDefaultFeatures.addNetherDefaultOres(biomeBuilder);
         biomeBuilder
-                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, PlacedFeatureDatagen.PYROWOOD_NETHER)
-                .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, PlacedFeatureDatagen.FLAMING_GROVE_VEGETATION)
-                .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, PlacedFeatureDatagen.SIZZLING_VINE)
-                .addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, PlacedFeatureDatagen.AMBER_DEPOSIT);
+            .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, PlacedFeatureDatagen.PYROWOOD_NETHER)
+            .addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, PlacedFeatureDatagen.FLAMING_GROVE_VEGETATION)
+            .addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, PlacedFeatureDatagen.SIZZLING_VINE)
+            .addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, PlacedFeatureDatagen.AMBER_DEPOSIT);
         return new Biome.BiomeBuilder()
-                .hasPrecipitation(false).temperature(2f).downfall(0f)
-                .specialEffects((new BiomeSpecialEffects.Builder())
-                        .waterColor(4159204).waterFogColor(329011)
-                        .foliageColorOverride(-6649233).grassColorOverride(-6649233)
-                        .skyColor(-12840192).fogColor(-12840192)
-                        .ambientParticle(new AmbientParticleSettings(ParticleTypes.FLAME, 0.01f))
-                        .build())
-                .mobSpawnSettings(spawnBuilder.build()).generationSettings(biomeBuilder.build())
-                .build();
+            .hasPrecipitation(false).temperature(2f).downfall(0f)
+            .specialEffects((new BiomeSpecialEffects.Builder())
+                .waterColor(4159204).waterFogColor(329011)
+                .foliageColorOverride(-6649233).grassColorOverride(-6649233)
+                .skyColor(-12840192).fogColor(-12840192)
+                .ambientParticle(new AmbientParticleSettings(ParticleTypes.FLAME, 0.01f))
+                .build())
+            .mobSpawnSettings(spawnBuilder.build()).generationSettings(biomeBuilder.build())
+            .build();
     }
 
     public static Biome permafrostCaverns (HolderGetter<PlacedFeature> pPlacedFeatures, HolderGetter<ConfiguredWorldCarver<?>> pWorldCarvers)
@@ -127,20 +127,20 @@ public class BiomeDatagen
         biomeGenerationBuilder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, PlacedFeatureDatagen.BLUE_ICE_CHUNK);
         biomeGenerationBuilder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, PlacedFeatureDatagen.SNOW_LAYER);
         return new Biome.BiomeBuilder()
-                .hasPrecipitation(true)
-                .temperature(-0.1f)
-                .downfall(0.5f)
-                .temperatureAdjustment(Biome.TemperatureModifier.FROZEN)
-                .specialEffects(new BiomeSpecialEffects.Builder()
-                        .waterColor(4159204)
-                        .waterFogColor(329011)
-                        .fogColor(12638463)
-                        .skyColor(calculateSkyColor(-1f))
-                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-                        .ambientParticle(new AmbientParticleSettings(ParticleTypes.SNOWFLAKE, 0.0025f)).build())
-                .mobSpawnSettings(mobSpawnBuilder.build())
-                .generationSettings(biomeGenerationBuilder.build())
-                .build();
+            .hasPrecipitation(true)
+            .temperature(-0.1f)
+            .downfall(0.5f)
+            .temperatureAdjustment(Biome.TemperatureModifier.FROZEN)
+            .specialEffects(new BiomeSpecialEffects.Builder()
+                .waterColor(4159204)
+                .waterFogColor(329011)
+                .fogColor(12638463)
+                .skyColor(calculateSkyColor(-1f))
+                .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                .ambientParticle(new AmbientParticleSettings(ParticleTypes.SNOWFLAKE, 0.0025f)).build())
+            .mobSpawnSettings(mobSpawnBuilder.build())
+            .generationSettings(biomeGenerationBuilder.build())
+            .build();
     }
 
     protected static int calculateSkyColor (float pTemperature)
@@ -164,12 +164,12 @@ public class BiomeDatagen
         public void addBiomes (Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper)
         {
             this.addBiome(mapper,
-                    Climate.Parameter.point(0.0F),
-                    Climate.Parameter.point(0.0F),
-                    Climate.Parameter.point(0.0F),
-                    Climate.Parameter.point(0.0F),
-                    Climate.Parameter.point(0.0F),
-                    Climate.Parameter.point(0.0F), 0.0F, BiomeRegistry.FLAMING_GROVE);
+                Climate.Parameter.point(0.0F),
+                Climate.Parameter.point(0.0F),
+                Climate.Parameter.point(0.0F),
+                Climate.Parameter.point(0.0F),
+                Climate.Parameter.point(0.0F),
+                Climate.Parameter.point(0.0F), 0.0F, BiomeRegistry.FLAMING_GROVE);
         }
     }
 
@@ -183,17 +183,17 @@ public class BiomeDatagen
         {
             SurfaceRules.ConditionSource isAbove32 = SurfaceRules.yStartCheck(VerticalAnchor.absolute(32), 0);
             return SurfaceRules.sequence(
-                    SurfaceRules.ifTrue(
-                            SurfaceRules.isBiome(BiomeRegistry.FLAMING_GROVE),
-                            SurfaceRules.sequence(
-                                    SurfaceRules.ifTrue(SurfaceRules.verticalGradient("bedrock_floor", VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(5)), BEDROCK),
-                                    SurfaceRules.ifTrue(SurfaceRules.not(SurfaceRules.verticalGradient("bedrock_roof", VerticalAnchor.belowTop(5), VerticalAnchor.top())), BEDROCK),
-                                    SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
-                                            SurfaceRules.ifTrue(isAbove32, PYROMOSSED_NETHERRACK)),
-                                    SurfaceRules.ifTrue(SurfaceRules.UNDER_CEILING, NETHERRACK),
-                                    SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, NETHERRACK)
-                            )
+                SurfaceRules.ifTrue(
+                    SurfaceRules.isBiome(BiomeRegistry.FLAMING_GROVE),
+                    SurfaceRules.sequence(
+                        SurfaceRules.ifTrue(SurfaceRules.verticalGradient("bedrock_floor", VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(5)), BEDROCK),
+                        SurfaceRules.ifTrue(SurfaceRules.not(SurfaceRules.verticalGradient("bedrock_roof", VerticalAnchor.belowTop(5), VerticalAnchor.top())), BEDROCK),
+                        SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR,
+                            SurfaceRules.ifTrue(isAbove32, PYROMOSSED_NETHERRACK)),
+                        SurfaceRules.ifTrue(SurfaceRules.UNDER_CEILING, NETHERRACK),
+                        SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, NETHERRACK)
                     )
+                )
             );
         }
 

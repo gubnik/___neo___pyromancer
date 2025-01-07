@@ -63,27 +63,27 @@ public class UnburnedSpiritModel<T extends UnburnedSpiritEntity> extends Hierarc
         PartDefinition partdefinition = meshdefinition.getRoot();
 
         PartDefinition LegRight = partdefinition.addOrReplaceChild("LegRight", CubeListBuilder.create().texOffs(30, 114).addBox(-5.0F, 28.0F, 0.0F, 10.0F, 8.0F, 5.0F, new CubeDeformation(0.0F))
-                .texOffs(120, 234).addBox(-5.0F, 8.0F, 0.0F, 10.0F, 6.0F, 5.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 104).addBox(-5.0F, 31.0F, -5.0F, 10.0F, 5.0F, 5.0F, new CubeDeformation(0.0F))
-                .texOffs(164, 134).addBox(-4.0F, 24.0F, -4.0F, 8.0F, 7.0F, 8.0F, new CubeDeformation(0.0F))
-                .texOffs(166, 194).addBox(-4.0F, 8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
-                .texOffs(164, 210).addBox(-5.0F, 4.0F, -5.0F, 10.0F, 4.0F, 10.0F, new CubeDeformation(0.0F))
-                .texOffs(170, 158).addBox(-3.0F, 12.0F, -3.0F, 6.0F, 14.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(-6.0F, -12.0F, 0.0F));
+            .texOffs(120, 234).addBox(-5.0F, 8.0F, 0.0F, 10.0F, 6.0F, 5.0F, new CubeDeformation(0.0F))
+            .texOffs(0, 104).addBox(-5.0F, 31.0F, -5.0F, 10.0F, 5.0F, 5.0F, new CubeDeformation(0.0F))
+            .texOffs(164, 134).addBox(-4.0F, 24.0F, -4.0F, 8.0F, 7.0F, 8.0F, new CubeDeformation(0.0F))
+            .texOffs(166, 194).addBox(-4.0F, 8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
+            .texOffs(164, 210).addBox(-5.0F, 4.0F, -5.0F, 10.0F, 4.0F, 10.0F, new CubeDeformation(0.0F))
+            .texOffs(170, 158).addBox(-3.0F, 12.0F, -3.0F, 6.0F, 14.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(-6.0F, -12.0F, 0.0F));
 
         PartDefinition LegLeft = partdefinition.addOrReplaceChild("LegLeft", CubeListBuilder.create().texOffs(166, 178).addBox(-4.0F, 8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 114).addBox(-5.0F, 28.0F, 0.0F, 10.0F, 8.0F, 5.0F, new CubeDeformation(0.0F))
-                .texOffs(118, 245).addBox(-5.0F, 8.0F, 0.0F, 10.0F, 6.0F, 5.0F, new CubeDeformation(0.0F))
-                .texOffs(30, 104).addBox(-5.0F, 31.0F, -5.0F, 10.0F, 5.0F, 5.0F, new CubeDeformation(0.0F))
-                .texOffs(166, 149).addBox(-4.0F, 24.0F, -4.0F, 8.0F, 7.0F, 8.0F, new CubeDeformation(0.0F))
-                .texOffs(164, 224).addBox(-5.0F, 4.0F, -5.0F, 10.0F, 4.0F, 10.0F, new CubeDeformation(0.0F))
-                .texOffs(170, 158).addBox(-3.0F, 12.0F, -3.0F, 6.0F, 14.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(6.0F, -12.0F, 0.0F));
+            .texOffs(0, 114).addBox(-5.0F, 28.0F, 0.0F, 10.0F, 8.0F, 5.0F, new CubeDeformation(0.0F))
+            .texOffs(118, 245).addBox(-5.0F, 8.0F, 0.0F, 10.0F, 6.0F, 5.0F, new CubeDeformation(0.0F))
+            .texOffs(30, 104).addBox(-5.0F, 31.0F, -5.0F, 10.0F, 5.0F, 5.0F, new CubeDeformation(0.0F))
+            .texOffs(166, 149).addBox(-4.0F, 24.0F, -4.0F, 8.0F, 7.0F, 8.0F, new CubeDeformation(0.0F))
+            .texOffs(164, 224).addBox(-5.0F, 4.0F, -5.0F, 10.0F, 4.0F, 10.0F, new CubeDeformation(0.0F))
+            .texOffs(170, 158).addBox(-3.0F, 12.0F, -3.0F, 6.0F, 14.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(6.0F, -12.0F, 0.0F));
 
         PartDefinition Body = partdefinition.addOrReplaceChild("Body", CubeListBuilder.create().texOffs(148, 238).addBox(-11.0F, -2.0F, -6.0F, 22.0F, 6.0F, 12.0F, new CubeDeformation(0.0F))
-                .texOffs(204, 218).addBox(-9.0F, -17.0F, -4.0F, 18.0F, 15.0F, 8.0F, new CubeDeformation(0.0F))
-                .texOffs(196, 121).addBox(-9.0F, -31.1F, -6.0F, 18.0F, 15.0F, 12.0F, new CubeDeformation(0.0F))
-                .texOffs(218, 194).addBox(-11.0F, -22.1F, -6.0F, 7.0F, 12.0F, 12.0F, new CubeDeformation(0.0F))
-                .texOffs(218, 170).addBox(4.0F, -22.1F, -6.0F, 7.0F, 12.0F, 12.0F, new CubeDeformation(0.0F))
-                .texOffs(216, 148).addBox(-4.0F, -22.1F, -6.0F, 8.0F, 10.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -12.0F, 0.0F));
+            .texOffs(204, 218).addBox(-9.0F, -17.0F, -4.0F, 18.0F, 15.0F, 8.0F, new CubeDeformation(0.0F))
+            .texOffs(196, 121).addBox(-9.0F, -31.1F, -6.0F, 18.0F, 15.0F, 12.0F, new CubeDeformation(0.0F))
+            .texOffs(218, 194).addBox(-11.0F, -22.1F, -6.0F, 7.0F, 12.0F, 12.0F, new CubeDeformation(0.0F))
+            .texOffs(218, 170).addBox(4.0F, -22.1F, -6.0F, 7.0F, 12.0F, 12.0F, new CubeDeformation(0.0F))
+            .texOffs(216, 148).addBox(-4.0F, -22.1F, -6.0F, 8.0F, 10.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -12.0F, 0.0F));
 
         PartDefinition BreastRight = Body.addOrReplaceChild("BreastRight", CubeListBuilder.create().texOffs(0, 31).addBox(-8.0F, -7.5F, -8.0F, 16.0F, 15.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-9.2096F, -22.97F, 0.0F, 0.0F, 0.0F, -0.0873F));
 
@@ -104,10 +104,10 @@ public class UnburnedSpiritModel<T extends UnburnedSpiritEntity> extends Hierarc
         PartDefinition HornLeft = Head.addOrReplaceChild("HornLeft", CubeListBuilder.create().texOffs(232, 56).addBox(-1.5F, -8.0F, -1.5F, 3.0F, 8.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(4.0048F, -8.4307F, -4.0297F, 0.0873F, 0.0F, 0.0873F));
 
         PartDefinition ArmRight = partdefinition.addOrReplaceChild("ArmRight", CubeListBuilder.create().texOffs(220, 67).addBox(-4.0F, 3.9093F, -5.0F, 8.0F, 44.0F, 10.0F, new CubeDeformation(0.0F))
-                .texOffs(96, 50).addBox(-5.0F, 4.9093F, -6.0F, 10.0F, 12.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-18.0F, -42.0F, 0.0F, 0.0F, 0.0F, 0.0047F));
+            .texOffs(96, 50).addBox(-5.0F, 4.9093F, -6.0F, 10.0F, 12.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-18.0F, -42.0F, 0.0F, 0.0F, 0.0F, 0.0047F));
 
         PartDefinition ArmLeft = partdefinition.addOrReplaceChild("ArmLeft", CubeListBuilder.create().texOffs(52, 50).addBox(-5.0F, 4.9093F, -6.0F, 10.0F, 12.0F, 12.0F, new CubeDeformation(0.0F))
-                .texOffs(184, 67).addBox(-4.0F, 3.9093F, -5.0F, 8.0F, 44.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(18.0F, -42.0F, 0.0F, 0.0F, 0.0F, -0.0047F));
+            .texOffs(184, 67).addBox(-4.0F, 3.9093F, -5.0F, 8.0F, 44.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(18.0F, -42.0F, 0.0F, 0.0F, 0.0F, -0.0047F));
 
         return LayerDefinition.create(meshdefinition, 256, 256);
     }

@@ -64,30 +64,30 @@ public class PlacedFeatureDatagen
         PlacementUtils.register(context, FLAMING_GROVE_VEGETATION, FLAMING_GROVE_VEGETATION_HOLDER, List.of(CountOnEveryLayerPlacement.of(16), PlacementUtils.filteredByBlockSurvival(BlockRegistry.PYROMOSS_SPROUTS.get())));
 
         PlacementUtils.register(context, SIZZLING_VINE, SIZZLING_VINE_HOLDER, List.of(CountPlacement.of(255), InSquarePlacement.spread(),
-                PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-                EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-                RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
-                BiomeFilter.biome()));
+            PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+            EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+            RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+            BiomeFilter.biome()));
 
         PlacementUtils.register(context, AMBER_DEPOSIT, AMBER_DEPOSIT_HOLDER, List.of(CountPlacement.of(13), InSquarePlacement.spread(),
-                PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-                EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-                RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
-                BiomeFilter.biome()));
+            PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+            EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+            RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+            BiomeFilter.biome()));
 
         PlacementUtils.register(context, RIMECELL_UNDERGROUND, RIMECELL_UNDERGROUND_HOLDER, List.of(CountPlacement.of(64), InSquarePlacement.spread(),
-                PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-                EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
-                RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
-                BiomeFilter.biome()));
+            PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+            EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+            RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+            BiomeFilter.biome()));
 
         PlacementUtils.register(context, ICE_PILLARS, ICE_PILLARS_HOLDER, List.of(CountOnEveryLayerPlacement.of(40), BiomeFilter.biome()));
 
         PlacementUtils.register(context, BLUE_ICE_CHUNK, BLUE_ICE_CHUNK_HOLDER, List.of(CountPlacement.of(13), InSquarePlacement.spread(),
-                PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
-                EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.alwaysTrue(), 8),
-                RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
-                BiomeFilter.biome()));
+            PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT,
+            EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.hasSturdyFace(Direction.DOWN), BlockPredicate.alwaysTrue(), 8),
+            RandomOffsetPlacement.vertical(ConstantInt.of(-1)),
+            BiomeFilter.biome()));
 
         PlacementUtils.register(context, SNOW_LAYER, SNOW_LAYER_HOLDER, List.of(CountOnEveryLayerPlacement.of(64), BiomeFilter.biome()));
     }

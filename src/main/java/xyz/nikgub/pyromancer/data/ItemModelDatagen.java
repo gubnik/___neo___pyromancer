@@ -43,17 +43,17 @@ import java.util.List;
 public class ItemModelDatagen extends ItemModelProvider
 {
     public static final List<RegistryObject<? extends Item>> TOOLS = List.of(
-            ItemRegistry.COURT_OF_EMBERS
+        ItemRegistry.COURT_OF_EMBERS
     );
 
     public static final List<RegistryObject<? extends Item>> CUSTOM = new ArrayList<>(List.of(
-            ItemRegistry.SIZZLING_HAND,
-            ItemRegistry.HOARFROST_GREATSWORD,
-            ItemRegistry.SPEAR_OF_MOROZ,
-            ItemRegistry.ZWEIHANDER,
-            ItemRegistry.MUSKET,
-            ItemRegistry.COMPENDIUM_OF_FLAME,
-            ItemRegistry.VAPORIZER
+        ItemRegistry.SIZZLING_HAND,
+        ItemRegistry.HOARFROST_GREATSWORD,
+        ItemRegistry.SPEAR_OF_MOROZ,
+        ItemRegistry.ZWEIHANDER,
+        ItemRegistry.MUSKET,
+        ItemRegistry.COMPENDIUM_OF_FLAME,
+        ItemRegistry.VAPORIZER
     ));
 
     private static final ItemDisplayContext THIRDPERSON = ItemDisplayContext.create("thirdperson", ResourceLocation.tryParse("thirdperson"), ItemDisplayContext.THIRD_PERSON_RIGHT_HAND);
@@ -83,8 +83,8 @@ public class ItemModelDatagen extends ItemModelProvider
         {
             if (item.getBlock() instanceof IPlantable || item.getBlock() instanceof GrowingPlantBlock)
                 getBuilder(item.toString())
-                        .parent(new ModelFile.UncheckedModelFile("item/generated"))
-                        .texture("layer0", new ResourceLocation(PyromancerMod.MOD_ID, "block/" + item.getDescriptionId().replace("block.pyromancer.", "")));
+                    .parent(new ModelFile.UncheckedModelFile("item/generated"))
+                    .texture("layer0", new ResourceLocation(PyromancerMod.MOD_ID, "block/" + item.getDescriptionId().replace("block.pyromancer.", "")));
             else
                 this.blockItem(item);
         }
@@ -95,15 +95,15 @@ public class ItemModelDatagen extends ItemModelProvider
     public void spawnEggItem (Item item)
     {
         getBuilder(item.toString())
-                .parent(new ModelFile.UncheckedModelFile("item/generated"))
-                .texture("layer0", new ResourceLocation("minecraft:item/spawn_egg"));
+            .parent(new ModelFile.UncheckedModelFile("item/generated"))
+            .texture("layer0", new ResourceLocation("minecraft:item/spawn_egg"));
     }
 
     public void tieredItem (ResourceLocation item)
     {
         getBuilder(item.toString())
-                .parent(new ModelFile.UncheckedModelFile("item/handheld"))
-                .texture("layer0", new ResourceLocation(item.getNamespace(), "item/" + item.getPath()));
+            .parent(new ModelFile.UncheckedModelFile("item/handheld"))
+            .texture("layer0", new ResourceLocation(item.getNamespace(), "item/" + item.getPath()));
     }
 
     public void blockItem (BlockItem item)
@@ -112,13 +112,13 @@ public class ItemModelDatagen extends ItemModelProvider
         if (item.getBlock() instanceof FenceBlock) mod = "_inventory";
         else if (item.getBlock() instanceof TrapDoorBlock) mod = "_bottom";
         getBuilder(item.toString())
-                .parent(new ModelFile.UncheckedModelFile("pyromancer:block/" + item + mod))
-                .transforms()
-                .transform(THIRDPERSON)
-                .rotation(10, -45, 170)
-                .scale(0.375f, 0.375f, 0.375f)
-                .translation(0, 1.5f, -2.75f)
-                .end()
-                .end();
+            .parent(new ModelFile.UncheckedModelFile("pyromancer:block/" + item + mod))
+            .transforms()
+            .transform(THIRDPERSON)
+            .rotation(10, -45, 170)
+            .scale(0.375f, 0.375f, 0.375f)
+            .translation(0, 1.5f, -2.75f)
+            .end()
+            .end();
     }
 }

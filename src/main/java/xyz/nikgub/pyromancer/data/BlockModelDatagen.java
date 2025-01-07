@@ -33,13 +33,13 @@ import java.util.function.Consumer;
 public class BlockModelDatagen extends BlockModelProvider
 {
     public static final Map<Block, Consumer<BlockModelDatagen>> CUSTOM = Map.of(
-            BlockRegistry.PYROWOOD_LOG.get(), (blockModelDatagen -> blockModelDatagen.cubeColumn("pyrowood_log", new ResourceLocation(PyromancerMod.MOD_ID, "block/pyrowood_log_side"), new ResourceLocation(PyromancerMod.MOD_ID, "block/pyrowood_log_top"))),
-            BlockRegistry.STRIPPED_PYROWOOD_LOG.get(), (blockModelDatagen -> blockModelDatagen.cubeColumn("stripped_pyrowood_log", new ResourceLocation(PyromancerMod.MOD_ID, "block/stripped_pyrowood_log_side"), new ResourceLocation(PyromancerMod.MOD_ID, "block/stripped_pyrowood_log_top"))),
-            BlockRegistry.PYROMOSSED_NETHERRACK.get(), (blockModelDatagen -> blockModelDatagen.cubeBottomTop("pyromossed_netherrack", new ResourceLocation(PyromancerMod.MOD_ID, "block/pyromoss_side"), new ResourceLocation("minecraft", "block/netherrack"), new ResourceLocation(PyromancerMod.MOD_ID, "block/pyromoss"))),
-            BlockRegistry.RIMEBLOOD_CELL.get(), (blockModelDatagen -> blockModelDatagen.cubeBottomTop("rimeblood_cell", new ResourceLocation(PyromancerMod.MOD_ID, "block/rimeblood_cell_side"), new ResourceLocation(PyromancerMod.MOD_ID, "block/rimeblood_cell_end"), new ResourceLocation(PyromancerMod.MOD_ID, "block/rimeblood_cell_end"))),
-            BlockRegistry.HOGTRAP.get(), (blockModelDatagen ->
-            {
-            })
+        BlockRegistry.PYROWOOD_LOG.get(), (blockModelDatagen -> blockModelDatagen.cubeColumn("pyrowood_log", new ResourceLocation(PyromancerMod.MOD_ID, "block/pyrowood_log_side"), new ResourceLocation(PyromancerMod.MOD_ID, "block/pyrowood_log_top"))),
+        BlockRegistry.STRIPPED_PYROWOOD_LOG.get(), (blockModelDatagen -> blockModelDatagen.cubeColumn("stripped_pyrowood_log", new ResourceLocation(PyromancerMod.MOD_ID, "block/stripped_pyrowood_log_side"), new ResourceLocation(PyromancerMod.MOD_ID, "block/stripped_pyrowood_log_top"))),
+        BlockRegistry.PYROMOSSED_NETHERRACK.get(), (blockModelDatagen -> blockModelDatagen.cubeBottomTop("pyromossed_netherrack", new ResourceLocation(PyromancerMod.MOD_ID, "block/pyromoss_side"), new ResourceLocation("minecraft", "block/netherrack"), new ResourceLocation(PyromancerMod.MOD_ID, "block/pyromoss"))),
+        BlockRegistry.RIMEBLOOD_CELL.get(), (blockModelDatagen -> blockModelDatagen.cubeBottomTop("rimeblood_cell", new ResourceLocation(PyromancerMod.MOD_ID, "block/rimeblood_cell_side"), new ResourceLocation(PyromancerMod.MOD_ID, "block/rimeblood_cell_end"), new ResourceLocation(PyromancerMod.MOD_ID, "block/rimeblood_cell_end"))),
+        BlockRegistry.HOGTRAP.get(), (blockModelDatagen ->
+        {
+        })
     );
 
     public BlockModelDatagen (PackOutput output, ExistingFileHelper existingFileHelper)

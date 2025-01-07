@@ -66,9 +66,9 @@ public class PyracornEntity extends Monster
     public static AttributeSupplier setAttributes ()
     {
         return Monster.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 10)
-                .add(Attributes.MOVEMENT_SPEED, 0.3f)
-                .build();
+            .add(Attributes.MAX_HEALTH, 10)
+            .add(Attributes.MOVEMENT_SPEED, 0.3f)
+            .build();
     }
 
     @Override

@@ -91,7 +91,7 @@ public class AttackEffectEventHandling
         return multiplier;
     }
 
-    private static float directDamageHandler(LivingEntity target, Entity cause, Entity directCause, DamageSource damageSource, float damageAmount)
+    private static float directDamageHandler (LivingEntity target, Entity cause, Entity directCause, DamageSource damageSource, float damageAmount)
     {
         if (!GeneralUtils.isDirectDamage(damageSource))
         {
@@ -108,7 +108,7 @@ public class AttackEffectEventHandling
         return multiplier;
     }
 
-    private static float frostBuildup(LivingEntity target, LivingEntity sourceEntity, DamageSource damageSource, float damageAmount, ItemStack mainHand)
+    private static float frostBuildup (LivingEntity target, LivingEntity sourceEntity, DamageSource damageSource, float damageAmount, ItemStack mainHand)
     {
         if (!target.canFreeze())
         {

@@ -44,7 +44,7 @@ public class NetherPyrowoodTrunkPlacer extends TrunkPlacer
     public static final Codec<NetherPyrowoodTrunkPlacer> CODEC = RecordCodecBuilder.create((p_70161_) -> trunkPlacerParts(p_70161_).apply(p_70161_, NetherPyrowoodTrunkPlacer::new));
     public static DeferredRegister<TrunkPlacerType<?>> TRUNK_TYPE_REGISTRY = DeferredRegister.create(Registries.TRUNK_PLACER_TYPE, PyromancerMod.MOD_ID);
     public static final RegistryObject<TrunkPlacerType<?>> NETHER_PYROWOOD_TRUNK_PLACER = TRUNK_TYPE_REGISTRY.register("nether_pyrowood_trunk_placer",
-            () -> new TrunkPlacerType<>(NetherPyrowoodTrunkPlacer.CODEC));
+        () -> new TrunkPlacerType<>(NetherPyrowoodTrunkPlacer.CODEC));
 
     public NetherPyrowoodTrunkPlacer (int p_70268_, int p_70269_, int p_70270_)
     {

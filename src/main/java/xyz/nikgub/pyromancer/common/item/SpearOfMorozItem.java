@@ -179,8 +179,8 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStup
     public Map<Attribute, Pair<UUID, Style>> specialColoredUUID (ItemStack itemStack)
     {
         return Map.of(
-                AttributeRegistry.COLD_BUILDUP.get(), Pair.of(COLD_BUILDUP_UUID, StyleRegistry.FROST_STYLE),
-                ForgeMod.ENTITY_REACH.get(), Pair.of(REACH_UUID, Style.EMPTY.withColor(ChatFormatting.DARK_GREEN))
+            AttributeRegistry.COLD_BUILDUP.get(), Pair.of(COLD_BUILDUP_UUID, StyleRegistry.FROST_STYLE),
+            ForgeMod.ENTITY_REACH.get(), Pair.of(REACH_UUID, Style.EMPTY.withColor(ChatFormatting.DARK_GREEN))
         );
     }
 

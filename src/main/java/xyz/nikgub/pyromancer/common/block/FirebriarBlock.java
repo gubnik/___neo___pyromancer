@@ -76,10 +76,10 @@ public class FirebriarBlock extends FlowerBlock
     {
         super.animateTick(blockState, level, blockPos, randomSource);
         if (blockState.getBlock().getStateDefinition().getProperty("stage") instanceof IntegerProperty stage && blockState.getValue(stage) > 0
-                && Math.random() < 0.08)
+            && Math.random() < 0.08)
         {
             level.setBlock(blockPos, blockState.setValue(stage,
-                    blockState.getValue(stage) - 1), 3);
+                blockState.getValue(stage) - 1), 3);
         }
     }
 }

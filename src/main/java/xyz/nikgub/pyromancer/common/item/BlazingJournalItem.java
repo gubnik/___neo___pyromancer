@@ -167,12 +167,12 @@ public class BlazingJournalItem extends Item implements IContainerItem
     public boolean blazeBehaviour (ItemStack inSlot, SlotAccess slotAccess)
     {
         int maxCapacity = PyromancerConfig.blazingJournalMaxCapacity,
-                value = PyromancerConfig.blazeValue;
+            value = PyromancerConfig.blazeValue;
         CompoundTag tag = inSlot.getOrCreateTag();
         if (tag.getInt(BLAZE_TAG_NAME) <= maxCapacity - value)
         {
             while (tag.getInt(BLAZE_TAG_NAME) <= maxCapacity - value
-                    && !slotAccess.get().isEmpty())
+                && !slotAccess.get().isEmpty())
             {
                 slotAccess.get().shrink(1);
                 tag.putInt(BLAZE_TAG_NAME, tag.getInt(BLAZE_TAG_NAME) + value);

@@ -93,11 +93,11 @@ public class PyromancerArmorModel<T extends LivingEntity> extends EntityModel<T>
         PartDefinition shoulder_r2 = arm_right.addOrReplaceChild("shoulder_r2", CubeListBuilder.create().texOffs(44, 0).addBox(-2.8F, -2.5F, -2.5F, 5.0F, 5.0F, 5.0F, new CubeDeformation(0.6F)), PartPose.offsetAndRotation(-1.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.1745F));
 
         PartDefinition leggings = partdefinition.addOrReplaceChild("leggings", CubeListBuilder.create().texOffs(18, 17).addBox(-4.5F, 9.0F, -2.5F, 9.0F, 2.0F, 5.0F, new CubeDeformation(0.4F))
-                .texOffs(32, 7).addBox(-4.0F, 9.0F, -2.0F, 8.0F, 3.0F, 4.0F, new CubeDeformation(0.5F))
-                .texOffs(34, 34).addBox(-2.0F, 8.0F, -3.0F, 4.0F, 4.0F, 1.0F, new CubeDeformation(0.4F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+            .texOffs(32, 7).addBox(-4.0F, 9.0F, -2.0F, 8.0F, 3.0F, 4.0F, new CubeDeformation(0.5F))
+            .texOffs(34, 34).addBox(-2.0F, 8.0F, -3.0F, 4.0F, 4.0F, 1.0F, new CubeDeformation(0.4F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition bombsack_r1 = leggings.addOrReplaceChild("bombsack_r1", CubeListBuilder.create().texOffs(43, 21).addBox(-2.8F, -2.0F, -1.5F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.4F))
-                .texOffs(10, 23).addBox(-2.0F, -3.0F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.5F)), PartPose.offsetAndRotation(-4.0F, 13.0F, 0.0F, 0.0F, 0.0F, 0.1309F));
+            .texOffs(10, 23).addBox(-2.0F, -3.0F, -0.5F, 2.0F, 1.0F, 1.0F, new CubeDeformation(0.5F)), PartPose.offsetAndRotation(-4.0F, 13.0F, 0.0F, 0.0F, 0.0F, 0.1309F));
 
         PartDefinition leg_left = partdefinition.addOrReplaceChild("leg_left", CubeListBuilder.create().texOffs(0, 32).mirror().addBox(-2.0F, -1.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.4F)).mirror(false), PartPose.offset(2.0F, 12.0F, 0.0F));
 
@@ -114,25 +114,25 @@ public class PyromancerArmorModel<T extends LivingEntity> extends EntityModel<T>
     {
         PyromancerArmorModel<LivingEntity> testModel = new PyromancerArmorModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(PyromancerArmorModel.LAYER_LOCATION));
         return new HumanoidModel<>(new ModelPart(
-                Collections.emptyList(),
-                Map.of(
-                        "left_leg", slot.equals(EquipmentSlot.FEET) ? testModel.leftBoot :
-                                slot.equals(EquipmentSlot.LEGS) ? testModel.leftLeg : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+            Collections.emptyList(),
+            Map.of(
+                "left_leg", slot.equals(EquipmentSlot.FEET) ? testModel.leftBoot :
+                    slot.equals(EquipmentSlot.LEGS) ? testModel.leftLeg : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 
-                        "right_leg", slot.equals(EquipmentSlot.FEET) ? testModel.rightBoot :
-                                slot.equals(EquipmentSlot.LEGS) ? testModel.rightLeg : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+                "right_leg", slot.equals(EquipmentSlot.FEET) ? testModel.rightBoot :
+                    slot.equals(EquipmentSlot.LEGS) ? testModel.rightLeg : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 
-                        "hat", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+                "hat", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 
-                        "head", slot.equals(EquipmentSlot.HEAD) ? testModel.head : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+                "head", slot.equals(EquipmentSlot.HEAD) ? testModel.head : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 
-                        "body", slot.equals(EquipmentSlot.CHEST) ? testModel.body :
-                                slot.equals(EquipmentSlot.LEGS) ? testModel.leggings : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+                "body", slot.equals(EquipmentSlot.CHEST) ? testModel.body :
+                    slot.equals(EquipmentSlot.LEGS) ? testModel.leggings : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 
-                        "left_arm", slot.equals(EquipmentSlot.CHEST) ? testModel.leftArm : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+                "left_arm", slot.equals(EquipmentSlot.CHEST) ? testModel.leftArm : new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 
-                        "right_arm", slot.equals(EquipmentSlot.CHEST) ? testModel.rightArm : new ModelPart(Collections.emptyList(), Collections.emptyMap())
-                )
+                "right_arm", slot.equals(EquipmentSlot.CHEST) ? testModel.rightArm : new ModelPart(Collections.emptyList(), Collections.emptyMap())
+            )
         ));
     }
 

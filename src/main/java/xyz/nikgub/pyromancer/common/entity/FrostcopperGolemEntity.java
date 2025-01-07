@@ -73,16 +73,16 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
     public static AttributeSupplier setAttributes ()
     {
         return Monster.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 40)
-                .add(Attributes.MOVEMENT_SPEED, 0.2f)
-                .add(Attributes.ARMOR, 10)
-                .add(Attributes.ATTACK_DAMAGE, 5)
-                .add(Attributes.ATTACK_SPEED, 1)
-                .add(Attributes.ATTACK_KNOCKBACK, 0.4)
-                .add(Attributes.FOLLOW_RANGE, 16)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.25f)
-                .add(AttributeRegistry.COLD_BUILDUP.get(), 16)
-                .build();
+            .add(Attributes.MAX_HEALTH, 40)
+            .add(Attributes.MOVEMENT_SPEED, 0.2f)
+            .add(Attributes.ARMOR, 10)
+            .add(Attributes.ATTACK_DAMAGE, 5)
+            .add(Attributes.ATTACK_SPEED, 1)
+            .add(Attributes.ATTACK_KNOCKBACK, 0.4)
+            .add(Attributes.FOLLOW_RANGE, 16)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 0.25f)
+            .add(AttributeRegistry.COLD_BUILDUP.get(), 16)
+            .build();
     }
 
     public static boolean spawnPredicate (EntityType<?> entityType, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom)
@@ -169,8 +169,8 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
     public boolean doHurtTarget (@NotNull Entity target)
     {
         if (this.getAllAnimations().stream()
-                .filter(determinedAnimation -> determinedAnimation.animationPurpose() != DeterminedAnimation.AnimationPurpose.IDLE)
-                .anyMatch(determinedAnimation -> determinedAnimation.animationState().isStarted()))
+            .filter(determinedAnimation -> determinedAnimation.animationPurpose() != DeterminedAnimation.AnimationPurpose.IDLE)
+            .anyMatch(determinedAnimation -> determinedAnimation.animationState().isStarted()))
             return false;
         this.runAnimationOf(DeterminedAnimation.AnimationPurpose.MAIN_ATTACK);
         this.setAttackTick(this.tickCount);
@@ -246,9 +246,9 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
     public @NotNull List<DeterminedAnimation> getAllAnimations ()
     {
         return List.of(
-                new DeterminedAnimation(ATTACK, DeterminedAnimation.AnimationPurpose.MAIN_ATTACK),
-                new DeterminedAnimation(STOMP, DeterminedAnimation.AnimationPurpose.STOMP),
-                new DeterminedAnimation(IDLE, DeterminedAnimation.AnimationPurpose.IDLE)
+            new DeterminedAnimation(ATTACK, DeterminedAnimation.AnimationPurpose.MAIN_ATTACK),
+            new DeterminedAnimation(STOMP, DeterminedAnimation.AnimationPurpose.STOMP),
+            new DeterminedAnimation(IDLE, DeterminedAnimation.AnimationPurpose.IDLE)
         );
     }
 }

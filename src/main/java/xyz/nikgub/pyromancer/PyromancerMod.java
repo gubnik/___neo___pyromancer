@@ -125,10 +125,10 @@ public class PyromancerMod
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
     public static final RegistryObject<CreativeModeTab> PYROMANCER_TAB = CREATIVE_MODE_TABS.register("pyromancer", () -> CreativeModeTab.builder()
-            .title(Component.translatable("itemGroup.pyromancer"))
-            .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> ItemRegistry.BLAZING_JOURNAL.get().getDefaultInstance())
-            .build());
+        .title(Component.translatable("itemGroup.pyromancer"))
+        .withTabsBefore(CreativeModeTabs.COMBAT)
+        .icon(() -> ItemRegistry.BLAZING_JOURNAL.get().getDefaultInstance())
+        .build());
     public static int clientTick;
 
     public static Map<Item, Boolean> DO_INFUSION_RENDER;
@@ -172,8 +172,8 @@ public class PyromancerMod
         event.enqueueWork(InfusionItem::makeRecipes);
 
         DO_INFUSION_RENDER = BuiltInRegistries.ITEM.stream().collect(Collectors.toMap(item -> item, item ->
-                Arrays.stream(item.getClass().getMethods()).anyMatch(m -> Arrays.equals(m.getParameterTypes(), new Class<?>[]{Level.class, Player.class, InteractionHand.class}) &&
-                        m.getReturnType() == InteractionResultHolder.class && m.getDeclaringClass() == Item.class) && item.getMaxStackSize(item.getDefaultInstance()) == 1));
+            Arrays.stream(item.getClass().getMethods()).anyMatch(m -> Arrays.equals(m.getParameterTypes(), new Class<?>[]{Level.class, Player.class, InteractionHand.class}) &&
+                m.getReturnType() == InteractionResultHolder.class && m.getDeclaringClass() == Item.class) && item.getMaxStackSize(item.getDefaultInstance()) == 1));
     }
 
     private void setupClient (final FMLCommonSetupEvent event)
@@ -237,11 +237,11 @@ public class PyromancerMod
             List<Item> INFUSIONS = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof InfusionItem).map(RegistryObject::get).toList();
             List<Item> ALL_ELSE = new ArrayList<>(ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).filter(item -> !(item instanceof BlockItem) && !(item instanceof SpawnEggItem) && !(item instanceof EmberItem)).toList());
             TOOLS.addAll(List.of(
-                    ItemRegistry.ZWEIHANDER.get(),
-                    ItemRegistry.MUSKET.get(),
-                    ItemRegistry.VAPORIZER.get(),
-                    ItemRegistry.HOARFROST_GREATSWORD.get(),
-                    ItemRegistry.SPEAR_OF_MOROZ.get()
+                ItemRegistry.ZWEIHANDER.get(),
+                ItemRegistry.MUSKET.get(),
+                ItemRegistry.VAPORIZER.get(),
+                ItemRegistry.HOARFROST_GREATSWORD.get(),
+                ItemRegistry.SPEAR_OF_MOROZ.get()
             ));
             ALL_ELSE.removeAll(TOOLS);
             ALL_ELSE.removeAll(PYROMANCY);
@@ -266,7 +266,7 @@ public class PyromancerMod
             {
                 boolean isDecorative = block instanceof GrowingPlantBlock || block instanceof BushBlock || block instanceof TallGrassBlock;
                 if ((isDecorative && event.getTabKey().equals(CreativeModeTabs.NATURAL_BLOCKS))
-                        || (!isDecorative && event.getTabKey().equals(CreativeModeTabs.BUILDING_BLOCKS)))
+                    || (!isDecorative && event.getTabKey().equals(CreativeModeTabs.BUILDING_BLOCKS)))
                 {
                     event.accept(block);
                 }
@@ -286,9 +286,9 @@ public class PyromancerMod
         /**/
         RegistriesDataGeneration.addProviders(event.includeServer(), generator, output, lookupProvider, existingFileHelper);
         generator.addProvider(true, new PackMetadataGenerator(output).add(PackMetadataSection.TYPE, new PackMetadataSection(
-                Component.literal("Resources for Pyromancer"),
-                DetectedVersion.BUILT_IN.getPackVersion(PackType.CLIENT_RESOURCES),
-                Arrays.stream(PackType.values()).collect(Collectors.toMap(Function.identity(), DetectedVersion.BUILT_IN::getPackVersion)))));
+            Component.literal("Resources for Pyromancer"),
+            DetectedVersion.BUILT_IN.getPackVersion(PackType.CLIENT_RESOURCES),
+            Arrays.stream(PackType.values()).collect(Collectors.toMap(Function.identity(), DetectedVersion.BUILT_IN::getPackVersion)))));
     }
 
     public void registerSpawnPlacements (SpawnPlacementRegisterEvent event)
@@ -304,17 +304,17 @@ public class PyromancerMod
     {
         final String eventName = event.getName().toString();
         List<String> toModify = List.of(
-                "minecraft:chests/simple_dungeon",
-                "minecraft:chests/abandoned_mineshaft",
-                "minecraft:chests/igloo_chest"
+            "minecraft:chests/simple_dungeon",
+            "minecraft:chests/abandoned_mineshaft",
+            "minecraft:chests/igloo_chest"
         );
         if (toModify.stream().anyMatch((eventName::equals)))
         {
             event.getTable().addPool(LootPool.lootPool()
-                    .setRolls(ConstantValue.exactly(1.0F))
-                    .add(LootItem.lootTableItem(ItemRegistry.ANCIENT_PLATING.get()))
-                    .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.04F, 0.04F)
-                    ).build());
+                .setRolls(ConstantValue.exactly(1.0F))
+                .add(LootItem.lootTableItem(ItemRegistry.ANCIENT_PLATING.get()))
+                .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.04F, 0.04F)
+                ).build());
         }
     }
 
@@ -339,7 +339,7 @@ public class PyromancerMod
             GeneralUtils.addAdvancement(entity, new ResourceLocation(MOD_ID, "pyromancer/flammenklinge_death"));
         }
         if (damageSource.getEntity() instanceof LivingEntity entity && (hand = entity.getMainHandItem()).getItem() instanceof MusketItem && !MusketItem.isLoaded(hand)
-                && hand.getEnchantmentLevel(EnchantmentRegistry.TROOPER.get()) != 0 && GeneralUtils.isDirectDamage(damageSource))
+            && hand.getEnchantmentLevel(EnchantmentRegistry.TROOPER.get()) != 0 && GeneralUtils.isDirectDamage(damageSource))
         {
             MusketItem.reload(entity, hand);
         }
@@ -398,7 +398,7 @@ public class PyromancerMod
             Ember ember = Ember.getFromItem(itemStack);
             if (ember == null) return;
             if (itemStack.getItem() instanceof EmberItem
-                    && event.getFlags() == TooltipFlag.ADVANCED)
+                && event.getFlags() == TooltipFlag.ADVANCED)
             {
                 event.getToolTip().add(Component.translatable(ember.toString()).withStyle(ChatFormatting.DARK_GRAY));
             }
@@ -429,7 +429,7 @@ public class PyromancerMod
         }
 
         @SubscribeEvent
-        public static void preventContractDrops(LivingDropsEvent event)
+        public static void preventContractDrops (LivingDropsEvent event)
         {
             if (event.getEntity().getPersistentData().getBoolean(ContractDirector.CONTRACT_SPAWN_TAG))
             {
@@ -438,7 +438,7 @@ public class PyromancerMod
         }
 
         @SubscribeEvent
-        public static void preventContractExperienceDrops(LivingExperienceDropEvent event)
+        public static void preventContractExperienceDrops (LivingExperienceDropEvent event)
         {
             if (event.getEntity().getPersistentData().getBoolean(ContractDirector.CONTRACT_SPAWN_TAG))
             {

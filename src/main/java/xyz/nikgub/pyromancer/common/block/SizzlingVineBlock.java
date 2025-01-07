@@ -35,8 +35,8 @@ public class SizzlingVineBlock extends GrowingPlantHeadBlock implements Bonemeal
     public SizzlingVineBlock (Properties properties)
     {
         super(properties, Direction.DOWN,
-                Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D),
-                false, 0.05);
+            Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D),
+            false, 0.05);
         this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(THICK, false));
     }
 

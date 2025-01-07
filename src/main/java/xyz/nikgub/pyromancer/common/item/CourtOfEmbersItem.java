@@ -73,7 +73,7 @@ public class CourtOfEmbersItem extends UsablePyromancyItem
     {
         int cost;
         if (!(entity instanceof Player player)
-                || BlazingJournalItem.getBlaze(player) - (cost = (int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get())) < 0
+            || BlazingJournalItem.getBlaze(player) - (cost = (int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get())) < 0
         ) return itemStack;
         PyronadoEntity pyronado = new PyronadoEntity(EntityTypeRegistry.PYRONADO.get(), level);
         pyronado.addToLevelForPlayerAt(player.level(), player, player.position().add(new Vec3(0, pyronado.getBbHeight() / 2, 0)));

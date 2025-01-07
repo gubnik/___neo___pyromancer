@@ -47,54 +47,55 @@ public class ContractRegistry
     public static final Supplier<IForgeRegistry<AccursedContractEntry<?>>> REGISTRY = CONTRACTS.makeRegistry(() -> new RegistryBuilder<AccursedContractEntry<?>>().disableOverrides());
 
     public static RegistryObject<AccursedContractEntry<?>> ZOMBIE = CONTRACTS.register("zombie",
-            () -> new AccursedContractEntry<>(EntityType.ZOMBIE, 1, (Level pLevel) -> {
-                Zombie zombie = EntityType.ZOMBIE.create(pLevel);
-                if (zombie == null) return null;
-                final ItemStack helmet = Items.IRON_HELMET.getDefaultInstance();
-                helmet.enchant(Enchantments.UNBREAKING, 255);
-                zombie.setItemSlot(EquipmentSlot.HEAD, helmet);
-                Map<EquipmentSlot, List<Item>> set = Map.of(
-                        EquipmentSlot.CHEST, List.of(Items.IRON_CHESTPLATE, Items.CHAINMAIL_CHESTPLATE, Items.LEATHER_CHESTPLATE),
-                        EquipmentSlot.LEGS, List.of(Items.IRON_LEGGINGS, Items.CHAINMAIL_LEGGINGS, Items.LEATHER_LEGGINGS)
-                );
-                for (var entry : set.entrySet())
-                {
-                    if (zombie.getRandom().nextInt(0, 6) != 0) continue;
-                    zombie.setItemSlot(entry.getKey(), entry.getValue().get(zombie.getRandom().nextInt(0, entry.getValue().size())).getDefaultInstance());
-                }
-                return zombie;
-            }));
+        () -> new AccursedContractEntry<>(EntityType.ZOMBIE, 1, (Level pLevel) ->
+        {
+            Zombie zombie = EntityType.ZOMBIE.create(pLevel);
+            if (zombie == null) return null;
+            final ItemStack helmet = Items.IRON_HELMET.getDefaultInstance();
+            helmet.enchant(Enchantments.UNBREAKING, 255);
+            zombie.setItemSlot(EquipmentSlot.HEAD, helmet);
+            Map<EquipmentSlot, List<Item>> set = Map.of(
+                EquipmentSlot.CHEST, List.of(Items.IRON_CHESTPLATE, Items.CHAINMAIL_CHESTPLATE, Items.LEATHER_CHESTPLATE),
+                EquipmentSlot.LEGS, List.of(Items.IRON_LEGGINGS, Items.CHAINMAIL_LEGGINGS, Items.LEATHER_LEGGINGS)
+            );
+            for (var entry : set.entrySet())
+            {
+                if (zombie.getRandom().nextInt(0, 6) != 0) continue;
+                zombie.setItemSlot(entry.getKey(), entry.getValue().get(zombie.getRandom().nextInt(0, entry.getValue().size())).getDefaultInstance());
+            }
+            return zombie;
+        }));
 
     public static RegistryObject<AccursedContractEntry<?>> STRAY = CONTRACTS.register("stray",
-            () -> new AccursedContractEntry<>(EntityType.STRAY, 3, (Level pLevel) -> {
-                Stray stray = EntityType.STRAY.create(pLevel);
-                if (stray == null) return null;
-                final ItemStack helmet = Items.IRON_HELMET.getDefaultInstance();
-                helmet.enchant(Enchantments.UNBREAKING, 255);
-                stray.setItemSlot(EquipmentSlot.HEAD, helmet);
-                Map<EquipmentSlot, List<Item>> set = Map.of(
-                        EquipmentSlot.CHEST, List.of(Items.IRON_CHESTPLATE, Items.CHAINMAIL_CHESTPLATE, Items.LEATHER_CHESTPLATE),
-                        EquipmentSlot.FEET, List.of(Items.IRON_BOOTS, Items.CHAINMAIL_BOOTS, Items.LEATHER_BOOTS)
-                );
-                for (var entry : set.entrySet())
-                {
-                    if (stray.getRandom().nextInt(0, 4) != 0) continue;
-                    stray.setItemSlot(entry.getKey(), entry.getValue().get(stray.getRandom().nextInt(0, entry.getValue().size())).getDefaultInstance());
-                }
-                if (stray.getRandom().nextInt(0, 1) == 0)
-                {
-                    stray.setItemSlot(EquipmentSlot.MAINHAND, Items.BOW.getDefaultInstance());
-                }
-                else
-                {
-                    stray.setItemSlot(EquipmentSlot.MAINHAND, Items.IRON_SWORD.getDefaultInstance());
-                }
-                return stray;
-            }));
+        () -> new AccursedContractEntry<>(EntityType.STRAY, 3, (Level pLevel) ->
+        {
+            Stray stray = EntityType.STRAY.create(pLevel);
+            if (stray == null) return null;
+            final ItemStack helmet = Items.IRON_HELMET.getDefaultInstance();
+            helmet.enchant(Enchantments.UNBREAKING, 255);
+            stray.setItemSlot(EquipmentSlot.HEAD, helmet);
+            Map<EquipmentSlot, List<Item>> set = Map.of(
+                EquipmentSlot.CHEST, List.of(Items.IRON_CHESTPLATE, Items.CHAINMAIL_CHESTPLATE, Items.LEATHER_CHESTPLATE),
+                EquipmentSlot.FEET, List.of(Items.IRON_BOOTS, Items.CHAINMAIL_BOOTS, Items.LEATHER_BOOTS)
+            );
+            for (var entry : set.entrySet())
+            {
+                if (stray.getRandom().nextInt(0, 4) != 0) continue;
+                stray.setItemSlot(entry.getKey(), entry.getValue().get(stray.getRandom().nextInt(0, entry.getValue().size())).getDefaultInstance());
+            }
+            if (stray.getRandom().nextInt(0, 1) == 0)
+            {
+                stray.setItemSlot(EquipmentSlot.MAINHAND, Items.BOW.getDefaultInstance());
+            } else
+            {
+                stray.setItemSlot(EquipmentSlot.MAINHAND, Items.IRON_SWORD.getDefaultInstance());
+            }
+            return stray;
+        }));
 
     public static RegistryObject<AccursedContractEntry<?>> FROSTCOPPER_GOLEM = CONTRACTS.register("frostcopper_golem",
-            () -> new AccursedContractEntry<>(EntityTypeRegistry.FROSTCOPPER_GOLEM.get(), 8));
+        () -> new AccursedContractEntry<>(EntityTypeRegistry.FROSTCOPPER_GOLEM.get(), 8));
 
     public static RegistryObject<AccursedContractEntry<?>> RIMEGAZER = CONTRACTS.register("rimegazer",
-            () -> new AccursedContractEntry<>(EntityTypeRegistry.RIMEGAZER.get(), 30));
+        () -> new AccursedContractEntry<>(EntityTypeRegistry.RIMEGAZER.get(), 30));
 }

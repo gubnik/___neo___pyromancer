@@ -149,38 +149,38 @@ public class DamageTypeDatagen extends TagsProvider<DamageType>
     protected void addTags (HolderLookup.@NotNull Provider p_256380_)
     {
         tag(IS_EMBER)
-                .add(FLAME_KEY)
-                .add(HELLBLAZE_KEY)
-                .add(SOULFLAME_KEY);
+            .add(FLAME_KEY)
+            .add(HELLBLAZE_KEY)
+            .add(SOULFLAME_KEY);
         tag(IS_PYROMANCY)
-                .add(SIZZLING_HAND_KEY)
-                .add(COURT_OF_EMBERS_KEY)
-                .add(SYMBOL_OF_SUN_KEY)
-                .add(FLAMMENKLINGE_LAUNCH_KEY)
-                .add(FLAMMENKLINGE_LAND_KEY);
+            .add(SIZZLING_HAND_KEY)
+            .add(COURT_OF_EMBERS_KEY)
+            .add(SYMBOL_OF_SUN_KEY)
+            .add(FLAMMENKLINGE_LAUNCH_KEY)
+            .add(FLAMMENKLINGE_LAND_KEY);
         tag(IS_BRUTISH)
-                .add(BOMBSACK_KEY)
-                .add(HOGTRAP_KEY);
+            .add(BOMBSACK_KEY)
+            .add(HOGTRAP_KEY);
         tag(JOURNAL_PROJECTION)
-                .add(BLAZING_JOURNAL_PROJECTION_KEY);
+            .add(BLAZING_JOURNAL_PROJECTION_KEY);
         tag(IS_VAPORIZER)
-                .add(
-                        VAPORIZER_GENERIC_KEY
-                );
+            .add(
+                VAPORIZER_GENERIC_KEY
+            );
         tag(DamageTypeTags.IS_PROJECTILE)
-                .add(
-                        SIZZLING_HAND_KEY,
-                        BOMBSACK_KEY,
-                        COURT_OF_EMBERS_KEY,
-                        MUSKET_SHOT_KEY
-                );
+            .add(
+                SIZZLING_HAND_KEY,
+                BOMBSACK_KEY,
+                COURT_OF_EMBERS_KEY,
+                MUSKET_SHOT_KEY
+            );
         tag(DamageTypeTags.IS_FIRE)
-                .addTag(IS_EMBER)
-                .addTag(JOURNAL_PROJECTION)
-                .addTag(IS_PYROMANCY)
-                .add(FIREBRIAR_KEY)
-                .add(BLAZING_JOURNAL_PROJECTION_KEY)
-                .add(SOULFLAME_KEY)
-                .add(GUILLOTINE_KEY);
+            .addTag(IS_EMBER)
+            .addTag(JOURNAL_PROJECTION)
+            .addTag(IS_PYROMANCY)
+            .add(FIREBRIAR_KEY)
+            .add(BLAZING_JOURNAL_PROJECTION_KEY)
+            .add(SOULFLAME_KEY)
+            .add(GUILLOTINE_KEY);
     }
 }

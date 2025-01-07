@@ -40,8 +40,8 @@ public class DamageSourceRegistry
     {
         assert level.registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HELLBLAZE_KEY),
-                entity
+            level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HELLBLAZE_KEY),
+            entity
         );
     }
 
@@ -49,8 +49,8 @@ public class DamageSourceRegistry
     {
         assert level.registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HELLBLAZE_KEY),
-                entity
+            level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HELLBLAZE_KEY),
+            entity
         );
     }
 
@@ -58,8 +58,8 @@ public class DamageSourceRegistry
     {
         assert level.registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.SOULFLAME_KEY),
-                entity
+            level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.SOULFLAME_KEY),
+            entity
         );
     }
 
@@ -67,7 +67,7 @@ public class DamageSourceRegistry
     {
         assert level.registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.FIREBRIAR_KEY)
+            level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.FIREBRIAR_KEY)
         );
     }
 
@@ -75,9 +75,9 @@ public class DamageSourceRegistry
     {
         assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.SIZZLING_HAND_KEY),
-                sizzlingHandFireball,
-                owner
+            owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.SIZZLING_HAND_KEY),
+            sizzlingHandFireball,
+            owner
         );
     }
 
@@ -85,9 +85,9 @@ public class DamageSourceRegistry
     {
         assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.SYMBOL_OF_SUN_KEY),
-                owner,
-                owner
+            owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.SYMBOL_OF_SUN_KEY),
+            owner,
+            owner
         );
     }
 
@@ -95,9 +95,9 @@ public class DamageSourceRegistry
     {
         assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.BOMBSACK_KEY),
-                bombsackProjectile,
-                owner
+            owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.BOMBSACK_KEY),
+            bombsackProjectile,
+            owner
         );
     }
 
@@ -105,9 +105,9 @@ public class DamageSourceRegistry
     {
         assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.COURT_OF_EMBERS_KEY),
-                pyronadoEntity,
-                owner
+            owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.COURT_OF_EMBERS_KEY),
+            pyronadoEntity,
+            owner
         );
     }
 
@@ -115,9 +115,9 @@ public class DamageSourceRegistry
     {
         assert entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.BLAZING_JOURNAL_PROJECTION_KEY),
-                entity,
-                owner
+            entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.BLAZING_JOURNAL_PROJECTION_KEY),
+            entity,
+            owner
         );
     }
 
@@ -125,9 +125,9 @@ public class DamageSourceRegistry
     {
         assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.BLAZING_JOURNAL_PROJECTION_KEY),
-                owner,
-                owner
+            owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.BLAZING_JOURNAL_PROJECTION_KEY),
+            owner,
+            owner
         );
     }
 
@@ -135,8 +135,8 @@ public class DamageSourceRegistry
     {
         assert unburned.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                unburned.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.UNBURNED_KEY),
-                unburned
+            unburned.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.UNBURNED_KEY),
+            unburned
         );
     }
 
@@ -144,9 +144,9 @@ public class DamageSourceRegistry
     {
         assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HOARFROST_GREATSWORD_KEY),
-                owner,
-                owner
+            owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HOARFROST_GREATSWORD_KEY),
+            owner,
+            owner
         );
     }
 
@@ -154,9 +154,9 @@ public class DamageSourceRegistry
     {
         assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.SPEAR_OF_MOROZ_KEY),
-                owner,
-                owner
+            owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.SPEAR_OF_MOROZ_KEY),
+            owner,
+            owner
         );
     }
 
@@ -164,9 +164,9 @@ public class DamageSourceRegistry
     {
         assert frostcopperGolemEntity.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                frostcopperGolemEntity.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.FROSTCOPPER_GOLEM_STOMP_KEY),
-                frostcopperGolemEntity,
-                frostcopperGolemEntity
+            frostcopperGolemEntity.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.FROSTCOPPER_GOLEM_STOMP_KEY),
+            frostcopperGolemEntity,
+            frostcopperGolemEntity
         );
     }
 
@@ -174,7 +174,7 @@ public class DamageSourceRegistry
     {
         assert level.registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HOGTRAP_KEY)
+            level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HOGTRAP_KEY)
         );
     }
 
@@ -182,9 +182,9 @@ public class DamageSourceRegistry
     {
         assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.FLAMMENKLINGE_LAUNCH_KEY),
-                owner,
-                owner
+            owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.FLAMMENKLINGE_LAUNCH_KEY),
+            owner,
+            owner
         );
     }
 
@@ -192,9 +192,9 @@ public class DamageSourceRegistry
     {
         assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.FLAMMENKLINGE_LAND_KEY),
-                owner,
-                owner
+            owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.FLAMMENKLINGE_LAND_KEY),
+            owner,
+            owner
         );
     }
 
@@ -202,9 +202,9 @@ public class DamageSourceRegistry
     {
         assert owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.VAPORIZER_GENERIC_KEY),
-                owner,
-                owner
+            owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.VAPORIZER_GENERIC_KEY),
+            owner,
+            owner
         );
     }
 
@@ -212,9 +212,9 @@ public class DamageSourceRegistry
     {
         assert entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-                entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypes.GENERIC),
-                entity,
-                entity
+            entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypes.GENERIC),
+            entity,
+            entity
         );
     }
 }

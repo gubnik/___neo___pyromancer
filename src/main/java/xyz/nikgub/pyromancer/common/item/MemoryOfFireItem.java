@@ -40,8 +40,8 @@ public class MemoryOfFireItem extends Item implements IGradientNameItem
     public Pair<Integer, Integer> getGradientColors (ItemStack itemStack)
     {
         return Pair.of(
-                GeneralUtils.rgbToColorInteger(200, 57, 0),
-                GeneralUtils.rgbToColorInteger(240, 129, 0)
+            GeneralUtils.rgbToColorInteger(200, 57, 0),
+            GeneralUtils.rgbToColorInteger(240, 129, 0)
         );
     }
 

@@ -59,28 +59,28 @@ public class ItemRegistry
     }));
 
     public static final RegistryObject<Item> HOARFROST_GREATSWORD = ITEMS.register("hoarfrost_greatsword",
-            () -> new HoarfrostGreatswordItem(new Item.Properties().rarity(RarityRegistry.FROST_RARITY)));
+        () -> new HoarfrostGreatswordItem(new Item.Properties().rarity(RarityRegistry.FROST_RARITY)));
     public static final RegistryObject<Item> SPEAR_OF_MOROZ = ITEMS.register("spear_of_moroz",
-            () -> new SpearOfMorozItem(new Item.Properties().rarity(RarityRegistry.FROST_RARITY)));
+        () -> new SpearOfMorozItem(new Item.Properties().rarity(RarityRegistry.FROST_RARITY)));
     public static final RegistryObject<ZweihanderItem> ZWEIHANDER = ITEMS.register("zweihander",
-            () -> new ZweihanderItem(new Item.Properties()));
+        () -> new ZweihanderItem(new Item.Properties()));
     public static final RegistryObject<MusketItem> MUSKET = ITEMS.register("musket",
-            () -> new MusketItem(new Item.Properties()));
+        () -> new MusketItem(new Item.Properties()));
     public static final RegistryObject<VaporizerItem> VAPORIZER = ITEMS.register("vaporizer",
-            () -> new VaporizerItem(new Item.Properties()));
+        () -> new VaporizerItem(new Item.Properties()));
 
 
     // infusion
     public static final RegistryObject<InfusionItem> FIERY_INFUSION = ITEMS.register("fiery_infusion", () -> new InfusionItem(new Item.Properties(), MobEffectRegistry.FIERY_INFUSION.get(),
-            Ingredient.of(Items.BLAZE_POWDER)));
+        Ingredient.of(Items.BLAZE_POWDER)));
     public static final RegistryObject<InfusionItem> ICE_INFUSION = ITEMS.register("ice_infusion", () -> new InfusionItem(new Item.Properties(), MobEffectRegistry.ICE_INFUSION.get(),
-            Ingredient.of(Items.BLUE_ICE)));
+        Ingredient.of(Items.BLUE_ICE)));
     public static final RegistryObject<InfusionItem> CREEPER_INFUSION = ITEMS.register("creeper_infusion", () -> new InfusionItem(new Item.Properties(), MobEffectRegistry.CREEPER_INFUSION.get(),
-            Ingredient.of(Items.TNT)));
+        Ingredient.of(Items.TNT)));
     public static final RegistryObject<InfusionItem> MIDAS_INFUSION = ITEMS.register("midas_infusion", () -> new InfusionItem(new Item.Properties(), MobEffectRegistry.MIDAS_INFUSION.get(),
-            Ingredient.of(Items.EXPERIENCE_BOTTLE)));
+        Ingredient.of(Items.EXPERIENCE_BOTTLE)));
     public static final RegistryObject<InfusionItem> OIL_INFUSION = ITEMS.register("oil_infusion", () -> new InfusionItem(new Item.Properties(), MobEffectRegistry.OIL_INFUSION.get(),
-            Ingredient.of(Items.COAL_BLOCK)));
+        Ingredient.of(Items.COAL_BLOCK)));
 
 
     // MATERIALS
@@ -96,224 +96,224 @@ public class ItemRegistry
 
     public static final RegistryObject<BlazingJournalItem> BLAZING_JOURNAL = ITEMS.register("blazing_journal", () -> new BlazingJournalItem(new Item.Properties()));
     public static final RegistryObject<CompendiumOfFlameItem> COMPENDIUM_OF_FLAME = ITEMS.register("compendium_of_flame",
-            () -> new CompendiumOfFlameItem(new Item.Properties()));
+        () -> new CompendiumOfFlameItem(new Item.Properties()));
 
 
     public static final RegistryObject<AccursedContractItem> ACCURSED_CONTRACT = ITEMS.register("accursed_contract", AccursedContractItem::new);
     public static final RegistryObject<Item> EMBER_ITEM = ITEMS.register("ember", () -> new EmberItem(new Item.Properties()));
     public static final RegistryObject<Item> BLAZING_QUILL = ITEMS.register("blazing_quill",
-            () -> new QuillItem(new Item.Properties())
+        () -> new QuillItem(new Item.Properties())
+        {
+            @Override
+            public float getDefaultPyromancyDamageBonus ()
             {
-                @Override
-                public float getDefaultPyromancyDamageBonus ()
-                {
-                    return 2;
-                }
-
-                @Override
-                public int getDefaultBlazeCostBonus ()
-                {
-                    return 1;
-                }
-
-                @Override
-                public void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
-                {
-                }
-
-                @Override
-                public boolean isActivated (DamageSource damageSource, Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
-                {
-                    return false;
-                }
+                return 2;
             }
+
+            @Override
+            public int getDefaultBlazeCostBonus ()
+            {
+                return 1;
+            }
+
+            @Override
+            public void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
+            {
+            }
+
+            @Override
+            public boolean isActivated (DamageSource damageSource, Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
+            {
+                return false;
+            }
+        }
     );
 
     public static final RegistryObject<Item> SMOLDERING_TWIG = ITEMS.register("smoldering_twig",
-            () -> new QuillItem(new Item.Properties())
+        () -> new QuillItem(new Item.Properties())
+        {
+            @Override
+            public float getDefaultPyromancyDamageBonus ()
             {
-                @Override
-                public float getDefaultPyromancyDamageBonus ()
-                {
-                    return 0;
-                }
+                return 0;
+            }
 
-                @Override
-                public int getDefaultBlazeCostBonus ()
-                {
-                    return 1;
-                }
+            @Override
+            public int getDefaultBlazeCostBonus ()
+            {
+                return 1;
+            }
 
-                @Override
-                public void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
+            @Override
+            public void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
+            {
+                if (target instanceof LivingEntity entity)
                 {
-                    if (target instanceof LivingEntity entity)
-                    {
-                        entity.addEffect(new MobEffectInstance(MobEffectRegistry.OILED.get(), 20, 5));
-                    }
-                }
-
-                @Override
-                public boolean isActivated (DamageSource damageSource, Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
-                {
-                    if (!(target instanceof LivingEntity entity && !entity.hasEffect(MobEffectRegistry.OILED.get())))
-                    {
-                        return false;
-                    }
-                    var enchantments = journalStack.getAllEnchantments().keySet().stream().filter(enchantment -> enchantment instanceof BlazingJournalEnchantment).map(enchantment -> (BlazingJournalEnchantment) enchantment).toList();
-                    for (BlazingJournalEnchantment enchantment : enchantments)
-                    {
-                        if (enchantment.getWeaponClass().isInstance(weaponStack.getItem()) && enchantment.getCondition(player, target))
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
+                    entity.addEffect(new MobEffectInstance(MobEffectRegistry.OILED.get(), 20, 5));
                 }
             }
+
+            @Override
+            public boolean isActivated (DamageSource damageSource, Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
+            {
+                if (!(target instanceof LivingEntity entity && !entity.hasEffect(MobEffectRegistry.OILED.get())))
+                {
+                    return false;
+                }
+                var enchantments = journalStack.getAllEnchantments().keySet().stream().filter(enchantment -> enchantment instanceof BlazingJournalEnchantment).map(enchantment -> (BlazingJournalEnchantment) enchantment).toList();
+                for (BlazingJournalEnchantment enchantment : enchantments)
+                {
+                    if (enchantment.getWeaponClass().isInstance(weaponStack.getItem()) && enchantment.getCondition(player, target))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
     );
 
     public static final RegistryObject<Item> HELLBLAZE_QUILL = ITEMS.register("hellblaze_quill",
-            () -> new QuillItem(new Item.Properties())
+        () -> new QuillItem(new Item.Properties())
+        {
+            @Override
+            public float getDefaultPyromancyDamageBonus ()
             {
-                @Override
-                public float getDefaultPyromancyDamageBonus ()
-                {
-                    return 0;
-                }
-
-                @Override
-                public int getDefaultBlazeCostBonus ()
-                {
-                    return 2;
-                }
-
-                @Override
-                public void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
-                {
-                    player.addEffect(new MobEffectInstance(MobEffectRegistry.FIERY_AEGIS.get(), 40, 0, true, false));
-                }
-
-                @Override
-                public boolean isActivated (DamageSource damageSource, Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
-                {
-                    return (damageSource.is(DamageTypeDatagen.IS_EMBER) || damageSource.is(DamageTypeDatagen.IS_PYROMANCY));
-                }
+                return 0;
             }
+
+            @Override
+            public int getDefaultBlazeCostBonus ()
+            {
+                return 2;
+            }
+
+            @Override
+            public void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
+            {
+                player.addEffect(new MobEffectInstance(MobEffectRegistry.FIERY_AEGIS.get(), 40, 0, true, false));
+            }
+
+            @Override
+            public boolean isActivated (DamageSource damageSource, Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
+            {
+                return (damageSource.is(DamageTypeDatagen.IS_EMBER) || damageSource.is(DamageTypeDatagen.IS_PYROMANCY));
+            }
+        }
     );
 
     public static final RegistryObject<Item> SOULFLAME_QUILL = ITEMS.register("soulflame_quill",
-            () -> new QuillItem(new Item.Properties())
+        () -> new QuillItem(new Item.Properties())
+        {
+            @Override
+            public float getDefaultPyromancyDamageBonus ()
             {
-                @Override
-                public float getDefaultPyromancyDamageBonus ()
-                {
-                    return 0;
-                }
-
-                @Override
-                public int getDefaultBlazeCostBonus ()
-                {
-                    return 0;
-                }
-
-                @Override
-                public void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
-                {
-                    final int cost = (int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get());
-                    if (!(player instanceof ServerPlayer serverPlayer) || serverPlayer.isCreative()) return;
-                    final float dHealth = (float) cost / 2;
-                    final float cHealth = player.getHealth();
-                    final float deltaHealth = cHealth - dHealth;
-                    if (deltaHealth <= dHealth)
-                    {
-                        return;
-                    }
-                    EntityUtils.coverInParticles(player, ParticleTypes.SOUL_FIRE_FLAME, 0.04);
-                    BlazingJournalItem.changeBlaze(player, cost);
-                    player.setHealth(deltaHealth);
-                }
-
-                @Override
-                public boolean isActivated (DamageSource damageSource, Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
-                {
-                    return (damageSource.is(DamageTypeDatagen.IS_EMBER) || damageSource.is(DamageTypeDatagen.IS_PYROMANCY));
-                }
+                return 0;
             }
+
+            @Override
+            public int getDefaultBlazeCostBonus ()
+            {
+                return 0;
+            }
+
+            @Override
+            public void getAttack (Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
+            {
+                final int cost = (int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get());
+                if (!(player instanceof ServerPlayer serverPlayer) || serverPlayer.isCreative()) return;
+                final float dHealth = (float) cost / 2;
+                final float cHealth = player.getHealth();
+                final float deltaHealth = cHealth - dHealth;
+                if (deltaHealth <= dHealth)
+                {
+                    return;
+                }
+                EntityUtils.coverInParticles(player, ParticleTypes.SOUL_FIRE_FLAME, 0.04);
+                BlazingJournalItem.changeBlaze(player, cost);
+                player.setHealth(deltaHealth);
+            }
+
+            @Override
+            public boolean isActivated (DamageSource damageSource, Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
+            {
+                return (damageSource.is(DamageTypeDatagen.IS_EMBER) || damageSource.is(DamageTypeDatagen.IS_PYROMANCY));
+            }
+        }
     );
 
     public static final RegistryObject<BombsackItem> BOMBSACK = ITEMS.register("bombsack",
-            () -> new BombsackItem(new Item.Properties(), EntityTypeRegistry.BOMBSACK::get));
+        () -> new BombsackItem(new Item.Properties(), EntityTypeRegistry.BOMBSACK::get));
     public static final RegistryObject<BombsackItem> SCATTERSHOT_BOMBSACK = ITEMS.register("scattershot_bombsack",
-            () -> new BombsackItem(new Item.Properties(), EntityTypeRegistry.SCATTERSHOT_BOMBSACK::get));
+        () -> new BombsackItem(new Item.Properties(), EntityTypeRegistry.SCATTERSHOT_BOMBSACK::get));
     public static final RegistryObject<BombsackItem> NAPALM_BOMBSACK = ITEMS.register("napalm_bombsack",
-            () -> new BombsackItem(new Item.Properties(), EntityTypeRegistry.NAPALM_BOMBSACK::get));
+        () -> new BombsackItem(new Item.Properties(), EntityTypeRegistry.NAPALM_BOMBSACK::get));
 
     public static final RegistryObject<SizzlingHandItem> SIZZLING_HAND = ITEMS.register("sizzling_hand",
-            () -> new SizzlingHandItem(new Item.Properties()));
+        () -> new SizzlingHandItem(new Item.Properties()));
     public static final RegistryObject<CourtOfEmbersItem> COURT_OF_EMBERS = ITEMS.register("court_of_embers",
-            () -> new CourtOfEmbersItem(new Item.Properties()));
+        () -> new CourtOfEmbersItem(new Item.Properties()));
     public static final RegistryObject<SymbolOfSunItem> SYMBOL_OF_SUN = ITEMS.register("symbol_of_sun",
-            () -> new SymbolOfSunItem(new Item.Properties()));
+        () -> new SymbolOfSunItem(new Item.Properties()));
     public static final RegistryObject<FlammenklingeItem> FLAMMENKLINGE = ITEMS.register("flammenklinge",
-            FlammenklingeItem::new);
+        FlammenklingeItem::new);
 
     // TOOLS
     public static final RegistryObject<Item> AMBER_PICKAXE = ITEMS.register("amber_pickaxe",
-            () -> new PickaxeItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
+        () -> new PickaxeItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
     public static final RegistryObject<Item> AMBER_AXE = ITEMS.register("amber_axe",
-            () -> new AxeItem(TierRegistry.AMBER, 5, -3.0f, new Item.Properties()));
+        () -> new AxeItem(TierRegistry.AMBER, 5, -3.0f, new Item.Properties()));
     public static final RegistryObject<Item> AMBER_SHOVEL = ITEMS.register("amber_shovel",
-            () -> new ShovelItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
+        () -> new ShovelItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
     public static final RegistryObject<Item> AMBER_HOE = ITEMS.register("amber_hoe",
-            () -> new HoeItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
+        () -> new HoeItem(TierRegistry.AMBER, 1, -2.8f, new Item.Properties()));
     public static final RegistryObject<Item> AMBER_SWORD = ITEMS.register("amber_sword",
-            () -> new SwordItem(TierRegistry.AMBER, 3, -2.8f, new Item.Properties()));
+        () -> new SwordItem(TierRegistry.AMBER, 3, -2.8f, new Item.Properties()));
     public static final RegistryObject<Item> WOODEN_MACE = ITEMS.register("wooden_mace",
-            () -> new MaceItem(Tiers.WOOD, new Item.Properties().stacksTo(1)));
+        () -> new MaceItem(Tiers.WOOD, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> STONE_MACE = ITEMS.register("stone_mace",
-            () -> new MaceItem(Tiers.STONE, new Item.Properties().stacksTo(1)));
+        () -> new MaceItem(Tiers.STONE, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> IRON_MACE = ITEMS.register("iron_mace",
-            () -> new MaceItem(Tiers.IRON, new Item.Properties().stacksTo(1)));
+        () -> new MaceItem(Tiers.IRON, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> GOLDEN_MACE = ITEMS.register("golden_mace",
-            () -> new MaceItem(Tiers.GOLD, new Item.Properties().stacksTo(1)));
+        () -> new MaceItem(Tiers.GOLD, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> DIAMOND_MACE = ITEMS.register("diamond_mace",
-            () -> new MaceItem(Tiers.DIAMOND, new Item.Properties().stacksTo(1)));
+        () -> new MaceItem(Tiers.DIAMOND, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> NETHERITE_MACE = ITEMS.register("netherite_mace",
-            () -> new MaceItem(Tiers.NETHERITE, new Item.Properties().stacksTo(1)));
+        () -> new MaceItem(Tiers.NETHERITE, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> AMBER_MACE = ITEMS.register("amber_mace",
-            () -> new MaceItem(TierRegistry.AMBER, new Item.Properties()));
+        () -> new MaceItem(TierRegistry.AMBER, new Item.Properties()));
 
     // ARMOR
 
     public static final RegistryObject<PyromancerArmorItem> PYROMANCER_HELMET = ITEMS.register("pyromancer_helmet",
-            () -> new PyromancerArmorItem(ArmorItem.Type.HELMET));
+        () -> new PyromancerArmorItem(ArmorItem.Type.HELMET));
     public static final RegistryObject<PyromancerArmorItem> PYROMANCER_CHESTPLATE = ITEMS.register("pyromancer_chestplate",
-            () -> new PyromancerArmorItem(ArmorItem.Type.CHESTPLATE));
+        () -> new PyromancerArmorItem(ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<PyromancerArmorItem> PYROMANCER_LEGGINGS = ITEMS.register("pyromancer_leggings",
-            () -> new PyromancerArmorItem(ArmorItem.Type.LEGGINGS));
+        () -> new PyromancerArmorItem(ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<PyromancerArmorItem> PYROMANCER_BOOTS = ITEMS.register("pyromancer_boots",
-            () -> new PyromancerArmorItem(ArmorItem.Type.BOOTS));
+        () -> new PyromancerArmorItem(ArmorItem.Type.BOOTS));
 
     public static final RegistryObject<TaintedMonarchArmorItem> TAINTED_MONARCH_HELMET = ITEMS.register("tainted_monarch_helmet",
-            () -> new TaintedMonarchArmorItem(ArmorItem.Type.HELMET));
+        () -> new TaintedMonarchArmorItem(ArmorItem.Type.HELMET));
     public static final RegistryObject<TaintedMonarchArmorItem> TAINTED_MONARCH_CHESTPLATE = ITEMS.register("tainted_monarch_chestplate",
-            () -> new TaintedMonarchArmorItem(ArmorItem.Type.CHESTPLATE));
+        () -> new TaintedMonarchArmorItem(ArmorItem.Type.CHESTPLATE));
     public static final RegistryObject<TaintedMonarchArmorItem> TAINTED_MONARCH_LEGGINGS = ITEMS.register("tainted_monarch_leggings",
-            () -> new TaintedMonarchArmorItem(ArmorItem.Type.LEGGINGS));
+        () -> new TaintedMonarchArmorItem(ArmorItem.Type.LEGGINGS));
     public static final RegistryObject<TaintedMonarchArmorItem> TAINTED_MONARCH_BOOTS = ITEMS.register("tainted_monarch_boots",
-            () -> new TaintedMonarchArmorItem(ArmorItem.Type.BOOTS));
+        () -> new TaintedMonarchArmorItem(ArmorItem.Type.BOOTS));
     // SPAWN EGGS
     public static final RegistryObject<Item> UNBURNED_SPAWN_EGG = ITEMS.register("unburned_spawn_egg",
-            () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNBURNED, -10268354, -3297142, new Item.Properties()));
+        () -> new ForgeSpawnEggItem(EntityTypeRegistry.UNBURNED, -10268354, -3297142, new Item.Properties()));
     public static final RegistryObject<SpawnEggItem> FROSTCOPPER_GOLEM_SPAWN_EGG = ITEMS.register("frostcopper_golem_spawn_egg",
-            () -> new ForgeSpawnEggItem(EntityTypeRegistry.FROSTCOPPER_GOLEM, -2390958, -9251329, new Item.Properties()));
+        () -> new ForgeSpawnEggItem(EntityTypeRegistry.FROSTCOPPER_GOLEM, -2390958, -9251329, new Item.Properties()));
     public static final RegistryObject<Item> PYROENT_SPAWN_EGG = ITEMS.register("pyroent_spawn_egg",
-            () -> new ForgeSpawnEggItem(EntityTypeRegistry.PYROENT, -10725806, -2403542, new Item.Properties()));
+        () -> new ForgeSpawnEggItem(EntityTypeRegistry.PYROENT, -10725806, -2403542, new Item.Properties()));
     public static final RegistryObject<Item> PYRACORN_SPAWN_EGG = ITEMS.register("pyracorn_spawn_egg",
-            () -> new ForgeSpawnEggItem(EntityTypeRegistry.PYRACORN, -8887200, -39359, new Item.Properties()));
+        () -> new ForgeSpawnEggItem(EntityTypeRegistry.PYRACORN, -8887200, -39359, new Item.Properties()));
     public static final RegistryObject<Item> SCORCH_SPAWN_EGG = ITEMS.register("scorch_spawn_egg",
-            () -> new ForgeSpawnEggItem(EntityTypeRegistry.SCORCH, -8891844, -3775978, new Item.Properties()));
+        () -> new ForgeSpawnEggItem(EntityTypeRegistry.SCORCH, -8891844, -3775978, new Item.Properties()));
 
     public static class Utils
     {

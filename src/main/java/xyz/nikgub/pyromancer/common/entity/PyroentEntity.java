@@ -59,14 +59,14 @@ public class PyroentEntity extends Monster implements IAnimationPurposeEntity
     public static AttributeSupplier setAttributes ()
     {
         return Monster.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 45)
-                .add(Attributes.MOVEMENT_SPEED, 0.2f)
-                .add(Attributes.ATTACK_DAMAGE, 5)
-                .add(Attributes.ATTACK_SPEED, 1)
-                .add(Attributes.FOLLOW_RANGE, 16)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.2f)
-                .add(Attributes.ATTACK_KNOCKBACK, 1.2f)
-                .build();
+            .add(Attributes.MAX_HEALTH, 45)
+            .add(Attributes.MOVEMENT_SPEED, 0.2f)
+            .add(Attributes.ATTACK_DAMAGE, 5)
+            .add(Attributes.ATTACK_SPEED, 1)
+            .add(Attributes.FOLLOW_RANGE, 16)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 0.2f)
+            .add(Attributes.ATTACK_KNOCKBACK, 1.2f)
+            .build();
     }
 
     public static boolean spawnPredicate (EntityType<?> entityType, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom)
@@ -101,8 +101,8 @@ public class PyroentEntity extends Monster implements IAnimationPurposeEntity
     public boolean doHurtTarget (@NotNull Entity target)
     {
         if (this.getAllAnimations().stream()
-                .filter(determinedAnimation -> determinedAnimation.animationPurpose() != DeterminedAnimation.AnimationPurpose.IDLE)
-                .anyMatch(determinedAnimation -> determinedAnimation.animationState().isStarted()))
+            .filter(determinedAnimation -> determinedAnimation.animationPurpose() != DeterminedAnimation.AnimationPurpose.IDLE)
+            .anyMatch(determinedAnimation -> determinedAnimation.animationState().isStarted()))
             return false;
         this.runAnimationOf(DeterminedAnimation.AnimationPurpose.MAIN_ATTACK);
         this.setAttackTick(this.tickCount);
@@ -146,8 +146,8 @@ public class PyroentEntity extends Monster implements IAnimationPurposeEntity
     public @NotNull List<DeterminedAnimation> getAllAnimations ()
     {
         return List.of(
-                new DeterminedAnimation(ATTACK, DeterminedAnimation.AnimationPurpose.MAIN_ATTACK),
-                new DeterminedAnimation(IDLE, DeterminedAnimation.AnimationPurpose.IDLE)
+            new DeterminedAnimation(ATTACK, DeterminedAnimation.AnimationPurpose.MAIN_ATTACK),
+            new DeterminedAnimation(IDLE, DeterminedAnimation.AnimationPurpose.IDLE)
         );
     }
 

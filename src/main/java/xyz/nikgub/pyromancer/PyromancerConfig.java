@@ -35,45 +35,45 @@ public class PyromancerConfig
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> EMBERS_BLACKLIST = BUILDER
-            .comment("Defines a list of items' id that aren't able to have Embers applied")
-            .defineList("ember_blacklist", PyromancerConfig::defaultBlacklist, PyromancerConfig::isValidItemValue);
+        .comment("Defines a list of items' id that aren't able to have Embers applied")
+        .defineList("ember_blacklist", PyromancerConfig::defaultBlacklist, PyromancerConfig::isValidItemValue);
 
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> EMBERS_ADDITIONAL_ITEMS = BUILDER
-            .comment("Defines a list of items' id that should be able to have Embers regardless of default conditions. However, blacklist has priority above this")
-            .defineList("ember_additional_items", PyromancerConfig::defaultBlacklist, PyromancerConfig::isValidItemValue);
+        .comment("Defines a list of items' id that should be able to have Embers regardless of default conditions. However, blacklist has priority above this")
+        .defineList("ember_additional_items", PyromancerConfig::defaultBlacklist, PyromancerConfig::isValidItemValue);
 
     public static final ForgeConfigSpec.ConfigValue<Integer> BLAZING_JOURNAL_MAX_CAPACITY = BUILDER
-            .comment("Defines max amount of blaze one Blazing Journal can hold")
-            .defineInRange("blazing_journal_max_capacity", 512, 0, 8192);
+        .comment("Defines max amount of blaze one Blazing Journal can hold")
+        .defineInRange("blazing_journal_max_capacity", 512, 0, 8192);
 
     public static final ForgeConfigSpec.ConfigValue<Integer> BLAZE_VALUE = BUILDER
-            .comment("Defines max amount of blaze one Blazing Journal can hold")
-            .defineInRange("blaze_value", 8, 0, 128);
+        .comment("Defines max amount of blaze one Blazing Journal can hold")
+        .defineInRange("blaze_value", 8, 0, 128);
 
     public static final ForgeConfigSpec.ConfigValue<Integer> FLAMING_GROVE_RATE = BUILDER
-            .comment("Defines how often is Flaming Grove biome generated")
-            .defineInRange("flaming_grove_rate", 5, 0, 10);
+        .comment("Defines how often is Flaming Grove biome generated")
+        .defineInRange("flaming_grove_rate", 5, 0, 10);
     public static final ForgeConfigSpec.ConfigValue<Incandescent.Key> EMBERS_DESCRIPTION_KEY = BUILDER
-            .comment("Defines a key to show Ember description on item")
-            .defineEnum("emberDescriptionKey", Incandescent.Key.ALT);
+        .comment("Defines a key to show Ember description on item")
+        .defineEnum("emberDescriptionKey", Incandescent.Key.ALT);
     private static final ForgeConfigSpec.ConfigValue<Integer> DEFAULT_CONTRACT_CREDITS = BUILDER
-            .comment("Defines the amount of credits the director gets when activating Accursed Contract")
-            .define("default_contract_credits", 30);
+        .comment("Defines the amount of credits the director gets when activating Accursed Contract")
+        .define("default_contract_credits", 30);
     private static final ForgeConfigSpec.ConfigValue<Float> DEFAULT_MUSKET_DAMAGE = BUILDER
-            .comment("Defines the default damage of a single musket shot")
-            .define("default_musket_damage", 16f);
+        .comment("Defines the default damage of a single musket shot")
+        .define("default_musket_damage", 16f);
     private static final ForgeConfigSpec.ConfigValue<Integer> DEFAULT_MUSKET_RANGE = BUILDER
-            .comment("Defines the default number of iterations in a single musket shot, 1 iteration = 0.2 blocks")
-            .define("default_musket_range", 150);
+        .comment("Defines the default number of iterations in a single musket shot, 1 iteration = 0.2 blocks")
+        .define("default_musket_range", 150);
     private static final ForgeConfigSpec.ConfigValue<Float> MUSKET_DAMAGE_CAP = BUILDER
-            .comment("Defines the maximum amount of damage a single musket shot can deal")
-            .define("musket_damage_cap", 50f);
+        .comment("Defines the maximum amount of damage a single musket shot can deal")
+        .define("musket_damage_cap", 50f);
     private static final ForgeConfigSpec.EnumValue<Incandescent.Key> DESC_TOOLTIP_KEY = BUILDER
-            .comment("Defines the key that reveals item's hidden description")
-            .defineEnum("desc_tooltip_key", Incandescent.Key.SHIFT);
+        .comment("Defines the key that reveals item's hidden description")
+        .defineEnum("desc_tooltip_key", Incandescent.Key.SHIFT);
     private static final ForgeConfigSpec.EnumValue<Incandescent.Key> LORE_TOOLTIP_KEY = BUILDER
-            .comment("Defines the key that reveals item's hidden lore description")
-            .defineEnum("lore_tooltip_key", Incandescent.Key.ALT);
+        .comment("Defines the key that reveals item's hidden lore description")
+        .defineEnum("lore_tooltip_key", Incandescent.Key.ALT);
 
     static final ForgeConfigSpec SPEC = BUILDER.build();
 

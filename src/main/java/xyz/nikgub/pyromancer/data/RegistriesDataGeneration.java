@@ -37,11 +37,11 @@ public class RegistriesDataGeneration extends DatapackBuiltinEntriesProvider
 {
 
     private static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
-            .add(Registries.DAMAGE_TYPE, DamageTypeDatagen::generate)
-            .add(Registries.BIOME, BiomeDatagen::bootstrap)
-            .add(Registries.CONFIGURED_CARVER, ConfiguredCarverDatagen::bootstrap)
-            .add(Registries.CONFIGURED_FEATURE, ConfiguredFeatureDatagen::bootstrap)
-            .add(Registries.PLACED_FEATURE, PlacedFeatureDatagen::bootstrap);
+        .add(Registries.DAMAGE_TYPE, DamageTypeDatagen::generate)
+        .add(Registries.BIOME, BiomeDatagen::bootstrap)
+        .add(Registries.CONFIGURED_CARVER, ConfiguredCarverDatagen::bootstrap)
+        .add(Registries.CONFIGURED_FEATURE, ConfiguredFeatureDatagen::bootstrap)
+        .add(Registries.PLACED_FEATURE, PlacedFeatureDatagen::bootstrap);
 
     private RegistriesDataGeneration (PackOutput output, CompletableFuture<HolderLookup.Provider> provider)
     {
@@ -52,7 +52,7 @@ public class RegistriesDataGeneration extends DatapackBuiltinEntriesProvider
     {
         generator.addProvider(isServer, new RegistriesDataGeneration(output, provider));
         List<ForgeAdvancementProvider.AdvancementGenerator> list = List.of(
-                new AdvancementDatagen.PyromancerAdvancements()
+            new AdvancementDatagen.PyromancerAdvancements()
         );
         generator.addProvider(isServer, new AdvancementDatagen(output, provider, helper, list));
         generator.addProvider(isServer, new RecipeDatagen(output));

@@ -115,7 +115,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike, IForgeItem
         } else
         {
             list.add(Component.translatable(
-                    Component.translatable("pyromancer.ember_hidden_line").getString() + PyromancerConfig.embersDescriptionKey.toString()
+                Component.translatable("pyromancer.ember_hidden_line").getString() + PyromancerConfig.embersDescriptionKey.toString()
             ).withStyle(ChatFormatting.DARK_GRAY).withStyle(ChatFormatting.BOLD));
         }
         //callbackInfo.cancel();
