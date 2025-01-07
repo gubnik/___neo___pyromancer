@@ -26,7 +26,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import xyz.nikgub.incandescent.common.util.GeneralUtils;
+import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.pyromancer.registry.MobEffectRegistry;
 
 public class OiledMobEffect extends MobEffect
@@ -44,7 +44,7 @@ public class OiledMobEffect extends MobEffect
             target.setSecondsOnFire(target.getRemainingFireTicks() / 10 + 5 * (oiledInstance.getAmplifier() + 1));
             target.removeEffect(MobEffectRegistry.OILED.get());
             target.playSound(SoundEvents.BLAZE_SHOOT);
-            GeneralUtils.coverInParticles(target, ParticleTypes.FLAME, 0.25D);
+            EntityUtils.coverInParticles(target, ParticleTypes.FLAME, 0.25D);
             return target.getRemainingFireTicks() / 200f;
         }
         return 0;

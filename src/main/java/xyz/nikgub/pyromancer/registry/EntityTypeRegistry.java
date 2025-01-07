@@ -75,6 +75,7 @@ public class EntityTypeRegistry
     public static final RegistryObject<EntityType<PyracornEntity>> PYRACORN = register("pyracorn",
             EntityType.Builder.of(PyracornEntity::new, MobCategory.MONSTER)
                     .sized(0.7f, 1.5f).fireImmune());
+
     public static final RegistryObject<EntityType<PyroentEntity>> PYROENT = register("pyroent",
             EntityType.Builder.of(PyroentEntity::new, MobCategory.MONSTER)
                     .sized(1.5f, 4.0f).fireImmune());
@@ -82,6 +83,10 @@ public class EntityTypeRegistry
     public static final RegistryObject<EntityType<FrostcopperGolemEntity>> FROSTCOPPER_GOLEM = register("frostcopper_golem",
             EntityType.Builder.of(FrostcopperGolemEntity::new, MobCategory.MONSTER)
                     .sized(1.1f, 2.1f));
+
+    public static final RegistryObject<EntityType<RimegazerEntity>> RIMEGAZER = register("rimegazer",
+            EntityType.Builder.of(RimegazerEntity::new, MobCategory.MONSTER)
+                    .sized(0.5f, 1.8f));
 
     private static <T extends Entity> RegistryObject<EntityType<T>> register (String registry_name, EntityType.Builder<T> entityTypeBuilder)
     {

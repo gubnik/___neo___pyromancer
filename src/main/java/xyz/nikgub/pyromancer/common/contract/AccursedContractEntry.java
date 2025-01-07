@@ -27,7 +27,7 @@ public class AccursedContractEntry<T extends Entity>
     private final Factory<T> creationFactory;
     private final int valueInCredits;
 
-    public AccursedContractEntry (EntityType<T> entityType, Factory<T> factory, int valueInCredits)
+    public AccursedContractEntry (EntityType<T> entityType, int valueInCredits, Factory<T> factory)
     {
         this.entityToSummon = entityType;
         this.creationFactory = factory;

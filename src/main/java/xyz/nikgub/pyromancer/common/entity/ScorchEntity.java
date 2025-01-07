@@ -19,7 +19,6 @@ package xyz.nikgub.pyromancer.common.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.tags.BlockTags;
@@ -49,15 +48,9 @@ import java.util.List;
 
 public class ScorchEntity extends Monster implements IAnimationPurposeEntity
 {
-    public static final EntityDataSerializer<DeterminedAnimation.AnimationPurpose> ANIMATION_STATE = EntityDataSerializer.simpleEnum(DeterminedAnimation.AnimationPurpose.class);
-    private static final EntityDataAccessor<DeterminedAnimation.AnimationPurpose> DATA_STATE = SynchedEntityData.defineId(ScorchEntity.class, ANIMATION_STATE);
+    private static final EntityDataAccessor<DeterminedAnimation.AnimationPurpose> DATA_STATE = SynchedEntityData.defineId(ScorchEntity.class, DeterminedAnimation.ANIMATION_SERIALIZER);
     private static final EntityDataAccessor<Integer> ATTACK_TICK = SynchedEntityData.defineId(ScorchEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> POLLEN = SynchedEntityData.defineId(ScorchEntity.class, EntityDataSerializers.BOOLEAN);
-
-    static
-    {
-        EntityDataSerializers.registerSerializer(ANIMATION_STATE);
-    }
 
     public AnimationState ATTACK = new AnimationState();
     public AnimationState IDLE = new AnimationState();
@@ -126,8 +119,8 @@ public class ScorchEntity extends Monster implements IAnimationPurposeEntity
     public @NotNull List<DeterminedAnimation> getAllAnimations ()
     {
         return List.of(
-                new DeterminedAnimation(ATTACK, DeterminedAnimation.AnimationPurpose.MAIN_ATTACK, (byte) 0, 0),
-                new DeterminedAnimation(IDLE, DeterminedAnimation.AnimationPurpose.IDLE, (byte) 0, 0)
+                new DeterminedAnimation(ATTACK, DeterminedAnimation.AnimationPurpose.MAIN_ATTACK),
+                new DeterminedAnimation(IDLE, DeterminedAnimation.AnimationPurpose.IDLE)
         );
     }
 

@@ -44,14 +44,20 @@ public class AccursedContractItem extends Item
     @Override
     public @NotNull ItemStack finishUsingItem (@NotNull ItemStack itemStack, @NotNull Level level, @NotNull LivingEntity livingEntity)
     {
+        boolean isSuccessful = false;
+        boolean isCreative = false;
         if (livingEntity instanceof Player player)
         {
+            isCreative = player.isCreative();
             player.getCooldowns().addCooldown(this, 200);
             if (!(player.level() instanceof ServerLevel level1)) return itemStack;
             ContractDirector director = new ContractDirector(level1);
-            director.run(player);
+            isSuccessful = director.run(player);
         }
-        itemStack.shrink(1);
+        if (isSuccessful && !isCreative)
+        {
+            itemStack.shrink(1);
+        }
         return itemStack;
     }
 

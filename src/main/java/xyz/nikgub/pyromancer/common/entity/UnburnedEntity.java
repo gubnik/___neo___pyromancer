@@ -18,7 +18,6 @@
 package xyz.nikgub.pyromancer.common.entity;
 
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
@@ -45,18 +44,12 @@ import java.util.List;
 
 public class UnburnedEntity extends Monster implements IAnimationPurposeEntity
 {
-    public static final EntityDataSerializer<DeterminedAnimation.AnimationPurpose> ANIMATION_STATE = EntityDataSerializer.simpleEnum(DeterminedAnimation.AnimationPurpose.class);
 
-    private static final EntityDataAccessor<DeterminedAnimation.AnimationPurpose> DATA_STATE = SynchedEntityData.defineId(UnburnedEntity.class, ANIMATION_STATE);
+    private static final EntityDataAccessor<DeterminedAnimation.AnimationPurpose> ANIMATION_STATE = SynchedEntityData.defineId(UnburnedEntity.class, DeterminedAnimation.ANIMATION_SERIALIZER);
     private static final EntityDataAccessor<Integer> BATTLE_TICK = SynchedEntityData.defineId(UnburnedEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ATTACK_TICK = SynchedEntityData.defineId(UnburnedEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> STOMP_TICK = SynchedEntityData.defineId(UnburnedEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> KICK_TICK = SynchedEntityData.defineId(UnburnedEntity.class, EntityDataSerializers.INT);
-
-    static
-    {
-        EntityDataSerializers.registerSerializer(ANIMATION_STATE);
-    }
 
     public AnimationState ATTACK = new AnimationState();
     public AnimationState KICK = new AnimationState();
@@ -67,7 +60,7 @@ public class UnburnedEntity extends Monster implements IAnimationPurposeEntity
     public UnburnedEntity (EntityType<? extends Monster> entityType, Level level)
     {
         super(entityType, level);
-        this.entityData.define(DATA_STATE, DeterminedAnimation.AnimationPurpose.IDLE);
+        this.entityData.define(ANIMATION_STATE, DeterminedAnimation.AnimationPurpose.IDLE);
         this.entityData.define(BATTLE_TICK, 0);
         this.entityData.define(ATTACK_TICK, 0);
         this.entityData.define(STOMP_TICK, 0);
@@ -98,7 +91,7 @@ public class UnburnedEntity extends Monster implements IAnimationPurposeEntity
     @Override
     public EntityDataAccessor<DeterminedAnimation.AnimationPurpose> getAnimationStateDataAccessor ()
     {
-        return DATA_STATE;
+        return ANIMATION_STATE;
     }
 
     public int getAttackTick ()
@@ -203,11 +196,11 @@ public class UnburnedEntity extends Monster implements IAnimationPurposeEntity
     public @NotNull List<DeterminedAnimation> getAllAnimations ()
     {
         return List.of(
-                new DeterminedAnimation(this.ATTACK, DeterminedAnimation.AnimationPurpose.MAIN_ATTACK, (byte) 70, 0),
-                new DeterminedAnimation(this.EXPLOSION, DeterminedAnimation.AnimationPurpose.STOMP, (byte) 71, 2),
-                new DeterminedAnimation(this.KICK, DeterminedAnimation.AnimationPurpose.SPECIAL_HURT, (byte) 72, 1),
-                new DeterminedAnimation(this.EMERGE, DeterminedAnimation.AnimationPurpose.SPAWN, (byte) 73, 0),
-                new DeterminedAnimation(this.IDLE, DeterminedAnimation.AnimationPurpose.IDLE, (byte) 0, 0)
+                new DeterminedAnimation(this.ATTACK, DeterminedAnimation.AnimationPurpose.MAIN_ATTACK),
+                new DeterminedAnimation(this.EXPLOSION, DeterminedAnimation.AnimationPurpose.STOMP),
+                new DeterminedAnimation(this.KICK, DeterminedAnimation.AnimationPurpose.SPECIAL_HURT),
+                new DeterminedAnimation(this.EMERGE, DeterminedAnimation.AnimationPurpose.SPAWN),
+                new DeterminedAnimation(this.IDLE, DeterminedAnimation.AnimationPurpose.IDLE)
         );
     }
 }

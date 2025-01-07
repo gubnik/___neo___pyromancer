@@ -23,7 +23,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -32,13 +31,13 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import xyz.nikgub.incandescent.common.util.GeneralUtils;
+import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.enchantment.BlazingJournalEnchantment;
 import xyz.nikgub.pyromancer.common.entity.attack_effect.FlamingGuillotineEntity;
 import xyz.nikgub.pyromancer.common.item.*;
-import xyz.nikgub.pyromancer.common.item.armor.TaintedMonarchArmorItem;
 import xyz.nikgub.pyromancer.common.item.armor.PyromancerArmorItem;
+import xyz.nikgub.pyromancer.common.item.armor.TaintedMonarchArmorItem;
 import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
 
 @SuppressWarnings("unused")
@@ -230,7 +229,7 @@ public class ItemRegistry
                     {
                         return;
                     }
-                    GeneralUtils.coverInParticles(player, ParticleTypes.SOUL_FIRE_FLAME, 0.04);
+                    EntityUtils.coverInParticles(player, ParticleTypes.SOUL_FIRE_FLAME, 0.04);
                     BlazingJournalItem.changeBlaze(player, cost);
                     player.setHealth(deltaHealth);
                 }
@@ -318,18 +317,6 @@ public class ItemRegistry
 
     public static class Utils
     {
-        public static boolean hasFullSetEquipped (LivingEntity entity, ArmorItem checkedArmorItem)
-        {
-            boolean b = true;
-            for (EquipmentSlot equipmentSlot : new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET})
-            {
-                if (!(entity.getItemBySlot(equipmentSlot).getItem() instanceof ArmorItem armorItem) || !armorItem.getMaterial().equals(checkedArmorItem.getMaterial()))
-                {
-                    b = false;
-                    break;
-                }
-            }
-            return b;
-        }
+
     }
 }

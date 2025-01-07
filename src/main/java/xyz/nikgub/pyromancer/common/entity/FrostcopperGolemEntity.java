@@ -20,7 +20,6 @@ package xyz.nikgub.pyromancer.common.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -53,16 +52,10 @@ import java.util.List;
 
 public class FrostcopperGolemEntity extends Monster implements IAnimationPurposeEntity
 {
-    public static final EntityDataSerializer<DeterminedAnimation.AnimationPurpose> FROSTCOPPER_GOLEM_STATE = EntityDataSerializer.simpleEnum(DeterminedAnimation.AnimationPurpose.class);
-    private static final EntityDataAccessor<DeterminedAnimation.AnimationPurpose> DATA_STATE = SynchedEntityData.defineId(FrostcopperGolemEntity.class, FROSTCOPPER_GOLEM_STATE);
+    private static final EntityDataAccessor<DeterminedAnimation.AnimationPurpose> DATA_STATE = SynchedEntityData.defineId(FrostcopperGolemEntity.class, DeterminedAnimation.ANIMATION_SERIALIZER);
     private static final EntityDataAccessor<Integer> ATTACK_TICK = SynchedEntityData.defineId(FrostcopperGolemEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> STOMP_TICK = SynchedEntityData.defineId(FrostcopperGolemEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> STOMP_BUILDUP_COUNTER = SynchedEntityData.defineId(FrostcopperGolemEntity.class, EntityDataSerializers.INT);
-
-    static
-    {
-        EntityDataSerializers.registerSerializer(FROSTCOPPER_GOLEM_STATE);
-    }
 
     public AnimationState IDLE = new AnimationState();
     public AnimationState ATTACK = new AnimationState();
@@ -204,7 +197,7 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
             if (!target.onGround()) continue;
             target.hurt(DamageSourceRegistry.frostcopperGolemStomp(this), pAmount);
         }
-        serverLevel.sendParticles(ParticleTypes.SNOWFLAKE, initPos.x, initPos.y + 1, initPos.z, areaSize * areaSize * areaSize * 20, areaSize, 2, areaSize, 0.5D);
+        serverLevel.sendParticles(ParticleTypes.SNOWFLAKE, initPos.x, initPos.y + 1, initPos.z, areaSize * areaSize * areaSize * 10, areaSize, 0.5, areaSize, 0.05D);
     }
 
     @Override
@@ -238,7 +231,7 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
                 this.runAnimationOf(DeterminedAnimation.AnimationPurpose.IDLE);
             } else if (this.tickCount >= stompTick + 13)
             {
-                stompAttack(8);
+                stompAttack(5);
             }
         }
     }
@@ -253,9 +246,9 @@ public class FrostcopperGolemEntity extends Monster implements IAnimationPurpose
     public @NotNull List<DeterminedAnimation> getAllAnimations ()
     {
         return List.of(
-                new DeterminedAnimation(ATTACK, DeterminedAnimation.AnimationPurpose.MAIN_ATTACK, (byte) 73, 0),
-                new DeterminedAnimation(STOMP, DeterminedAnimation.AnimationPurpose.STOMP, (byte) 74, 10),
-                new DeterminedAnimation(IDLE, DeterminedAnimation.AnimationPurpose.IDLE, (byte) 75, 0)
+                new DeterminedAnimation(ATTACK, DeterminedAnimation.AnimationPurpose.MAIN_ATTACK),
+                new DeterminedAnimation(STOMP, DeterminedAnimation.AnimationPurpose.STOMP),
+                new DeterminedAnimation(IDLE, DeterminedAnimation.AnimationPurpose.IDLE)
         );
     }
 }

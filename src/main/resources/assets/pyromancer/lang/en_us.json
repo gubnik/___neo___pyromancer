@@ -289,7 +289,6 @@
   "item.pyromancer.symbol_of_sun.lore.1": "So holy, that some made pilgrimage to the surface, to bathe in its warmth",
   "item.pyromancer.symbol_of_sun.lore.2": "So unreachable, that the honeyed rays left no trace of warmth upon their golden flesh",
   "item.pyromancer.symbol_of_sun.lore.3": "But the dream of sun was never discarded - instead, discarded was their immortality",
-  "item.pyromancer.unbound_blood": "Unbound Blood",
   "item.pyromancer.wooden_mace": "Wooden Mace",
   "item.pyromancer.zweihander": "Zweihander",
   "itemGroup.pyromancer": "Pyromancer",
@@ -303,5 +302,6 @@
   "pyromancer.pyromancy_damage": "Pyromancy Damage",
   "pyromancer.quill_hidden_line": "To show quill attack info press ",
   "pyromancer.subtitle.musket_load": "Musket loaded",
-  "pyromancer.subtitle.musket_shot": "Musket fired"
+  "pyromancer.subtitle.musket_shot": "Musket fired",
+  "pyromancer.contract.failed": "This location is not suitable for activating the contract"
 }

@@ -28,6 +28,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import xyz.nikgub.incandescent.Incandescent;
+import xyz.nikgub.incandescent.common.entity.AttackEffectEntity;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 import xyz.nikgub.pyromancer.registry.DamageSourceRegistry;

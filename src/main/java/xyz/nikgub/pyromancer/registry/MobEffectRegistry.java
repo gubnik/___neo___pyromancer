@@ -27,7 +27,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import xyz.nikgub.incandescent.common.util.GeneralUtils;
+import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.mob_effect.*;
 
@@ -73,7 +73,7 @@ public class MobEffectRegistry
 
     private static float creeperInfusion (LivingEntity target, LivingEntity directCause, DamageSource damageSource, float damageAmount)
     {
-        GeneralUtils.shortenEffect(directCause, CREEPER_INFUSION.get(), 200);
+        EntityUtils.shortenEffect(directCause, CREEPER_INFUSION.get(), 200);
         target.level().explode(damageSource.getEntity(), target.getX(), target.getY(), target.getZ(), 0.1f * damageAmount, Level.ExplosionInteraction.NONE);
         return 0.0F;
     }    public static final RegistryObject<InfusionMobEffect> CREEPER_INFUSION = MOB_EFFECTS.register("creeper_infusion",
@@ -82,7 +82,7 @@ public class MobEffectRegistry
 
     private static float midasInfusion (LivingEntity target, LivingEntity directCause, DamageSource damageSource, float damageAmount)
     {
-        GeneralUtils.shortenEffect(directCause, MIDAS_INFUSION.get(), 200);
+        EntityUtils.shortenEffect(directCause, MIDAS_INFUSION.get(), 200);
         directCause.level().addFreshEntity(
                 new ExperienceOrb(directCause.level(), target.getX(), target.getY(), target.getZ(), (int) damageAmount * 2)
         );

@@ -71,6 +71,9 @@ public class EntityLootTableDatagen extends EntityLootSubProvider
         this.add(EntityTypeRegistry.PYROENT.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool())
         );
+        this.add(EntityTypeRegistry.RIMEGAZER.get(), LootTable.lootTable()
+                .withPool(LootPool.lootPool())
+        );
     }
 
     @Override

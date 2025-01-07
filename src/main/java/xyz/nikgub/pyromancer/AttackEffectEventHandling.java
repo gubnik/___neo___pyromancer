@@ -30,6 +30,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.common.entity.UnburnedSpiritEntity;
 import xyz.nikgub.pyromancer.common.mob_effect.InfusionMobEffect;
@@ -81,7 +82,7 @@ public class AttackEffectEventHandling
                     {
                         multiplier += (target.isOnFire()) ? mainHand.getEnchantmentLevel(EnchantmentRegistry.MELT.get()) * 0.1F : 0.0F;
                         target.setTicksFrozen(target.getTicksFrozen() + (int) (coldBuildup * (damageAmount + 1)) + 1);
-                        GeneralUtils.coverInParticles(target, ParticleTypes.SNOWFLAKE, 0.002);
+                        EntityUtils.coverInParticles(target, ParticleTypes.SNOWFLAKE, 0.002);
                         if (target.isFullyFrozen())
                         {
                             final int frostburnModifier = target.hasEffect(MobEffectRegistry.FROSTBURN.get()) ? target.getEffect(MobEffectRegistry.FROSTBURN.get()).getAmplifier() : -1;
@@ -104,7 +105,7 @@ public class AttackEffectEventHandling
         {
             multiplier += MobEffectRegistry.FIERY_AEGIS.get().performAttack(damageAmount, target, attacker);
         }
-        if (damageSource.getDirectEntity() instanceof Player attacker && ItemRegistry.Utils.hasFullSetEquipped(attacker, ItemRegistry.TAINTED_MONARCH_HELMET.get())
+        if (damageSource.getDirectEntity() instanceof Player attacker && EntityUtils.hasFullSetEquipped(attacker, ItemRegistry.TAINTED_MONARCH_HELMET.get())
                 && target.level() instanceof ServerLevel level && damageAmount >= 7 && (damageSource.is(DamageTypeDatagen.IS_PYROMANCY) || damageSource.is(DamageTypeDatagen.IS_EMBER)))
         {
             UnburnedSpiritEntity spirit = new UnburnedSpiritEntity(EntityTypeRegistry.UNBURNED_SPIRIT.get(), level);

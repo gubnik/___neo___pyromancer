@@ -19,10 +19,12 @@ package xyz.nikgub.pyromancer.registry;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.common.entity.FrostcopperGolemEntity;
+import xyz.nikgub.pyromancer.common.entity.RimegazerEntity;
 import xyz.nikgub.pyromancer.common.entity.UnburnedEntity;
 import xyz.nikgub.pyromancer.common.entity.attack_effect.PyronadoEntity;
 import xyz.nikgub.pyromancer.common.entity.projectile.BombsackProjectile;
@@ -203,6 +205,16 @@ public class DamageSourceRegistry
                 owner.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.VAPORIZER_GENERIC_KEY),
                 owner,
                 owner
+        );
+    }
+
+    public static DamageSource rimegazer_ray (RimegazerEntity entity)
+    {
+        assert entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
+        return new DamageSource(
+                entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypes.GENERIC),
+                entity,
+                entity
         );
     }
 }

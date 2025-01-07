@@ -58,7 +58,7 @@ public class PyromancerConfig
             .defineEnum("emberDescriptionKey", Incandescent.Key.ALT);
     private static final ForgeConfigSpec.ConfigValue<Integer> DEFAULT_CONTRACT_CREDITS = BUILDER
             .comment("Defines the amount of credits the director gets when activating Accursed Contract")
-            .define("default_contract_credits", 60);
+            .define("default_contract_credits", 30);
     private static final ForgeConfigSpec.ConfigValue<Float> DEFAULT_MUSKET_DAMAGE = BUILDER
             .comment("Defines the default damage of a single musket shot")
             .define("default_musket_damage", 16f);

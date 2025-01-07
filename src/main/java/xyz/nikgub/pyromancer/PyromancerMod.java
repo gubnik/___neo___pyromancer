@@ -74,9 +74,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -99,6 +97,7 @@ import xyz.nikgub.pyromancer.client.model.entity.*;
 import xyz.nikgub.pyromancer.client.particle.BrimflameParticle;
 import xyz.nikgub.pyromancer.client.particle.MercuryVaporParticle;
 import xyz.nikgub.pyromancer.client.renderer.entity.*;
+import xyz.nikgub.pyromancer.common.contract.ContractDirector;
 import xyz.nikgub.pyromancer.common.ember.Ember;
 import xyz.nikgub.pyromancer.common.enchantment.BlazingJournalEnchantment;
 import xyz.nikgub.pyromancer.common.entity.*;
@@ -191,6 +190,7 @@ public class PyromancerMod
         EntityRenderers.register(EntityTypeRegistry.SCORCH.get(), ScorchRenderer::new);
         EntityRenderers.register(EntityTypeRegistry.PYRACORN.get(), PyracornRender::new);
         EntityRenderers.register(EntityTypeRegistry.PYROENT.get(), PyroentRenderer::new);
+        EntityRenderers.register(EntityTypeRegistry.RIMEGAZER.get(), RimegazerRenderer::new);
     }
 
     public void registerParticles (RegisterParticleProvidersEvent event)
@@ -212,6 +212,7 @@ public class PyromancerMod
         event.registerLayerDefinition(ScorchModel.LAYER_LOCATION, ScorchModel::createBodyLayer);
         event.registerLayerDefinition(PyracornModel.LAYER_LOCATION, PyracornModel::createBodyLayer);
         event.registerLayerDefinition(PyroentModel.LAYER_LOCATION, PyroentModel::createBodyLayer);
+        event.registerLayerDefinition(RimegazerModel.LAYER_LOCATION, RimegazerModel::createBodyLayer);
     }
 
     private void entityAttributeSupplier (EntityAttributeCreationEvent event)
@@ -221,6 +222,7 @@ public class PyromancerMod
         event.put(EntityTypeRegistry.SCORCH.get(), ScorchEntity.setAttributes());
         event.put(EntityTypeRegistry.PYRACORN.get(), PyracornEntity.setAttributes());
         event.put(EntityTypeRegistry.PYROENT.get(), PyroentEntity.setAttributes());
+        event.put(EntityTypeRegistry.RIMEGAZER.get(), RimegazerEntity.setAttributes());
     }
 
     private void addCreative (BuildCreativeModeTabContentsEvent event)
@@ -413,6 +415,37 @@ public class PyromancerMod
     @SuppressWarnings("unused")
     public static class ForgeEvents
     {
+        @SubscribeEvent
+        public static void preventContractFriendlyFire (LivingAttackEvent event)
+        {
+            boolean isHurtContract = event.getEntity().getPersistentData().getBoolean(ContractDirector.CONTRACT_SPAWN_TAG);
+            DamageSource source = event.getSource();
+            boolean isSourceContract = source.getEntity() == null || source.getEntity().getPersistentData().getBoolean(ContractDirector.CONTRACT_SPAWN_TAG);
+            boolean isDirectSourceContract = source.getDirectEntity() == null || source.getDirectEntity().getPersistentData().getBoolean(ContractDirector.CONTRACT_SPAWN_TAG);
+            if (isHurtContract && (isSourceContract || isDirectSourceContract))
+            {
+                event.setCanceled(true);
+            }
+        }
+
+        @SubscribeEvent
+        public static void preventContractDrops(LivingDropsEvent event)
+        {
+            if (event.getEntity().getPersistentData().getBoolean(ContractDirector.CONTRACT_SPAWN_TAG))
+            {
+                event.setCanceled(event.isCancelable());
+            }
+        }
+
+        @SubscribeEvent
+        public static void preventContractExperienceDrops(LivingExperienceDropEvent event)
+        {
+            if (event.getEntity().getPersistentData().getBoolean(ContractDirector.CONTRACT_SPAWN_TAG))
+            {
+                event.setCanceled(event.isCancelable());
+            }
+        }
+
         @SubscribeEvent
         public static void livingFallEvent (LivingFallEvent event)
         {

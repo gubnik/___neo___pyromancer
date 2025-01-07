@@ -23,6 +23,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.NotNull;
+import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.registry.MobEffectRegistry;
 
@@ -41,7 +42,7 @@ public class FrostburnMobEffect extends MobEffect
             livingEntity.getActiveEffectsMap().put(MobEffectRegistry.FROSTBURN.get(), new MobEffectInstance(MobEffectRegistry.FROSTBURN.get(), 0, 0, true, false));
             return;
         }
-        GeneralUtils.coverInParticles(livingEntity, ParticleTypes.SNOWFLAKE, 0.015);
+        EntityUtils.coverInParticles(livingEntity, ParticleTypes.SNOWFLAKE, 0.015);
     }
 
     @Override

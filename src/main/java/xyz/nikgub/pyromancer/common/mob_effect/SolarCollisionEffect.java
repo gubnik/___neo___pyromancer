@@ -26,7 +26,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
-import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 import xyz.nikgub.pyromancer.registry.DamageSourceRegistry;
 import xyz.nikgub.pyromancer.registry.MobEffectRegistry;
@@ -42,7 +41,7 @@ public class SolarCollisionEffect extends SmartMobEffect
     public void applyEffectTick (@NotNull LivingEntity livingEntity, int pAmplifier)
     {
         if (!(livingEntity.level() instanceof ServerLevel level)) return;
-        GeneralUtils.coverInParticles(livingEntity, ParticleTypes.FLAME, 0.02);
+        EntityUtils.coverInParticles(livingEntity, ParticleTypes.FLAME, 0.02);
         livingEntity.addEffect(new MobEffectInstance(MobEffectRegistry.FIERY_AEGIS.get(), 5, 0, true, false));
         Vec3 movementVector = livingEntity.getDeltaMovement();
         for (LivingEntity target : EntityUtils.entityCollector(livingEntity.getEyePosition(), 2.25, level))
