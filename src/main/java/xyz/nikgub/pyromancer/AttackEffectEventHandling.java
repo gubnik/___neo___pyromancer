@@ -18,7 +18,6 @@
 package xyz.nikgub.pyromancer;
 
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -32,11 +31,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
-import xyz.nikgub.pyromancer.common.entity.UnburnedSpiritEntity;
+import xyz.nikgub.pyromancer.common.contract.ContractDirector;
 import xyz.nikgub.pyromancer.common.mob_effect.InfusionMobEffect;
 import xyz.nikgub.pyromancer.common.mob_effect.OiledMobEffect;
-import xyz.nikgub.pyromancer.data.DamageTypeDatagen;
-import xyz.nikgub.pyromancer.registry.*;
+import xyz.nikgub.pyromancer.registry.AttributeRegistry;
+import xyz.nikgub.pyromancer.registry.EnchantmentRegistry;
+import xyz.nikgub.pyromancer.registry.MobEffectRegistry;
 
 @Mod.EventBusSubscriber(modid = PyromancerMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class AttackEffectEventHandling
@@ -56,43 +56,91 @@ public class AttackEffectEventHandling
             return;
         }
 
-        float multiplier = 1;
-        float addition = 0;
+        float multiplier = calculateMultiplier(target, cause, directCause, damageSource, damageAmount);
+        float addition = calculateAddition(target, cause, directCause, damageSource, damageAmount);
 
-        OiledMobEffect.tryIgnition(target, damageSource);
-        if (GeneralUtils.isDirectDamage(damageSource))
+        PyromancerMod.LOGGER.info("{} {} {} {}", damageAmount * multiplier + addition, damageAmount, multiplier, addition);
+
+        if (multiplier < 0) multiplier = 0;
+        event.setAmount(damageAmount * multiplier + addition);
+    }
+
+    private static float calculateAddition (LivingEntity target, Entity cause, Entity directCause, DamageSource damageSource, float damageAmount)
+    {
+        float addition = 0;
+        addition += generalFrostBuildup(target);
+        if (cause instanceof Player sourceEntity)
         {
-            if (!(directCause instanceof LivingEntity sourceEntity)) return;
-            final ItemStack mainHand = sourceEntity.getMainHandItem();
-            if (PyromancerMod.DO_INFUSION_RENDER.get(mainHand.getItem()))
-            {
-                multiplier += InfusionMobEffect.tryEffect(target, directCause, damageSource, damageAmount);
-            }
-            if (mainHand.getEnchantmentLevel(EnchantmentRegistry.CURSE_OF_CHAOS.get()) > 0)
-            {
-                multiplier += EnchantmentRegistry.Utils.tryCurseOfChaos(target);
-            }
-            if (target.canFreeze())
-            {
-                AttributeMap attributeMap = sourceEntity.getAttributes();
-                if (attributeMap.hasAttribute(AttributeRegistry.COLD_BUILDUP.get()))
-                {
-                    double coldBuildup = attributeMap.getValue(AttributeRegistry.COLD_BUILDUP.get());
-                    if (coldBuildup > 0)
-                    {
-                        multiplier += (target.isOnFire()) ? mainHand.getEnchantmentLevel(EnchantmentRegistry.MELT.get()) * 0.1F : 0.0F;
-                        target.setTicksFrozen(target.getTicksFrozen() + (int) (coldBuildup * (damageAmount + 1)) + 1);
-                        EntityUtils.coverInParticles(target, ParticleTypes.SNOWFLAKE, 0.002);
-                        if (target.isFullyFrozen())
-                        {
-                            final int frostburnModifier = target.hasEffect(MobEffectRegistry.FROSTBURN.get()) ? target.getEffect(MobEffectRegistry.FROSTBURN.get()).getAmplifier() : -1;
-                            target.addEffect(new MobEffectInstance(MobEffectRegistry.FROSTBURN.get(), 100, frostburnModifier + 1, false, true, false));
-                            target.setTicksFrozen(target.getTicksFrozen() + 200);
-                        }
-                    }
-                }
-            }
+            double armor_pierce = sourceEntity.getAttributeValue(AttributeRegistry.ARMOR_PIERCING.get());
+            if (armor_pierce >= target.getAttributeValue(Attributes.ARMOR))
+                addition += (float) armor_pierce;
         }
+        return addition;
+    }
+
+    private static float calculateMultiplier (LivingEntity target, Entity cause, Entity directCause, DamageSource damageSource, float damageAmount)
+    {
+        float multiplier = 1;
+        multiplier += ContractDirector.vulnerableToFire(target, damageSource);
+        multiplier += OiledMobEffect.tryIgnition(target, damageSource);
+        multiplier += directDamageHandler(target, cause, directCause, damageSource, damageAmount);
+        if (target.hasEffect(MobEffectRegistry.FIERY_AEGIS.get()) && damageSource.getDirectEntity() instanceof LivingEntity attacker)
+        {
+            multiplier += MobEffectRegistry.FIERY_AEGIS.get().performAttack(damageAmount, target, attacker);
+        }
+        return multiplier;
+    }
+
+    private static float directDamageHandler(LivingEntity target, Entity cause, Entity directCause, DamageSource damageSource, float damageAmount)
+    {
+        if (!GeneralUtils.isDirectDamage(damageSource))
+        {
+            return 0.0f;
+        }
+        if (!(directCause instanceof LivingEntity sourceEntity)) return 0.0f;
+        final ItemStack mainHand = sourceEntity.getMainHandItem();
+        float multiplier = 0.0f;
+        multiplier += frostBuildup(target, sourceEntity, damageSource, damageAmount, mainHand);
+        if (PyromancerMod.DO_INFUSION_RENDER.get(mainHand.getItem()))
+        {
+            multiplier += InfusionMobEffect.tryEffect(target, directCause, damageSource, damageAmount);
+        }
+        return multiplier;
+    }
+
+    private static float frostBuildup(LivingEntity target, LivingEntity sourceEntity, DamageSource damageSource, float damageAmount, ItemStack mainHand)
+    {
+        if (!target.canFreeze())
+        {
+            return 0.0f;
+        }
+        float multiplier = 0.0f;
+        AttributeMap attributeMap = sourceEntity.getAttributes();
+        if (!attributeMap.hasAttribute(AttributeRegistry.COLD_BUILDUP.get()))
+        {
+            return 0.0f;
+        }
+        double coldBuildup = attributeMap.getValue(AttributeRegistry.COLD_BUILDUP.get());
+        if (coldBuildup <= 0)
+        {
+            return 0.0f;
+        }
+        multiplier += (target.isOnFire()) ? mainHand.getEnchantmentLevel(EnchantmentRegistry.MELT.get()) * 0.1F : 0.0F;
+        target.setTicksFrozen(target.getTicksFrozen() + (int) (coldBuildup * (damageAmount + 1)) + 1);
+        EntityUtils.coverInParticles(target, ParticleTypes.SNOWFLAKE, 0.002);
+        if (!target.isFullyFrozen())
+        {
+            return multiplier;
+        }
+        final int frostburnModifier = target.hasEffect(MobEffectRegistry.FROSTBURN.get()) ? target.getEffect(MobEffectRegistry.FROSTBURN.get()).getAmplifier() : -1;
+        target.addEffect(new MobEffectInstance(MobEffectRegistry.FROSTBURN.get(), 100, frostburnModifier + 1, false, true, false));
+        target.setTicksFrozen(target.getTicksFrozen() + 200);
+        return multiplier;
+    }
+
+    private static float generalFrostBuildup (LivingEntity target)
+    {
+        float addition = 0;
         if (target.canFreeze())
         {
             final int frostburnModifier = target.hasEffect(MobEffectRegistry.FROSTBURN.get()) ? target.getEffect(MobEffectRegistry.FROSTBURN.get()).getAmplifier() : -1;
@@ -101,23 +149,6 @@ public class AttackEffectEventHandling
                 addition += (float) (Math.sqrt(frostburnModifier + 1) * (1 + Math.log(frostburnModifier + 1)));
             }
         }
-        if (target.hasEffect(MobEffectRegistry.FIERY_AEGIS.get()) && damageSource.getDirectEntity() instanceof LivingEntity attacker)
-        {
-            multiplier += MobEffectRegistry.FIERY_AEGIS.get().performAttack(damageAmount, target, attacker);
-        }
-        if (damageSource.getDirectEntity() instanceof Player attacker && EntityUtils.hasFullSetEquipped(attacker, ItemRegistry.TAINTED_MONARCH_HELMET.get())
-                && target.level() instanceof ServerLevel level && damageAmount >= 7 && (damageSource.is(DamageTypeDatagen.IS_PYROMANCY) || damageSource.is(DamageTypeDatagen.IS_EMBER)))
-        {
-            UnburnedSpiritEntity spirit = new UnburnedSpiritEntity(EntityTypeRegistry.UNBURNED_SPIRIT.get(), level);
-            spirit.addToLevelForPlayerAt(level, attacker, target.position());
-        }
-        if (cause instanceof Player sourceEntity)
-        {
-            double armor_pierce = sourceEntity.getAttributeValue(AttributeRegistry.ARMOR_PIERCING.get());
-            if (armor_pierce >= target.getAttributeValue(Attributes.ARMOR))
-                addition += (float) armor_pierce;
-        }
-        if (multiplier < 0) multiplier = 0;
-        event.setAmount(damageAmount * multiplier + addition);
+        return addition;
     }
 }
