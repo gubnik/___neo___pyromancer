@@ -208,7 +208,7 @@ public class DamageSourceRegistry
         );
     }
 
-    public static DamageSource rimegazer_ray (RimegazerEntity entity)
+    public static DamageSource rimegazer (RimegazerEntity entity)
     {
         assert entity.level().registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(

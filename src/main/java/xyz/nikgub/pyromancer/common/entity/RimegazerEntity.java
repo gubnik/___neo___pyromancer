@@ -1,5 +1,23 @@
+/*
+    Pyromancer, Minecraft Forge modification
+    Copyright (C) 2024, Nikolay Gubankov (aka nikgub)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 package xyz.nikgub.pyromancer.common.entity;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializer;
@@ -25,6 +43,9 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.incandescent.client.animations.DeterminedAnimation;
 import xyz.nikgub.incandescent.client.animations.IAnimationPurposeEntity;
+import xyz.nikgub.incandescent.common.util.EntityUtils;
+import xyz.nikgub.pyromancer.registry.AttributeRegistry;
+import xyz.nikgub.pyromancer.registry.DamageSourceRegistry;
 
 import java.util.List;
 
@@ -68,6 +89,7 @@ public class RimegazerEntity extends Monster implements IAnimationPurposeEntity
                 .add(Attributes.ATTACK_DAMAGE, 1)
                 .add(Attributes.ATTACK_SPEED, 1)
                 .add(Attributes.FOLLOW_RANGE, 8)
+                .add(AttributeRegistry.COLD_BUILDUP.get(), 8)
                 .build();
     }
 
@@ -189,9 +211,9 @@ public class RimegazerEntity extends Monster implements IAnimationPurposeEntity
                     this.setSpinTick(0);
                     this.runAnimationOf(DeterminedAnimation.AnimationPurpose.IDLE);
                     this.setAttackState(AttackState.ATTACK);
-                } else if (this.tickCount >= 8 && this.tickCount % 8 == 7)
+                } else if (this.tickCount >= 8)
                 {
-                    this.rayAttack(5);
+                    this.spinAttack(2);
                 }
             }
         }
@@ -208,7 +230,22 @@ public class RimegazerEntity extends Monster implements IAnimationPurposeEntity
         if (!(level() instanceof ServerLevel level)) return;
         for (int i = 0; i < iterations; i++)
         {
-            level.sendParticles(ParticleTypes.CRIT, x + angles.x * (0.3 + (double) i / 5), y + angles.y * ((double) i / 5), z + angles.z * (0.3 + (double) i / 5), 2, 0, 0, 0, 0.0f);
+            final Vec3 pos = new Vec3(x + angles.x * (0.3 + (double) i / 10), y + angles.y * ((double) i / 10), z + angles.z * (0.3 + (double) i / 10));
+            level.sendParticles(ParticleTypes.ENCHANTED_HIT, pos.x, pos.y, pos.z, 2, 0, 0, 0, 0.0f);
+            for (var entity : EntityUtils.entityCollector(pos, 0.05f, this.level()))
+            {
+                if (entity == this) continue;
+                entity.hurt(DamageSourceRegistry.rimegazer(this), damage);
+            }
+        }
+    }
+
+    private void spinAttack(float damage)
+    {
+        for (var entity : EntityUtils.entityCollector(this.getPosition(Minecraft.getInstance().getPartialTick()).add(0, 1, 0), 2f, this.level()))
+        {
+            if (entity == this) continue;
+            entity.hurt(DamageSourceRegistry.rimegazer(this), damage);
         }
     }
 

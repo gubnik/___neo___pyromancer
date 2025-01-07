@@ -23,8 +23,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -87,6 +90,18 @@ public class ContractDirector
             }
         }
         return null;
+    }
+
+    public static float vulnerableToFire (LivingEntity target, DamageSource damageSource)
+    {
+        if (target.getPersistentData().getBoolean(ContractDirector.CONTRACT_SPAWN_TAG))
+        {
+            if (damageSource.is(DamageTypeTags.IS_FIRE))
+            {
+                return  0.2f;
+            }
+        }
+        return 0.0f;
     }
 
     public boolean run (Player player)
