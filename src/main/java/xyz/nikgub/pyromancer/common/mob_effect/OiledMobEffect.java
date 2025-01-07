@@ -41,11 +41,12 @@ public class OiledMobEffect extends MobEffect
         MobEffectInstance oiledInstance = target.getEffect(MobEffectRegistry.OILED.get());
         if (oiledInstance != null && (target.isOnFire() || damageSource.is(DamageTypeTags.IS_FIRE)) && !damageSource.is(DamageTypes.ON_FIRE) && !damageSource.is(DamageTypes.IN_FIRE))
         {
-            target.setSecondsOnFire(target.getRemainingFireTicks() / 10 + 5 * (oiledInstance.getAmplifier() + 1));
+            int newTick = target.getRemainingFireTicks() + target.getRemainingFireTicks() / 5 + 16 * (oiledInstance.getAmplifier() + 1);
+            target.setRemainingFireTicks(newTick);
             target.removeEffect(MobEffectRegistry.OILED.get());
             target.playSound(SoundEvents.BLAZE_SHOOT);
             EntityUtils.coverInParticles(target, ParticleTypes.FLAME, 0.25D);
-            return target.getRemainingFireTicks() / 200f;
+            return target.getRemainingFireTicks() / 400f;
         }
         return 0;
     }
