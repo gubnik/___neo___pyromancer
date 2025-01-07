@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_ancient_plating": {
+    "has_rimebrass_ingot": {
       "conditions": {
         "items": [
           {
             "items": [
-              "pyromancer:ancient_plating"
+              "pyromancer:rimebrass_ingot"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_ancient_plating",
+      "has_rimebrass_ingot",
       "has_the_recipe"
     ]
   ],

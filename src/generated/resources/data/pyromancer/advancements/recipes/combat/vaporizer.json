@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_rimebrass_ingot": {
+    "has_ancient_plating": {
       "conditions": {
         "items": [
           {
             "items": [
-              "pyromancer:rimebrass_ingot"
+              "pyromancer:ancient_plating"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "pyromancer:hoarfrost_greatsword"
+        "recipe": "pyromancer:vaporizer"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_rimebrass_ingot",
+      "has_ancient_plating",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "pyromancer:hoarfrost_greatsword"
+      "pyromancer:vaporizer"
     ]
   },
   "sends_telemetry_event": false

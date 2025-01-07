@@ -253,7 +253,7 @@ public class RecipeDatagen extends RecipeProvider
             .pattern(" C ")
             .define('#', ItemRegistry.ANCIENT_PLATING.get())
             .define('C', ItemRegistry.RIMEBRASS_INGOT.get())
-            .unlockedBy(getHasName(ItemRegistry.ANCIENT_PLATING.get()), has(ItemRegistry.ANCIENT_PLATING.get()))
+            .unlockedBy(getHasName(ItemRegistry.RIMEBRASS_INGOT.get()), has(ItemRegistry.RIMEBRASS_INGOT.get()))
             .save(consumer);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.SPEAR_OF_MOROZ.get())
@@ -262,6 +262,37 @@ public class RecipeDatagen extends RecipeProvider
             .pattern("CCC")
             .define('#', ItemRegistry.ANCIENT_PLATING.get())
             .define('C', ItemRegistry.RIMEBRASS_INGOT.get())
+            .unlockedBy(getHasName(ItemRegistry.RIMEBRASS_INGOT.get()), has(ItemRegistry.RIMEBRASS_INGOT.get()))
+            .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.ZWEIHANDER.get())
+            .pattern(" I ")
+            .pattern("III")
+            .pattern("#S#")
+            .define('I', Items.IRON_INGOT)
+            .define('#', ItemRegistry.ANCIENT_PLATING.get())
+            .define('S', Items.STICK)
+            .unlockedBy(getHasName(ItemRegistry.ANCIENT_PLATING.get()), has(ItemRegistry.ANCIENT_PLATING.get()))
+            .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.MUSKET.get())
+            .pattern("III")
+            .pattern("#I ")
+            .pattern("#S ")
+            .define('I', Items.IRON_INGOT)
+            .define('#', ItemRegistry.ANCIENT_PLATING.get())
+            .define('S', Items.STICK)
+            .unlockedBy(getHasName(ItemRegistry.ANCIENT_PLATING.get()), has(ItemRegistry.ANCIENT_PLATING.get()))
+            .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.VAPORIZER.get())
+            .pattern("IDI")
+            .pattern("#II")
+            .pattern("#S ")
+            .define('I', Items.IRON_INGOT)
+            .define('#', ItemRegistry.ANCIENT_PLATING.get())
+            .define('S', Items.STICK)
+            .define('D', Items.DISPENSER)
             .unlockedBy(getHasName(ItemRegistry.ANCIENT_PLATING.get()), has(ItemRegistry.ANCIENT_PLATING.get()))
             .save(consumer);
     }
