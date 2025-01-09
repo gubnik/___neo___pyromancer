@@ -126,7 +126,7 @@ public class UnburnedModel<T extends UnburnedEntity> extends HierarchicalModel<T
         // animations vvv
         this.animate(entity.ATTACK, UnburnedAnimations.ATTACK_MAIN, ageInTicks);
         this.animate(entity.KICK, UnburnedAnimations.ATTACK_KICK, ageInTicks);
-        this.animate(entity.EXPLOSION, UnburnedAnimations.ATTACK_EXPLOSION, ageInTicks);
+        this.animate(entity.STOMP, UnburnedAnimations.ATTACK_EXPLOSION, ageInTicks);
         this.animate(entity.EMERGE, UnburnedAnimations.EMERGE, ageInTicks);
         // animations ^^^
         this.Head.yRot = (float) Math.toRadians(netHeadYaw);

@@ -38,6 +38,8 @@ import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 import xyz.nikgub.pyromancer.registry.EnchantmentRegistry;
 import xyz.nikgub.pyromancer.registry.MobEffectRegistry;
 
+import static xyz.nikgub.pyromancer.registry.EnchantmentRegistry.Utils.tryCurseOfChaos;
+
 @Mod.EventBusSubscriber(modid = PyromancerMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class AttackEffectEventHandling
 {
@@ -58,8 +60,6 @@ public class AttackEffectEventHandling
 
         float multiplier = calculateMultiplier(target, cause, directCause, damageSource, damageAmount);
         float addition = calculateAddition(target, cause, directCause, damageSource, damageAmount);
-
-        PyromancerMod.LOGGER.info("{} {} {} {}", damageAmount * multiplier + addition, damageAmount, multiplier, addition);
 
         if (multiplier < 0) multiplier = 0;
         event.setAmount(damageAmount * multiplier + addition);
@@ -104,6 +104,10 @@ public class AttackEffectEventHandling
         if (PyromancerMod.DO_INFUSION_RENDER.get(mainHand.getItem()))
         {
             multiplier += InfusionMobEffect.tryEffect(target, directCause, damageSource, damageAmount);
+        }
+        if (mainHand.getEnchantmentLevel(EnchantmentRegistry.CURSE_OF_CHAOS.get()) > 0)
+        {
+            multiplier += tryCurseOfChaos(target);
         }
         return multiplier;
     }

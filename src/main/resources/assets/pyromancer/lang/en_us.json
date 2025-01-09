@@ -312,5 +312,6 @@
   "pyromancer.quill_hidden_line": "To show quill attack info press ",
   "pyromancer.subtitle.musket_load": "Musket loaded",
   "pyromancer.subtitle.musket_shot": "Musket fired",
-  "pyromancer.contract.failed": "This location is not suitable for activating the contract"
+  "pyromancer.contract.failed": "This location is not suitable for activating the contract",
+  "pyromancer.bad_craft_warning": "This item's recipe is ALPHA ONLY, put into the game to make the item accessible in survival"
 }

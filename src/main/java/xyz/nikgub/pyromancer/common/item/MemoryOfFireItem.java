@@ -18,16 +18,32 @@
 package xyz.nikgub.pyromancer.common.item;
 
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.incandescent.common.item.IGradientNameItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
+
+import java.util.List;
 
 public class MemoryOfFireItem extends Item implements IGradientNameItem
 {
     public MemoryOfFireItem ()
     {
         super(new Properties().stacksTo(1).fireResistant());
+    }
+
+
+    @Override
+    public void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
+    {
+        // Alpha
+        list.add(Component.translatable("pyromancer.alpha_desc").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.RED));
+        list.add(Component.translatable("pyromancer.bad_craft_warning").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.RED));
     }
 
     @Override

@@ -35,10 +35,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import org.jetbrains.annotations.NotNull;
@@ -56,7 +53,7 @@ import java.util.List;
  * Generally can be looked on as a glorified mana bar
  * Modified by {@link QuillItem}, consult said class for more info
  */
-public class BlazingJournalItem extends Item implements IContainerItem
+public class BlazingJournalItem extends Item implements IContainerItem, Equipable
 {
     public final static String BLAZE_TAG_NAME = "PYROMANCER_BLAZING_JOURNAL_TAG";
 
@@ -123,6 +120,11 @@ public class BlazingJournalItem extends Item implements IContainerItem
         if (!(entity instanceof ServerPlayer serverPlayer)) return;
         if (this.getItemFromItem(itemStack, 0) != ItemStack.EMPTY)
             GeneralUtils.addAdvancement(serverPlayer, new ResourceLocation("pyromancer:pyromancer/quill_applied"));
+    }
+
+    @Override
+    public @NotNull EquipmentSlot getEquipmentSlot() {
+        return EquipmentSlot.OFFHAND;
     }
 
     @Override

@@ -39,6 +39,7 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.incandescent.client.animations.DeterminedAnimation;
 import xyz.nikgub.incandescent.client.animations.IAnimationPurposeEntity;
+import xyz.nikgub.pyromancer.PyromancerMod;
 
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class UnburnedEntity extends Monster implements IAnimationPurposeEntity
 
     public AnimationState ATTACK = new AnimationState();
     public AnimationState KICK = new AnimationState();
-    public AnimationState EXPLOSION = new AnimationState();
+    public AnimationState STOMP = new AnimationState();
     public AnimationState EMERGE = new AnimationState();
     public AnimationState IDLE = new AnimationState();
 
@@ -65,6 +66,7 @@ public class UnburnedEntity extends Monster implements IAnimationPurposeEntity
         this.entityData.define(ATTACK_TICK, 0);
         this.entityData.define(STOMP_TICK, 0);
         this.entityData.define(KICK_TICK, 0);
+        this.runAnimationOf(DeterminedAnimation.AnimationPurpose.SPAWN);
     }
 
     public static AttributeSupplier setAttributes ()
@@ -164,6 +166,19 @@ public class UnburnedEntity extends Monster implements IAnimationPurposeEntity
         final int battleTick = getBattleTick();
         final int stompTick = getStompTick();
         final int attackTick = getAttackTick();
+        if (stompTick != 0)
+        {
+            if (this.tickCount >= stompTick + 20)
+            {
+                this.setStompTick(0);
+                this.runAnimationOf(DeterminedAnimation.AnimationPurpose.IDLE);
+            }
+        }
+        else if (battleTick % 200 == 100)
+        {
+            this.runAnimationOf(DeterminedAnimation.AnimationPurpose.STOMP);
+            this.setStompTick(this.tickCount);
+        }
 
         if (attackTick != 0)
         {
@@ -197,7 +212,7 @@ public class UnburnedEntity extends Monster implements IAnimationPurposeEntity
     {
         return List.of(
             new DeterminedAnimation(this.ATTACK, DeterminedAnimation.AnimationPurpose.MAIN_ATTACK),
-            new DeterminedAnimation(this.EXPLOSION, DeterminedAnimation.AnimationPurpose.STOMP),
+            new DeterminedAnimation(this.STOMP, DeterminedAnimation.AnimationPurpose.STOMP),
             new DeterminedAnimation(this.KICK, DeterminedAnimation.AnimationPurpose.SPECIAL_HURT),
             new DeterminedAnimation(this.EMERGE, DeterminedAnimation.AnimationPurpose.SPAWN),
             new DeterminedAnimation(this.IDLE, DeterminedAnimation.AnimationPurpose.IDLE)

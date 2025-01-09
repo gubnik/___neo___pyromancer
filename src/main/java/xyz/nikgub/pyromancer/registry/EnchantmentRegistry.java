@@ -18,7 +18,10 @@
 package xyz.nikgub.pyromancer.registry;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -29,6 +32,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.registries.DeferredRegister;
@@ -46,7 +50,10 @@ import xyz.nikgub.pyromancer.common.item.MusketItem;
 import xyz.nikgub.pyromancer.common.item.ZweihanderItem;
 import xyz.nikgub.pyromancer.data.ItemTagDatagen;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class EnchantmentRegistry
 {
@@ -234,7 +241,6 @@ public class EnchantmentRegistry
             }
         });
 
-    // TODO : implement
     public static RegistryObject<Enchantment> WRATHFUL_BLADES = ENCHANTMENTS.register("wrathful_blades",
         () -> new BlazingJournalEnchantment()
         {
@@ -247,6 +253,26 @@ public class EnchantmentRegistry
             @Override
             public void getAttack (Player player, Entity target)
             {
+                double vertical_degree = Math.toRadians(player.getXRot());
+                double horizontal_degree = Math.toRadians(player.getYRot());
+                double modifier = player.getAttribute(ForgeMod.ENTITY_REACH.get()).getValue() + 1;
+                double x = player.getX();
+                double y = player.getY();
+                double z = player.getZ();
+                for (int i = -90; i < 90; i++) {
+                    double new_x = x - Math.sin(horizontal_degree + Math.toRadians(i)) * modifier;
+                    double new_y = y - Math.sin(vertical_degree) * Math.cos(Math.toRadians(i)) * modifier;
+                    double new_z = z + Math.cos(horizontal_degree + Math.toRadians(i)) * modifier;
+                    if(player.level() instanceof ServerLevel level)
+                    {
+                        level.sendParticles(ParticleTypes.FLAME, new_x, new_y + 1.4, new_z, 2, 0.2, 0.1, 0.2, 0.05);
+                    }
+                    Vec3 center = new Vec3(new_x, new_y + 1.4, new_z);
+                    List<? extends LivingEntity> entities = EntityUtils.entityCollector(center, 0.5, player.level());
+                    for(LivingEntity entity : entities){
+                        entity.hurt(DamageSourceRegistry.blazingJournal(player, player), (float) player.getAttribute(Attributes.ATTACK_DAMAGE).getValue());
+                    }
+                }
             }
 
             @Override

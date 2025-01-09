@@ -295,5 +295,15 @@ public class RecipeDatagen extends RecipeProvider
             .define('D', Items.DISPENSER)
             .unlockedBy(getHasName(ItemRegistry.ANCIENT_PLATING.get()), has(ItemRegistry.ANCIENT_PLATING.get()))
             .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.MEMORY_OF_FIRE.get())
+            .pattern("FAF")
+            .pattern("SFS")
+            .pattern(" A ")
+            .define('A', ItemRegistry.AMBER.get())
+            .define('F', ItemRegistry.AMBER.get())
+            .define('S', ItemRegistry.AMBER.get())
+            .unlockedBy(getHasName(ItemRegistry.ANCIENT_PLATING.get()), has(ItemRegistry.ANCIENT_PLATING.get()))
+            .save(consumer);
     }
 }
