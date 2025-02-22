@@ -18,10 +18,10 @@
 package xyz.nikgub.pyromancer.client.animation;
 
 import net.minecraft.client.animation.AnimationDefinition;
-import xyz.nikgub.incandescent.client.animations.from_text.Pyranim;
+import xyz.nikgub.pyromancer.PyromancerMod;
 
 public class RimegazerAnimations
 {
-    public static final AnimationDefinition ATTACK = Pyranim.ofEntity("data/pyromancer/entity_animation/rimegazer_attack.pyranim");
-    public static final AnimationDefinition SPIN = Pyranim.ofEntity("data/pyromancer/entity_animation/rimegazer_spin.pyranim");
+    public static final AnimationDefinition ATTACK = PyromancerMod.PARSER.parse("data/pyromancer/entity_animation/rimegazer_attack.pyranim");
+    public static final AnimationDefinition SPIN = PyromancerMod.PARSER.parse("data/pyromancer/entity_animation/rimegazer_spin.pyranim");
 }

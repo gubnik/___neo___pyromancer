@@ -73,6 +73,7 @@ import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -91,6 +92,7 @@ import org.slf4j.Logger;
 import xyz.nikgub.incandescent.Incandescent;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
+import xyz.nikgub.incandescent.pyranim.parser.PyranimParser;
 import xyz.nikgub.pyromancer.client.model.armor.ArmorOfHellblazeMonarchModel;
 import xyz.nikgub.pyromancer.client.model.armor.PyromancerArmorModel;
 import xyz.nikgub.pyromancer.client.model.entity.*;
@@ -130,6 +132,8 @@ public class PyromancerMod
         .icon(() -> ItemRegistry.BLAZING_JOURNAL.get().getDefaultInstance())
         .build());
     public static int clientTick;
+
+    public static final PyranimParser PARSER = new PyranimParser.Builder().build();
 
     public static Map<Item, Boolean> DO_INFUSION_RENDER;
 
@@ -416,12 +420,28 @@ public class PyromancerMod
     public static class ForgeEvents
     {
         @SubscribeEvent
+        public static void onEntityJoinLevel (EntityJoinLevelEvent event)
+        {
+            //Entity entity = event.getEntity();
+            //if (entity.level() instanceof ServerLevel)
+            //{
+            //    NetworkCore.sendToAll(new SyncEntityNbtPacket(entity.getId(), entity.getPersistentData()));
+            //    LOGGER.info("Server entity : {}", entity);
+            //    LOGGER.info("Server NBT : {}", entity.getPersistentData());
+            //}
+            //CompoundTag tag = new CompoundTag();
+            //tag.putBoolean(ContractDirector.CONTRACT_SPAWN_TAG, true);
+            //LOGGER.info("Client entity : {}", entity);
+            //NetworkCore.sendToServer(new FixContractSpawnNbtPacket(entity.getId(), tag));
+        }
+
+        @SubscribeEvent
         public static void preventContractFriendlyFire (LivingAttackEvent event)
         {
             boolean isHurtContract = event.getEntity().getPersistentData().getBoolean(ContractDirector.CONTRACT_SPAWN_TAG);
             DamageSource source = event.getSource();
-            boolean isSourceContract = source.getEntity() == null || source.getEntity().getPersistentData().getBoolean(ContractDirector.CONTRACT_SPAWN_TAG);
-            boolean isDirectSourceContract = source.getDirectEntity() == null || source.getDirectEntity().getPersistentData().getBoolean(ContractDirector.CONTRACT_SPAWN_TAG);
+            boolean isSourceContract = source.getEntity() != null && source.getEntity().getPersistentData().getBoolean(ContractDirector.CONTRACT_SPAWN_TAG);
+            boolean isDirectSourceContract = source.getDirectEntity() != null && source.getDirectEntity().getPersistentData().getBoolean(ContractDirector.CONTRACT_SPAWN_TAG);
             if (isHurtContract && (isSourceContract || isDirectSourceContract))
             {
                 event.setCanceled(true);

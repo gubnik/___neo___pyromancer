@@ -20,14 +20,16 @@ package xyz.nikgub.pyromancer.common.item;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.incandescent.common.item.IExtensibleTooltipItem;
+import xyz.nikgub.incandescent.common.item_interfaces.IExtensibleTooltipItem;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.common.item_capability.BlazingJournalCapability;
 
@@ -39,7 +41,7 @@ import java.util.List;
  * Quills are special items that can be inserted into {@link BlazingJournalItem}, consult {@link BlazingJournalCapability} <p>
  * Effects of quills are called when Blazing Journal activates an additional attack as per its defined enchantments
  */
-public abstract class QuillItem extends Item implements IExtensibleTooltipItem
+public abstract class QuillItem extends Item implements IExtensibleTooltipItem, Equipable
 {
     public static final String QUILL_RENDER_TAG = "PYROMANCER_QUILL_SMART_RENDER_TAG";
 
@@ -83,5 +85,10 @@ public abstract class QuillItem extends Item implements IExtensibleTooltipItem
     {
         this.gatherTooltipLines(list, "pyromancer.hidden_desc", "desc", PyromancerConfig.descTooltipKey);
         this.gatherTooltipLines(list, "pyromancer.hidden_lore", "lore", PyromancerConfig.loreTooltipKey);
+    }
+
+    @Override
+    public @NotNull EquipmentSlot getEquipmentSlot() {
+        return EquipmentSlot.OFFHAND;
     }
 }

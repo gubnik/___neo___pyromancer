@@ -1,5 +1,5 @@
 {
-  "parent": "pyromancer:pyromancer/root",
+  "parent": "pyromancer:pyromancer/flaming_grove_visited",
   "criteria": {
     "ember_obtained": {
       "conditions": {

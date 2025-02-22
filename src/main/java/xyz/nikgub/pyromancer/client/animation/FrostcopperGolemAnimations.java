@@ -18,10 +18,10 @@
 package xyz.nikgub.pyromancer.client.animation;
 
 import net.minecraft.client.animation.AnimationDefinition;
-import xyz.nikgub.incandescent.client.animations.from_text.Pyranim;
+import xyz.nikgub.pyromancer.PyromancerMod;
 
 public class FrostcopperGolemAnimations
 {
-    public static final AnimationDefinition ATTACK = Pyranim.ofEntity("data/pyromancer/entity_animation/frostcopper_golem_attack.pyranim");
-    public static final AnimationDefinition STOMP = Pyranim.ofEntity("data/pyromancer/entity_animation/frostcopper_golem_stomp.pyranim");
+    public static final AnimationDefinition ATTACK = PyromancerMod.PARSER.parse("data/pyromancer/entity_animation/frostcopper_golem_attack.pyranim");
+    public static final AnimationDefinition STOMP = PyromancerMod.PARSER.parse("data/pyromancer/entity_animation/frostcopper_golem_stomp.pyranim");
 }

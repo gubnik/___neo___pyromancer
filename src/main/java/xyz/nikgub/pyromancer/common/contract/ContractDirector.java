@@ -20,6 +20,7 @@ package xyz.nikgub.pyromancer.common.contract;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -33,7 +34,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import xyz.nikgub.pyromancer.PyromancerConfig;
-import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.registry.ContractRegistry;
 import xyz.nikgub.pyromancer.registry.StyleRegistry;
 
@@ -112,7 +112,7 @@ public class ContractDirector
 
     public boolean run (Player player)
     {
-        if (!(player.level() instanceof ServerLevel level)) return false;
+        Level level = player.level();
         boolean failed = false;
         Map<Entity, Vec3> summoned = new HashMap<>();
         if (credits == 0) return false;
@@ -124,7 +124,6 @@ public class ContractDirector
                 failed = true;
                 break;
             }
-            PyromancerMod.LOGGER.info("{}", randEntry.getValueInCredits());
             Entity entity = randEntry.getCreationFactory().create(level);
             var posOpt = getAppropriateSpawnPos(entity, player);
             if (posOpt.isEmpty())
@@ -134,6 +133,14 @@ public class ContractDirector
             }
             summoned.put(entity, posOpt.get());
             credits -= randEntry.getValueInCredits();
+        }
+        if (failed)
+        {
+            if (player instanceof ServerPlayer serverPlayer)
+            {
+                serverPlayer.sendSystemMessage(Component.translatable("pyromancer.contract.failed").withStyle(StyleRegistry.FROST_STYLE));
+            }
+            return false;
         }
         for (var entry : summoned.entrySet())
         {
@@ -145,12 +152,9 @@ public class ContractDirector
             {
                 mob.setTarget(player);
             }
+            CompoundTag tag = new CompoundTag();
+            tag.putBoolean(CONTRACT_SPAWN_TAG, true);
             level.addFreshEntity(entity);
-        }
-        if (failed && player instanceof ServerPlayer serverPlayer)
-        {
-            serverPlayer.sendSystemMessage(Component.translatable("pyromancer.contract.failed").withStyle(StyleRegistry.FROST_STYLE));
-            return false;
         }
         return true;
     }

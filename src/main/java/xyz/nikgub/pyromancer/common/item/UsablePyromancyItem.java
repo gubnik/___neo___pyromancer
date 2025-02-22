@@ -34,24 +34,23 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.incandescent.common.item.IExtensibleTooltipItem;
-import xyz.nikgub.incandescent.common.item.IGradientNameItem;
-import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
+import xyz.nikgub.incandescent.common.item_interfaces.IBetterAttributeTooltipItem;
+import xyz.nikgub.incandescent.common.item_interfaces.IExtensibleTooltipItem;
+import xyz.nikgub.incandescent.common.item_interfaces.IGradientNameItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
+import xyz.nikgub.incandescent.util.Hypermap;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.mixin.client.ItemRendererMixin;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
-import java.util.function.BiFunction;
 
 /**
  * Class that should be extended whenever making pyromancy based on vanilla use system <p>
  * Not to be confused with {@link IPyromancyItem}, which is a general interface for any pyromancy
  */
-public abstract class UsablePyromancyItem extends Item implements IPyromancyItem, INotStupidTooltipItem, IGradientNameItem, IExtensibleTooltipItem
+public abstract class UsablePyromancyItem extends Item implements IPyromancyItem, IBetterAttributeTooltipItem, IGradientNameItem, IExtensibleTooltipItem
 {
     public UsablePyromancyItem (Properties properties)
     {
@@ -103,23 +102,18 @@ public abstract class UsablePyromancyItem extends Item implements IPyromancyItem
     }
 
     @Override
-    public Map<Attribute, Pair<UUID, Style>> specialColoredUUID (ItemStack itemStack)
+    public Hypermap<Attribute, UUID, Style> getDefaultAttributesStyles (ItemStack itemStack)
     {
-        return Map.of(
-            AttributeRegistry.PYROMANCY_DAMAGE.get(), Pair.of(BASE_PYROMANCY_DAMAGE_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
-            AttributeRegistry.BLAZE_CONSUMPTION.get(), Pair.of(BASE_BLAZE_CONSUMPTION_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD))
+        return Hypermap.of(
+            AttributeRegistry.PYROMANCY_DAMAGE.get(), BASE_PYROMANCY_DAMAGE_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD),
+            AttributeRegistry.BLAZE_CONSUMPTION.get(), BASE_BLAZE_CONSUMPTION_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD)
         );
     }
 
     @Override
-    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus (ItemStack itemStack)
+    public double getAdditionalPlayerBonus (final ItemStack itemStack, final Player player, final Attribute attribute)
     {
-        return ((player, attribute) ->
-        {
-            double d0 = 0;
-            d0 += this.getAttributeBonus(player, attribute);
-            return d0;
-        });
+        return this.getAttributeBonus(player, attribute);
     }
 
     @Override

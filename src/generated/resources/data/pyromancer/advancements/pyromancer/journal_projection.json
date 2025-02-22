@@ -1,5 +1,5 @@
 {
-  "parent": "pyromancer:pyromancer/root",
+  "parent": "pyromancer:pyromancer/quill_applied",
   "criteria": {
     "journal_projection": {
       "trigger": "minecraft:impossible"

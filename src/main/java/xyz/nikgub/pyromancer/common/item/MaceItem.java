@@ -41,7 +41,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.incandescent.common.item.ICustomSwingItem;
+import xyz.nikgub.incandescent.common.item_interfaces.ICustomSwingItem;
 import xyz.nikgub.pyromancer.common.enchantment.MaceEnchantment;
 import xyz.nikgub.pyromancer.registry.EnchantmentRegistry;
 

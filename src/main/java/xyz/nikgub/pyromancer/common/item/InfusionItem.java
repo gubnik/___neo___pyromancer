@@ -33,7 +33,7 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.incandescent.common.item.IExtensibleTooltipItem;
+import xyz.nikgub.incandescent.common.item_interfaces.IExtensibleTooltipItem;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.client.item_extension.InfusionClientExtension;
 import xyz.nikgub.pyromancer.common.mob_effect.InfusionMobEffect;

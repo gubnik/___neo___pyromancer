@@ -39,8 +39,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.incandescent.client.animations.DeterminedAnimation;
-import xyz.nikgub.incandescent.client.animations.IAnimationPurposeEntity;
+import xyz.nikgub.incandescent.common.animation.DeterminedAnimation;
+import xyz.nikgub.incandescent.common.animation.IAnimationPurposeEntity;
 import xyz.nikgub.pyromancer.data.BlockTagDatagen;
 import xyz.nikgub.pyromancer.registry.BlockRegistry;
 

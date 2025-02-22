@@ -44,25 +44,24 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import xyz.nikgub.incandescent.common.item.IGradientNameItem;
-import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
+import xyz.nikgub.incandescent.common.item_interfaces.IBetterAttributeTooltipItem;
+import xyz.nikgub.incandescent.common.item_interfaces.IGradientNameItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
+import xyz.nikgub.incandescent.util.Hypermap;
 import xyz.nikgub.pyromancer.common.ember.UniqueEmberBehaviour;
 import xyz.nikgub.pyromancer.common.item_capability.CompendiumOfFlameCapability;
 import xyz.nikgub.pyromancer.mixin.client.ItemRendererMixin;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
-import java.util.function.BiFunction;
 
 /**
  * Item that inherits {@link BlazingJournalItem}'s full functionality and is capable of storing 5 {@link UsablePyromancyItem}s <p>
  * For details regarding storage, see {@link CompendiumOfFlameCapability}
  */
 @UniqueEmberBehaviour(allow = UniqueEmberBehaviour.AllowanceModifier.DENY)
-public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStupidTooltipItem, IGradientNameItem
+public class CompendiumOfFlameItem extends BlazingJournalItem implements IBetterAttributeTooltipItem, IGradientNameItem
 {
 
     /**
@@ -256,30 +255,6 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     }
 
     @Override
-    public Map<Attribute, Pair<UUID, Style>> specialColoredUUID (ItemStack itemStack)
-    {
-        return Map.of(
-            AttributeRegistry.PYROMANCY_DAMAGE.get(), Pair.of(IPyromancyItem.BASE_PYROMANCY_DAMAGE_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
-            AttributeRegistry.BLAZE_CONSUMPTION.get(), Pair.of(IPyromancyItem.BASE_BLAZE_CONSUMPTION_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD))
-        );
-    }
-
-    @Override
-    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus (ItemStack itemStack)
-    {
-        if (this.getCurrentlyActiveItem(itemStack).getItem() instanceof IPyromancyItem pyromancyItem)
-        {
-            return ((player, attribute) ->
-            {
-                double d0 = 0;
-                d0 += pyromancyItem.getAttributeBonus(player, attribute);
-                return d0;
-            });
-        }
-        return ((player, attribute) -> 0D);
-    }
-
-    @Override
     public boolean getGradientCondition (ItemStack itemStack)
     {
         return true;
@@ -295,5 +270,26 @@ public class CompendiumOfFlameItem extends BlazingJournalItem implements INotStu
     public int getGradientTickTime (ItemStack itemStack)
     {
         return 60;
+    }
+
+    @Override
+    public Hypermap<Attribute, UUID, Style> getDefaultAttributesStyles (ItemStack itemStack)
+    {
+        return Hypermap.of(
+            AttributeRegistry.PYROMANCY_DAMAGE.get(), IPyromancyItem.BASE_PYROMANCY_DAMAGE_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD),
+            AttributeRegistry.BLAZE_CONSUMPTION.get(), IPyromancyItem.BASE_BLAZE_CONSUMPTION_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD)
+        );
+    }
+
+    @Override
+    public double getAdditionalPlayerBonus (final ItemStack itemStack, final Player player, final Attribute attribute)
+    {
+        if (this.getCurrentlyActiveItem(itemStack).getItem() instanceof IPyromancyItem pyromancyItem)
+        {
+            double d0 = 0;
+            d0 += pyromancyItem.getAttributeBonus(player, attribute);
+            return d0;
+        }
+        return 0;
     }
 }

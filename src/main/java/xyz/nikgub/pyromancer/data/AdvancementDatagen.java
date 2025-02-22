@@ -62,6 +62,16 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                 .addCriterion("acquired_journal", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.BLAZING_JOURNAL.get()))
                 .save(saver, "pyromancer:pyromancer/root");
 
+            Advancement ancient_plating_obtained = Advancement.Builder.advancement().parent(blazing_journal_acquired)
+                .display(ItemRegistry.ANCIENT_PLATING.get(),
+                    Component.translatable("advancement.pyromancer.ancient_plating_obtained.title"),
+                    Component.translatable("advancement.pyromancer.ancient_plating_obtained.description"),
+                    null,
+                    FrameType.GOAL,
+                    true, true, false)
+                .addCriterion("ancient_plating_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.ANCIENT_PLATING.get()))
+                .save(saver, "pyromancer:pyromancer/ancient_plating_obtained");
+
             Advancement quill_applied = Advancement.Builder.advancement().parent(blazing_journal_acquired)
                 .display(ItemRegistry.BLAZING_QUILL.get(),
                     Component.translatable("advancement.pyromancer.quill_applied.title"),
@@ -72,7 +82,7 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                 .addCriterion("quill_applied", new ImpossibleTrigger.TriggerInstance())
                 .save(saver, "pyromancer:pyromancer/quill_applied");
 
-            Advancement journal_projection = Advancement.Builder.advancement().parent(blazing_journal_acquired)
+            Advancement journal_projection = Advancement.Builder.advancement().parent(quill_applied)
                 .display(ItemRegistry.BLAZING_JOURNAL.get(),
                     Component.translatable("advancement.pyromancer.journal_projection.title"),
                     Component.translatable("advancement.pyromancer.journal_projection.description"),
@@ -112,46 +122,6 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                 .addCriterion("pyromancy_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(ItemTagDatagen.PYROMANCY).build()))
                 .save(saver, "pyromancer:pyromancer/pyromancy_obtained");
 
-            Advancement symbol_of_sun_obtained = Advancement.Builder.advancement().parent(pyromancy_obtained)
-                .display(ItemRegistry.SYMBOL_OF_SUN.get(),
-                    Component.translatable("advancement.pyromancer.symbol_of_sun.title"),
-                    Component.translatable("advancement.pyromancer.symbol_of_sun.description"),
-                    null,
-                    FrameType.TASK,
-                    true, true, false)
-                .addCriterion("symbol_of_sun_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.SYMBOL_OF_SUN.get()))
-                .save(saver, "pyromancer:pyromancer/symbol_of_sun_obtained");
-
-            Advancement flammenklinge_obtained = Advancement.Builder.advancement().parent(pyromancy_obtained)
-                .display(ItemRegistry.FLAMMENKLINGE.get(),
-                    Component.translatable("advancement.pyromancer.flammenklinge.title"),
-                    Component.translatable("advancement.pyromancer.flammenklinge.description"),
-                    null,
-                    FrameType.TASK,
-                    true, true, false)
-                .addCriterion("flammenklinge_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.FLAMMENKLINGE.get()))
-                .save(saver, "pyromancer:pyromancer/flammenklinge_obtained");
-
-            Advancement flammenklinge_plunge = Advancement.Builder.advancement().parent(flammenklinge_obtained)
-                .display(ItemRegistry.FLAMMENKLINGE.get(),
-                    Component.translatable("advancement.pyromancer.flammenklinge_plunge.title"),
-                    Component.translatable("advancement.pyromancer.flammenklinge_plunge.description"),
-                    null,
-                    FrameType.CHALLENGE,
-                    true, true, false)
-                .addCriterion("flammenklinge_plunge", new ImpossibleTrigger.TriggerInstance())
-                .save(saver, "pyromancer:pyromancer/flammenklinge_plunge");
-
-            Advancement flammenklinge_death = Advancement.Builder.advancement().parent(flammenklinge_obtained)
-                .display(ItemRegistry.FLAMMENKLINGE.get(),
-                    Component.translatable("advancement.pyromancer.flammenklinge_death.title"),
-                    Component.translatable("advancement.pyromancer.flammenklinge_death.description"),
-                    null,
-                    FrameType.CHALLENGE,
-                    true, true, false)
-                .addCriterion("flammenklinge_death", new ImpossibleTrigger.TriggerInstance())
-                .save(saver, "pyromancer:pyromancer/flammenklinge_death");
-
             Advancement sizzling_hand_obtained = Advancement.Builder.advancement().parent(pyromancy_obtained)
                 .display(ItemRegistry.SIZZLING_HAND.get(),
                     Component.translatable("advancement.pyromancer.sizzling_hand_obtained.title"),
@@ -172,7 +142,7 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                 .addCriterion("court_of_embers_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.COURT_OF_EMBERS.get()))
                 .save(saver, "pyromancer:pyromancer/court_of_embers_obtained");
 
-            Advancement ember_obtained = Advancement.Builder.advancement().parent(blazing_journal_acquired)
+            Advancement ember_obtained = Advancement.Builder.advancement().parent(flaming_grove_visited)
                 .display(ItemRegistry.EMBER_ITEM.get(),
                     Component.translatable("advancement.pyromancer.ember_obtained.title"),
                     Component.translatable("advancement.pyromancer.ember_obtained.description"),
@@ -215,7 +185,7 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                 .addCriterion("tainted_monarch_armor_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.TAINTED_MONARCH_HELMET.get(), ItemRegistry.TAINTED_MONARCH_CHESTPLATE.get(), ItemRegistry.TAINTED_MONARCH_LEGGINGS.get(), ItemRegistry.TAINTED_MONARCH_BOOTS.get()))
                 .save(saver, "pyromancer:pyromancer/tainted_monarch_armor_obtained");
 
-            Advancement zweihander_obtained = Advancement.Builder.advancement().parent(blazing_journal_acquired)
+            Advancement zweihander_obtained = Advancement.Builder.advancement().parent(ancient_plating_obtained)
                 .display(ItemRegistry.ZWEIHANDER.get(),
                     Component.translatable("advancement.pyromancer.zweihander_obtained.title"),
                     Component.translatable("advancement.pyromancer.zweihander_obtained.description"),
@@ -225,7 +195,7 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                 .addCriterion("zweihander_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.ZWEIHANDER.get()))
                 .save(saver, "pyromancer:pyromancer/zweihander_obtained");
 
-            Advancement musket_obtained = Advancement.Builder.advancement().parent(blazing_journal_acquired)
+            Advancement musket_obtained = Advancement.Builder.advancement().parent(ancient_plating_obtained)
                 .display(ItemRegistry.MUSKET.get(),
                     Component.translatable("advancement.pyromancer.musket_obtained.title"),
                     Component.translatable("advancement.pyromancer.musket_obtained.description"),
@@ -266,6 +236,46 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                 .rewards(AdvancementRewards.Builder.experience(100))
                 .addCriterion("hoarfrost_greatsword_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.HOARFROST_GREATSWORD.get()))
                 .save(saver, "pyromancer:pyromancer/hoarfrost_greatsword_obtained");
+
+            Advancement symbol_of_sun_obtained = Advancement.Builder.advancement().parent(unburned_defeated)
+                .display(ItemRegistry.SYMBOL_OF_SUN.get(),
+                    Component.translatable("advancement.pyromancer.symbol_of_sun.title"),
+                    Component.translatable("advancement.pyromancer.symbol_of_sun.description"),
+                    null,
+                    FrameType.TASK,
+                    true, true, false)
+                .addCriterion("symbol_of_sun_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.SYMBOL_OF_SUN.get()))
+                .save(saver, "pyromancer:pyromancer/symbol_of_sun_obtained");
+
+            Advancement flammenklinge_obtained = Advancement.Builder.advancement().parent(unburned_defeated)
+                .display(ItemRegistry.FLAMMENKLINGE.get(),
+                    Component.translatable("advancement.pyromancer.flammenklinge.title"),
+                    Component.translatable("advancement.pyromancer.flammenklinge.description"),
+                    null,
+                    FrameType.TASK,
+                    true, true, false)
+                .addCriterion("flammenklinge_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.FLAMMENKLINGE.get()))
+                .save(saver, "pyromancer:pyromancer/flammenklinge_obtained");
+
+            Advancement flammenklinge_plunge = Advancement.Builder.advancement().parent(flammenklinge_obtained)
+                .display(ItemRegistry.FLAMMENKLINGE.get(),
+                    Component.translatable("advancement.pyromancer.flammenklinge_plunge.title"),
+                    Component.translatable("advancement.pyromancer.flammenklinge_plunge.description"),
+                    null,
+                    FrameType.CHALLENGE,
+                    true, true, false)
+                .addCriterion("flammenklinge_plunge", new ImpossibleTrigger.TriggerInstance())
+                .save(saver, "pyromancer:pyromancer/flammenklinge_plunge");
+
+            Advancement flammenklinge_death = Advancement.Builder.advancement().parent(flammenklinge_obtained)
+                .display(ItemRegistry.FLAMMENKLINGE.get(),
+                    Component.translatable("advancement.pyromancer.flammenklinge_death.title"),
+                    Component.translatable("advancement.pyromancer.flammenklinge_death.description"),
+                    null,
+                    FrameType.CHALLENGE,
+                    true, true, false)
+                .addCriterion("flammenklinge_death", new ImpossibleTrigger.TriggerInstance())
+                .save(saver, "pyromancer:pyromancer/flammenklinge_death");
         }
     }
 }

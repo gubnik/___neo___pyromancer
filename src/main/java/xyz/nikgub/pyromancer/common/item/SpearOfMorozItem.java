@@ -20,7 +20,6 @@ package xyz.nikgub.pyromancer.common.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Axis;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.model.HumanoidModel;
@@ -50,10 +49,11 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.incandescent.common.item.ICustomSwingItem;
-import xyz.nikgub.incandescent.common.item.IExtensibleTooltipItem;
-import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
+import xyz.nikgub.incandescent.common.item_interfaces.IBetterAttributeTooltipItem;
+import xyz.nikgub.incandescent.common.item_interfaces.ICustomSwingItem;
+import xyz.nikgub.incandescent.common.item_interfaces.IExtensibleTooltipItem;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
+import xyz.nikgub.incandescent.util.Hypermap;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 import xyz.nikgub.pyromancer.registry.DamageSourceRegistry;
@@ -61,12 +61,10 @@ import xyz.nikgub.pyromancer.registry.EnchantmentRegistry;
 import xyz.nikgub.pyromancer.registry.StyleRegistry;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import java.util.function.BiFunction;
 
-public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStupidTooltipItem, IExtensibleTooltipItem
+public class SpearOfMorozItem extends Item implements ICustomSwingItem, IBetterAttributeTooltipItem, IExtensibleTooltipItem
 {
     public static final Set<ToolAction> ACTIONS = Set.of(ToolActions.SWORD_SWEEP);
 
@@ -173,24 +171,6 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStup
             builder.put(AttributeRegistry.COLD_BUILDUP.get(), new AttributeModifier(COLD_BUILDUP_UUID, "Weapon modifier", coldAmount, AttributeModifier.Operation.ADDITION));
         }
         return builder.build();
-    }
-
-    @Override
-    public Map<Attribute, Pair<UUID, Style>> specialColoredUUID (ItemStack itemStack)
-    {
-        return Map.of(
-            AttributeRegistry.COLD_BUILDUP.get(), Pair.of(COLD_BUILDUP_UUID, StyleRegistry.FROST_STYLE),
-            ForgeMod.ENTITY_REACH.get(), Pair.of(REACH_UUID, Style.EMPTY.withColor(ChatFormatting.DARK_GREEN))
-        );
-    }
-
-    @Override
-    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus (ItemStack itemStack)
-    {
-        return ((player, attribute) ->
-        {
-            return 0D;
-        });
     }
 
     @Override
@@ -354,5 +334,22 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, INotStup
             float rad = 24 * i * Mth.PI / 180F;
             serverLevel.sendParticles(ParticleTypes.SNOWFLAKE, px - Mth.sin(hRad + rad) * multiplier, py, pz + Mth.cos(hRad + rad) * multiplier, 1, 0.0D, 0.0D, 0.0D, 0.03D);
         }
+    }
+
+    @Override
+    public Hypermap<Attribute, UUID, Style> getDefaultAttributesStyles (ItemStack itemStack)
+    {
+        return Hypermap.of(
+            Attributes.ATTACK_DAMAGE, Item.BASE_ATTACK_DAMAGE_UUID, this.defaultStyle(itemStack),
+            Attributes.ATTACK_SPEED, Item.BASE_ATTACK_SPEED_UUID, this.defaultStyle(itemStack),
+            AttributeRegistry.COLD_BUILDUP.get(), COLD_BUILDUP_UUID, StyleRegistry.FROST_STYLE,
+            ForgeMod.ENTITY_REACH.get(), REACH_UUID, Style.EMPTY.withColor(ChatFormatting.DARK_GREEN)
+        );
+    }
+
+    @Override
+    public double getAdditionalPlayerBonus (final ItemStack itemStack, final Player player, final Attribute attribute)
+    {
+        return 0;
     }
 }

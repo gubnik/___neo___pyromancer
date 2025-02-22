@@ -1,5 +1,5 @@
 {
-  "parent": "pyromancer:pyromancer/root",
+  "parent": "pyromancer:pyromancer/ancient_plating_obtained",
   "criteria": {
     "zweihander_obtained": {
       "conditions": {

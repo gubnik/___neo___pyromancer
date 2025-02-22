@@ -17,11 +17,9 @@
  */
 package xyz.nikgub.pyromancer.mixin;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -38,12 +36,6 @@ import java.util.function.Function;
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin implements net.minecraftforge.common.extensions.IForgeItemStack
 {
-    @Shadow
-    private static final Component DISABLED_ITEM_TOOLTIP = Component.translatable("item.disabled").withStyle(ChatFormatting.RED);
-
-    @Shadow
-    private static final Style LORE_STYLE = Style.EMPTY.withColor(ChatFormatting.DARK_PURPLE).withItalic(true);
-
     @Shadow
     public abstract CompoundTag getTagElement (String string);
 

@@ -31,7 +31,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.incandescent.common.item.IExtensibleTooltipItem;
+import xyz.nikgub.incandescent.common.item_interfaces.IExtensibleTooltipItem;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.client.item_extension.AccursedContractClientExtension;
 import xyz.nikgub.pyromancer.common.contract.ContractDirector;

@@ -1,9 +1,15 @@
-!_0.5_!
-$_bone_$
-T@0.0@(0 36 0)C
-T@0.35@(0 42 0)C
-T@0.5@(0 -16 0)C
-R@0.0@(0 0 0)C
-R@0.35@(0 -45 0)C
-R@0.5@(0 360 0)C
-$$
+.drtion 0.5
+
+bone:
+    >attime 0.0
+    >intrpl "catmullrom"
+    mov 0, 36, 0
+    rot 0, 0, 0
+    >attime 0.35
+    >intrpl "catmullrom"
+    mov 0, 42, 0
+    rot 0, -45, 0
+    >attime 0.5
+    >intrpl "catmullrom"
+    mov 0, -16, 0
+    rot 0, 360, 0

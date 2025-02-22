@@ -70,11 +70,17 @@ public class NetworkCore
             .consumerMainThread(FlammenklingeMovementPacket::handle)
             .add();
 
-        //INSTANCE.messageBuilder(FlammenklingeLeapPacket.class, id++, NetworkDirection.PLAY_TO_CLIENT)
-        //        .decoder(FlammenklingeLeapPacket::new)
-        //        .encoder(FlammenklingeLeapPacket::toBytes)
-        //        .consumerMainThread(FlammenklingeLeapPacket::handle)
-        //        .add();
+        //INSTANCE.messageBuilder(SyncEntityNbtPacket.class, id++, NetworkDirection.PLAY_TO_CLIENT)
+        //    .decoder(SyncEntityNbtPacket::new)
+        //    .encoder(SyncEntityNbtPacket::toBytes)
+        //    .consumerMainThread(SyncEntityNbtPacket::handle)
+        //    .add();
+        //
+        //INSTANCE.messageBuilder(FixContractSpawnNbtPacket.class, id++, NetworkDirection.PLAY_TO_SERVER)
+        //    .decoder(FixContractSpawnNbtPacket::new)
+        //    .encoder(FixContractSpawnNbtPacket::toBytes)
+        //    .consumerMainThread(FixContractSpawnNbtPacket::handle)
+        //    .add();
     }
 
     public static <MSG> void sendToServer (MSG message)

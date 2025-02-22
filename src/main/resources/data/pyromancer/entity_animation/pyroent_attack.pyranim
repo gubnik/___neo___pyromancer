@@ -1,17 +1,27 @@
-!_0.5_!
-$_ArmLeft_$
-R@0.0@(0 0 0)
-R@0.25@(-135 -45 0)C
-R@0.5@(0 0 0)C
-T@0.0@(0 0 0)
-T@0.25@(0 0 -8)C
-T@0.5@(0 0 0)C
-$$
-$_ArmRight_$
-R@0.0@(0 0 0)
-R@0.25@(-135 45 0)C
-R@0.5@(0 0 0)C
-T@0.0@(0 0 0)
-T@0.25@(0 0 -8)C
-T@0.5@(0 0 0)C
-$$
+.drtion 0.5
+ArmLeft:
+    >attime 0.0
+    >intrpl "catmullrom"
+    mov 0, 0, 0
+    rot 0, 0, 0
+    >attime 0.25
+    >intrpl "catmullrom"
+    mov 0, 0, -8
+    rot -135, -45, 0
+    >attime 0.5
+    >intrpl "catmullrom"
+    mov 0, 0, 0
+    rot 0, 0, 0
+ArmRight:
+    >attime 0.0
+    >intrpl "catmullrom"
+    mov 0, 0, 0
+    rot 0, 0, 0
+    >attime 0.25
+    >intrpl "catmullrom"
+    mov 0, 0, -8
+    rot -135, 45, 0
+    >attime 0.5
+    >intrpl "catmullrom"
+    mov 0, 0, 0
+    rot 0, 0, 0

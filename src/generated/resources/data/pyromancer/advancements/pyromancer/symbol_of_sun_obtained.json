@@ -1,5 +1,5 @@
 {
-  "parent": "pyromancer:pyromancer/pyromancy_obtained",
+  "parent": "pyromancer:pyromancer/unburned_defeated",
   "criteria": {
     "symbol_of_sun_obtained": {
       "conditions": {

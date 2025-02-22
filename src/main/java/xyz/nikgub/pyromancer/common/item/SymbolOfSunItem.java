@@ -31,16 +31,19 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.incandescent.common.item.IExtensibleTooltipItem;
-import xyz.nikgub.incandescent.common.item.IGradientNameItem;
-import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
+import xyz.nikgub.incandescent.common.item_interfaces.IBetterAttributeTooltipItem;
+import xyz.nikgub.incandescent.common.item_interfaces.IExtensibleTooltipItem;
+import xyz.nikgub.incandescent.common.item_interfaces.IGradientNameItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
+import xyz.nikgub.incandescent.util.Hypermap;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.network.NetworkCore;
 import xyz.nikgub.pyromancer.network.c2s.SymbolOfSunMovementPacket;
@@ -52,9 +55,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.BiFunction;
 
-public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStupidTooltipItem, IGradientNameItem, IExtensibleTooltipItem
+public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, IBetterAttributeTooltipItem, IExtensibleTooltipItem, IGradientNameItem
 {
     public static final float DEFAULT_DAMAGE = 8F;
 
@@ -125,26 +127,6 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     }
 
     @Override
-    public Map<Attribute, Pair<UUID, Style>> specialColoredUUID (ItemStack itemStack)
-    {
-        return Map.of(
-            AttributeRegistry.PYROMANCY_DAMAGE.get(), Pair.of(BASE_PYROMANCY_DAMAGE_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD)),
-            AttributeRegistry.BLAZE_CONSUMPTION.get(), Pair.of(BASE_BLAZE_CONSUMPTION_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD))
-        );
-    }
-
-    @Override
-    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus (ItemStack itemStack)
-    {
-        return ((player, attribute) ->
-        {
-            double d0 = 0;
-            d0 += this.getAttributeBonus(player, attribute);
-            return d0;
-        });
-    }
-
-    @Override
     public boolean getGradientCondition (ItemStack itemStack)
     {
         return true;
@@ -175,5 +157,22 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, INotStu
     public int getDefaultBlazeCost ()
     {
         return 8;
+    }
+
+    @Override
+    public Hypermap<Attribute, UUID, Style> getDefaultAttributesStyles (ItemStack itemStack)
+    {
+        return Hypermap.of(
+            Attributes.ATTACK_DAMAGE, Item.BASE_ATTACK_DAMAGE_UUID, this.defaultStyle(itemStack),
+            Attributes.ATTACK_SPEED, Item.BASE_ATTACK_SPEED_UUID, this.defaultStyle(itemStack),
+            AttributeRegistry.PYROMANCY_DAMAGE.get(), BASE_PYROMANCY_DAMAGE_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD),
+            AttributeRegistry.BLAZE_CONSUMPTION.get(), BASE_BLAZE_CONSUMPTION_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD)
+        );
+    }
+
+    @Override
+    public double getAdditionalPlayerBonus (ItemStack itemStack, Player player, Attribute attribute)
+    {
+        return 0;
     }
 }

@@ -1,11 +1,21 @@
-!_0.5_!
-$_left_arm_$
-R@0.0@(0 0 0)
-R@0.25@(-135 0 0)C
-R@0.5@(0 0 0)C
-$$
-$_right_arm_$
-R@0.0@(0 0 0)
-R@0.25@(-135 0 0)C
-R@0.5@(0 0 0)C
-$$
+.drtion 0.5
+left_arm:
+    >attime 0.0
+    >intrpl "linear"
+    rot 0, 0, 0
+    >attime 0.25
+    >intrpl "catmullrom"
+    rot -135, 0, 0
+    >attime 0.5
+    >intrpl "catmullrom"
+    rot 0, 0, 0
+right_arm:
+    >attime 0.0
+    >intrpl "linear"
+    rot 0, 0, 0
+    >attime 0.25
+    >intrpl "catmullrom"
+    rot -135, 0, 0
+    >attime 0.5
+    >intrpl "catmullrom"
+    rot 0, 0, 0

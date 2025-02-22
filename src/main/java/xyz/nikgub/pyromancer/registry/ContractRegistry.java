@@ -35,6 +35,8 @@ import net.minecraftforge.registries.RegistryBuilder;
 import net.minecraftforge.registries.RegistryObject;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.contract.AccursedContractEntry;
+import xyz.nikgub.pyromancer.common.entity.FrostcopperGolemEntity;
+import xyz.nikgub.pyromancer.common.entity.RimegazerEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -46,7 +48,7 @@ public class ContractRegistry
     public static final DeferredRegister<AccursedContractEntry<?>> CONTRACTS = DeferredRegister.create(REGISTRY_KEY, PyromancerMod.MOD_ID);
     public static final Supplier<IForgeRegistry<AccursedContractEntry<?>>> REGISTRY = CONTRACTS.makeRegistry(() -> new RegistryBuilder<AccursedContractEntry<?>>().disableOverrides());
 
-    public static RegistryObject<AccursedContractEntry<?>> ZOMBIE = CONTRACTS.register("zombie",
+    public static RegistryObject<AccursedContractEntry<Zombie>> ZOMBIE = CONTRACTS.register("zombie",
         () -> new AccursedContractEntry<>(EntityType.ZOMBIE, 1, (Level pLevel) ->
         {
             Zombie zombie = EntityType.ZOMBIE.create(pLevel);
@@ -66,7 +68,7 @@ public class ContractRegistry
             return zombie;
         }));
 
-    public static RegistryObject<AccursedContractEntry<?>> STRAY = CONTRACTS.register("stray",
+    public static RegistryObject<AccursedContractEntry<Stray>> STRAY = CONTRACTS.register("stray",
         () -> new AccursedContractEntry<>(EntityType.STRAY, 3, (Level pLevel) ->
         {
             Stray stray = EntityType.STRAY.create(pLevel);
@@ -93,9 +95,9 @@ public class ContractRegistry
             return stray;
         }));
 
-    public static RegistryObject<AccursedContractEntry<?>> FROSTCOPPER_GOLEM = CONTRACTS.register("frostcopper_golem",
+    public static RegistryObject<AccursedContractEntry<FrostcopperGolemEntity>> FROSTCOPPER_GOLEM = CONTRACTS.register("frostcopper_golem",
         () -> new AccursedContractEntry<>(EntityTypeRegistry.FROSTCOPPER_GOLEM.get(), 8));
 
-    public static RegistryObject<AccursedContractEntry<?>> RIMEGAZER = CONTRACTS.register("rimegazer",
+    public static RegistryObject<AccursedContractEntry<RimegazerEntity>> RIMEGAZER = CONTRACTS.register("rimegazer",
         () -> new AccursedContractEntry<>(EntityTypeRegistry.RIMEGAZER.get(), 30));
 }

@@ -20,7 +20,6 @@ package xyz.nikgub.pyromancer.common.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -50,11 +49,12 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.incandescent.common.item.ICustomSwingItem;
-import xyz.nikgub.incandescent.common.item.IExtensibleTooltipItem;
-import xyz.nikgub.incandescent.common.item.INotStupidTooltipItem;
+import xyz.nikgub.incandescent.common.item_interfaces.IBetterAttributeTooltipItem;
+import xyz.nikgub.incandescent.common.item_interfaces.ICustomSwingItem;
+import xyz.nikgub.incandescent.common.item_interfaces.IExtensibleTooltipItem;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
+import xyz.nikgub.incandescent.util.Hypermap;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 import xyz.nikgub.pyromancer.registry.DamageSourceRegistry;
@@ -62,12 +62,10 @@ import xyz.nikgub.pyromancer.registry.EnchantmentRegistry;
 import xyz.nikgub.pyromancer.registry.StyleRegistry;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import java.util.function.BiFunction;
 
-public class HoarfrostGreatswordItem extends Item implements ICustomSwingItem, INotStupidTooltipItem, IExtensibleTooltipItem
+public class HoarfrostGreatswordItem extends Item implements ICustomSwingItem, IBetterAttributeTooltipItem, IExtensibleTooltipItem
 {
     public static final Set<ToolAction> ACTIONS = Set.of(ToolActions.SWORD_SWEEP);
 
@@ -165,18 +163,6 @@ public class HoarfrostGreatswordItem extends Item implements ICustomSwingItem, I
             }
         }
         return builder.build();
-    }
-
-    @Override
-    public Map<Attribute, Pair<UUID, Style>> specialColoredUUID (ItemStack itemStack)
-    {
-        return Map.of(AttributeRegistry.COLD_BUILDUP.get(), Pair.of(COLD_BUILDUP_UUID, StyleRegistry.FROST_STYLE));
-    }
-
-    @Override
-    public BiFunction<Player, Attribute, Double> getAdditionalPlayerBonus (ItemStack itemStack)
-    {
-        return ((player, attribute) -> 0d);
     }
 
     @Override
@@ -289,5 +275,21 @@ public class HoarfrostGreatswordItem extends Item implements ICustomSwingItem, I
         poseStack.mulPose(Axis.XP.rotationDegrees(doRotation * -90.0F));
         final float scaleMod = doRotation == 0 ? 1F : 2.75F;
         poseStack.scale(scaleMod, scaleMod, scaleMod);
+    }
+
+    @Override
+    public Hypermap<Attribute, UUID, Style> getDefaultAttributesStyles (ItemStack itemStack)
+    {
+        return Hypermap.of(
+            Attributes.ATTACK_DAMAGE, Item.BASE_ATTACK_DAMAGE_UUID, this.defaultStyle(itemStack),
+            Attributes.ATTACK_SPEED, Item.BASE_ATTACK_SPEED_UUID, this.defaultStyle(itemStack),
+            AttributeRegistry.COLD_BUILDUP.get(), COLD_BUILDUP_UUID, StyleRegistry.FROST_STYLE
+        );
+    }
+
+    @Override
+    public double getAdditionalPlayerBonus (ItemStack itemStack, Player player, Attribute attribute)
+    {
+        return 0;
     }
 }

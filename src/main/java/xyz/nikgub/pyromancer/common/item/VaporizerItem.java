@@ -33,7 +33,7 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import xyz.nikgub.incandescent.common.item.IContainerItem;
+import xyz.nikgub.incandescent.common.item_interfaces.IContainerItem;
 import xyz.nikgub.pyromancer.client.item_extension.VaporizerClientExtension;
 import xyz.nikgub.pyromancer.common.item_capability.VaporizerCapability;
 import xyz.nikgub.pyromancer.data.ItemTagDatagen;

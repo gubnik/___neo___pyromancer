@@ -62,7 +62,6 @@ sourceSets.main.resources {
 mixin {
     add sourceSets.main, "pyromancer.refmap.json"
     config "pyromancer.mixins.json"
-    debug.export = true
 }
 
 repositories {
@@ -83,7 +82,7 @@ configurations {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    implementation fg.deobf("curse.maven:incandescent_lib-971520:6062864")
+    implementation fg.deobf("curse.maven:incandescent_lib-971520:6223002")
     implementation fg.deobf("com.github.glitchfiend:TerraBlender-forge:${minecraft_version}-3.0.1.7")
 }
 

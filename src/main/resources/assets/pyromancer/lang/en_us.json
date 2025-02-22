@@ -1,6 +1,8 @@
 {
   "advancement.pyromancer.amber_obtained.description": "Obtain a piece of amber",
   "advancement.pyromancer.amber_obtained.title": "Sweet",
+  "advancement.pyromancer.ancient_plating_obtained.description": "Obtain an ancient plating",
+  "advancement.pyromancer.ancient_plating_obtained.title": "Sheet Metal",
   "advancement.pyromancer.blazing_journal.description": "By Living Flame, burn all and each",
   "advancement.pyromancer.blazing_journal.title": "Pyromancer",
   "advancement.pyromancer.court_of_embers_obtained.description": "Obtain the Court of Embers",

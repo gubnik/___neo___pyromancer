@@ -37,9 +37,8 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
-import xyz.nikgub.incandescent.client.animations.DeterminedAnimation;
-import xyz.nikgub.incandescent.client.animations.IAnimationPurposeEntity;
-import xyz.nikgub.pyromancer.PyromancerMod;
+import xyz.nikgub.incandescent.common.animation.DeterminedAnimation;
+import xyz.nikgub.incandescent.common.animation.IAnimationPurposeEntity;
 
 import java.util.List;
 
