@@ -18,7 +18,6 @@
 package xyz.nikgub.pyromancer;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.ChatFormatting;
 import net.minecraft.DetectedVersion;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -64,7 +63,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -77,7 +75,6 @@ import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -90,6 +87,7 @@ import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import xyz.nikgub.incandescent.Incandescent;
+import xyz.nikgub.incandescent.common.event.SyncEntityNBTEvent;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.incandescent.pyranim.parser.PyranimParser;
@@ -100,7 +98,6 @@ import xyz.nikgub.pyromancer.client.particle.BrimflameParticle;
 import xyz.nikgub.pyromancer.client.particle.MercuryVaporParticle;
 import xyz.nikgub.pyromancer.client.renderer.entity.*;
 import xyz.nikgub.pyromancer.common.contract.ContractDirector;
-import xyz.nikgub.pyromancer.common.ember.Ember;
 import xyz.nikgub.pyromancer.common.enchantment.BlazingJournalEnchantment;
 import xyz.nikgub.pyromancer.common.entity.*;
 import xyz.nikgub.pyromancer.common.item.*;
@@ -154,10 +151,8 @@ public class PyromancerMod
         modEventBus.addListener(this::registerSpawnPlacements);
 
         ParticleRegistry.PARTICLES.register(modEventBus);
-        EmberRegistry.EMBERS.register(modEventBus);
         ContractRegistry.CONTRACTS.register(modEventBus);
         ItemRegistry.ITEMS.register(modEventBus);
-        VaporizerAmmoRegistry.AMMO.register(modEventBus);
         BlockRegistry.BLOCKS.register(modEventBus);
         AttributeRegistry.ATTRIBUTES.register(modEventBus);
         EntityTypeRegistry.ENTITY_TYPES.register(modEventBus);
@@ -236,14 +231,12 @@ public class PyromancerMod
             List<Item> PYROMANCY = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof IPyromancyItem).map(RegistryObject::get).toList();
             List<Item> TOOLS = new ArrayList<>(ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof TieredItem && !(registryObject.get() instanceof IPyromancyItem)).map(RegistryObject::get).toList());
             List<Item> QUILLS = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof QuillItem).map(RegistryObject::get).toList();
-            List<ItemStack> EMBERS = EmberRegistry.REGISTRY.get().getValues().stream().map(ember -> ember.applyToItemStack(new ItemStack(ItemRegistry.EMBER_ITEM.get()))).toList();
             List<Item> ARMOR = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof ArmorItem).map(RegistryObject::get).toList();
             List<Item> INFUSIONS = ItemRegistry.ITEMS.getEntries().stream().filter(registryObject -> registryObject.get() instanceof InfusionItem).map(RegistryObject::get).toList();
-            List<Item> ALL_ELSE = new ArrayList<>(ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).filter(item -> !(item instanceof BlockItem) && !(item instanceof SpawnEggItem) && !(item instanceof EmberItem)).toList());
+            List<Item> ALL_ELSE = new ArrayList<>(ItemRegistry.ITEMS.getEntries().stream().map(RegistryObject::get).filter(item -> !(item instanceof BlockItem) && !(item instanceof SpawnEggItem)).toList());
             TOOLS.addAll(List.of(
                 ItemRegistry.ZWEIHANDER.get(),
                 ItemRegistry.MUSKET.get(),
-                ItemRegistry.VAPORIZER.get(),
                 ItemRegistry.HOARFROST_GREATSWORD.get(),
                 ItemRegistry.SPEAR_OF_MOROZ.get()
             ));
@@ -260,8 +253,6 @@ public class PyromancerMod
             for (Item item : QUILLS) event.accept(item);
             for (Item item : PYROMANCY) event.accept(item);
             for (Item item : INFUSIONS) event.accept(item);
-            //event.accept(new ItemStack(ItemRegistry.EMBER_ITEM.get()));
-            for (ItemStack item : EMBERS) event.accept(item);
             for (Item item : ALL_ELSE) event.accept(item);
         } else if (event.getTabKey().equals(CreativeModeTabs.BUILDING_BLOCKS) || event.getTabKey().equals(CreativeModeTabs.NATURAL_BLOCKS))
         {
@@ -301,6 +292,15 @@ public class PyromancerMod
         event.register(EntityTypeRegistry.PYRACORN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PyracornEntity::spawnPredicate, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(EntityTypeRegistry.SCORCH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ScorchEntity::spawnPredicate, SpawnPlacementRegisterEvent.Operation.OR);
         event.register(EntityTypeRegistry.PYROENT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PyroentEntity::spawnPredicate, SpawnPlacementRegisterEvent.Operation.OR);
+    }
+
+    @SubscribeEvent
+    public void nbtSync (SyncEntityNBTEvent event)
+    {
+        if (ContractRegistry.isContractMob(event.getEntity()))
+        {
+            event.setDoSync(true);
+        }
     }
 
     @SubscribeEvent
@@ -383,30 +383,6 @@ public class PyromancerMod
         {
             clientTick++;
         }
-
-        @SubscribeEvent
-        public static void tooltipColorEvent (RenderTooltipEvent.Color event)
-        {
-            ItemStack itemStack = event.getItemStack();
-            Ember ember = Ember.getFromItem(itemStack);
-            if (ember != null)
-            {
-                event.setBackgroundStart(ember.getType().getColor());
-            }
-        }
-
-        @SubscribeEvent
-        public static void tooltipContentsEvent (ItemTooltipEvent event)
-        {
-            ItemStack itemStack = event.getItemStack();
-            Ember ember = Ember.getFromItem(itemStack);
-            if (ember == null) return;
-            if (itemStack.getItem() instanceof EmberItem
-                && event.getFlags() == TooltipFlag.ADVANCED)
-            {
-                event.getToolTip().add(Component.translatable(ember.toString()).withStyle(ChatFormatting.DARK_GRAY));
-            }
-        }
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.DEDICATED_SERVER)
@@ -419,6 +395,7 @@ public class PyromancerMod
     @SuppressWarnings("unused")
     public static class ForgeEvents
     {
+
         @SubscribeEvent
         public static void onEntityJoinLevel (EntityJoinLevelEvent event)
         {

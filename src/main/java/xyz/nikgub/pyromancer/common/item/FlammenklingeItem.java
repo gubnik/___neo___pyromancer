@@ -34,11 +34,9 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -60,6 +58,7 @@ import xyz.nikgub.pyromancer.registry.DamageSourceRegistry;
 import xyz.nikgub.pyromancer.registry.ItemRegistry;
 import xyz.nikgub.pyromancer.registry.TierRegistry;
 
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -218,16 +217,18 @@ public class FlammenklingeItem extends SwordItem implements IPyromancyItem, IBet
     }
 
     @Override
-    public void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
+    public void appendHoverText (@NotNull ItemStack itemStack, @Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
     {
         this.gatherTooltipLines(list, "pyromancer.hidden_desc", "desc", PyromancerConfig.descTooltipKey);
         this.gatherTooltipLines(list, "pyromancer.hidden_lore", "lore", PyromancerConfig.loreTooltipKey);
     }
 
     @Override
-    public Hypermap<Attribute, UUID, Style> getDefaultAttributesStyles (ItemStack itemStack)
+    public Hypermap<Attribute, UUID, Style> getDefaultAttributesStyles (final ItemStack itemStack)
     {
         return Hypermap.of(
+            Attributes.ATTACK_DAMAGE, Item.BASE_ATTACK_DAMAGE_UUID, this.defaultStyle(itemStack),
+            Attributes.ATTACK_SPEED, Item.BASE_ATTACK_SPEED_UUID, this.defaultStyle(itemStack),
             AttributeRegistry.PYROMANCY_DAMAGE.get(), BASE_PYROMANCY_DAMAGE_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD),
             AttributeRegistry.BLAZE_CONSUMPTION.get(), BASE_BLAZE_CONSUMPTION_UUID, Style.EMPTY.applyFormat(ChatFormatting.GOLD)
         );

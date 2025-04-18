@@ -20,6 +20,7 @@ package xyz.nikgub.pyromancer.registry;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Stray;
@@ -44,9 +45,14 @@ import java.util.function.Supplier;
 
 public class ContractRegistry
 {
-    public static final ResourceKey<Registry<AccursedContractEntry<?>>> REGISTRY_KEY = ResourceKey.createRegistryKey(new ResourceLocation(PyromancerMod.MOD_ID, "contracts"));
+    private static final ResourceKey<Registry<AccursedContractEntry<?>>> REGISTRY_KEY = ResourceKey.createRegistryKey(new ResourceLocation(PyromancerMod.MOD_ID, "contracts"));
     public static final DeferredRegister<AccursedContractEntry<?>> CONTRACTS = DeferredRegister.create(REGISTRY_KEY, PyromancerMod.MOD_ID);
     public static final Supplier<IForgeRegistry<AccursedContractEntry<?>>> REGISTRY = CONTRACTS.makeRegistry(() -> new RegistryBuilder<AccursedContractEntry<?>>().disableOverrides());
+
+    public static boolean isContractMob(Entity entity)
+    {
+        return CONTRACTS.getEntries().stream().map(RegistryObject::get).anyMatch(accursedContractEntry -> entity.getType().equals(accursedContractEntry.getEntityToSummon()));
+    }
 
     public static RegistryObject<AccursedContractEntry<Zombie>> ZOMBIE = CONTRACTS.register("zombie",
         () -> new AccursedContractEntry<>(EntityType.ZOMBIE, 1, (Level pLevel) ->

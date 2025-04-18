@@ -285,17 +285,6 @@ public class RecipeDatagen extends RecipeProvider
             .unlockedBy(getHasName(ItemRegistry.ANCIENT_PLATING.get()), has(ItemRegistry.ANCIENT_PLATING.get()))
             .save(consumer);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.VAPORIZER.get())
-            .pattern("IDI")
-            .pattern("#II")
-            .pattern("#S ")
-            .define('I', Items.IRON_INGOT)
-            .define('#', ItemRegistry.ANCIENT_PLATING.get())
-            .define('S', Items.STICK)
-            .define('D', Items.DISPENSER)
-            .unlockedBy(getHasName(ItemRegistry.ANCIENT_PLATING.get()), has(ItemRegistry.ANCIENT_PLATING.get()))
-            .save(consumer);
-
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.MEMORY_OF_FIRE.get())
             .pattern("FAF")
             .pattern("SFS")

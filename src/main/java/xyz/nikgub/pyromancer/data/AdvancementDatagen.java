@@ -142,16 +142,6 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                 .addCriterion("court_of_embers_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.COURT_OF_EMBERS.get()))
                 .save(saver, "pyromancer:pyromancer/court_of_embers_obtained");
 
-            Advancement ember_obtained = Advancement.Builder.advancement().parent(flaming_grove_visited)
-                .display(ItemRegistry.EMBER_ITEM.get(),
-                    Component.translatable("advancement.pyromancer.ember_obtained.title"),
-                    Component.translatable("advancement.pyromancer.ember_obtained.description"),
-                    null,
-                    FrameType.TASK,
-                    true, true, false)
-                .addCriterion("ember_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.EMBER_ITEM.get()))
-                .save(saver, "pyromancer:pyromancer/ember_obtained");
-
             Advancement unburned_defeated = Advancement.Builder.advancement().parent(flaming_grove_visited)
                 .display(ItemRegistry.MEMORY_OF_FIRE.get(),
                     Component.translatable("advancement.pyromancer.unburned_defeated.title"),

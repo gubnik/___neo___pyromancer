@@ -27,7 +27,6 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.client.animation.RimegazerAnimations;
 import xyz.nikgub.pyromancer.common.entity.RimegazerEntity;
 
 public class RimegazerModel<T extends RimegazerEntity> extends HierarchicalModel<T>
@@ -112,8 +111,8 @@ public class RimegazerModel<T extends RimegazerEntity> extends HierarchicalModel
     public void setupAnim (T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animate(entity.ATTACK, RimegazerAnimations.ATTACK, ageInTicks);
-        this.animate(entity.SPIN, RimegazerAnimations.SPIN, ageInTicks);
+        //this.animate(entity.ATTACK, RimegazerAnimations.ATTACK, ageInTicks);
+        //this.animate(entity.SPIN, RimegazerAnimations.SPIN, ageInTicks);
     }
 
     @Override

@@ -27,6 +27,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeEntityTypeTagsProvider;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.PyromancerMod;
+import xyz.nikgub.pyromancer.registry.ContractRegistry;
 import xyz.nikgub.pyromancer.registry.EntityTypeRegistry;
 
 import java.util.concurrent.CompletableFuture;
@@ -34,6 +35,7 @@ import java.util.concurrent.CompletableFuture;
 public class EntityTagDatagen extends ForgeEntityTypeTagsProvider
 {
     public static final TagKey<EntityType<?>> FLAMING_GROVE_NATIVE = create("flaming_grove_native");
+    public static final TagKey<EntityType<?>> CONTRACT_SUMMONED = create("can_be_contract_summoned");
 
     public EntityTagDatagen (PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper)
     {
@@ -50,5 +52,10 @@ public class EntityTagDatagen extends ForgeEntityTypeTagsProvider
     {
         tag(FLAMING_GROVE_NATIVE)
             .add(EntityTypeRegistry.SCORCH.get(), EntityTypeRegistry.PYRACORN.get(), EntityTypeRegistry.UNBURNED.get());
+        for (var entityType : ContractRegistry.CONTRACTS.getEntries().stream().map(e -> e.get().getEntityToSummon()).toArray(EntityType[]::new))
+        {
+            tag(CONTRACT_SUMMONED)
+                .add(entityType);
+        }
     }
 }

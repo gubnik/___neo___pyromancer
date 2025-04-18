@@ -21,7 +21,6 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.core.BlockPos;
@@ -72,7 +71,7 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, IBetterA
     public static final UUID REACH_UUID = UUID.fromString("f8d0df81-d456-4013-a058-40c4a5be1f2d");
     public static final UUID KNOCKBACK_RESISTANCE_UUID = UUID.fromString("d74e1d05-f83c-40a9-b61f-ab8d5e13d969");
 
-    public static final String ACTION_TAG = "__FROSTBORNE_SPEAR_OF_MOROZ_ACTION__";
+    public static final String ACTION_TAG = "__SPEAR_OF_MOROZ_ACTION__";
 
     public SpearOfMorozItem (Properties pProperties)
     {
@@ -343,7 +342,7 @@ public class SpearOfMorozItem extends Item implements ICustomSwingItem, IBetterA
             Attributes.ATTACK_DAMAGE, Item.BASE_ATTACK_DAMAGE_UUID, this.defaultStyle(itemStack),
             Attributes.ATTACK_SPEED, Item.BASE_ATTACK_SPEED_UUID, this.defaultStyle(itemStack),
             AttributeRegistry.COLD_BUILDUP.get(), COLD_BUILDUP_UUID, StyleRegistry.FROST_STYLE,
-            ForgeMod.ENTITY_REACH.get(), REACH_UUID, Style.EMPTY.withColor(ChatFormatting.DARK_GREEN)
+            ForgeMod.ENTITY_REACH.get(), REACH_UUID, this.defaultStyle(itemStack)
         );
     }
 

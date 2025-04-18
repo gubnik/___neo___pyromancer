@@ -40,7 +40,7 @@ right_arm:
     >attime 0.0
     mov 0, 0, 0
     >attime 0.4
-    mov -4, 0, 0
+    mov 4, 0, 0
     >attime 0.65
     mov 0, -12, 0
     >attime 0.75
@@ -49,7 +49,7 @@ left_arm:
     >attime 0.0
     mov 0, 0, 0
     >attime 0.4
-    mov 4, 0, 0
+    mov -4, 0, 0
     >attime 0.65
     mov 0, -12, 0
     >attime 0.75

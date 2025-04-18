@@ -22,7 +22,6 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import xyz.nikgub.pyromancer.common.ember.UniqueEmberBehaviour;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 
 import java.util.Collection;
@@ -32,7 +31,6 @@ import java.util.UUID;
  * Interface that enables pyromancy functionality <p>
  * Must be used when making any pyromancy
  */
-@UniqueEmberBehaviour(allow = UniqueEmberBehaviour.AllowanceModifier.DENY)
 public interface IPyromancyItem
 {
 

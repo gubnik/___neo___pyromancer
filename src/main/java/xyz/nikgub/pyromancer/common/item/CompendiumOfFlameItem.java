@@ -48,7 +48,6 @@ import xyz.nikgub.incandescent.common.item_interfaces.IBetterAttributeTooltipIte
 import xyz.nikgub.incandescent.common.item_interfaces.IGradientNameItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.incandescent.util.Hypermap;
-import xyz.nikgub.pyromancer.common.ember.UniqueEmberBehaviour;
 import xyz.nikgub.pyromancer.common.item_capability.CompendiumOfFlameCapability;
 import xyz.nikgub.pyromancer.mixin.client.ItemRendererMixin;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
@@ -60,7 +59,6 @@ import java.util.UUID;
  * Item that inherits {@link BlazingJournalItem}'s full functionality and is capable of storing 5 {@link UsablePyromancyItem}s <p>
  * For details regarding storage, see {@link CompendiumOfFlameCapability}
  */
-@UniqueEmberBehaviour(allow = UniqueEmberBehaviour.AllowanceModifier.DENY)
 public class CompendiumOfFlameItem extends BlazingJournalItem implements IBetterAttributeTooltipItem, IGradientNameItem
 {
 

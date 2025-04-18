@@ -72,7 +72,7 @@ public class HoarfrostGreatswordItem extends Item implements ICustomSwingItem, I
     public static final UUID COLD_BUILDUP_UUID = UUID.fromString("c79b16a9-3513-4d35-9a78-5c92882673c5");
     public static final UUID REACH_UUID = UUID.fromString("f8d0df81-d456-4013-a058-40c4a5be1f2d");
 
-    public static final String ACTION_TAG = "__FROSTBORNE_HOARFROST_GREATSWORD_ACTION__";
+    public static final String ACTION_TAG = "__HOARFROST_GREATSWORD_ACTION__";
 
     public HoarfrostGreatswordItem (Properties properties)
     {

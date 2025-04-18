@@ -66,8 +66,6 @@ public class ItemRegistry
         () -> new ZweihanderItem(new Item.Properties()));
     public static final RegistryObject<MusketItem> MUSKET = ITEMS.register("musket",
         () -> new MusketItem(new Item.Properties()));
-    public static final RegistryObject<VaporizerItem> VAPORIZER = ITEMS.register("vaporizer",
-        () -> new VaporizerItem(new Item.Properties()));
 
 
     // infusion
@@ -100,7 +98,6 @@ public class ItemRegistry
 
 
     public static final RegistryObject<AccursedContractItem> ACCURSED_CONTRACT = ITEMS.register("accursed_contract", AccursedContractItem::new);
-    public static final RegistryObject<Item> EMBER_ITEM = ITEMS.register("ember", () -> new EmberItem(new Item.Properties()));
     public static final RegistryObject<Item> BLAZING_QUILL = ITEMS.register("blazing_quill",
         () -> new QuillItem(new Item.Properties())
         {

@@ -104,7 +104,7 @@ public class ContractDirector
         {
             if (damageSource.is(DamageTypeTags.IS_FIRE))
             {
-                return 0.2f;
+                return 0.5f;
             }
         }
         return 0.0f;
@@ -176,9 +176,9 @@ public class ContractDirector
             {
                 boolean hasSpace = true;
                 int halfWidth = (int) (entityW / 2);
-                for (int x = -halfWidth; x <= halfWidth; x++)
+                for (int x = -halfWidth; x <= halfWidth && hasSpace; x++)
                 {
-                    for (int y = 0; y < entityH; y++)
+                    for (int y = 0; y < entityH && hasSpace; y++)
                     {
                         for (int z = -halfWidth; z <= halfWidth; z++)
                         {
@@ -189,14 +189,6 @@ public class ContractDirector
                                 break;
                             }
                         }
-                        if (!hasSpace)
-                        {
-                            break;
-                        }
-                    }
-                    if (!hasSpace)
-                    {
-                        break;
                     }
                 }
                 if (hasSpace)

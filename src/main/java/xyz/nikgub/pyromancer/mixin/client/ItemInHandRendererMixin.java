@@ -20,12 +20,10 @@ package xyz.nikgub.pyromancer.mixin.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
@@ -40,7 +38,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.nikgub.pyromancer.PyromancerMod;
-import xyz.nikgub.pyromancer.common.ember.Ember;
 import xyz.nikgub.pyromancer.common.item.SpearOfMorozItem;
 import xyz.nikgub.pyromancer.common.item.ZweihanderItem;
 import xyz.nikgub.pyromancer.common.mob_effect.InfusionMobEffect;
@@ -110,37 +107,5 @@ public abstract class ItemInHandRendererMixin
                     OverlayTexture.NO_OVERLAY, livingEntity.getId() + displayContext.ordinal());
             }
         }
-    }
-
-    @Inject(method = "renderArmWithItem", at = @At("HEAD"), cancellable = true)
-    public void renderArmWithItemMixinHead (AbstractClientPlayer player,
-                                            float partialTick,
-                                            float pPitch, InteractionHand hand,
-                                            float swingProgress, ItemStack itemStack,
-                                            float equippedProgress,
-                                            PoseStack poseStack,
-                                            MultiBufferSource multiBufferSource,
-                                            int pCombinedLight,
-                                            CallbackInfo callbackInfo)
-    {
-        boolean flag = hand == InteractionHand.MAIN_HAND;
-        HumanoidArm arm = flag ? player.getMainArm() : player.getMainArm().getOpposite();
-        boolean isRight = (arm == HumanoidArm.RIGHT);
-        boolean customBehaviour = false;
-        poseStack.pushPose();
-        if (player.getUsedItemHand() == hand && player.isUsingItem() && player.getUseItemRemainingTicks() > 0)
-        {
-            Ember ember = Ember.getFromItem(itemStack);
-            if (ember != null)
-            {
-                this.applyItemArmTransform(poseStack, arm, equippedProgress);
-                customBehaviour = true;
-                ember.getAnimation().getFirstPersonAnimation().run(poseStack, minecraft.player, arm, itemStack, partialTick, equippedProgress, swingProgress);
-            }
-        }
-        if (!customBehaviour) return;
-        this.renderItem(minecraft.player, itemStack, isRight ? ItemDisplayContext.FIRST_PERSON_RIGHT_HAND : ItemDisplayContext.FIRST_PERSON_LEFT_HAND, !isRight, poseStack, multiBufferSource, pCombinedLight);
-        poseStack.popPose();
-        callbackInfo.cancel();
     }
 }

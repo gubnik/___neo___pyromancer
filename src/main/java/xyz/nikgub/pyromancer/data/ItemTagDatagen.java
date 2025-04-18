@@ -33,7 +33,6 @@ import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.item.IPyromancyItem;
 import xyz.nikgub.pyromancer.common.item.MaceItem;
 import xyz.nikgub.pyromancer.registry.ItemRegistry;
-import xyz.nikgub.pyromancer.registry.VaporizerAmmoRegistry;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -65,8 +64,6 @@ public class ItemTagDatagen extends ItemTagsProvider
                 tag(PYROMANCY).add(item);
             if (item instanceof MaceItem)
                 tag(MACE).add(item);
-            if (VaporizerAmmoRegistry.isAmmo(item))
-                tag(VAPORIZER_AMMO).add(item);
         }
         tag(FROST_WEAPON)
             .add(
@@ -77,7 +74,8 @@ public class ItemTagDatagen extends ItemTagsProvider
             .addTags(MACE)
             .add(
                 ItemRegistry.FLAMMENKLINGE.get(),
-                ItemRegistry.SPEAR_OF_MOROZ.get()
+                ItemRegistry.SPEAR_OF_MOROZ.get(),
+                ItemRegistry.ZWEIHANDER.get()
             );
         tag(FLAMMENKLINGE_PLUNGE_COMPATIBLE)
             .add(
