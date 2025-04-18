@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "pyromancer:vaporizer"
+        "recipe": "pyromancer:memory_of_fire"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "pyromancer:vaporizer"
+      "pyromancer:memory_of_fire"
     ]
   },
   "sends_telemetry_event": false

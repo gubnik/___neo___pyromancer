@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "pyromancer:amber"
+    },
+    "F": {
+      "item": "pyromancer:amber"
+    },
+    "S": {
+      "item": "pyromancer:amber"
+    }
+  },
+  "pattern": [
+    "FAF",
+    "SFS",
+    " A "
+  ],
+  "result": {
+    "item": "pyromancer:memory_of_fire"
+  },
+  "show_notification": true
+}

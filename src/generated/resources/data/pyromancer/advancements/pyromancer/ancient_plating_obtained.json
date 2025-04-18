@@ -1,12 +1,12 @@
 {
-  "parent": "pyromancer:pyromancer/flaming_grove_visited",
+  "parent": "pyromancer:pyromancer/root",
   "criteria": {
-    "ember_obtained": {
+    "ancient_plating_obtained": {
       "conditions": {
         "items": [
           {
             "items": [
-              "pyromancer:ember"
+              "pyromancer:ancient_plating"
             ]
           }
         ]
@@ -17,21 +17,21 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancement.pyromancer.ember_obtained.description"
+      "translate": "advancement.pyromancer.ancient_plating_obtained.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "pyromancer:ember"
+      "item": "pyromancer:ancient_plating"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancement.pyromancer.ember_obtained.title"
+      "translate": "advancement.pyromancer.ancient_plating_obtained.title"
     }
   },
   "requirements": [
     [
-      "ember_obtained"
+      "ancient_plating_obtained"
     ]
   ],
   "sends_telemetry_event": true
