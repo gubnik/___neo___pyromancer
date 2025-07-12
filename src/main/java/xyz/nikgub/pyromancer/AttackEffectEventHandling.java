@@ -101,7 +101,7 @@ public class AttackEffectEventHandling
         final ItemStack mainHand = sourceEntity.getMainHandItem();
         float multiplier = 0.0f;
         multiplier += frostBuildup(target, sourceEntity, damageSource, damageAmount, mainHand);
-        if (PyromancerMod.DO_INFUSION_RENDER.get(mainHand.getItem()))
+        if (PyromancerMod.DEFAULT_USE_METHOD_ITEMS.get(mainHand.getItem()))
         {
             multiplier += InfusionMobEffect.tryEffect(target, directCause, damageSource, damageAmount);
         }

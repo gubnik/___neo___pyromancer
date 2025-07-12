@@ -2,14 +2,14 @@
 
 bone:
     >attime 0.0
-    >intrpl "catmullrom"
-    mov 0, 36, 0
+    >intrpl "linear"
+    mov 0, -36, 0
     rot 0, 0, 0
     >attime 0.35
-    >intrpl "catmullrom"
-    mov 0, 42, 0
+    >intrpl "linear"
+    mov 0, -42, 0
     rot 0, -45, 0
     >attime 0.5
-    >intrpl "catmullrom"
-    mov 0, -16, 0
+    >intrpl "linear"
+    mov 0, 6, 0
     rot 0, 360, 0

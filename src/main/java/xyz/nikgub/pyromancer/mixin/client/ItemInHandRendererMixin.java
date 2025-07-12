@@ -94,7 +94,7 @@ public abstract class ItemInHandRendererMixin
         for (MobEffectInstance instance : livingEntity.getActiveEffects())
         {
             if (instance.getEffect() instanceof InfusionMobEffect infusionMobEffect
-                && PyromancerMod.DO_INFUSION_RENDER.get(toRender.getItem())
+                && PyromancerMod.DEFAULT_USE_METHOD_ITEMS.get(toRender.getItem())
                 && toRender.getAttributeModifiers(EquipmentSlot.MAINHAND).containsKey(Attributes.ATTACK_DAMAGE)
             )
             {

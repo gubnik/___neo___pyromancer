@@ -132,7 +132,7 @@ public class PyromancerMod
 
     public static final PyranimParser PARSER = new PyranimParser.Builder().build();
 
-    public static Map<Item, Boolean> DO_INFUSION_RENDER;
+    public static Map<Item, Boolean> DEFAULT_USE_METHOD_ITEMS;
 
     public PyromancerMod ()
     {
@@ -170,7 +170,7 @@ public class PyromancerMod
         BiomeDatagen.setupTerrablender();
         event.enqueueWork(InfusionItem::makeRecipes);
 
-        DO_INFUSION_RENDER = BuiltInRegistries.ITEM.stream().collect(Collectors.toMap(item -> item, item ->
+        DEFAULT_USE_METHOD_ITEMS = BuiltInRegistries.ITEM.stream().collect(Collectors.toMap(item -> item, item ->
             Arrays.stream(item.getClass().getMethods()).anyMatch(m -> Arrays.equals(m.getParameterTypes(), new Class<?>[]{Level.class, Player.class, InteractionHand.class}) &&
                 m.getReturnType() == InteractionResultHolder.class && m.getDeclaringClass() == Item.class) && item.getMaxStackSize(item.getDefaultInstance()) == 1));
     }
