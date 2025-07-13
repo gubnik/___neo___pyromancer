@@ -39,7 +39,7 @@ import java.util.Map;
 public class ArmorOfHellblazeMonarchModel<T extends LivingEntity> extends EntityModel<T>
 {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "armorofhellblazemonarchmodel"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "armorofhellblazemonarchmodel"), "main");
     private final ModelPart arm_left;
     private final ModelPart arm_right;
     private final ModelPart chestplate;

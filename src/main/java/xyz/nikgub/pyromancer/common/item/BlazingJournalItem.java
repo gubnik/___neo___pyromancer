@@ -119,7 +119,7 @@ public class BlazingJournalItem extends Item implements IContainerItem, Equipabl
     {
         if (!(entity instanceof ServerPlayer serverPlayer)) return;
         if (this.getItemFromItem(itemStack, 0) != ItemStack.EMPTY)
-            GeneralUtils.addAdvancement(serverPlayer, new ResourceLocation("pyromancer:pyromancer/quill_applied"));
+            GeneralUtils.addAdvancement(serverPlayer, ResourceLocation.parse("pyromancer:pyromancer/quill_applied"));
     }
 
     @Override

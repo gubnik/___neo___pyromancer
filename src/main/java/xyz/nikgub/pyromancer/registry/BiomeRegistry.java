@@ -41,7 +41,7 @@ public class BiomeRegistry
 
     private static ResourceKey<Biome> register (String name)
     {
-        ResourceKey<Biome> key = ResourceKey.create(Registries.BIOME, new ResourceLocation(PyromancerMod.MOD_ID, name));
+        ResourceKey<Biome> key = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, name));
         BIOMES.add(key);
         return key;
     }

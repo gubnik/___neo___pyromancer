@@ -38,7 +38,7 @@ import xyz.nikgub.pyromancer.common.entity.attack_effect.FlamingGuillotineEntity
 public class FlamingGuillotineModel<T extends FlamingGuillotineEntity> extends HierarchicalModel<T>
 {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(PyromancerMod.MOD_ID, "flaming_guillotine"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "flaming_guillotine"), "main");
     private final ModelPart bone;
 
     public FlamingGuillotineModel (ModelPart root)

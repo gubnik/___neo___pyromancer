@@ -33,7 +33,7 @@ import xyz.nikgub.pyromancer.common.entity.PyroentEntity;
 
 public class PyroentModel<T extends PyroentEntity> extends HierarchicalModel<T>
 {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(PyromancerMod.MOD_ID, "pyroent"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "pyroent"), "main");
     public final ModelPart root;
     public final ModelPart LegRight;
     public final ModelPart LegLeft;

@@ -49,7 +49,7 @@ public class BlockTagDatagen extends IntrinsicHolderTagsProvider<Block>
 
     protected static TagKey<Block> create (String tagKey)
     {
-        return BlockTags.create(new ResourceLocation(PyromancerMod.MOD_ID, tagKey));
+        return BlockTags.create(ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, tagKey));
     }
 
     @Override

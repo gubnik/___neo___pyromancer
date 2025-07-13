@@ -38,21 +38,21 @@ public class BlockStateDatagen extends BlockStateProvider
         BlockRegistry.FIREBRIAR.get()
     );
     public static final Map<Block, Consumer<BlockStateDatagen>> CUSTOM = Map.of(
-        BlockRegistry.PYROWOOD_LOG.get(), (blockStateDatagen -> blockStateDatagen.axisBlock(BlockRegistry.PYROWOOD_LOG.get(), new ResourceLocation(PyromancerMod.MOD_ID, "block/pyrowood_log_side"), new ResourceLocation(PyromancerMod.MOD_ID, "block/pyrowood_log_top"))),
-        BlockRegistry.STRIPPED_PYROWOOD_LOG.get(), (blockStateDatagen -> blockStateDatagen.axisBlock(BlockRegistry.STRIPPED_PYROWOOD_LOG.get(), new ResourceLocation(PyromancerMod.MOD_ID, "block/stripped_pyrowood_log_side"), new ResourceLocation(PyromancerMod.MOD_ID, "block/stripped_pyrowood_log_top"))),
+        BlockRegistry.PYROWOOD_LOG.get(), (blockStateDatagen -> blockStateDatagen.axisBlock(BlockRegistry.PYROWOOD_LOG.get(), ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/pyrowood_log_side"), ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/pyrowood_log_top"))),
+        BlockRegistry.STRIPPED_PYROWOOD_LOG.get(), (blockStateDatagen -> blockStateDatagen.axisBlock(BlockRegistry.STRIPPED_PYROWOOD_LOG.get(), ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/stripped_pyrowood_log_side"), ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/stripped_pyrowood_log_top"))),
         BlockRegistry.PYROMOSSED_NETHERRACK.get(), (blockModelDatagen ->
         {
-            var builder = blockModelDatagen.modelDatagen.generatedModels.get(new ResourceLocation(PyromancerMod.MOD_ID, "block/pyromossed_netherrack"));
+            var builder = blockModelDatagen.modelDatagen.generatedModels.get(ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/pyromossed_netherrack"));
             blockModelDatagen.simpleBlock(BlockRegistry.PYROMOSSED_NETHERRACK.get(), builder);
         }),
         BlockRegistry.RIMEBLOOD_CELL.get(), (blockModelDatagen ->
         {
-            var builder = blockModelDatagen.modelDatagen.generatedModels.get(new ResourceLocation(PyromancerMod.MOD_ID, "block/rimeblood_cell"));
+            var builder = blockModelDatagen.modelDatagen.generatedModels.get(ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/rimeblood_cell"));
             blockModelDatagen.simpleBlock(BlockRegistry.RIMEBLOOD_CELL.get(), builder);
         }),
         BlockRegistry.PYROWOOD_LEAVES.get(), (blockModelDatagen ->
         {
-            blockModelDatagen.simpleBlock(BlockRegistry.PYROWOOD_LEAVES.get(), blockModelDatagen.models().cubeAll("pyrowood_leaves", new ResourceLocation(PyromancerMod.MOD_ID, "block/pyrowood_leaves")).renderType("cutout_mipped"));
+            blockModelDatagen.simpleBlock(BlockRegistry.PYROWOOD_LEAVES.get(), blockModelDatagen.models().cubeAll("pyrowood_leaves", ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/pyrowood_leaves")).renderType("cutout_mipped"));
         })
     );
     public final BlockModelDatagen modelDatagen;
@@ -83,44 +83,44 @@ public class BlockStateDatagen extends BlockStateProvider
             if (block instanceof StairBlock stairBlock)
             {
                 correctName = correctName.replaceFirst("_stairs", "");
-                ResourceLocation all = new ResourceLocation(PyromancerMod.MOD_ID, "block/" + correctName);
+                ResourceLocation all = ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/" + correctName);
                 this.stairsBlockWithRenderType(stairBlock, all, "cutout_mipped");
             } else if (block instanceof SlabBlock slabBlock)
             {
                 correctName = correctName.replaceFirst("_slab", "");
-                ResourceLocation all = new ResourceLocation(PyromancerMod.MOD_ID, "block/" + correctName);
-                this.slabBlock(slabBlock, new ResourceLocation(PyromancerMod.MOD_ID, "block/" + blockId + "_full"), all);
+                ResourceLocation all = ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/" + correctName);
+                this.slabBlock(slabBlock, ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/" + blockId + "_full"), all);
             } else if (block instanceof FenceBlock fenceBlock)
             {
                 correctName = correctName.replaceFirst("_fence", "");
-                ResourceLocation all = new ResourceLocation(PyromancerMod.MOD_ID, "block/" + correctName);
+                ResourceLocation all = ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/" + correctName);
                 this.fenceBlockWithRenderType(fenceBlock, all, "cutout_mipped");
             } else if (block instanceof WallBlock wallBlock)
             {
                 correctName = correctName.replaceFirst("_wall", "");
-                ResourceLocation all = new ResourceLocation(PyromancerMod.MOD_ID, "block/" + correctName);
+                ResourceLocation all = ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/" + correctName);
                 this.wallBlockWithRenderType(wallBlock, all, "cutout_mipped");
             } else if (block instanceof FenceGateBlock fenceGateBlock)
             {
                 correctName = correctName.replaceFirst("_fence_gate", "");
-                ResourceLocation all = new ResourceLocation(PyromancerMod.MOD_ID, "block/" + correctName);
+                ResourceLocation all = ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/" + correctName);
                 this.fenceGateBlockWithRenderType(fenceGateBlock, all, "cutout_mipped");
             } else if (block instanceof TrapDoorBlock trapDoorBlock)
             {
                 correctName = correctName.replaceFirst("_trapdoor", "");
-                ResourceLocation all = new ResourceLocation(PyromancerMod.MOD_ID, "block/" + correctName);
-                ResourceLocation other = new ResourceLocation(PyromancerMod.MOD_ID, "block/" + blockId);
+                ResourceLocation all = ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/" + correctName);
+                ResourceLocation other = ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/" + blockId);
                 this.trapdoorBlockWithRenderType(trapDoorBlock, other, true, "cutout_mipped");
             } else if (block instanceof DoorBlock doorBlock)
             {
                 correctName = correctName.replaceFirst("_door", "");
-                ResourceLocation all = new ResourceLocation(PyromancerMod.MOD_ID, "block/" + correctName);
-                ResourceLocation bottom = new ResourceLocation(PyromancerMod.MOD_ID, "block/" + blockId + "_bottom");
-                ResourceLocation top = new ResourceLocation(PyromancerMod.MOD_ID, "block/" + blockId + "_top");
+                ResourceLocation all = ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/" + correctName);
+                ResourceLocation bottom = ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/" + blockId + "_bottom");
+                ResourceLocation top = ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/" + blockId + "_top");
                 this.doorBlockWithRenderType(doorBlock, bottom, top, "cutout_mipped");
             } else if (block instanceof IPlantable || block instanceof GrowingPlantBlock)
             {
-                this.simpleBlock(block, models().cross(blockId, new ResourceLocation(PyromancerMod.MOD_ID, "block/" + blockId)).renderType("cutout_mipped"));
+                this.simpleBlock(block, models().cross(blockId, ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/" + blockId)).renderType("cutout_mipped"));
             } else
             {
                 this.simpleBlock(block);

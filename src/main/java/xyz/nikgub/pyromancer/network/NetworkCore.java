@@ -36,7 +36,7 @@ import xyz.nikgub.pyromancer.registry.KeyBindsRegistry;
  */
 public class NetworkCore
 {
-    public static final SimpleChannel INSTANCE = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(PyromancerMod.MOD_ID, "messages"))
+    public static final SimpleChannel INSTANCE = NetworkRegistry.ChannelBuilder.named(ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "messages"))
         .networkProtocolVersion(() -> "1.0")
         .clientAcceptedVersions(s -> true)
         .serverAcceptedVersions(s -> true)

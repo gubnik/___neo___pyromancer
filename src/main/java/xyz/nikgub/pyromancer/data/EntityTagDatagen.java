@@ -44,7 +44,7 @@ public class EntityTagDatagen extends ForgeEntityTypeTagsProvider
 
     public static TagKey<EntityType<?>> create (String tagName)
     {
-        return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(PyromancerMod.MOD_ID, tagName));
+        return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, tagName));
     }
 
     @Override

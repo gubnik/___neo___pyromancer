@@ -51,7 +51,7 @@ public class PyromancerConfig
 
     private static final ForgeConfigSpec.ConfigValue<Integer> DEFAULT_MUSKET_RANGE = BUILDER
         .comment("Defines the default number of iterations in a single musket shot, 1 iteration = 0.2 blocks")
-        .define("default_musket_range", 100);
+        .define("default_musket_range", 30);
 
     private static final ForgeConfigSpec.ConfigValue<Float> MUSKET_DAMAGE_CAP = BUILDER
         .comment("Defines the maximum amount of damage a single musket shot can deal")

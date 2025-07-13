@@ -36,6 +36,6 @@ public class ScorchRenderer extends MobRenderer<ScorchEntity, ScorchModel<Scorch
     @Override
     public @NotNull ResourceLocation getTextureLocation (@NotNull ScorchEntity unburned)
     {
-        return new ResourceLocation(PyromancerMod.MOD_ID, "textures/entity/scorch.png");
+        return ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "textures/entity/scorch.png");
     }
 }

@@ -52,7 +52,7 @@ public class ItemTagDatagen extends ItemTagsProvider
 
     private static TagKey<Item> create (String s)
     {
-        return TagKey.create(Registries.ITEM, new ResourceLocation(PyromancerMod.MOD_ID, s));
+        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, s));
     }
 
     @Override

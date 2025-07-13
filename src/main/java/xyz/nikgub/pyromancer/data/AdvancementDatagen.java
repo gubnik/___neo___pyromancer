@@ -56,7 +56,7 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                 .display(ItemRegistry.BLAZING_JOURNAL.get(),
                     Component.translatable("advancement.pyromancer.blazing_journal.title"),
                     Component.translatable("advancement.pyromancer.blazing_journal.description"),
-                    new ResourceLocation(PyromancerMod.MOD_ID, "textures/block/pyrowood_planks.png"),
+                    ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "textures/block/pyrowood_planks.png"),
                     FrameType.TASK,
                     false, false, false)
                 .addCriterion("acquired_journal", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.BLAZING_JOURNAL.get()))

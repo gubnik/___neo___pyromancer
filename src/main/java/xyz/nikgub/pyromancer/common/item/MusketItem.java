@@ -82,7 +82,7 @@ public class MusketItem extends Item
 
     public static @Nullable MusketAmmunitionItem getAmmoOrNull (@NotNull ItemStack itemStack)
     {
-        Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemStack.getOrCreateTag().getString(AMMO_TAG)));
+        Item item = ForgeRegistries.ITEMS.getValue(ResourceLocation.parse(itemStack.getOrCreateTag().getString(AMMO_TAG)));
         if (item instanceof MusketAmmunitionItem ammunitionItem) return ammunitionItem;
         return null;
     }
@@ -112,11 +112,11 @@ public class MusketItem extends Item
         {
             setAmmo(itemStack, (MusketAmmunitionItem) ammoStack.getItem());
             if (!(entity instanceof Player player && player.isCreative())) ammoStack.shrink(1);
-            GeneralUtils.playSound(entity.level(), entity.getX(), entity.getY() + entity.getEyeHeight(), entity.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(PyromancerMod.MOD_ID, "musket_load")), SoundSource.PLAYERS, 0.4f, 1);
+            GeneralUtils.playSound(entity.level(), entity.getX(), entity.getY() + entity.getEyeHeight(), entity.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "musket_load")), SoundSource.PLAYERS, 0.4f, 1);
         } else if (entity instanceof Player player && player.isCreative())
         {
             setAmmo(itemStack, ItemRegistry.IRON_MUSKET_BALL.get());
-            GeneralUtils.playSound(entity.level(), entity.getX(), entity.getY() + entity.getEyeHeight(), entity.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(PyromancerMod.MOD_ID, "musket_load")), SoundSource.PLAYERS, 0.4f, 1);
+            GeneralUtils.playSound(entity.level(), entity.getX(), entity.getY() + entity.getEyeHeight(), entity.getZ(), ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "musket_load")), SoundSource.PLAYERS, 0.4f, 1);
         }
     }
 
@@ -277,7 +277,7 @@ public class MusketItem extends Item
         final Vec3 look = entity.getLookAngle();
         level.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, x + look.x / 1.5, y + look.y / 1.5, z + look.z / 1.5, 7, 0.05, 0.02, 0.05, 0.075);
         level.sendParticles(ParticleTypes.SMOKE, x + look.x / 1.5, y + look.y / 1.5, z + look.z / 1.5, 7, 0.05, 0.02, 0.05, 0.075);
-        GeneralUtils.playSound(entity.level(), x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(PyromancerMod.MOD_ID, "musket_shot")), SoundSource.PLAYERS, 0.35f, 1);
+        GeneralUtils.playSound(entity.level(), x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "musket_shot")), SoundSource.PLAYERS, 0.35f, 1);
         for (int shot = 0; shot < scattershotLevel + 1; shot++)
         {
             double i = 1.2;

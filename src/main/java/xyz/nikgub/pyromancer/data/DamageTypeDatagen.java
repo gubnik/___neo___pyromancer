@@ -114,12 +114,12 @@ public class DamageTypeDatagen extends TagsProvider<DamageType>
 
     public static ResourceKey<DamageType> register (String name)
     {
-        return ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(PyromancerMod.MOD_ID, name));
+        return ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, name));
     }
 
     public static TagKey<DamageType> create (String name)
     {
-        return TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(PyromancerMod.MOD_ID, name));
+        return TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, name));
     }
 
     public static void generate (BootstapContext<DamageType> bootstrap)

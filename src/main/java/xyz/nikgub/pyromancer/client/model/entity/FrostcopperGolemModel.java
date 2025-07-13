@@ -33,7 +33,7 @@ import xyz.nikgub.pyromancer.common.entity.FrostcopperGolemEntity;
 
 public class FrostcopperGolemModel<T extends FrostcopperGolemEntity> extends HierarchicalModel<T>
 {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(PyromancerMod.MOD_ID, "frostcopper_golem"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "frostcopper_golem"), "main");
 
     private final ModelPart root;
 

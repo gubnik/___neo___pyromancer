@@ -152,6 +152,6 @@ public class ConfiguredFeatureDatagen
 
     public static ResourceKey<ConfiguredFeature<?, ?>> createKey (String name)
     {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(PyromancerMod.MOD_ID, name));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, name));
     }
 }

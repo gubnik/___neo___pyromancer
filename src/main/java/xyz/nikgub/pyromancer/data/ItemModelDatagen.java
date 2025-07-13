@@ -83,7 +83,7 @@ public class ItemModelDatagen extends ItemModelProvider
             if (item.getBlock() instanceof IPlantable || item.getBlock() instanceof GrowingPlantBlock)
                 getBuilder(item.toString())
                     .parent(new ModelFile.UncheckedModelFile("item/generated"))
-                    .texture("layer0", new ResourceLocation(PyromancerMod.MOD_ID, "block/" + item.getDescriptionId().replace("block.pyromancer.", "")));
+                    .texture("layer0", ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "block/" + item.getDescriptionId().replace("block.pyromancer.", "")));
             else
                 this.blockItem(item);
         }
@@ -95,14 +95,14 @@ public class ItemModelDatagen extends ItemModelProvider
     {
         getBuilder(item.toString())
             .parent(new ModelFile.UncheckedModelFile("item/generated"))
-            .texture("layer0", new ResourceLocation("minecraft:item/spawn_egg"));
+            .texture("layer0", ResourceLocation.parse("minecraft:item/spawn_egg"));
     }
 
     public void tieredItem (ResourceLocation item)
     {
         getBuilder(item.toString())
             .parent(new ModelFile.UncheckedModelFile("item/handheld"))
-            .texture("layer0", new ResourceLocation(item.getNamespace(), "item/" + item.getPath()));
+            .texture("layer0", ResourceLocation.fromNamespaceAndPath(item.getNamespace(), "item/" + item.getPath()));
     }
 
     public void blockItem (BlockItem item)

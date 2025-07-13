@@ -36,7 +36,7 @@ import xyz.nikgub.pyromancer.common.entity.UnburnedEntity;
 
 public class UnburnedModel<T extends UnburnedEntity> extends HierarchicalModel<T>
 {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(PyromancerMod.MOD_ID, "unburned"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "unburned"), "main");
     private final ModelPart root;
     private final ModelPart LegRight;
     private final ModelPart LegLeft;

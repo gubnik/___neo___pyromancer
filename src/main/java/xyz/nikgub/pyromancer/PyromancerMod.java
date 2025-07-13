@@ -77,7 +77,6 @@ import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -134,12 +133,12 @@ public class PyromancerMod
 
     public static Map<Item, Boolean> DEFAULT_USE_METHOD_ITEMS;
 
-    public PyromancerMod ()
+    public PyromancerMod (final FMLJavaModLoadingContext context)
     {
 
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus modEventBus = context.getModEventBus();
         MinecraftForge.EVENT_BUS.register(this);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PyromancerConfig.SPEC);
+        context.registerConfig(ModConfig.Type.COMMON, PyromancerConfig.SPEC);
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::setupClient);
@@ -340,7 +339,7 @@ public class PyromancerMod
         ItemStack hand;
         if (damageSource.is(DamageTypes.FALL) && event.getEntity() instanceof ServerPlayer entity && entity.getMainHandItem().is(ItemTagDatagen.FLAMMENKLINGE_PLUNGE_COMPATIBLE))
         {
-            GeneralUtils.addAdvancement(entity, new ResourceLocation(MOD_ID, "pyromancer/flammenklinge_death"));
+            GeneralUtils.addAdvancement(entity, ResourceLocation.fromNamespaceAndPath(MOD_ID, "pyromancer/flammenklinge_death"));
         }
         if (damageSource.getEntity() instanceof LivingEntity entity && (hand = entity.getMainHandItem()).getItem() instanceof MusketItem && !MusketItem.isLoaded(hand)
             && hand.getEnchantmentLevel(EnchantmentRegistry.TROOPER.get()) != 0 && GeneralUtils.isDirectDamage(damageSource))
@@ -462,7 +461,7 @@ public class PyromancerMod
             {
                 if (player instanceof ServerPlayer sp && tag.getInt(FlammenklingeItem.ENEMIES_COUNTER_TAG) >= 3)
                 {
-                    GeneralUtils.addAdvancement(sp, new ResourceLocation(MOD_ID, "pyromancer/flammenklinge_plunge"));
+                    GeneralUtils.addAdvancement(sp, ResourceLocation.fromNamespaceAndPath(MOD_ID, "pyromancer/flammenklinge_plunge"));
                 }
                 tag.putInt(FlammenklingeItem.ENEMIES_COUNTER_TAG, 0);
                 for (LivingEntity target : EntityUtils.entityCollector(player.getPosition(0), 4 + Mth.clamp(dmgBonus / 4, 0, 2), player.level()))
@@ -506,7 +505,7 @@ public class PyromancerMod
             if (source == null) return;
             if (source.is(DamageTypeDatagen.JOURNAL_PROJECTION))
             {
-                GeneralUtils.addAdvancement(sPlayer, new ResourceLocation(PyromancerMod.MOD_ID, "pyromancer/journal_projection"));
+                GeneralUtils.addAdvancement(sPlayer, ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "pyromancer/journal_projection"));
             }
         }
 

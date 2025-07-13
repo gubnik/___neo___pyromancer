@@ -32,7 +32,7 @@ import xyz.nikgub.pyromancer.common.entity.attack_effect.PyronadoEntity;
 
 public class PyronadoRenderer extends EntityRenderer<PyronadoEntity>
 {
-    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(PyromancerMod.MOD_ID, "textures/entity/pyronado.png");
+    private static final ResourceLocation TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "textures/entity/pyronado.png");
 
     private final PyronadoModel<PyronadoEntity> model;
 

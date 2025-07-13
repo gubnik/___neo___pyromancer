@@ -28,11 +28,11 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.client.model.entity.UnburnedSpiritModel;
-import xyz.nikgub.pyromancer.common.entity.UnburnedSpiritEntity;
+import xyz.nikgub.pyromancer.common.entity.attack_effect.UnburnedSpiritEntity;
 
 public class UnburnedSpiritRenderer extends EntityRenderer<UnburnedSpiritEntity>
 {
-    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(PyromancerMod.MOD_ID, "textures/entity/unburned.png");
+    private static final ResourceLocation TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "textures/entity/unburned.png");
 
     private final UnburnedSpiritModel<UnburnedSpiritEntity> model;
 

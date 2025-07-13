@@ -27,6 +27,7 @@ import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.common.entity.*;
 import xyz.nikgub.pyromancer.common.entity.attack_effect.FlamingGuillotineEntity;
 import xyz.nikgub.pyromancer.common.entity.attack_effect.PyronadoEntity;
+import xyz.nikgub.pyromancer.common.entity.attack_effect.UnburnedSpiritEntity;
 import xyz.nikgub.pyromancer.common.entity.projectile.BombsackProjectile;
 import xyz.nikgub.pyromancer.common.entity.projectile.NapalmBombsackProjectile;
 import xyz.nikgub.pyromancer.common.entity.projectile.ScattershotBombsackProjectile;

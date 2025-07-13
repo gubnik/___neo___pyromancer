@@ -33,7 +33,7 @@ import xyz.nikgub.pyromancer.common.entity.ScorchEntity;
 public class ScorchModel<T extends ScorchEntity> extends HierarchicalModel<T>
 {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(PyromancerMod.MOD_ID, "scorch"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "scorch"), "main");
 
     private final ModelPart root;
     private final ModelPart head;

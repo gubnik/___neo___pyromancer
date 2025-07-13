@@ -31,7 +31,7 @@ import xyz.nikgub.pyromancer.common.entity.attack_effect.PyronadoEntity;
 
 public class PyronadoModel<T extends PyronadoEntity> extends HierarchicalModel<T>
 {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(PyromancerMod.MOD_ID, "pyronado"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "pyronado"), "main");
     private final ModelPart root;
     private final ModelPart big;
     private final ModelPart medium;

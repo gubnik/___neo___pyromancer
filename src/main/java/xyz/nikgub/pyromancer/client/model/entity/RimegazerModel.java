@@ -32,7 +32,7 @@ import xyz.nikgub.pyromancer.common.entity.RimegazerEntity;
 public class RimegazerModel<T extends RimegazerEntity> extends HierarchicalModel<T>
 {
 
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(PyromancerMod.MOD_ID, "rimegazer"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "rimegazer"), "main");
 
     private final ModelPart root;
     private final ModelPart eye;

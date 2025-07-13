@@ -35,6 +35,6 @@ public class FrostcopperGolemRenderer extends MobRenderer<FrostcopperGolemEntity
     @Override
     public @NotNull ResourceLocation getTextureLocation (@NotNull FrostcopperGolemEntity pEntity)
     {
-        return new ResourceLocation(PyromancerMod.MOD_ID, "textures/entity/frostcopper_golem.png");
+        return ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "textures/entity/frostcopper_golem.png");
     }
 }

@@ -36,6 +36,6 @@ public class UnburnedRenderer extends MobRenderer<UnburnedEntity, UnburnedModel<
     @Override
     public @NotNull ResourceLocation getTextureLocation (@NotNull UnburnedEntity unburned)
     {
-        return new ResourceLocation(PyromancerMod.MOD_ID, "textures/entity/unburned.png");
+        return ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "textures/entity/unburned.png");
     }
 }

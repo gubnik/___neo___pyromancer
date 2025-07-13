@@ -32,7 +32,7 @@ import xyz.nikgub.pyromancer.PyromancerMod;
 
 public class PyracornModel<T extends Entity> extends HierarchicalModel<T>
 {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(PyromancerMod.MOD_ID, "pyracorn"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "pyracorn"), "main");
 
     public final ModelPart root;
     public final ModelPart head;

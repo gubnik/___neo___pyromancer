@@ -153,7 +153,7 @@ public class BiomeDatagen
     public static class FlamingGroveNetherRegion extends Region
     {
 
-        public static final ResourceLocation LOCATION = new ResourceLocation(PyromancerMod.MOD_ID, "nether_common");
+        public static final ResourceLocation LOCATION = ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "nether_common");
 
         public FlamingGroveNetherRegion (int weight)
         {

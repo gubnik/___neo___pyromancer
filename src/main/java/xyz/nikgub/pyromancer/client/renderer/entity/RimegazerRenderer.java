@@ -35,6 +35,6 @@ public class RimegazerRenderer extends MobRenderer<RimegazerEntity, RimegazerMod
     @Override
     public @NotNull ResourceLocation getTextureLocation (@NotNull RimegazerEntity unburned)
     {
-        return new ResourceLocation(PyromancerMod.MOD_ID, "textures/entity/rimegazer.png");
+        return ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "textures/entity/rimegazer.png");
     }
 }

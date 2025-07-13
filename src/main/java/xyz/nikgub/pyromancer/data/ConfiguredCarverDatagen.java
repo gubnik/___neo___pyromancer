@@ -42,7 +42,7 @@ public class ConfiguredCarverDatagen
 
     private static ResourceKey<ConfiguredWorldCarver<?>> createKey (String pName)
     {
-        return ResourceKey.create(Registries.CONFIGURED_CARVER, new ResourceLocation(PyromancerMod.MOD_ID, pName));
+        return ResourceKey.create(Registries.CONFIGURED_CARVER, ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, pName));
     }
 
     public static void bootstrap (BootstapContext<ConfiguredWorldCarver<?>> pContext)

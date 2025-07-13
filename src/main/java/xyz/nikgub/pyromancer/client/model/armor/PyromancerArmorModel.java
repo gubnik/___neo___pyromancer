@@ -38,7 +38,7 @@ import java.util.Map;
 public class PyromancerArmorModel<T extends LivingEntity> extends EntityModel<T>
 {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(PyromancerMod.MOD_ID, "pyromancer_armor"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "pyromancer_armor"), "main");
     public final ModelPart head;
     public final ModelPart body;
     public final ModelPart rightArm;

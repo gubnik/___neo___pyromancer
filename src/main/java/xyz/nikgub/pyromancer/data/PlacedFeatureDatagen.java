@@ -104,6 +104,6 @@ public class PlacedFeatureDatagen
 
     public static ResourceKey<PlacedFeature> createKey (String name)
     {
-        return ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(PyromancerMod.MOD_ID, name));
+        return ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, name));
     }
 }

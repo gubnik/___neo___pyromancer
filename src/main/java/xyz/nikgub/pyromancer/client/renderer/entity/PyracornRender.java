@@ -36,6 +36,6 @@ public class PyracornRender extends MobRenderer<PyracornEntity, PyracornModel<Py
     @Override
     public @NotNull ResourceLocation getTextureLocation (@NotNull PyracornEntity unburned)
     {
-        return new ResourceLocation(PyromancerMod.MOD_ID, "textures/entity/pyracorn.png");
+        return ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "textures/entity/pyracorn.png");
     }
 }

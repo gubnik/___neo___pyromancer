@@ -32,11 +32,11 @@ import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import xyz.nikgub.pyromancer.PyromancerMod;
 import xyz.nikgub.pyromancer.client.animation.UnburnedAnimations;
-import xyz.nikgub.pyromancer.common.entity.UnburnedSpiritEntity;
+import xyz.nikgub.pyromancer.common.entity.attack_effect.UnburnedSpiritEntity;
 
 public class UnburnedSpiritModel<T extends UnburnedSpiritEntity> extends HierarchicalModel<T>
 {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(PyromancerMod.MOD_ID, "unburned"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "unburned"), "main");
     private final ModelPart root;
     private final ModelPart LegRight;
     private final ModelPart LegLeft;

@@ -36,6 +36,6 @@ public class PyroentRenderer extends MobRenderer<PyroentEntity, PyroentModel<Pyr
     @Override
     public @NotNull ResourceLocation getTextureLocation (@NotNull PyroentEntity unburned)
     {
-        return new ResourceLocation(PyromancerMod.MOD_ID, "textures/entity/pyroent.png");
+        return ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "textures/entity/pyroent.png");
     }
 }
