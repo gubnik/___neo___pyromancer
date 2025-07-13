@@ -15,27 +15,32 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package xyz.nikgub.pyromancer.network.c2s;
+package xyz.nikgub.pyromancer.network.s2c;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
+import org.joml.Vector3f;
 import xyz.nikgub.incandescent.autogen_network.IncandescentPacket;
 import xyz.nikgub.pyromancer.PyromancerMod;
 
 import java.util.function.Supplier;
 
-@IncandescentPacket(value = PyromancerMod.MOD_ID, direction = NetworkDirection.PLAY_TO_CLIENT)
-public class SymbolOfSunMovementPacket
+@IncandescentPacket(value = PyromancerMod.MOD_ID, direction = NetworkDirection.PLAY_TO_SERVER)
+public class FlammenklingeMovementPacket
 {
     @IncandescentPacket.Value
     private Integer playerId;
 
-    public static SymbolOfSunMovementPacket create (int playerId)
+    @IncandescentPacket.Value
+    private Vector3f multipliers;
+
+    public static FlammenklingeMovementPacket create(int playerId, Vector3f multipliers)
     {
-        SymbolOfSunMovementPacket instance = new SymbolOfSunMovementPacket();
+        var instance = new FlammenklingeMovementPacket();
         instance.playerId = playerId;
+        instance.multipliers = multipliers;
         return instance;
     }
 
@@ -49,19 +54,8 @@ public class SymbolOfSunMovementPacket
             assert instance.level != null;
             var player = instance.level.getEntity(playerId);
             assert player != null;
-            Vec3 movementVector = player.getDeltaMovement();
-            Vec3 directionVector;
-            double multCoeff = 2.5D;
-            if (movementVector.multiply(1, 0, 1).length() <= 0.125D)
-            {
-                multCoeff *= 1.5D;
-                directionVector = player.getLookAngle().multiply(1, 0, 1).normalize();
-            } else if (player.isSwimming())
-            {
-                multCoeff = 1.25D;
-                directionVector = player.getLookAngle();
-            } else directionVector = movementVector.multiply(1, 0, 1).normalize();
-            Vec3 nVec = new Vec3(movementVector.x + multCoeff * directionVector.x, movementVector.y + multCoeff * directionVector.y, movementVector.z + multCoeff * directionVector.z);
+            final Vec3 srcVec = player.getDeltaMovement();
+            final Vec3 nVec = srcVec.multiply(new Vec3(multipliers)).add(0, 1.2, 0);
             player.setDeltaMovement(nVec);
         });
         return true;

@@ -46,7 +46,7 @@ import xyz.nikgub.incandescent.common.item_interfaces.IGradientNameItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.incandescent.util.Hypermap;
 import xyz.nikgub.pyromancer.PyromancerConfig;
-import xyz.nikgub.pyromancer.network.c2s.SymbolOfSunMovementPacket;
+import xyz.nikgub.pyromancer.network.s2c.SymbolOfSunMovementPacket;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 import xyz.nikgub.pyromancer.registry.MobEffectRegistry;
 import xyz.nikgub.pyromancer.registry.TierRegistry;

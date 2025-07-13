@@ -26,7 +26,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
 import xyz.nikgub.incandescent.autogen_network.IncandescentNetworkAPI;
-import xyz.nikgub.pyromancer.network.key.SwapPyromancyKeyMessage;
+import xyz.nikgub.pyromancer.network.c2s.SwapPyromancyKeyMessage;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = {Dist.CLIENT})
 @SuppressWarnings("unused")

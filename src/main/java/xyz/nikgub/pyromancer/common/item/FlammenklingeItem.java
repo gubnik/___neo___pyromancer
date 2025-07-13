@@ -52,7 +52,7 @@ import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.incandescent.util.Hypermap;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.data.ItemTagDatagen;
-import xyz.nikgub.pyromancer.network.c2s.FlammenklingeMovementPacket;
+import xyz.nikgub.pyromancer.network.s2c.FlammenklingeMovementPacket;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 import xyz.nikgub.pyromancer.registry.DamageSourceRegistry;
 import xyz.nikgub.pyromancer.registry.ItemRegistry;
