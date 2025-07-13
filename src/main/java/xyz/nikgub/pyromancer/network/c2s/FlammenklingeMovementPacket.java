@@ -18,36 +18,33 @@
 package xyz.nikgub.pyromancer.network.c2s;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 import org.joml.Vector3f;
+import xyz.nikgub.incandescent.autogen_network.IncandescentPacket;
+import xyz.nikgub.pyromancer.PyromancerMod;
 
 import java.util.function.Supplier;
 
+@IncandescentPacket(value = PyromancerMod.MOD_ID, direction = NetworkDirection.PLAY_TO_SERVER)
 public class FlammenklingeMovementPacket
 {
-    private final int playerId;
-    private final Vector3f multipliers;
+    @IncandescentPacket.Value
+    private Integer playerId;
 
-    public FlammenklingeMovementPacket (int playerId, Vector3f multipliers)
+    @IncandescentPacket.Value
+    private Vector3f multipliers;
+
+    public static FlammenklingeMovementPacket create(int playerId, Vector3f multipliers)
     {
-        this.playerId = playerId;
-        this.multipliers = multipliers;
+        var instance = new FlammenklingeMovementPacket();
+        instance.playerId = playerId;
+        instance.multipliers = multipliers;
+        return instance;
     }
 
-    public FlammenklingeMovementPacket (FriendlyByteBuf buf)
-    {
-        this.playerId = buf.readInt();
-        this.multipliers = buf.readVector3f();
-    }
-
-    public void toBytes (FriendlyByteBuf buf)
-    {
-        buf.writeInt(playerId);
-        buf.writeVector3f(multipliers);
-    }
-
+    @IncandescentPacket.Handler
     public boolean handle (Supplier<NetworkEvent.Context> supplier)
     {
         NetworkEvent.Context context = supplier.get();

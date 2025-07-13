@@ -109,14 +109,14 @@ public class RecipeDatagen extends RecipeProvider
             .unlockedBy("diamond", InventoryChangeTrigger.TriggerInstance.hasItems(Items.DIAMOND))
             .save(consumer);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.NETHERITE_MACE.get())
-            .pattern("aaa")
-            .pattern("asa")
-            .pattern(" s ")
-            .define('a', Items.NETHERITE_INGOT)
-            .define('s', Items.STICK)
-            .unlockedBy("netherite", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_INGOT))
-            .save(consumer);
+        SmithingTransformRecipeBuilder.smithing(
+            Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+            Ingredient.of(ItemRegistry.DIAMOND_MACE.get()),
+            Ingredient.of(Items.NETHERITE_INGOT),
+            RecipeCategory.COMBAT,
+            ItemRegistry.NETHERITE_MACE.get())
+            .unlocks("netherite", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_INGOT))
+            .save(consumer, "pyromancer:netherite_mace");
 
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.AMBER_MACE.get())
             .pattern("aaa")

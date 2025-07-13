@@ -43,6 +43,7 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
+import xyz.nikgub.incandescent.autogen_network.IncandescentNetworkAPI;
 import xyz.nikgub.incandescent.common.item_interfaces.IBetterAttributeTooltipItem;
 import xyz.nikgub.incandescent.common.item_interfaces.IExtensibleTooltipItem;
 import xyz.nikgub.incandescent.common.item_interfaces.IGradientNameItem;
@@ -51,7 +52,6 @@ import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.incandescent.util.Hypermap;
 import xyz.nikgub.pyromancer.PyromancerConfig;
 import xyz.nikgub.pyromancer.data.ItemTagDatagen;
-import xyz.nikgub.pyromancer.network.NetworkCore;
 import xyz.nikgub.pyromancer.network.c2s.FlammenklingeMovementPacket;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 import xyz.nikgub.pyromancer.registry.DamageSourceRegistry;
@@ -108,7 +108,7 @@ public class FlammenklingeItem extends SwordItem implements IPyromancyItem, IBet
             tag.putInt(FlammenklingeItem.ENEMIES_COUNTER_TAG, tag.getInt(FlammenklingeItem.ENEMIES_COUNTER_TAG) + 1);
         }
         tag.putInt(ENEMIES_COUNTER_TAG, tag.getInt(ENEMIES_COUNTER_TAG) + 10);
-        NetworkCore.sendToAll(new FlammenklingeMovementPacket(self.getId(), new Vector3f(2.5f, 0, 2.5f)));
+        IncandescentNetworkAPI.sendPacket(FlammenklingeMovementPacket.create(self.getId(), new Vector3f(2.5f, 0, 2.5f)));
         if (!(self.level() instanceof ServerLevel serverLevel))
         {
             return;
@@ -153,7 +153,7 @@ public class FlammenklingeItem extends SwordItem implements IPyromancyItem, IBet
             target.setRemainingFireTicks(target.getRemainingFireTicks() + 40);
             tag.putInt(ENEMIES_COUNTER_TAG, tag.getInt(ENEMIES_COUNTER_TAG) + 1);
         }
-        NetworkCore.sendToAll(new FlammenklingeMovementPacket(player.getId(), new Vector3f(2.5f, 0, 2.5f)));
+        IncandescentNetworkAPI.sendPacket(FlammenklingeMovementPacket.create(player.getId(), new Vector3f(2.5f, 0, 2.5f)));
         BlazingJournalItem.changeBlaze(player, -(int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()));
         entity.stopUsingItem();
         if (!(level instanceof ServerLevel serverLevel))

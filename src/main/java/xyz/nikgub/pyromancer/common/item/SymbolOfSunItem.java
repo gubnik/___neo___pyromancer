@@ -39,13 +39,13 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import xyz.nikgub.incandescent.autogen_network.IncandescentNetworkAPI;
 import xyz.nikgub.incandescent.common.item_interfaces.IBetterAttributeTooltipItem;
 import xyz.nikgub.incandescent.common.item_interfaces.IExtensibleTooltipItem;
 import xyz.nikgub.incandescent.common.item_interfaces.IGradientNameItem;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.incandescent.util.Hypermap;
 import xyz.nikgub.pyromancer.PyromancerConfig;
-import xyz.nikgub.pyromancer.network.NetworkCore;
 import xyz.nikgub.pyromancer.network.c2s.SymbolOfSunMovementPacket;
 import xyz.nikgub.pyromancer.registry.AttributeRegistry;
 import xyz.nikgub.pyromancer.registry.MobEffectRegistry;
@@ -69,7 +69,7 @@ public class SymbolOfSunItem extends MaceItem implements IPyromancyItem, IBetter
     public void onUseTick (@NotNull Level level, @NotNull LivingEntity entity, @NotNull ItemStack itemStack, int tick)
     {
         if (!(entity instanceof ServerPlayer player)) return;
-        NetworkCore.sendToAll(new SymbolOfSunMovementPacket(player.getId()));
+        IncandescentNetworkAPI.sendPacket(SymbolOfSunMovementPacket.create(player.getId()));
         player.addEffect(new MobEffectInstance(MobEffectRegistry.SOLAR_COLLISION.get(), 15, 0, false, true));
         BlazingJournalItem.changeBlaze(player, -(int) player.getAttributeValue(AttributeRegistry.BLAZE_CONSUMPTION.get()));
         entity.stopUsingItem();

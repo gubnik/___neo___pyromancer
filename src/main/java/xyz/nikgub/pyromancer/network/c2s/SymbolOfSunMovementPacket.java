@@ -18,31 +18,28 @@
 package xyz.nikgub.pyromancer.network.c2s;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
+import xyz.nikgub.incandescent.autogen_network.IncandescentPacket;
+import xyz.nikgub.pyromancer.PyromancerMod;
 
 import java.util.function.Supplier;
 
+@IncandescentPacket(value = PyromancerMod.MOD_ID, direction = NetworkDirection.PLAY_TO_CLIENT)
 public class SymbolOfSunMovementPacket
 {
-    private final int playerId;
+    @IncandescentPacket.Value
+    private Integer playerId;
 
-    public SymbolOfSunMovementPacket (int playerId)
+    public static SymbolOfSunMovementPacket create (int playerId)
     {
-        this.playerId = playerId;
+        SymbolOfSunMovementPacket instance = new SymbolOfSunMovementPacket();
+        instance.playerId = playerId;
+        return instance;
     }
 
-    public SymbolOfSunMovementPacket (FriendlyByteBuf buf)
-    {
-        this.playerId = buf.readInt();
-    }
-
-    public void toBytes (FriendlyByteBuf buf)
-    {
-        buf.writeInt(playerId);
-    }
-
+    @IncandescentPacket.Handler
     public boolean handle (Supplier<NetworkEvent.Context> supplier)
     {
         NetworkEvent.Context context = supplier.get();

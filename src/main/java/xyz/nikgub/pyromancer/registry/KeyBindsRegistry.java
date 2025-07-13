@@ -25,7 +25,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
-import xyz.nikgub.pyromancer.network.NetworkCore;
+import xyz.nikgub.incandescent.autogen_network.IncandescentNetworkAPI;
 import xyz.nikgub.pyromancer.network.key.SwapPyromancyKeyMessage;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = {Dist.CLIENT})
@@ -42,7 +42,7 @@ public class KeyBindsRegistry
             super.setDown(isDown);
             if (isDownOld != isDown && isDown)
             {
-                NetworkCore.sendToServer(new SwapPyromancyKeyMessage(0, 0));
+                IncandescentNetworkAPI.sendPacket(SwapPyromancyKeyMessage.create(0, 0));
                 assert Minecraft.getInstance().player != null;
                 SwapPyromancyKeyMessage.pressAction(Minecraft.getInstance().player, 0, 0);
             }
