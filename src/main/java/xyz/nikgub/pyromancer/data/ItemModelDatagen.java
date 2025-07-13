@@ -94,8 +94,7 @@ public class ItemModelDatagen extends ItemModelProvider
     public void spawnEggItem (Item item)
     {
         getBuilder(item.toString())
-            .parent(new ModelFile.UncheckedModelFile("item/generated"))
-            .texture("layer0", ResourceLocation.parse("minecraft:item/spawn_egg"));
+            .parent(new ModelFile.UncheckedModelFile("item/template_spawn_egg"));
     }
 
     public void tieredItem (ResourceLocation item)

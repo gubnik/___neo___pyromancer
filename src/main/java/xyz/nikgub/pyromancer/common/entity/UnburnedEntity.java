@@ -167,7 +167,7 @@ public class UnburnedEntity extends Monster implements IAnimationPurposeEntity
         final int attackTick = getAttackTick();
         if (stompTick != 0)
         {
-            if (this.tickCount >= stompTick + 20)
+            if (this.tickCount > stompTick + 20)
             {
                 this.setStompTick(0);
                 this.runAnimationOf(DeterminedAnimation.AnimationPurpose.IDLE);
@@ -185,7 +185,7 @@ public class UnburnedEntity extends Monster implements IAnimationPurposeEntity
             {
                 this.lookAt(target, 90, 90);
             }
-            if (this.tickCount >= attackTick + 12)
+            if (this.tickCount > attackTick + 12)
             {
                 this.setAttackTick(0);
                 this.runAnimationOf(DeterminedAnimation.AnimationPurpose.IDLE);
