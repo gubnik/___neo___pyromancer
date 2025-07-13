@@ -19,9 +19,14 @@ package xyz.nikgub.pyromancer.common.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -31,6 +36,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -52,6 +58,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.nikgub.incandescent.Incandescent;
+import xyz.nikgub.incandescent.common.item_interfaces.ICustomSwingItem;
+import xyz.nikgub.incandescent.common.item_interfaces.IExtensibleTooltipItem;
 import xyz.nikgub.incandescent.common.util.EntityUtils;
 import xyz.nikgub.incandescent.common.util.GeneralUtils;
 import xyz.nikgub.pyromancer.PyromancerConfig;
@@ -65,7 +73,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
 
-public class MusketItem extends Item
+public class MusketItem extends Item implements ICustomSwingItem, IExtensibleTooltipItem
 {
 
     public static final UUID STEP_INCREASE_UUID = UUID.fromString("7a502089-d89e-4d41-bdbf-fd1c8c3f4180");
@@ -73,6 +81,8 @@ public class MusketItem extends Item
 
     public static final String AMMO_TAG = "___MUSKET_AMMO"; // string tag
     public static final String SPRINT_TAG = "___MUSKET_SPRINT"; // boolean tag
+    public static final String ACTION_TAG = "___MUSKET_ACTION";
+
     public static final Set<ToolAction> ACTIONS = Set.of(ToolActions.AXE_DIG);
 
     public MusketItem (Properties properties)
@@ -154,14 +164,19 @@ public class MusketItem extends Item
     @Override
     public void appendHoverText (@NotNull ItemStack itemStack, @javax.annotation.Nullable Level level, @NotNull List<Component> list, @NotNull TooltipFlag flag)
     {
-        if (!isLoaded(itemStack)) return;
-        String first = Component.translatable("item.pyromancer." + itemStack.getItem() + ".desc.0").getString();
-        MusketAmmunitionItem ammunitionItem = getAmmoOrNull(itemStack);
-        if (ammunitionItem == null) ammunitionItem = ItemRegistry.IRON_MUSKET_BALL.get();
-        ResourceLocation ammoLocation = ForgeRegistries.ITEMS.getKey(ammunitionItem);
-        if (ammoLocation == null) return;
-        String second = Component.translatable("item." + ammoLocation.getNamespace() + "." + ammoLocation.getPath()).getString();
-        list.add(Component.literal(first + second).withStyle(ChatFormatting.DARK_GRAY));
+        if (isLoaded(itemStack))
+        {
+            String first = Component.translatable("item.pyromancer." + itemStack.getItem() + ".desc.ammo").getString();
+            MusketAmmunitionItem ammunitionItem = getAmmoOrNull(itemStack);
+            if (ammunitionItem == null) ammunitionItem = ItemRegistry.IRON_MUSKET_BALL.get();
+            ResourceLocation ammoLocation = ForgeRegistries.ITEMS.getKey(ammunitionItem);
+            if (ammoLocation == null) return;
+            String second = Component.translatable("item." + ammoLocation.getNamespace() + "." + ammoLocation.getPath()).getString();
+            list.add(Component.literal(first + second).withStyle(ChatFormatting.DARK_GRAY));
+            list.add(Component.empty());
+        }
+        this.gatherTooltipLines(list, "pyromancer.hidden_desc", "desc", PyromancerConfig.descTooltipKey);
+        this.gatherTooltipLines(list, "pyromancer.hidden_lore", "lore", PyromancerConfig.loreTooltipKey);
     }
 
     @Override
@@ -169,6 +184,17 @@ public class MusketItem extends Item
     {
         if (isLoaded(itemStack))
             itemStack.getOrCreateTag().putBoolean(SPRINT_TAG, (entity instanceof LivingEntity living && living.isSprinting() && living.getMainHandItem() == itemStack));
+        if (!(entity instanceof Player player)) return;
+        if (player.swingTime > 0) return;
+        CompoundTag tag = itemStack.getOrCreateTag();
+        if (isLoaded(itemStack) && player.getMainHandItem() == itemStack)
+        {
+            tag.putInt(ACTION_TAG, 1);
+        }
+        else
+        {
+            tag.putInt(ACTION_TAG, 0);
+        }
     }
 
     @Override
@@ -258,6 +284,25 @@ public class MusketItem extends Item
         consumer.accept(new MusketClientExtension());
     }
 
+    public static float aimingTime (ItemStack itemStack)
+    {
+        if (!(itemStack.getItem() instanceof MusketItem musketItem))
+        {
+            return 0f;
+        }
+        return musketItem.getAimingTime(itemStack);
+    }
+
+    public float getAimingTime (ItemStack itemStack)
+    {
+        final int riflingLvl = itemStack.getEnchantmentLevel(EnchantmentRegistry.RIFLING.get());
+        if (riflingLvl != 0)
+        {
+            return Mth.clamp(20f - 2 * riflingLvl, 1f, 20f);
+        }
+        return 20f;
+    }
+
     private void loadManager (ItemStack itemStack, LivingEntity entity, int ticks)
     {
         if (ticks == 0) reload(entity, itemStack);
@@ -275,6 +320,7 @@ public class MusketItem extends Item
         final double y = entity.getY() + entity.getEyeHeight() + 0.1;
         final double z = entity.getZ();
         final Vec3 look = entity.getLookAngle();
+        final float aimTime = getAimingTime(itemStack);
         level.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, x + look.x / 1.5, y + look.y / 1.5, z + look.z / 1.5, 7, 0.05, 0.02, 0.05, 0.075);
         level.sendParticles(ParticleTypes.SMOKE, x + look.x / 1.5, y + look.y / 1.5, z + look.z / 1.5, 7, 0.05, 0.02, 0.05, 0.075);
         GeneralUtils.playSound(entity.level(), x, y, z, ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation.fromNamespaceAndPath(PyromancerMod.MOD_ID, "musket_shot")), SoundSource.PLAYERS, 0.35f, 1);
@@ -282,9 +328,8 @@ public class MusketItem extends Item
         {
             double i = 1.2;
             float calculatedDamage = initialDamage;
-            final double inaccuracy = (scattershotLevel != 0) ? Mth.clamp(1 - ((72000 - ticks) / 20f), 0.25f, 1.2f)
-                : (riflingLevel != 0) ? Mth.clamp(1 - ((72000 - ticks) / 20f), 0.005f, 0.8f)
-                : Mth.clamp(1 - ((72000 - ticks) / 20f), 0.05f, 1f);
+            final double aimProgress = (72000 - ticks) / aimTime;
+            final double inaccuracy = getInaccuracyModifier(scattershotLevel, aimProgress, riflingLevel);
             final Vec3 spreadModifiers = new Vec3(
                 ThreadLocalRandom.current().nextDouble(-inaccuracy, inaccuracy) / 2,
                 ThreadLocalRandom.current().nextDouble(-inaccuracy, inaccuracy) / 4,
@@ -300,7 +345,7 @@ public class MusketItem extends Item
                 level.sendParticles((itemStack.isEnchanted()) ? ParticleTypes.ENCHANTED_HIT : ParticleTypes.CRIT, lookPos.x, lookPos.y, lookPos.z, 2, 0.01, 0, 0.01, 0);
                 i += 0.2;
                 if (riflingLevel != 0)
-                    calculatedDamage *= (1 + itemStack.getEnchantmentLevel(EnchantmentRegistry.RIFLING.get()) * 0.0015f);
+                    calculatedDamage *= (1 + itemStack.getEnchantmentLevel(EnchantmentRegistry.RIFLING.get()) * 0.0015f * riflingLevel);
             }
             for (LivingEntity living : EntityUtils.entityCollector(lookPos, 0.4, level))
             {
@@ -311,5 +356,135 @@ public class MusketItem extends Item
             }
         }
         return ret;
+    }
+
+    private static double getInaccuracyModifier (int scattershotLevel, double aimProgress, int riflingLevel)
+    {
+        final double baseInaccuracy;
+        if (riflingLevel != 0)
+        {
+            double riflingReduction = 0.125 * riflingLevel;
+            double inaccuracyWithoutRifling = Mth.clamp(1 - aimProgress, 0.005f, 0.8f);
+            baseInaccuracy = inaccuracyWithoutRifling * (1 - riflingReduction);
+        }
+        else if (scattershotLevel != 0) {
+            double scattershotIncrement = 1.125 * scattershotLevel;
+            double inaccuracyWithoutScattershot = Mth.clamp(1 - aimProgress, 0.25f, 1.2f);
+            baseInaccuracy = inaccuracyWithoutScattershot * scattershotIncrement;
+        }
+        else
+        {
+            baseInaccuracy = 1 - aimProgress;
+        }
+        return Mth.clamp(baseInaccuracy, 0.01f, 1.0f);
+    }
+
+    @Override
+    public <T extends LivingEntity> void thirdPersonTransform (@NotNull ItemStack itemStack, HumanoidModel<T> model, T entity, float ageInTicks)
+    {
+        CompoundTag tag = itemStack.getOrCreateTag();
+        switch (tag.getInt(ACTION_TAG))
+        {
+            case 0 -> defaultSwingThirdPerson(itemStack, model, entity, ageInTicks);
+            case 1 -> crouchPokeThirdPerson(itemStack, model, entity, ageInTicks);
+        }
+    }
+
+    private <T extends LivingEntity> void defaultSwingThirdPerson (ItemStack itemStack, @NotNull HumanoidModel<T> model, T entity, float ageInTicks)
+    {
+        if (!(model.attackTime <= 0.0F)) {
+            HumanoidArm arm = entity.swingingArm == InteractionHand.MAIN_HAND ? entity.getMainArm() : entity.getMainArm().getOpposite();
+            ModelPart modelpart = arm == HumanoidArm.LEFT ? model.leftArm : model.rightArm;
+            float f = model.attackTime;
+            model.body.yRot = Mth.sin(Mth.sqrt(f) * 6.2831855F) * 0.2F;
+            ModelPart var10000;
+            if (arm == HumanoidArm.LEFT) {
+                var10000 = model.body;
+                var10000.yRot *= -1.0F;
+            }
+
+            model.rightArm.z = Mth.sin(model.body.yRot) * 5.0F;
+            model.rightArm.x = -Mth.cos(model.body.yRot) * 5.0F;
+            model.leftArm.z = -Mth.sin(model.body.yRot) * 5.0F;
+            model.leftArm.x = Mth.cos(model.body.yRot) * 5.0F;
+            var10000 = model.rightArm;
+            var10000.yRot += model.body.yRot;
+            var10000 = model.leftArm;
+            var10000.yRot += model.body.yRot;
+            var10000 = model.leftArm;
+            var10000.xRot += model.body.yRot;
+            f = 1.0F - model.attackTime;
+            f *= f;
+            f *= f;
+            f = 1.0F - f;
+            float f1 = Mth.sin(f * 3.1415927F);
+            float f2 = Mth.sin(model.attackTime * 3.1415927F) * -(model.head.xRot - 0.7F) * 1.2F;
+            modelpart.xRot -= f1 * 1.2F + f2;
+            modelpart.yRot += model.body.yRot * 2.0F;
+            modelpart.zRot += Mth.sin(model.attackTime * 3.1415927F) * -0.4F;
+        }
+    }
+
+    private <T extends LivingEntity> void crouchPokeThirdPerson (ItemStack itemStack, @NotNull HumanoidModel<T> model, T entity, float ageInTicks)
+    {
+        if (!(model.attackTime <= 0.0F))
+        {
+            HumanoidArm arm = entity.swingingArm == InteractionHand.MAIN_HAND ? entity.getMainArm() : entity.getMainArm().getOpposite();
+            ModelPart modelpart = arm == HumanoidArm.LEFT ? model.leftArm : model.rightArm;
+            float f = model.attackTime;
+            model.body.yRot = Mth.sin(Mth.sqrt(f) * ((float) Math.PI * 2F)) * 0.2F;
+            if (arm == HumanoidArm.LEFT)
+            {
+                model.body.yRot *= -1.0F;
+            }
+            float move_multiplier = 5.0F;
+            model.rightArm.z = Mth.sin(model.body.yRot) * move_multiplier;
+            model.rightArm.x = -Mth.cos(model.body.yRot) * move_multiplier;
+            model.leftArm.z = -Mth.sin(model.body.yRot) * move_multiplier;
+            model.leftArm.x = Mth.cos(model.body.yRot) * move_multiplier;
+            model.rightArm.yRot += model.body.yRot;
+            model.leftArm.yRot += model.body.yRot;
+            model.leftArm.xRot += model.body.yRot;
+            f = 1.0F - model.attackTime;
+            f *= f;
+            f *= f;
+            f = 1.0F - f;
+            float f1 = Mth.sin(f * (float) Math.PI);
+            modelpart.z -= f1 * 12 * Mth.cos(model.head.xRot);
+            modelpart.y += f1 * 12 * Mth.sin(model.head.xRot);
+            modelpart.xRot += model.head.xRot;
+        }
+    }
+
+    @Override
+    public void firstPersonTransform (@NotNull ItemStack itemStack, PoseStack poseStack, float swingProgress, float equippedProgress, boolean isRight)
+    {
+        CompoundTag tag = itemStack.getOrCreateTag();
+        switch (tag.getInt(ACTION_TAG))
+        {
+            case 0 -> defaultSwingFirstPerson(itemStack, poseStack, swingProgress, equippedProgress, isRight);
+            case 1 -> crouchPokeFirstPerson(itemStack, poseStack, swingProgress, equippedProgress, isRight);
+        }
+    }
+
+    private void defaultSwingFirstPerson (ItemStack itemStack, @NotNull PoseStack poseStack, float swingProgress, float equippedProgress, boolean isRight)
+    {
+        HumanoidArm arm = isRight ? HumanoidArm.RIGHT : HumanoidArm.LEFT;
+        int i = arm == HumanoidArm.RIGHT ? 1 : -1;
+        float f = Mth.sin(swingProgress * swingProgress * 3.1415927F);
+        poseStack.mulPose(Axis.YP.rotationDegrees((float)i * (45.0F + f * -20.0F)));
+        float f1 = Mth.sin(Mth.sqrt(swingProgress) * 3.1415927F);
+        poseStack.mulPose(Axis.ZP.rotationDegrees((float)i * f1 * -20.0F));
+        poseStack.mulPose(Axis.XP.rotationDegrees(f1 * -80.0F));
+        poseStack.mulPose(Axis.YP.rotationDegrees((float)i * -45.0F));
+    }
+
+    private void crouchPokeFirstPerson (ItemStack itemStack, @NotNull PoseStack poseStack, float swingProgress, float equippedProgress, boolean isRight)
+    {
+        final int doRotation = swingProgress > 0.0F ? 1 : 0;
+        final float f1 = Mth.sin(Mth.sqrt(swingProgress) * 3.1415927F);
+        poseStack.translate(0, 0, -f1 * 5);
+        final float scaleMod = doRotation == 0 ? 1F : 2.75F;
+        poseStack.scale(scaleMod, scaleMod, scaleMod);
     }
 }

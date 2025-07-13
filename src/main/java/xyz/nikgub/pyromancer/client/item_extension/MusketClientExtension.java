@@ -55,11 +55,17 @@ public class MusketClientExtension implements IClientItemExtensions
 
     public static HumanoidModel.ArmPose LOADED = HumanoidModel.ArmPose.create("musket_loaded", true, ((model, entity, arm) ->
     {
+
         ModelPart rightArm = model.rightArm;
         ModelPart leftArm = model.leftArm;
         boolean is_right_arm = arm == HumanoidArm.RIGHT;
         ModelPart modelpart = is_right_arm ? rightArm : leftArm;
         ModelPart modelpart1 = is_right_arm ? leftArm : rightArm;
+        if (entity instanceof Player player && player.swingTime > 0)
+        {
+            modelpart.xRot = -Mth.PI / 2f;
+            return;
+        }
         modelpart.yRot = (entity.isUsingItem()) ? 0 : is_right_arm ? -0.8F : 0.8F;
         modelpart.xRot = (entity.isUsingItem()) ? -Mth.PI / 2f : -0.97079635F;
         modelpart1.xRot = modelpart.xRot;
@@ -81,7 +87,7 @@ public class MusketClientExtension implements IClientItemExtensions
         if (ticks <= 0 || player.getUseItem() != itemInHand) return false;
         if (MusketItem.isLoaded(itemInHand))
         {
-            this.applyLoadedHandTransforms(poseStack, arm, ((72000 - ticks) / 20f + partialTick / 20f));
+            this.applyLoadedHandTransforms(poseStack, arm, ((72000 - ticks) / MusketItem.aimingTime(itemInHand) + partialTick / MusketItem.aimingTime(itemInHand)));
         } else
         {
             this.applyLoadingHandTransforms(poseStack, arm, swingProcess);
