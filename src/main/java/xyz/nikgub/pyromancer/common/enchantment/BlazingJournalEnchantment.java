@@ -33,7 +33,7 @@ public abstract class BlazingJournalEnchantment extends Enchantment
 {
     public BlazingJournalEnchantment ()
     {
-        super(Rarity.UNCOMMON, EnchantmentRegistry.BLAZING_JOURNAL, new EquipmentSlot[]{});
+        super(Rarity.COMMON, EnchantmentRegistry.BLAZING_JOURNAL, new EquipmentSlot[]{});
     }
 
     @Override

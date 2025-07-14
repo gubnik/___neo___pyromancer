@@ -101,6 +101,16 @@ public class BlazingJournalItem extends Item implements IContainerItem, Equipabl
     }
 
     @Override
+    public boolean isEnchantable(@NotNull ItemStack pStack) {
+        return true;
+    }
+
+    @Override
+    public int getEnchantmentValue(ItemStack itemStack) {
+        return 12;
+    }
+
+    @Override
     public @NotNull Multimap<Attribute, AttributeModifier> getAttributeModifiers (@NotNull EquipmentSlot slot, ItemStack itemStack)
     {
         ImmutableListMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableListMultimap.builder();
