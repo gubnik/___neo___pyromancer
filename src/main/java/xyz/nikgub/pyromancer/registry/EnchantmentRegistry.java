@@ -18,10 +18,7 @@
 package xyz.nikgub.pyromancer.registry;
 
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -32,7 +29,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.registries.DeferredRegister;
@@ -50,10 +46,8 @@ import xyz.nikgub.pyromancer.common.item.MusketItem;
 import xyz.nikgub.pyromancer.common.item.ZweihanderItem;
 import xyz.nikgub.pyromancer.data.ItemTagDatagen;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class EnchantmentRegistry
 {
@@ -270,6 +264,7 @@ public class EnchantmentRegistry
                     Vec3 center = new Vec3(new_x, new_y + 1.4, new_z);
                     List<? extends LivingEntity> entities = EntityUtils.entityCollector(center, 0.5, player.level());
                     for(LivingEntity entity : entities){
+                        if (entity == player) continue;
                         entity.hurt(DamageSourceRegistry.blazingJournal(player, player), (float) player.getAttribute(Attributes.ATTACK_DAMAGE).getValue());
                     }
                 }
@@ -278,7 +273,7 @@ public class EnchantmentRegistry
             @Override
             public boolean getCondition (Player player, Entity target)
             {
-                return true;
+                return target.isOnFire();
             }
         });
 
@@ -319,7 +314,7 @@ public class EnchantmentRegistry
                         dz = Z - entity.getZ();
                         direction = new Vec3(dx, dy, dz).normalize();
                         entity.setDeltaMovement(direction);
-                        entity.setRemainingFireTicks(entity.getRemainingFireTicks() + 20);
+                        entity.setRemainingFireTicks(entity.getRemainingFireTicks() + 60);
                     }
                 }
             }
