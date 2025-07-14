@@ -376,7 +376,7 @@ public class MusketItem extends Item implements ICustomSwingItem, IExtensibleToo
         {
             baseInaccuracy = 1 - aimProgress;
         }
-        return Mth.clamp(baseInaccuracy, 0.01f, 1.0f);
+        return Mth.clamp(baseInaccuracy, 0.1f, 1.0f);
     }
 
     @Override
