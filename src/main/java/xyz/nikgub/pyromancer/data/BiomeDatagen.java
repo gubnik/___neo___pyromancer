@@ -116,7 +116,7 @@ public class BiomeDatagen
         biomeGenerationBuilder.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE);
         biomeGenerationBuilder.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE_EXTRA_UNDERGROUND);
         biomeGenerationBuilder.addCarver(GenerationStep.Carving.AIR, Carvers.CANYON);
-        biomeGenerationBuilder.addCarver(GenerationStep.Carving.AIR, ConfiguredCarverDatagen.WIDER_CAVE);
+        //biomeGenerationBuilder.addCarver(GenerationStep.Carving.AIR, ConfiguredCarverDatagen.WIDER_CAVE);
         BiomeDefaultFeatures.addDefaultCrystalFormations(biomeGenerationBuilder);
         BiomeDefaultFeatures.addDefaultMonsterRoom(biomeGenerationBuilder);
         BiomeDefaultFeatures.addDefaultUndergroundVariety(biomeGenerationBuilder);
