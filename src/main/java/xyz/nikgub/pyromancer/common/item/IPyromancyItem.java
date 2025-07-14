@@ -41,9 +41,9 @@ public interface IPyromancyItem
 
     default float getAttributeBonus (Player player, Attribute attribute)
     {
-        float d0 = 0;
-        float M0 = 0;
-        float M1 = 0;
+        float addition = 0;
+        float multiplyBase = 0;
+        float multiplyTotal = 0;
         EquipmentSlot[] slots = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
         for (ItemStack itemStack : player.getArmorSlots())
         {
@@ -53,9 +53,9 @@ public interface IPyromancyItem
                 {
                     switch (attributeModifier.getOperation())
                     {
-                        case ADDITION -> d0 += (float) attributeModifier.getAmount();
-                        case MULTIPLY_BASE -> M0 += (float) attributeModifier.getAmount();
-                        case MULTIPLY_TOTAL -> M1 += (float) attributeModifier.getAmount();
+                        case ADDITION -> addition += (float) attributeModifier.getAmount();
+                        case MULTIPLY_BASE -> multiplyBase += (float) attributeModifier.getAmount();
+                        case MULTIPLY_TOTAL -> multiplyTotal += (float) attributeModifier.getAmount();
                     }
                 }
             }
@@ -63,15 +63,15 @@ public interface IPyromancyItem
         if (player.getMainHandItem().getItem() instanceof CompendiumOfFlameItem compendiumOfFlameItem)
         {
             if (!(compendiumOfFlameItem.getItemFromItem(player.getMainHandItem(), 0).getItem() instanceof QuillItem quillItem))
-                return d0;
-            if (attribute == AttributeRegistry.PYROMANCY_DAMAGE.get()) d0 += quillItem.getDefaultPyromancyDamageBonus();
-            else if (attribute == AttributeRegistry.BLAZE_CONSUMPTION.get()) d0 += quillItem.getDefaultBlazeCostBonus();
-            return d0;
+                return addition;
+            if (attribute == AttributeRegistry.PYROMANCY_DAMAGE.get()) addition += quillItem.getDefaultPyromancyDamageBonus();
+            else if (attribute == AttributeRegistry.BLAZE_CONSUMPTION.get()) addition += quillItem.getDefaultBlazeCostBonus();
+            return addition;
         }
         //if (!(player.getOffhandItem().getItem() instanceof BlazingJournalItem)) return d0;
         Collection<AttributeModifier> collection = player.getOffhandItem().getAttributeModifiers(EquipmentSlot.OFFHAND).get(attribute);
-        for (AttributeModifier attributeModifier : collection) d0 += (float) attributeModifier.getAmount();
-        return d0 + this.getDefaultPyromancyDamage() * M0 + this.getDefaultPyromancyDamage() * M1;
+        for (AttributeModifier attributeModifier : collection) addition += (float) attributeModifier.getAmount();
+        return addition + this.getDefaultPyromancyDamage() * multiplyBase + this.getDefaultPyromancyDamage() * multiplyTotal;
     }
 
     float getDefaultPyromancyDamage ();
