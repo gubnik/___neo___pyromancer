@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "pyromancer:memory_of_fire"
+    },
+    {
+      "item": "pyromancer:iron_musket_ball"
+    },
+    {
+      "item": "pyromancer:iron_musket_ball"
+    },
+    {
+      "item": "pyromancer:iron_musket_ball"
+    },
+    {
+      "item": "pyromancer:iron_musket_ball"
+    },
+    {
+      "item": "pyromancer:iron_musket_ball"
+    },
+    {
+      "item": "pyromancer:iron_musket_ball"
+    },
+    {
+      "item": "pyromancer:iron_musket_ball"
+    },
+    {
+      "item": "pyromancer:iron_musket_ball"
+    }
+  ],
+  "result": {
+    "count": 8,
+    "item": "pyromancer:inquisitorial_musket_ball"
+  }
+}

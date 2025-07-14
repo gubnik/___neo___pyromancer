@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "pyromancer:amber"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "pyromancer:iron_musket_ball"
+  }
+}

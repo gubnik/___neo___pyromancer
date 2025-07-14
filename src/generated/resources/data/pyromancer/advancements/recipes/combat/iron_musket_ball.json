@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_ancient_plating": {
+    "has_iron_ingot": {
       "conditions": {
         "items": [
           {
             "items": [
-              "pyromancer:ancient_plating"
+              "minecraft:iron_ingot"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "pyromancer:pyromancer_chestplate"
+        "recipe": "pyromancer:iron_musket_ball"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_ancient_plating",
+      "has_iron_ingot",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "pyromancer:pyromancer_chestplate"
+      "pyromancer:iron_musket_ball"
     ]
   },
   "sends_telemetry_event": false

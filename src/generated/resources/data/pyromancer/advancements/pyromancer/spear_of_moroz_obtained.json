@@ -19,7 +19,7 @@
     "description": {
       "translate": "advancement.pyromancer.spear_of_moroz_obtained.description"
     },
-    "frame": "challenge",
+    "frame": "task",
     "hidden": false,
     "icon": {
       "item": "pyromancer:spear_of_moroz",

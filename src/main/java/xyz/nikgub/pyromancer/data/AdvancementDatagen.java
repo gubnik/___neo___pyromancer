@@ -210,7 +210,7 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                     Component.translatable("advancement.pyromancer.spear_of_moroz_obtained.title"),
                     Component.translatable("advancement.pyromancer.spear_of_moroz_obtained.description"),
                     null,
-                    FrameType.CHALLENGE,
+                    FrameType.TASK,
                     true, true, false)
                 .rewards(AdvancementRewards.Builder.experience(100))
                 .addCriterion("spear_of_moroz_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.SPEAR_OF_MOROZ.get()))
@@ -221,7 +221,7 @@ public class AdvancementDatagen extends ForgeAdvancementProvider
                     Component.translatable("advancement.pyromancer.hoarfrost_greatsword_obtained.title"),
                     Component.translatable("advancement.pyromancer.hoarfrost_greatsword_obtained.description"),
                     null,
-                    FrameType.CHALLENGE,
+                    FrameType.TASK,
                     true, true, false)
                 .rewards(AdvancementRewards.Builder.experience(100))
                 .addCriterion("hoarfrost_greatsword_obtained", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.HOARFROST_GREATSWORD.get()))

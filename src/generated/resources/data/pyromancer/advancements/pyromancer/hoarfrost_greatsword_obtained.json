@@ -19,7 +19,7 @@
     "description": {
       "translate": "advancement.pyromancer.hoarfrost_greatsword_obtained.description"
     },
-    "frame": "challenge",
+    "frame": "task",
     "hidden": false,
     "icon": {
       "item": "pyromancer:hoarfrost_greatsword",

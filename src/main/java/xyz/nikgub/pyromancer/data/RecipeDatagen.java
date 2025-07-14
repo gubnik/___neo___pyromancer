@@ -138,7 +138,7 @@ public class RecipeDatagen extends RecipeProvider
             .pattern("#G#")
             .define('#', ItemRegistry.ANCIENT_PLATING.get())
             .define('G', ItemRegistry.AMBER.get())
-            .unlockedBy("hoglin_hide", has(Items.LEATHER))
+            .unlockedBy(getHasName(ItemRegistry.ANCIENT_PLATING.get()), has(ItemRegistry.ANCIENT_PLATING.get()))
             .save(consumer);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.PYROMANCER_CHESTPLATE.get())
@@ -147,7 +147,7 @@ public class RecipeDatagen extends RecipeProvider
             .pattern("###")
             .define('#', ItemRegistry.ANCIENT_PLATING.get())
             .define('G', ItemRegistry.AMBER.get())
-            .unlockedBy("hoglin_hide", has(Items.LEATHER))
+            .unlockedBy(getHasName(ItemRegistry.ANCIENT_PLATING.get()), has(ItemRegistry.ANCIENT_PLATING.get()))
             .save(consumer);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.PYROMANCER_LEGGINGS.get())
@@ -156,7 +156,7 @@ public class RecipeDatagen extends RecipeProvider
             .pattern("# #")
             .define('#', ItemRegistry.ANCIENT_PLATING.get())
             .define('G', ItemRegistry.AMBER.get())
-            .unlockedBy("hoglin_hide", has(Items.LEATHER))
+            .unlockedBy(getHasName(ItemRegistry.ANCIENT_PLATING.get()), has(ItemRegistry.ANCIENT_PLATING.get()))
             .save(consumer);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.PYROMANCER_BOOTS.get())
@@ -164,7 +164,7 @@ public class RecipeDatagen extends RecipeProvider
             .pattern("#G#")
             .define('#', ItemRegistry.ANCIENT_PLATING.get())
             .define('G', ItemRegistry.AMBER.get())
-            .unlockedBy("hoglin_hide", has(Items.LEATHER))
+            .unlockedBy(getHasName(ItemRegistry.ANCIENT_PLATING.get()), has(ItemRegistry.ANCIENT_PLATING.get()))
             .save(consumer);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ItemRegistry.SIZZLING_HAND.get())
@@ -287,12 +287,24 @@ public class RecipeDatagen extends RecipeProvider
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.MEMORY_OF_FIRE.get())
             .pattern("FAF")
-            .pattern("SFS")
-            .pattern(" A ")
+            .pattern("ASA")
+            .pattern("FAF")
             .define('A', ItemRegistry.AMBER.get())
-            .define('F', ItemRegistry.AMBER.get())
-            .define('S', ItemRegistry.AMBER.get())
+            .define('F', Items.BLAZE_ROD)
+            .define('S', Items.NETHER_STAR)
             .unlockedBy(getHasName(ItemRegistry.ANCIENT_PLATING.get()), has(ItemRegistry.ANCIENT_PLATING.get()))
+            .save(consumer);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.COMBAT, ItemRegistry.IRON_MUSKET_BALL.get(), 4)
+            .requires(Items.IRON_INGOT)
+            .requires(ItemRegistry.AMBER.get())
+            .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
+            .save(consumer);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.COMBAT, ItemRegistry.INQUISITORIAL_MUSKET_BALL.get(), 8)
+            .requires(ItemRegistry.MEMORY_OF_FIRE.get())
+            .requires(ItemRegistry.IRON_MUSKET_BALL.get(), 8)
+            .unlockedBy(getHasName(ItemRegistry.MEMORY_OF_FIRE.get()), has(ItemRegistry.MEMORY_OF_FIRE.get()))
             .save(consumer);
     }
 }
