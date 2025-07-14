@@ -494,7 +494,7 @@ public class PyromancerMod
             if (journal == ItemStack.EMPTY || !(journal.getItem() instanceof BlazingJournalItem blazingJournalItem))
                 return;
             blazingJournalQuillProcessor(blazingJournalItem, damageSource, journal, weapon, player, target);
-            blazingJournalAttackProcessor(journal, weapon, player, target);
+            blazingJournalAttackProcessor(journal, weapon, player, target, damageSource);
         }
 
         public static void blazingJournalAdvancementProcessor (Entity player, @Nullable Entity entity, @Nullable DamageSource source)
@@ -517,8 +517,12 @@ public class PyromancerMod
             }
         }
 
-        public static void blazingJournalAttackProcessor (ItemStack journal, ItemStack weapon, Player player, Entity target)
+        public static void blazingJournalAttackProcessor (ItemStack journal, ItemStack weapon, Player player, Entity target, DamageSource damageSource)
         {
+            if (damageSource.is(DamageTypeDatagen.JOURNAL_PROJECTION))
+            {
+                return;
+            }
             for (BlazingJournalEnchantment blazingJournalEnchantment : journal.getAllEnchantments().keySet().stream().filter(enchantment -> enchantment instanceof BlazingJournalEnchantment).map(enchantment -> (BlazingJournalEnchantment) enchantment).toList())
             {
                 if (!blazingJournalEnchantment.globalCondition(player))
