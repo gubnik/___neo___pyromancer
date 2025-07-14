@@ -40,25 +40,7 @@ public class DamageSourceRegistry
     {
         assert level.registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
         return new DamageSource(
-            level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HELLBLAZE_KEY),
-            entity
-        );
-    }
-
-    public static DamageSource hellblaze (Entity entity, Level level)
-    {
-        assert level.registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
-        return new DamageSource(
-            level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.HELLBLAZE_KEY),
-            entity
-        );
-    }
-
-    public static DamageSource soulflame (@Nullable Entity entity, Level level)
-    {
-        assert level.registryAccess().registry(Registries.DAMAGE_TYPE).isPresent();
-        return new DamageSource(
-            level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.SOULFLAME_KEY),
+            level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(DamageTypeDatagen.FLAME_KEY),
             entity
         );
     }
