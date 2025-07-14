@@ -83,11 +83,6 @@ public class DamageTypeDatagen extends TagsProvider<DamageType>
     public static final DamageType VAPORIZER_GENERIC = new DamageType(VAPORIZER_GENERIC_KEY.location().getPath(), DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0.1f);
 
     /**
-     * Tag for damage types that are caused by Embers
-     */
-    public static TagKey<DamageType> IS_EMBER = create("is_ember");
-
-    /**
      * Tag for damage types that are brutish (bombsacks, mercury traps, rot etc.)
      */
     public static TagKey<DamageType> IS_BRUTISH = create("is_brutish");
@@ -148,10 +143,6 @@ public class DamageTypeDatagen extends TagsProvider<DamageType>
     @Override
     protected void addTags (HolderLookup.@NotNull Provider p_256380_)
     {
-        tag(IS_EMBER)
-            .add(FLAME_KEY)
-            .add(HELLBLAZE_KEY)
-            .add(SOULFLAME_KEY);
         tag(IS_PYROMANCY)
             .add(SIZZLING_HAND_KEY)
             .add(COURT_OF_EMBERS_KEY)
@@ -175,7 +166,6 @@ public class DamageTypeDatagen extends TagsProvider<DamageType>
                 MUSKET_SHOT_KEY
             );
         tag(DamageTypeTags.IS_FIRE)
-            .addTag(IS_EMBER)
             .addTag(JOURNAL_PROJECTION)
             .addTag(IS_PYROMANCY)
             .add(FIREBRIAR_KEY)

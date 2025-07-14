@@ -194,7 +194,7 @@ public class ItemRegistry
             @Override
             public boolean isActivated (DamageSource damageSource, Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
             {
-                return (damageSource.is(DamageTypeDatagen.IS_EMBER) || damageSource.is(DamageTypeDatagen.IS_PYROMANCY));
+                return (damageSource.is(DamageTypeDatagen.IS_PYROMANCY));
             }
         }
     );
@@ -234,7 +234,7 @@ public class ItemRegistry
             @Override
             public boolean isActivated (DamageSource damageSource, Player player, Entity target, ItemStack weaponStack, ItemStack journalStack)
             {
-                return (damageSource.is(DamageTypeDatagen.IS_EMBER) || damageSource.is(DamageTypeDatagen.IS_PYROMANCY));
+                return (damageSource.is(DamageTypeDatagen.IS_PYROMANCY));
             }
         }
     );
